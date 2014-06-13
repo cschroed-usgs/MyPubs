@@ -1,8 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>gov.usgs.cida</groupId>
-	<artifactId>pubsui</artifactId>
-	<name>Pubs UI</name>
+	<artifactId>mypubsui</artifactId>
+	<name>MyPubs UI</name>
 	<version>0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
@@ -22,13 +22,12 @@
 
 	<issueManagement>
 		<system>JIRA</system>
-		<!-- FIX -->
-		<url>https://my.usgs.gov/jira/browse/PUBS</url>
+		<url>https://my.usgs.gov/jira/browse/PUBSTWO</url>
 	</issueManagement>
 
   <developers>
     <developer>
-      <id>uselmann</id>
+      <id>duselman</id>
       <name>David Uselmann</name>
       <email>duselmann@usgs.gov</email>
       <organization>Center for Integrated Data Analytics</organization>
@@ -45,7 +44,8 @@
       <url>http://en.wikipedia.org/wiki/Public_domain_software</url>
       <comments>All work of the US Government enter into the Public Domain within
                 the United States.  Whether that work is public domain outside of
-                the United States depends on various factors.</comments>
+                the United States depends on various factors.
+      </comments>
     </license>
   </licenses>
 
@@ -65,10 +65,9 @@
 	</pluginRepositories>
 
     <scm>
-    	<!-- fix -->
-    	<connection>scm:git:https://stash/pubsui.git</connection>
-    	<developerConnection>scm:git:ssh://git@stash/pubsui.git</developerConnection>
-    	<url>https://stash/pubsui</url>
+		<url>https://github.com/USGS-CIDA/gPublications-Warehouse</url>
+		<connection>scm:git:git@github.com:USGS-CIDA/gPublications-Warehouse.git</connection>
+		<developerConnection>scm:git:git@github.com:USGS-CIDA/gPublications-Warehouse.git</developerConnection>
     </scm>
 
 	<distributionManagement>
@@ -85,7 +84,7 @@
 	</distributionManagement>
 
 	<build>
-		<finalName>pubsui</finalName>
+		<finalName>mypubsui</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
