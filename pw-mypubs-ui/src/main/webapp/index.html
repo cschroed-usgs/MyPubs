@@ -1,0 +1,53 @@
+<html ng-app="pubsMain">
+<head>
+	<title>Pubs 2.0</title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/pubs2.css">
+
+	<script type="text/javascript" src="js/lib/angular.1.2.17.js"></script>
+	<script type="text/javascript" src="js/lib/angular-route.1.2.17.js"></script>
+	<script type="text/javascript" src="js/app/main.js"></script>
+	<script type="text/javascript" src="js/app/tabs.js"></script>
+
+	<script type="text/ng-template" id="tabs.html">
+		<ul class="nav nav-tabs" ng-class="{'nav-stacked': vertical}">
+			<li ng-class="isActive(tab)?'active':'disabled'" class="ng-isolate-scope" ng-repeat="tab in tabs">
+			  <a ng-click="setTab(tab)" tab-heading-transclude="" class="ng-binding" ng-bind="tab"></a>
+			</li>
+		</ul>
+	</script>
+</head>
+
+<body>
+  <div ng-controller="mainCtrl">
+
+  	<pubs:tabs names="Bibliodata,Contributors,Links,Cataloging,Management" active="Bibliodata"></pubs:tabs>
+
+
+	<div id="preview" class="preview">
+		<iframe src="file:///Users/daviduselmann/projects/usgs/pubs2/src/test/preview.html"></iframe>
+	</div>
+	<div id="view">
+
+		<div class="data"> <div class="label labelRead">Prod ID:</div><div class="value">700000000</div>
+		</div>
+		<div class="data"> <div class="label labelRead">Index ID:</div><div class="value">otr8068900</div>
+		</div>
+		<div class="data"> <div class="label labelRead">Display to Public Date:</div><div class="value">2014-05-28</div>
+		</div>
+		<div class="gap"></div>
+		<div class="data"> <div class="label">Publication Type:</div><div class="value"><select><option>USGS Series</option></select></div>
+		</div>
+		<div class="data"> <div class="label">Series Title:</div><div class="value"><select><option>Open File Report</option></select></div>
+		</div>
+		<div class="data"> <div class="label">Subseries:</div><div class="value"><input type="text" ng-bind="subseries" value="Climate change adaption Series"></div>
+		</div>
+		<div class="data"> <div class="label">Series Number:</div><div class="value"><input type="text" value="2012-1234"> </div>
+		</div>
+		<div class="data"> <div class="label">Collaboration/Cooperation:</div><div class="value"><input type="text" value="2012-1234"></div>
+		</div>
+
+	</div>
+  </div>
+</body>
+</html>	

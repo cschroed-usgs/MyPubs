@@ -1,0 +1,178 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>gov.usgs.cida</groupId>
+	<artifactId>pubsui</artifactId>
+	<name>Pubs UI</name>
+	<version>0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+
+    <organization>
+    	<name>Center for Integrated Data Analytics</name>
+    	<url>http://cida.usgs.gov</url>
+    </organization>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<netbeans.hint.deploy.server>Tomcat</netbeans.hint.deploy.server>
+		<build.scm.version>${buildNumber}</build.scm.version>
+		<cida.maven.url>http://internal.cida.usgs.gov/maven</cida.maven.url>
+    	<timestamp>${maven.build.timestamp}</timestamp>
+    	<maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
+	</properties>
+
+	<issueManagement>
+		<system>JIRA</system>
+		<!-- FIX -->
+		<url>https://my.usgs.gov/jira/browse/PUBS</url>
+	</issueManagement>
+
+  <developers>
+    <developer>
+      <id>uselmann</id>
+      <name>David Uselmann</name>
+      <email>duselmann@usgs.gov</email>
+      <organization>Center for Integrated Data Analytics</organization>
+      <organizationUrl>http://cida.usgs.gov</organizationUrl>
+      <roles>
+        <role>Software Developer</role>
+      </roles>
+      <timezone>-6</timezone>
+    </developer>
+  </developers>
+  <licenses>
+    <license>
+      <name>Public Domain</name>
+      <url>http://en.wikipedia.org/wiki/Public_domain_software</url>
+      <comments>All work of the US Government enter into the Public Domain within
+                the United States.  Whether that work is public domain outside of
+                the United States depends on various factors.</comments>
+    </license>
+  </licenses>
+
+	<repositories>
+		<repository>
+			<id>nexus</id>
+			<name>CIDA Nexus</name>
+			<url>${cida.maven.url}/content/groups/public/</url>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>plugin-nexus</id>
+			<name>CIDA Plugin repo</name>
+			<url>${cida.maven.url}/content/groups/public/</url>
+		</pluginRepository>
+	</pluginRepositories>
+
+    <scm>
+    	<!-- fix -->
+    	<connection>scm:git:https://stash/pubsui.git</connection>
+    	<developerConnection>scm:git:ssh://git@stash/pubsui.git</developerConnection>
+    	<url>https://stash/pubsui</url>
+    </scm>
+
+	<distributionManagement>
+		<repository>
+			<id>cida-releases</id>
+			<name>CIDA Releases</name>
+			<url>${cida.maven.url}/content/repositories/cida-releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>cida-snapshots</id>
+			<name>CIDA Snapshots</name>
+			<url>${cida.maven.url}/content/repositories/cida-snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<build>
+		<finalName>pubsui</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.4</version>
+				<executions>
+					<execution>
+					  <id>generate-version-file</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<mkdir dir="target/${project.artifactId}"/>
+								<propertyfile file="${basedir}/target/${project.artifactId}/version.properties" comment="Version information">
+									<entry key="version" value="${project.version}" />
+								</propertyfile>
+								<echo file="${basedir}/target/${project.artifactId}/version.json">{ "buildTime": "${timestamp}", "version": "${project.version}"}</echo>
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+		    <plugin>
+		        <groupId>com.github.klieber</groupId>
+		        <artifactId>phantomjs-maven-plugin</artifactId>
+		        <version>0.4</version>
+		        <executions>
+		          <execution>
+		            <goals>
+		              <goal>install</goal>
+		            </goals>
+		          </execution>
+		        </executions>
+		        <configuration>
+		          <version>1.9.2</version>
+		        </configuration>
+		    </plugin>
+
+			<plugin>
+				<groupId>com.github.searls</groupId>
+				<artifactId>jasmine-maven-plugin</artifactId>
+				<version>1.3.1.5</version>
+				<extensions>true</extensions>
+				<executions>
+					<execution>
+						<goals>
+							<goal>test</goal>
+						</goals>
+					</execution>
+				</executions>
+
+				<configuration>
+			        <webDriverClassName>org.openqa.selenium.phantomjs.PhantomJSDriver</webDriverClassName>
+					<preloadSources>
+			            <!-- source>src/main/webapp/js/lib/jquery.1.11.0.min.js</source -->
+						<source>src/main/webapp/js/lib/underscore.js</source>
+						<source>src/main/webapp/js/lib/jquery.1.11.0.js</source>
+						<source>src/main/webapp/js/lib/angular.1.2.17.js</source>
+						<source>src/main/webapp/js/lib/angular-route.1.2.17.js</source>
+						<source>src/test/js/lib/angular-mocks.1.2.17.js</source>
+						<!-- source>src/main/webapp/js/lib/bootstrap.js</source -->
+			            <source>src/test/js/lib/sinon-1.10.1.js</source>
+			            <source>src/test/js/lib/jasmine-beforeAll.js</source>
+			            <source>src/test/js/lib/jasmine-fixture.js</source>
+	          		</preloadSources>
+
+					<jsSrcDir>src/main/webapp/js/app</jsSrcDir>
+					<jsTestSrcDir>src/test/js/specs</jsTestSrcDir>
+					<jasmineTargetDir>target/jasmine</jasmineTargetDir>
+
+
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
