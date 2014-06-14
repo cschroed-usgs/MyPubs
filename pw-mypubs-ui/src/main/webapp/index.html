@@ -9,13 +9,6 @@
 	<script type="text/javascript" src="js/app/main.js"></script>
 	<script type="text/javascript" src="js/app/tabs.js"></script>
 
-	<script type="text/ng-template" id="tabs.html">
-		<ul class="nav nav-tabs" ng-class="{'nav-stacked': vertical}">
-			<li ng-class="isActive(tab)?'active':'disabled'" class="ng-isolate-scope" ng-repeat="tab in tabs">
-			  <a ng-click="setTab(tab)" tab-heading-transclude="" class="ng-binding" ng-bind="tab"></a>
-			</li>
-		</ul>
-	</script>
 </head>
 
 <body>
