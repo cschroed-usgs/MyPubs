@@ -2,7 +2,7 @@
 			<div class="label" ng-bind="data.label"></div>
 			<div class="value">
 				<select>
-					<option></option>
+					<option ng-repeat="option in data.options" ng-bind="option"></option>
 				</select>
 			</div>
 		</div>

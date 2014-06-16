@@ -4,7 +4,7 @@
 var mod = angular.module('pubsDataRow', []);
 
 
-var templates    = ['Readonly']
+var templates    = ['Checkbox','Editor','Gap','Readonly','Select','Text','Textbox']
 var templatePath = 'templates/data/data'
 var templateCache
 
@@ -81,6 +81,43 @@ function($scope){
 			value  : "2014-05-28",
 			rowType: "Readonly",
 		},
+		{
+			label  : "Display to Public Date",
+			value  : "2014-05-28",
+			rowType: "Readonly",
+		},
+		{
+			rowType: "Gap",
+		},
+		{
+			label  : "Publication Type",
+			value  : "USGS Series",
+			rowType: "Select",
+			options: ['USGS Series'],
+		},
+		{
+			label  : "Series Title",
+			value  : "Open File Report",
+			rowType: "Select",
+			options: ['Open File Report']
+		},
+		{
+			label  : "Subseries",
+			value  : "Climate change adaption Series",
+			rowType: "Text",
+		},
+		{
+			label  : "Series Number",
+			value  : "2012-1234",
+			rowType: "Text",
+		},
+		{
+			label  : "Collaboration/Cooperation",
+			value  : "ABC",
+			rowType: "Text",
+		},
+
+
 	]
 
 }])
