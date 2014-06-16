@@ -82,6 +82,7 @@ public class HTTP {
 				            while ( (len=bis.read(buffer)) >0 ) {
 				            	os.write(buffer,0,len);
 				            }
+				            bis.close();
 		        		}
 		        	} else {
 		        		String msg = "404";
@@ -89,6 +90,7 @@ public class HTTP {
 			            exchange.sendResponseHeaders(HttpURLConnection.HTTP_NOT_FOUND, msg.length());
 		            	os.write( msg.getBytes() );
 		        	}
+		            os.close();
 	        	} catch (Exception e) {
 	        		e.printStackTrace();
 	        		String msg = "500 "+e.getClass().getName()+':'+e.getMessage();
@@ -96,6 +98,7 @@ public class HTTP {
 		            exchange.sendResponseHeaders(HttpURLConnection.HTTP_INTERNAL_ERROR, msg.length());
 	            	try ( OutputStream os = exchange.getResponseBody(); ) {
 	            		os.write( msg.getBytes() );
+			            os.close();
 	            	}
 	        	}
 	        }
