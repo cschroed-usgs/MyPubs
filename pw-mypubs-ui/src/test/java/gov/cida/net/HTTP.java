@@ -18,7 +18,7 @@ import com.sun.net.httpserver.HttpServer;
 public class HTTP {
 
 	public static final int    PORT = 8080;
-	public static final String PATH = "src/main/webapp";
+	public static final String PATHS[] = {"src/main/webapp", "src/test"};
 
 	public static void log (Object ... msgs) {
 		for (Object msg : msgs) {
@@ -60,19 +60,23 @@ public class HTTP {
 		HttpHandler handler = new HttpHandler() {
 
 	        public void handle(HttpExchange exchange) throws IOException {
-	        	String path = exchange.getRequestURI().getPath();
+	        	String req = exchange.getRequestURI().getPath();
         		// java 7 try-with-resources
 	        	try ( OutputStream os = exchange.getResponseBody(); ) {
-		        	File file = new File(PATH+path);
+        			File file = new File("doesnotexist");
+	        		for (String path : PATHS) {
+	        			file = new File(path+req);
+			        	if ( file.exists() ) break;
+	        		}
 		        	if ( file.exists() ) {
 		        		try (   FileInputStream fis = new FileInputStream(file);
 		        				BufferedInputStream bis = new BufferedInputStream(fis);
 		        				) {
 		        			Headers headers = exchange.getResponseHeaders();
-		        			headers.add("Content-Type", getContentType(path));
+		        			headers.add("Content-Type", getContentType(req));
 		        			
 				            exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, file.length());
-				            log(file.length(),'\t',path);
+				            log(file.length(),'\t',req);
 			            	byte buffer[] = new byte[4096];
 			            	int len = 0;
 				            while ( (len=bis.read(buffer)) >0 ) {
@@ -81,14 +85,14 @@ public class HTTP {
 		        		}
 		        	} else {
 		        		String msg = "404";
-			            log(0,'\t',path,'\t',msg);
+			            log(0,'\t',req,'\t',msg);
 			            exchange.sendResponseHeaders(HttpURLConnection.HTTP_NOT_FOUND, msg.length());
 		            	os.write( msg.getBytes() );
 		        	}
 	        	} catch (Exception e) {
 	        		e.printStackTrace();
 	        		String msg = "500 "+e.getClass().getName()+':'+e.getMessage();
-		            log(0,'\t',path,'\t',msg);
+		            log(0,'\t',req,'\t',msg);
 		            exchange.sendResponseHeaders(HttpURLConnection.HTTP_INTERNAL_ERROR, msg.length());
 	            	try ( OutputStream os = exchange.getResponseBody(); ) {
 	            		os.write( msg.getBytes() );
