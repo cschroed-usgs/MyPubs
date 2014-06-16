@@ -30,7 +30,7 @@ mod.directive('pubsTabs', function() {
 			}
 		},
 
-		link : function($scope, elem, attrs) {
+		link : function($scope, el, attrs) {
 			$scope.tabs = attrs.names.split(',')
 			_this.setActive(attrs.active)
 		}

@@ -6,8 +6,10 @@
 
 	<script type="text/javascript" src="js/lib/angular.1.2.17.js"></script>
 	<script type="text/javascript" src="js/lib/angular-route.1.2.17.js"></script>
+	<script type="text/javascript" src="js/lib/underscore.js"></script>
 	<script type="text/javascript" src="js/app/main.js"></script>
 	<script type="text/javascript" src="js/app/tabs.js"></script>
+	<script type="text/javascript" src="js/app/datarow.js"></script>
 
 </head>
 
@@ -20,14 +22,13 @@
 	<div id="preview" class="preview">
 		<iframe src="resources/preview.html"></iframe>
 	</div>
+
 	<div id="view">
 
-		<div class="data"> <div class="label labelRead">Prod ID:</div><div class="value">700000000</div>
-		</div>
-		<div class="data"> <div class="label labelRead">Index ID:</div><div class="value">otr8068900</div>
-		</div>
-		<div class="data"> <div class="label labelRead">Display to Public Date:</div><div class="value">2014-05-28</div>
-		</div>
+		<div id="Bibliodata" ng-controller="biblioCtrl">
+		    <pubs:datarow ng-repeat="row in rows" data="row"></pubs:datarow>
+		</div>		
+
 		<div class="gap"></div>
 		<div class="data"> <div class="label">Publication Type:</div><div class="value"><select><option>USGS Series</option></select></div>
 		</div>
