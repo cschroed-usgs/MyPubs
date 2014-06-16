@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutorService;
 
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
@@ -21,6 +23,8 @@ public class HTTP {
 	public static final String PATHS[] = {"src/main/webapp", "src/test"};
 
 	public static void log (Object ... msgs) {
+    	System.out.print( System.currentTimeMillis() );
+    	System.out.print('\t');
 		for (Object msg : msgs) {
             System.out.print(msg);
 		}
@@ -61,6 +65,7 @@ public class HTTP {
 
 	        public void handle(HttpExchange exchange) throws IOException {
 	        	String req = exchange.getRequestURI().getPath();
+	        	log(req);
         		// java 7 try-with-resources
 	        	try ( OutputStream os = exchange.getResponseBody(); ) {
         			File file = new File("doesnotexist");
@@ -69,20 +74,18 @@ public class HTTP {
 			        	if ( file.exists() ) break;
 	        		}
 		        	if ( file.exists() ) {
-		        		try (   FileInputStream fis = new FileInputStream(file);
-		        				BufferedInputStream bis = new BufferedInputStream(fis);
-		        				) {
+		        		try (   FileInputStream fis = new FileInputStream(file) ) {
 		        			Headers headers = exchange.getResponseHeaders();
 		        			headers.add("Content-Type", getContentType(req));
 		        			
 				            exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, file.length());
 				            log(file.length(),'\t',req);
-			            	byte buffer[] = new byte[4096];
+			            	byte buffer[] = new byte[4096*2];
 			            	int len = 0;
-				            while ( (len=bis.read(buffer)) >0 ) {
+				            while ( (len=fis.read(buffer)) >0 ) {
 				            	os.write(buffer,0,len);
 				            }
-				            bis.close();
+				            fis.close();
 		        		}
 		        	} else {
 		        		String msg = "404";
@@ -90,6 +93,7 @@ public class HTTP {
 			            exchange.sendResponseHeaders(HttpURLConnection.HTTP_NOT_FOUND, msg.length());
 		            	os.write( msg.getBytes() );
 		        	}
+		            os.flush();
 		            os.close();
 	        	} catch (Exception e) {
 	        		e.printStackTrace();
@@ -98,14 +102,20 @@ public class HTTP {
 		            exchange.sendResponseHeaders(HttpURLConnection.HTTP_INTERNAL_ERROR, msg.length());
 	            	try ( OutputStream os = exchange.getResponseBody(); ) {
 	            		os.write( msg.getBytes() );
+			            os.flush();
 			            os.close();
 	            	}
 	        	}
+	        	exchange.close();
 	        }
 	    };
 
 	    server.createContext("/", handler);
-	    server.setExecutor(null);
+
+		ExecutorService   executors;
+	    executors = Executors.newFixedThreadPool(20);
+	    server.setExecutor(executors);
+
 		server.start();
 	}
 }
