@@ -143,11 +143,10 @@ textarea.value {
 	height: 550px;
 	width:400px;
 	display: inline-block;
-	float:right;
 	overflow-x: visible;
 }
 .previewTitle {
-	margin: -31px 0 10px 10px;
+	margin: 11px;
 }
 .preview iframe {
 	height: 100%;

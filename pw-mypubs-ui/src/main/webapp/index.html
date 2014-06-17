@@ -46,33 +46,36 @@
             	</div>				
 		</div>
 
-		<div class="container mainContainer">
+		<div class="container mainContainer" ng-controller="mainCtrl">
+			<div class="row">
 
-			<div ng-controller="mainCtrl">
+				<div class="col-lg-8">
+				  	<pubs:tabs names="Bibliodata,Contributors,Links,Contact,Cataloging,Geospatial,Reservations"></pubs:tabs>
 
-			  	<pubs:tabs names="Bibliodata,Contributors,Links,Contact,Cataloging,Geospatial,Reservations"></pubs:tabs>
+					<div id="view">
 
-				<div id="preview" class="preview">
-					<div class="previewTitle">Public Pubs Preview</div>
-					<!-- iframe src="resources/preview.html"></iframe -->
-					<iframe src="http://pubs.er.usgs.gov/publication/sir20145055"></iframe>
+						<div id="bibliodata" ng-controller="biblioCtrl">
+							<button class="btn publicationsList" ng-click="pubslist.action" ng-bind="pubslist.name"></button>
+
+						    <pubs:datarow ng-repeat="row in rows" data="row" class="relativeButton"></pubs:datarow>
+							
+							<div class="actions">
+								<button class="btn" ng-click="reset.action" ng-bind="reset.name"></button>
+								<button class="btn" ng-click="release.action" ng-bind="release.name"></button>
+								<button class="btn" ng-click="save.action" ng-bind="save.name"></button>
+								<button class="btn" ng-click="publish.action" ng-bind="publish.name"></button>
+							</div>
+						</div>
+
+					</div>
 				</div>
 
-				<div id="view">
-
-					<div id="bibliodata" ng-controller="biblioCtrl">
-						<button class="btn publicationsList" ng-click="pubslist.action" ng-bind="pubslist.name"></button>
-
-					    <pubs:datarow ng-repeat="row in rows" data="row" class="relativeButton"></pubs:datarow>
-						
-						<div class="actions">
-							<button class="btn" ng-click="reset.action" ng-bind="reset.name"></button>
-							<button class="btn" ng-click="release.action" ng-bind="release.name"></button>
-							<button class="btn" ng-click="save.action" ng-bind="save.name"></button>
-							<button class="btn" ng-click="publish.action" ng-bind="publish.name"></button>
-						</div>
+				<div class="col-lg-4">
+					<div id="preview" class="preview">
+						<div class="previewTitle">Public Pubs Preview</div>
+						<!-- iframe src="resources/preview.html"></iframe -->
+						<iframe src="http://pubs.er.usgs.gov/publication/sir20145055"></iframe>
 					</div>
-
 				</div>
 
 			</div>
