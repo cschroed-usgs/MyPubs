@@ -2,8 +2,8 @@
 <head>
 	<title>Pubs 2.0</title>
 
-	<link rel="icon" type="image/x-icon" href="favicon.ico">
-	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+	<link rel="icon" type="img/x-icon" href="favicon.ico">
+	<link rel="shortcut icon" type="img/x-icon" href="favicon.ico">
 
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/select2.css">
@@ -16,6 +16,7 @@
 	<script type="text/javascript" src="js/lib/angular.1.2.17.js"></script>
 	<script type="text/javascript" src="js/lib/angular-route.1.2.17.js"></script>
 	<script type="text/javascript" src="js/lib/angular-ui-select2.js"></script>
+	<script type="text/javascript" src="js/lib/angular-ui-bootstrap.0.11.0.js"></script>
 
 	<!-- directives -->
 	<script type="text/javascript" src="js/app/tabs.js"></script>
@@ -32,10 +33,10 @@
 
 		<div class="navbar navbar-fixed-top banner-area">
 				<a class="navbar-brand" href="http://usgs.gov" target="_new">
-					<img alt="USGS" src="images/usgslogo-40.png"></img>
+					<img alt="USGS" src="img/usgslogo-40.png"></img>
 				</a>
 				<a class="navbar-brand" href="http://cida.usgs.gov" target="_new" title="Center for Integrated Data Analytics">
-					<img alt="CIDA" src="images/cidalogo-40.png"></img>
+					<img alt="CIDA" src="img/cidalogo-40.png"></img>
 				</a>
 
 				<div id="ccsa-area">
@@ -45,14 +46,14 @@
             	</div>				
 		</div>
 
-		<div class="container" style="margin-top:45px;">
+		<div class="container mainContainer">
 
 			<div ng-controller="mainCtrl">
 
 			  	<pubs:tabs names="Bibliodata,Contributors,Links,Contact,Cataloging,Geospatial,Reservations"></pubs:tabs>
 
-
 				<div id="preview" class="preview">
+					<div class="previewTitle">Public Pubs Preview</div>
 					<!-- iframe src="resources/preview.html"></iframe -->
 					<iframe src="http://pubs.er.usgs.gov/publication/sir20145055"></iframe>
 				</div>
