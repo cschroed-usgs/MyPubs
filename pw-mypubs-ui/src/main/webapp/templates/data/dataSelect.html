@@ -1,8 +1,9 @@
-		<div class="data">
-			<div class="label" ng-bind="data.label"></div>
+		<div class="data" style="margin-bottom:8px;">
+			<div class="label labelSelect" ng-bind="data.label" ></div>
 			<div class="value">
-				<select>
-					<option ng-repeat="option in data.options" ng-bind="option"></option>
+				<select ui-select2 placeholder="{{data.placeholder}}" ng-model="data.value" style="width:300px;">
+					<option value=""></option>
+					<option ng-repeat="option in data.options" value="{{option.value}}" ng-bind="option.text"></option>
 				</select>
 			</div>
 		</div>

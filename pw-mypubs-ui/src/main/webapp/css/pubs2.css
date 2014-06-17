@@ -8,9 +8,13 @@
 	color: #000 !important;
 	text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.25)  !important;
 	background-color: #eee !important;
+	padding-right: 5px; 
 }
 .labelRead {
 	margin-bottom: 3px !important;
+}
+.labelSelect {
+	margin:0;
 }
 
 
@@ -25,8 +29,18 @@
 }
 
 .value {
+	width: 300px;
+}
+div.value {
 	display: inline-block;
 	margin-left: 5px;
+}
+input.value {
+	height: 26px;
+}
+textarea.value {
+	margin-top: -17px;
+	height: 60px;
 }
 
 

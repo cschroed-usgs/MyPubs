@@ -82,24 +82,21 @@ function($scope){
 			rowType: "Readonly",
 		},
 		{
-			label  : "Display to Public Date",
-			value  : "2014-05-28",
-			rowType: "Readonly",
-		},
-		{
 			rowType: "Gap",
 		},
 		{
-			label  : "Publication Type",
-			value  : "USGS Series",
 			rowType: "Select",
-			options: ['USGS Series'],
+			label  : "Publication Type",
+			value  : "2",
+			placeholder:"Select a Publication Type",
+			options: [{value:"1",text:'USGS Series'},{value:"2",text:'Other Series'},],
 		},
 		{
-			label  : "Series Title",
-			value  : "Open File Report",
 			rowType: "Select",
-			options: ['Open File Report']
+			label  : "Series Title",
+			value  : "",
+			placeholder:"Select a Series",
+			options: [{value:"1",text:'Open File Report'},{value:"2",text:'Book'},],
 		},
 		{
 			label  : "Subseries",
@@ -116,7 +113,11 @@ function($scope){
 			value  : "ABC",
 			rowType: "Text",
 		},
-
+		{
+			label  : "USGS Citation",
+			value  : "This is an entry. The quick brown fox jumps over the lazy dog. Sally sells sea shells at the sea shore.",
+			rowType: "Textbox",
+		}
 
 	]
 

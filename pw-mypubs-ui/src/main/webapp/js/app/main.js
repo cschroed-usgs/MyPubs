@@ -1,6 +1,6 @@
 (function() {
 
-var mod = angular.module('pubsMain', ['ngRoute','pubsTab','pubsDataRow']);
+var mod = angular.module('pubsMain', ['ngRoute','ui.select2','pubsTab','pubsDataRow']);
 
 
 mod.config([
