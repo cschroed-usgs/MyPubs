@@ -34,8 +34,8 @@ div.actions {
 
 button.publicationsList {
 	position: relative;
-	left: 400px;
-	top: 40px;
+	left: 450px;
+	top: 45px;
 }
 /** because fo the relative button **/
 #bibliodata {
@@ -97,11 +97,14 @@ textarea.value {
 /** preview pane styles **/
 
 .preview {
-	height: 600px;
+	height: 550px;
+	width:300px;
 	display: inline-block;
 	float:right;
-	margin: 10px;
+	margin-top: -10px;
+	overflow-x: visible;
 }
 .preview iframe {
-	height: 600px;
+	height: 100%;
+	width: 700px;
 }
