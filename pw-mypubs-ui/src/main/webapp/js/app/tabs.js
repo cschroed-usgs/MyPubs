@@ -1,7 +1,7 @@
 (function() {
 
 
-var mod = angular.module('pubsTab', []);
+var mod = angular.module('pubsTab', [])
 
 
 mod.directive('pubsTabs', function() {
@@ -40,9 +40,9 @@ mod.directive('pubsTabs', function() {
 		}
 	}
 
-	return _this;
+	return _this
 })
 
 
-}) ();
+}) ()
 

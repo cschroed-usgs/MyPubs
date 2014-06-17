@@ -1,3 +1,26 @@
+.banner-area {
+    background-image: url(../images/pubs_banner.gif) !important; /* Modify for alternate banner images */
+    background-position: 0px 0px;
+}
+#ccsa-area {
+    float: right;
+    color: #FFF;
+    background-color: #000;
+}
+#ccsa-area a {
+	font-weight: bold;
+    font-family: Verdana,Arial,Helvetica,sans-serif;
+	display: block;
+	font-size: 12px;
+	margin-bottom: 2px;    
+    padding-right: 1em;
+    line-height: 1;
+    margin-left: 4px;
+    color: #FFF;
+    background-color: transparent;
+}
+
+
 .label {
 	clear:both;
 	width: 200px;
@@ -17,6 +40,21 @@
 	margin:0;
 }
 
+
+div.actions {
+	margin-left: 215px;
+	margin-bottom: 10px;
+}
+
+button.publicationsList {
+	position: relative;
+	left: 400px;
+	top: 40px;
+}
+/** because fo the relative button **/
+#bibliodata {
+	margin-top: -40px;
+}
 
 .nav>li>a {
 	color: #aaa;

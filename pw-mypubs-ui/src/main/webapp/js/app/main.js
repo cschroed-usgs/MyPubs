@@ -1,6 +1,6 @@
 (function() {
 
-var mod = angular.module('pubsMain', ['ngRoute','ui.select2','pubsTab','pubsDataRow']);
+var mod = angular.module('mypubs', ['ngRoute','ui.select2','pubsTab','pubsDataRow','bibliodata'])
 
 
 mod.config([
@@ -37,4 +37,4 @@ function ($scope, $log, $location) {
 }])
 
 
-})();
+}) ()

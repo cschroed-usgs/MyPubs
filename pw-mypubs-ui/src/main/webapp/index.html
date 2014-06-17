@@ -1,6 +1,10 @@
-<html ng-app="pubsMain">
+<html ng-app="mypubs">
 <head>
 	<title>Pubs 2.0</title>
+
+	<link rel="icon" type="image/x-icon" href="favicon.ico">
+	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/select2.css">
 	<link rel="stylesheet" type="text/css" href="css/pubs2.css">
@@ -13,28 +17,67 @@
 	<script type="text/javascript" src="js/lib/angular-route.1.2.17.js"></script>
 	<script type="text/javascript" src="js/lib/angular-ui-select2.js"></script>
 
-	<script type="text/javascript" src="js/app/main.js"></script>
+	<!-- directives -->
 	<script type="text/javascript" src="js/app/tabs.js"></script>
 	<script type="text/javascript" src="js/app/datarow.js"></script>
+
+	<!-- controllers -->
+	<script type="text/javascript" src="js/app/main.js"></script>
+	<script type="text/javascript" src="js/app/bibliodata.js"></script>
 
 </head>
 
 <body>
-  <div ng-controller="mainCtrl">
+	<div id="main" class="container">
 
-  	<pubs:tabs names="Bibliodata,Contributors,Links,Contact,Cataloging,Geospatial,Reservations"></pubs:tabs>
+		<div class="navbar navbar-fixed-top banner-area">
+			<div class="container">
+				<a class="navbar-brand" href="http://usgs.gov" target="_new">
+					<img alt="USGS" src="images/usgslogo-40.png"></img>
+				</a>
+				<a class="navbar-brand" href="http://cida.usgs.gov" target="_new" title="Center for Integrated Data Analytics">
+					<img alt="CIDA" src="images/cidalogo-40.png"></img>
+				</a>
 
-
-	<div id="preview" class="preview">
-		<iframe src="resources/preview.html"></iframe>
-	</div>
-
-	<div id="view">
-
-		<div id="Bibliodata" ng-controller="biblioCtrl">
-		    <pubs:datarow ng-repeat="row in rows" data="row"></pubs:datarow>
+				<div id="ccsa-area">
+	                <a href="http://www.usgs.gov/" title="Link to main USGS page">USGS Home</a>
+	                <a href="http://www.usgs.gov/ask/index.html" title="Link to main USGS contact page">Contact USGS</a>
+	                <a href="http://search.usgs.gov/" title="Link to main USGS search (not publications search)">Search USGS</a>
+            	</div>				
+			</div>
 		</div>
+
+		<div class="container" style="margin-top:45px;">
+
+			<div ng-controller="mainCtrl">
+
+			  	<pubs:tabs names="Bibliodata,Contributors,Links,Contact,Cataloging,Geospatial,Reservations"></pubs:tabs>
+
+
+				<div id="preview" class="preview">
+					<iframe src="resources/preview.html"></iframe>
+				</div>
+
+				<div id="view">
+
+					<div id="bibliodata" ng-controller="biblioCtrl">
+						<button class="btn publicationsList" ng-click="pubslist.action" ng-bind="pubslist.name"></button>
+
+					    <pubs:datarow ng-repeat="row in rows" data="row" class="relativeButton"></pubs:datarow>
+						
+						<div class="actions">
+							<button class="btn" ng-click="reset.action" ng-bind="reset.name"></button>
+							<button class="btn" ng-click="release.action" ng-bind="release.name"></button>
+							<button class="btn" ng-click="save.action" ng-bind="save.name"></button>
+							<button class="btn" ng-click="publish.action" ng-bind="publish.name"></button>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+
 	</div>
-  </div>
 </body>
 </html>	
