@@ -61,65 +61,129 @@ mod.directive('pubsDatarow', function($compile) {
 	return _this;
 })
 
-
-mod.controller('biblioCtrl', [
-'$scope',
-function($scope){
-	$scope.rows = [
+// TODO could be angular value
+var fieldMapping = function() {
+	return [
 		{
+			name   : "pid",
 			label  : "Prod ID",
-			value  : "700000000",
 			rowType: "Readonly",
 		},
 		{
+			name   : "idx",
 			label  : "Index ID",
-			value  : "otr8068900",
 			rowType: "Readonly",
 		},
 		{
+			name   : "public_date",
 			label  : "Display to Public Date",
-			value  : "2014-05-28",
 			rowType: "Readonly",
 		},
 		{
 			rowType: "Gap",
 		},
 		{
-			rowType: "Select",
+			name   : "pub_type",
 			label  : "Publication Type",
-			value  : "2",
-			placeholder:"Select a Publication Type",
-			options: [{value:"1",text:'USGS Series'},{value:"2",text:'Other Series'},],
-		},
-		{
 			rowType: "Select",
+			options: [{value:"1",text:'USGS Series'},{value:"2",text:'Other Series'},],
+			placeholder:"Select a Publication Type",
+		},
+		{
+			name   : "series_title",
 			label  : "Series Title",
-			value  : "",
-			placeholder:"Select a Series",
+			rowType: "Select",
 			options: [{value:"1",text:'Open File Report'},{value:"2",text:'Book'},],
+			placeholder:"Select a Series",
 		},
 		{
+			name   : "subseries",
 			label  : "Subseries",
-			value  : "Climate change adaption Series",
 			rowType: "Text",
 		},
 		{
+			name   : "series_num",
 			label  : "Series Number",
-			value  : "2012-1234",
 			rowType: "Text",
 		},
 		{
+			name   : "chapter",
+			label  : "Chapter",
+			rowType: "Text",
+		},
+		{
+			name   : "subchapter",
+			label  : "subchapter",
+			rowType: "Text",
+		},
+		{
+			name   : "title",
+			label  : "Title",
+			rowType: "Text",
+		},
+		{
+			name   : "collaborators",
 			label  : "Collaboration/Cooperation",
-			value  : "ABC",
 			rowType: "Text",
 		},
 		{
+			name   : "abstract",
+			label  : "Abstract",
+			rowType: "Editor",
+		},
+		{
+			name   : "usgs_citation",
 			label  : "USGS Citation",
-			value  : "This is an entry. The quick brown fox jumps over the lazy dog. Sally sells sea shells at the sea shore.",
 			rowType: "Textbox",
-		}
+		},
+		{
+			name   : "lang",
+			label  : "Language",
+			rowType: "Text",
+		},
+		{
+			name   : "publication",
+			label  : "Publication",
+			rowType: "Text",
+		},
+		{
+			name   : "pub_location",
+			label  : "Publication Location",
+			rowType: "Text",
+		},
 
 	]
+}
+
+
+var fieldMapper = function(fieldMapping, data) {
+	_.each(fieldMapping, function(field){
+		field.value = data[field.name]
+	})
+}
+
+
+mod.controller('biblioCtrl', [
+'$scope',
+function($scope) {
+
+	var pubData = { // TODO to be fetched
+			pid  : "700000000",
+			idx  : "otr8068900",
+			public_date  : "2014-05-28",
+			pub_type  : "2",
+			series_title  : "",
+			subseries  : "Climate change adaption Series",
+			series_number  : "2012-1234",
+			collaborators  : "ABC",
+			usgs_citation  : "This is an entry. The quick brown fox jumps over the lazy dog. Sally sells sea shells at the sea shore.",
+		}
+
+
+	var fields = fieldMapping()
+	fieldMapper(fields, pubData)
+
+	$scope.rows = fields
 
 }])
 
