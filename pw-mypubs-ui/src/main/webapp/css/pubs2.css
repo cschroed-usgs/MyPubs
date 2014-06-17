@@ -1,3 +1,7 @@
+
+
+/** header banner styles **/
+
 .banner-area {
     background-image: url(../images/pubs_banner.gif) !important; /* Modify for alternate banner images */
     background-position: 0px 0px;
@@ -21,25 +25,7 @@
 }
 
 
-.label {
-	clear:both;
-	width: 200px;
-	text-align: right;
-	display: inline-block;
-	margin-bottom: 10px;
-	font-size: 12px !important;
-	color: #000 !important;
-	text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.25)  !important;
-	background-color: #eee !important;
-	padding-right: 5px; 
-}
-.labelRead {
-	margin-bottom: 3px !important;
-}
-.labelSelect {
-	margin:0;
-}
-
+/** button styles **/
 
 div.actions {
 	margin-left: 215px;
@@ -56,6 +42,8 @@ button.publicationsList {
 	margin-top: -40px;
 }
 
+
+/** tab styles **/
 .nav>li>a {
 	color: #aaa;
 }
@@ -66,8 +54,29 @@ button.publicationsList {
 	cursor: pointer;
 }
 
+
+/** data row styles **/
+
+.label {
+	clear:both;
+	width: 150px;
+	text-align: right;
+	display: inline-block;
+	margin-bottom: 10px;
+	font-size: 12px !important;
+	color: #000 !important;
+	text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.25)  !important;
+	background-color: #eee !important;
+	padding-right: 5px; 
+}
+.labelRead {
+	margin-bottom: 3px !important;
+}
+.labelSelect {
+	margin:0;
+}
 .value {
-	width: 300px;
+	width: 400px;
 }
 div.value {
 	display: inline-block;
@@ -80,17 +89,19 @@ textarea.value {
 	margin-top: -17px;
 	height: 60px;
 }
+.gap {
+	height:17px;
+}
 
+
+/** preview pane styles **/
 
 .preview {
-	height: 500px;
+	height: 600px;
 	display: inline-block;
 	float:right;
 	margin: 10px;
 }
 .preview iframe {
-	height: 500px;
-}
-.gap {
-	height:17px;
+	height: 600px;
 }
