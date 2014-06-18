@@ -1,15 +1,16 @@
 package gov.cida.net;
 
 
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
-import java.util.concurrent.Executors;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
@@ -21,21 +22,47 @@ public class HTTP {
 
 	public static final int    PORT = 8080;
 	public static final String PATHS[] = {"src/main/webapp", "src/test"};
+	
+	private static final Queue<String> logMsgs = new ConcurrentLinkedQueue<String>();
+	
+	private static boolean running = true;
+	
+	public static void startLogging() {
+		
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				while (running) {
+					while ( !logMsgs.isEmpty() ) {
+						String msg = logMsgs.poll();
+						if (null != msg) {
+							System.out.println(msg);
+						}
+					}
+					try {
+						Thread.sleep(500);
+					} catch (InterruptedException e){}
+				}
+			}
+		}).run();
+	}
 
 	public static void log (Object ... msgs) {
-    	System.out.print( System.currentTimeMillis() );
-    	System.out.print('\t');
+		StringBuilder finalMsg = new StringBuilder();
+    	finalMsg.append( System.currentTimeMillis() ).append('\t');
 		for (Object msg : msgs) {
-            System.out.print(msg);
+			finalMsg.append(msg);
 		}
-        System.out.println();
-	}
-	
+		logMsgs.add(finalMsg.toString());
+	}	
 	
 	public static String getContentType(String path) {
 		String contentType = "text/plain";
-		if (path.endsWith(".pdf")) {
-			contentType = "application/pdf";
+		
+		// TEXT types
+
+		if (path.endsWith(".txt")) {
+			// default type
 		} else if (path.endsWith(".html")) {
 			contentType = "text/html";
 		} else if (path.endsWith(".css")) {
@@ -44,20 +71,35 @@ public class HTTP {
 			contentType = "application/javascript";
 		} else if (path.endsWith(".json")) {
 			contentType = "application/json";
+		} else if (path.endsWith(".xml")) {
+			contentType = "application/xml";
+
+		// BINARY types
+
+			// image types
+
 		} else if (path.endsWith(".gif")) {
 			contentType = "image/gif";
 		} else if (path.endsWith(".jpg")) {
 			contentType = "image/jpeg";
 		} else if (path.endsWith(".png")) {
 			contentType = "image/png";
-		} else if (path.endsWith(".xml")) {
-			contentType = "application/xml";
+		} else if (path.endsWith(".ico")) {
+			contentType = "image/x-icon";
+
+			// other binary
+
+		} else if (path.endsWith(".pdf")) {
+			contentType = "application/pdf";
 		}
+
 		return contentType;
 	}
 	
 	
 	public static void main (String...args) throws Exception {
+		log("server started");
+		
 		InetSocketAddress address = new InetSocketAddress(PORT);
 		HttpServer server = HttpServer.create(address, 0);
 
@@ -65,7 +107,7 @@ public class HTTP {
 
 	        public void handle(HttpExchange exchange) throws IOException {
 	        	String req = exchange.getRequestURI().getPath();
-	        	log(req);
+	        	
         		// java 7 try-with-resources
 	        	try ( OutputStream os = exchange.getResponseBody(); ) {
         			File file = new File("doesnotexist");
@@ -117,5 +159,9 @@ public class HTTP {
 	    server.setExecutor(executors);
 
 		server.start();
+		
+		log("server running");
+		
+		startLogging();
 	}
 }
