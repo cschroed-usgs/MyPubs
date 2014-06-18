@@ -5,7 +5,7 @@ describe("main module", function() {
 
 
 	beforeEach(function () {
-		module("pubsMain")
+		module("mypubs")
 		inject(function($rootScope, $controller, $log, $location) {
 			scope = $rootScope.$new();
 			location = $location
@@ -28,7 +28,7 @@ describe("main module", function() {
 		// angular should find a defined mod
 		var def = true
 		try {
-			angular.module('pubsMain')
+			angular.module('mypubs')
 		} catch(e) {
 			def = false
 		}
