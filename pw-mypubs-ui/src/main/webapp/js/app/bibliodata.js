@@ -11,7 +11,7 @@ function ($scope, DataRowFieldService, $log) {
 	var pubData = { // TODO to be fetched
 			pid  : "700000000",
 			idx  : "otr8068900",
-			public_date  : "5/28/14", // 6/17/14
+			public_date  : "05/28/2014", // 6/17/14
 			pub_type  : "2",
 			series_title  : "",
 			subseries  : "Climate change adaption Series",
@@ -79,7 +79,7 @@ var fieldMapping = function() {
 			name   : "public_date",
 			label  : "Display to Public Date",
 			rowType: "Date", // Date
-			format : "shortDate",
+			format : "mm/dd/yyyy",
 			options: {
 			    formatYear: 'yy',
 			    startingDay: 1
