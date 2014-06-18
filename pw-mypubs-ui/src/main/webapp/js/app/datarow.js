@@ -61,5 +61,38 @@ mod.directive('pubsDatarow', function($compile) {
 	return _this
 })
 
+
+mod.service('DataRowFieldService', function() {
+	var service = this
+
+	service.openDatePicker = function(event, field) {
+		var dpDate = document.getElementById("dp"+field.elId)
+		var keydown      = jQuery.Event("keydown")
+		keydown.ctrlKey  = false
+		keydown.which    = 40
+		keydown.target   = dpDate
+			keydown.preventDefault()
+		$(dpDate).trigger(keydown)
+
+		event.preventDefault()
+		event.stopImmediatePropagation()
+		event.stopPropagation()
+	}
+
+
+	service.fieldMapper = function(fieldMapping, data) {
+		_.each(fieldMapping, function(field){
+			field.value = data[field.name]
+
+			if (field.rowType === "Date") {
+				field.open = function(event) {
+					service.openDatePicker(event, field)
+				}
+			}
+		})
+	}
+
+})
+
 }) ()
 

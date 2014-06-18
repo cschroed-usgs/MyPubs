@@ -5,8 +5,8 @@ var mod = angular.module('bibliodata',['pubsDataRow'])
 
 
 mod.controller('biblioCtrl', [
-'$scope', '$log',
-function ($scope, $log) {
+'$scope', 'DataRowFieldService', '$log',
+function ($scope, DataRowFieldService, $log) {
 
 	var pubData = { // TODO to be fetched
 			pid  : "700000000",
@@ -21,10 +21,9 @@ function ($scope, $log) {
 		}
 
 
-	var fields = fieldMapping()
-	fieldMapper(fields, pubData)
+	$scope.rows = fieldMapping()
+	DataRowFieldService.fieldMapper($scope.rows, pubData)
 
-	$scope.rows = fields
 
 // TODO move to main if this is on all tabs
 
@@ -167,35 +166,6 @@ var fieldMapping = function() {
 		},
 
 	]
-}
-
-// TODO could be angular service
-
-var openDatePicker = function(event, field) {
-	var dpDate = document.getElementById("dp"+field.elId)
-	var keydown      = jQuery.Event("keydown")
-	keydown.ctrlKey  = false
-	keydown.which    = 40
-	keydown.target   = dpDate
-		keydown.preventDefault()
-	$(dpDate).trigger(keydown)
-
-	event.preventDefault()
-	event.stopImmediatePropagation()
-	event.stopPropagation()
-}
-
-
-var fieldMapper = function(fieldMapping, data) {
-	_.each(fieldMapping, function(field){
-		field.value = data[field.name]
-
-		if (field.rowType === "Date") {
-			field.open = function(event) {
-				openDatePicker(event, field)
-			}
-		}
-	})
 }
 
 
