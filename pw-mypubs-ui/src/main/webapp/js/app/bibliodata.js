@@ -11,7 +11,7 @@ function ($scope, $log) {
 	var pubData = { // TODO to be fetched
 			pid  : "700000000",
 			idx  : "otr8068900",
-			public_date  : "2014-05-28",
+			public_date  : "5/28/14", // 6/17/14
 			pub_type  : "2",
 			series_title  : "",
 			subseries  : "Climate change adaption Series",
@@ -23,6 +23,11 @@ function ($scope, $log) {
 
 	var fields = fieldMapping()
 	fieldMapper(fields, pubData)
+
+	fields[2].open = function() {
+		$scope.isOpen = true
+	}
+
 
 	$scope.rows = fields
 
@@ -79,7 +84,12 @@ var fieldMapping = function() {
 		{
 			name   : "public_date",
 			label  : "Display to Public Date",
-			rowType: "Readonly",
+			rowType: "Date", // Date
+			format : "shortDate",
+			options: {
+			    formatYear: 'yy',
+			    startingDay: 1
+			},
 		},
 		{
 			rowType: "Gap",
@@ -115,7 +125,7 @@ var fieldMapping = function() {
 		},
 		{
 			name   : "subchapter",
-			label  : "subchapter",
+			label  : "Subchapter",
 			rowType: "Text",
 		},
 		{

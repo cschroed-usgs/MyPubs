@@ -4,7 +4,7 @@
 var mod = angular.module('pubsDataRow', [])
 
 
-var templates    = ['Checkbox','Editor','Gap','Readonly','Select','Text','Textbox']
+var templates    = ['Checkbox','Date','Editor','Gap','Readonly','Select','Text','Textbox']
 var templatePath = 'templates/data/data'
 var templateCache
 
