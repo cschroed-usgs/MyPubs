@@ -24,11 +24,6 @@ function ($scope, $log) {
 	var fields = fieldMapping()
 	fieldMapper(fields, pubData)
 
-	fields[2].open = function() {
-		$scope.isOpen = true
-	}
-
-
 	$scope.rows = fields
 
 // TODO move to main if this is on all tabs
@@ -90,6 +85,7 @@ var fieldMapping = function() {
 			    formatYear: 'yy',
 			    startingDay: 1
 			},
+			elId : "PublicDate",
 		},
 		{
 			rowType: "Gap",
@@ -175,9 +171,30 @@ var fieldMapping = function() {
 
 // TODO could be angular service
 
+var openDatePicker = function(event, field) {
+	var dpDate = document.getElementById("dp"+field.elId)
+	var keydown      = jQuery.Event("keydown")
+	keydown.ctrlKey  = false
+	keydown.which    = 40
+	keydown.target   = dpDate
+		keydown.preventDefault()
+	$(dpDate).trigger(keydown)
+
+	event.preventDefault()
+	event.stopImmediatePropagation()
+	event.stopPropagation()
+}
+
+
 var fieldMapper = function(fieldMapping, data) {
 	_.each(fieldMapping, function(field){
 		field.value = data[field.name]
+
+		if (field.rowType === "Date") {
+			field.open = function(event) {
+				openDatePicker(event, field)
+			}
+		}
 	})
 }
 
