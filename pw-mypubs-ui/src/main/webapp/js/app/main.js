@@ -25,16 +25,14 @@ function ($scope, $log, $location) {
 		$location.path('/' + routeName)
 	}
 
-/**
     mod.router.
     when('/Bibliodata', {
     	templateUrl: 'templates/bibliodata.html',
-    	controller: 'BibliodataCtrl'
+    	controller: 'biblioCtrl'
     }).
     otherwise({
-        redirectTo: '/Bibliodata'
+        redirectTo: '/unfinishedTab'
     });
-**/
 
 	$scope.log('main init')
 }])
