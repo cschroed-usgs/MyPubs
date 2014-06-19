@@ -37,8 +37,6 @@ mod.run(['$templateCache',function($templateCache) {
 
 mod.directive('pubsDatarow', function($compile) {
 
-	console.log('pubsDatarow')
-
 	var _this = {
 		restrict    : 'E', //AEC
 		replace     : true,

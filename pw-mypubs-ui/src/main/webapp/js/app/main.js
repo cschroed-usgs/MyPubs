@@ -1,5 +1,6 @@
 (function() {
 
+
 var mod = angular.module('mypubs', [
 	'ngRoute','ui.select2','ui.bootstrap', 'ui.tinymce',
 	'pubsTab','pubsDataRow','bibliodata'
@@ -7,10 +8,11 @@ var mod = angular.module('mypubs', [
 
 
 mod.config([
-'$routeProvider',
-function($routeProvider) {
-	mod.router = $routeProvider
-}]);
+	'$routeProvider',
+	function($routeProvider) {
+		$routeProvider // Placeholder for default, login, or routes
+	}
+])
 
 
 mod.controller('mainCtrl', [
@@ -20,21 +22,12 @@ function ($scope, $log, $location) {
 	$scope.doc = {name:"testDoc"}
 	$scope.log = $log.log // needed for directives
 
+	// sets the angular path on the url location hash
 	$scope.setRoute = function(routeName) {
 		$scope.log('setRoute')
 		$location.path('/' + routeName)
 	}
-
-    mod.router.
-    when('/Bibliodata', {
-    	templateUrl: 'templates/bibliodata.html',
-    	controller: 'biblioCtrl'
-    }).
-    otherwise({
-        redirectTo: '/unfinishedTab'
-    });
-
-	$scope.log('main init')
+	
 }])
 
 

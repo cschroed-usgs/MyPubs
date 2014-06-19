@@ -1,12 +1,23 @@
 (function() {
 
 
-var mod = angular.module('bibliodata',['pubsDataRow'])
+var mod = angular.module('bibliodata',['pubsDataRow','ngRoute'])
+
+
+mod.config([
+	'$routeProvider',
+	function($routeProvider) {
+		$routeProvider.when('/Bibliodata', {
+	    	templateUrl: 'templates/bibliodata.html',
+	    	controller: 'biblioCtrl'
+	    })
+	}
+])
 
 
 mod.controller('biblioCtrl', [
 '$scope', 'DataRowFieldService', '$log',
-function ($scope, DataRowFieldService, $log) {
+function ($scope, DataRowFieldService, RouteRegister, $log) {
 
 	var pubData = { // TODO to be fetched
 			pid  : "700000000",
