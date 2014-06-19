@@ -23,14 +23,6 @@ describe("pw.tabs module", function() {
 	// build the module and preserve the scope
 	beforeEach(function () {
 		module("pw.tabs")
-		inject(function($rootScope, $compile, $templateCache) {
-			$scope = $rootScope
-	    	$templateCache.put("mypubs/tabs/tabs.html", templateSrc)
-		})
-	})
-
-
-	it('should load template source', function() {
 		inject(function() {
 		    var req = new XMLHttpRequest()
 		    req.onload = function() {
@@ -42,12 +34,14 @@ describe("pw.tabs module", function() {
 		    req.open("get", "src/main/webapp/mypubs/tabs/tabs.html", false)
 		    req.send()
 		})
-		expect(templateSrc).toBeDefined()
-		expect(templateSrc.length > 10).toBeTruthy()
+		inject(function($rootScope, $compile, $templateCache) {
+			$scope = $rootScope
+	    	$templateCache.put("mypubs/tabs/tabs.html", templateSrc)
+		})
 	})
 
 
-	it('should have a pubsTab module', function() {
+	it('should have a pubs tabs module pw.tabs', function() {
 		// angular should find a defined mod
 		var def = true
 		try {
