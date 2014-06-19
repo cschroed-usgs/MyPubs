@@ -82,7 +82,6 @@ describe("pw.tabs module", function() {
 
 		$scope.setTab = function() {
 		 	setTabCalled = true
-		 	console.log('setTabCalled')
 		}
 
 		var setTabCalled   = false
@@ -99,7 +98,6 @@ describe("pw.tabs module", function() {
 
 		$scope.setRoute = function() {
 		 	setRouteCalled = true
-		 	console.log('setRouteCalled')
 		}
 		
 		var el  = compileTemplate()
