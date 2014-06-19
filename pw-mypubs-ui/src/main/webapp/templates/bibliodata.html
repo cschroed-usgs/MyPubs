@@ -1,7 +1,7 @@
 <div id="bibliodata" ng-controller="biblioCtrl">
 	<button class="btn publicationsList" ng-click="pubslist.action" ng-bind="pubslist.name"></button>
 
-    <pubs:datarow ng-repeat="row in rows" data="row" class="relativeButton"></pubs:datarow>
+    <pw:datarow ng-repeat="row in rows" data="row" class="relativeButton"></pw:datarow>
 	
 	<div class="actions">
 		<button class="btn" ng-click="reset.action" ng-bind="reset.name"></button>

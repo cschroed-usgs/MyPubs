@@ -1,10 +1,10 @@
 (function() {
 
 
-var mod = angular.module('pubsTab', [])
+var mod = angular.module('pw.tabs', [])
 
 
-mod.directive('pubsTabs', function() {
+mod.directive('pwTabs', function() {
 
 	var _this = {
 		restrict   : 'E', //AEC

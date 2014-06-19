@@ -1,7 +1,7 @@
 (function() {
 
 
-var mod = angular.module('pubsDataRow', [])
+var mod = angular.module('pw.dataRow', [])
 
 
 var templates    = ['Checkbox','Date','Editor','Gap','Readonly','Select','Text','Textbox']
@@ -35,7 +35,7 @@ mod.run(['$templateCache',function($templateCache) {
 }])
 
 
-mod.directive('pubsDatarow', function($compile) {
+mod.directive('pwDatarow', function($compile) {
 
 	var _this = {
 		restrict    : 'E', //AEC
@@ -113,5 +113,5 @@ mod.service('DataRowFieldService', function() {
 
 })
 
-}) ()
 
+}) ()

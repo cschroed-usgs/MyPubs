@@ -1,4 +1,4 @@
-describe("tabs module", function() {
+describe("pw.tabs module", function() {
 
 
 	var $scope, templateSrc
@@ -7,7 +7,7 @@ describe("tabs module", function() {
     function compileTemplate(template) {
     	// default template
         if (!template) {
-        	template = '<pubs:tabs names="tab1,tab2,tab3" active="tab2"></pubs:tabs>';
+        	template = '<pw:tabs names="tab1,tab2,tab3" active="tab2"></pw:tabs>';
 		}
         // inject the template into angular to compile and preserve the element
         var el
@@ -22,7 +22,7 @@ describe("tabs module", function() {
 
 	// build the module and preserve the scope
 	beforeEach(function () {
-		module("pubsTab")
+		module("pw.tabs")
 		inject(function($rootScope, $compile, $templateCache) {
 			$scope = $rootScope
 	    	$templateCache.put("templates/tabs.html", templateSrc)
@@ -51,7 +51,7 @@ describe("tabs module", function() {
 		// angular should find a defined mod
 		var def = true
 		try {
-			angular.module('pubsTab')
+			angular.module('pw.tabs')
 		} catch(e) {
 			def = false
 		}

@@ -1,4 +1,4 @@
-<html ng-app="mypubs">
+<html ng-app="pw.mypubs">
 <head>
 	<title>Pubs 2.0</title>
 
@@ -33,7 +33,7 @@
 			<div class="row">
 
 				<div class="col-lg-8">
-				  	<pubs:tabs names="Bibliodata,Contributors,Links,Contact,Cataloging,Geospatial,Reservations"></pubs:tabs>
+				  	<pw:tabs names="Bibliodata,Contributors,Links,Contact,Cataloging,Geospatial,Reservations"></pw:tabs>
 
 					<div ng-view id="view"></div>
 
@@ -72,6 +72,9 @@
 	<!-- app controllers -->
 	<script type="text/javascript" src="js/app/main.js"></script>
 	<script type="text/javascript" src="js/app/bibliodata.js"></script>
+
+	<!-- app services -->
+	<script type="text/javascript" src="js/app/fetcher.js"></script>
 
 </body>
 </html>	

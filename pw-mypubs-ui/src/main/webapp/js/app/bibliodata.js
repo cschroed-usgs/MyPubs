@@ -1,7 +1,7 @@
 (function() {
 
 
-var mod = angular.module('bibliodata',['pubsDataRow','ngRoute'])
+var mod = angular.module('pw.bibliodata',['pw.dataRow','ngRoute','pw.fetcher'])
 
 
 mod.config([
@@ -16,24 +16,11 @@ mod.config([
 
 
 mod.controller('biblioCtrl', [
-'$scope', 'DataRowFieldService', '$log',
-function ($scope, DataRowFieldService, RouteRegister, $log) {
+'$scope', 'DataRowFieldService', 'PublicationFetcher', '$log',
+function ($scope, DataRowFieldService, PublicationFetcher, $log) {
 
-	var pubData = { // TODO to be fetched
-			pid  : "700000000",
-			idx  : "otr8068900",
-			public_date    : "05/28/2014", // 6/17/14
-			pub_type       : "2",
-			series_title   : "",
-			subseries      : "Climate change adaption Series",
-			series_number  : "2012-1234",
-			collaborators  : "ABC",
-			abstract       : "This is an entry. The quick brown fox jumps over the lazy dog. Sally sells sea shells at the sea shore.",
-			usgs_citation  : "This is an entry. The quick brown fox jumps over the lazy dog. Sally sells sea shells at the sea shore.",
-		}
-
-
-	$scope.rows = fieldMapping()
+	var pubData = PublicationFetcher.getById('asdf')
+	$scope.rows = biblioFields()
 	DataRowFieldService.fieldMapper($scope.rows, pubData)
 
 
@@ -73,9 +60,7 @@ function ($scope, DataRowFieldService, RouteRegister, $log) {
 }])
 
 
-// TODO could be angular value
-
-var fieldMapping = function() {
+var biblioFields = function() {
 	return [
 		{
 			name   : "pid",
