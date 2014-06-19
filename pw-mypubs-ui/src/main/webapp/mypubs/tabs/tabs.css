@@ -1,0 +1,9 @@
+.nav>li>a {
+	color: #aaa;
+}
+.nav-tabs>.active>a,.nav-tabs>.active>a:hover {
+	font-weight: bold;
+}
+.nav>li.disabled>a {
+	cursor: pointer !important;
+}

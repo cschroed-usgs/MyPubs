@@ -10,7 +10,7 @@ mod.directive('pwTabs', function() {
 		restrict   : 'E', //AEC
 		replace    : true,
 		transclude : true,
-		templateUrl: 'templates/tabs.html',
+		templateUrl: 'mypubs/tabs/tabs.html',
 
 		setActive  : function(tabName) {
 			_this.activeTab = tabName

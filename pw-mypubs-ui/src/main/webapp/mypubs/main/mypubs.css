@@ -1,31 +1,5 @@
 
 
-/** header banner styles **/
-
-.banner-area {
-    background-image: url(../img/banner.gif) !important; /* Modify for alternate banner images */
-    background-position: 0px 0px;
-}
-#ccsa-area {
-    float: right;
-    color: #FFF;
-    background-color: #000;
-    margin-top: 5px;
-}
-#ccsa-area a {
-	font-weight: bold;
-    font-family: Verdana,Arial,Helvetica,sans-serif;
-	display: block;
-	font-size: 12px;
-	margin-bottom: 2px;    
-    padding-right: 1em;
-    line-height: 1;
-    margin-left: 4px;
-    color: #FFF;
-    background-color: transparent;
-}
-
-
 /** button styles **/
 
 div.actions {
@@ -78,71 +52,8 @@ button.publicationsList {
 	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2),0 1px 2px rgba(0, 0, 0, 0.05);
 	cursor: pointer;
 }
-.btn-calendar {
-	font-size: 18px;	
-}
 .navbar-brand {
 	padding: 5px !important;
-}
-
-
-/** tab styles **/
-.nav>li>a {
-	color: #aaa;
-}
-.nav-tabs>.active>a,.nav-tabs>.active>a:hover {
-	font-weight: bold;
-}
-.nav>li.disabled>a {
-	cursor: pointer !important;
-}
-
-.mainContainer {
-	margin-top:55px;
-}
-
-/** data row styles **/
-
-.label {
-	width: 170px;
-	text-align: right;
-	display: inline-block;
-	vertical-align: top;
-	margin-bottom: 10px;
-	font-size: 12px !important;
-	color: #000 !important;
-	background-color: #eee !important;
-	padding-top: 6px;
-}
-.labelRead {
-	margin-bottom: 3px !important;
-}
-.labelSelect {
-	margin:0;
-}
-.value {
-	width: 400px;
-}
-.editorValue {
-	vertical-align: top;
-	width: 570px;
-	margin-bottom: 5px;
-}
-.mce-path {
-    display: none !important;
-}
-div.value {
-	display: inline-block;
-	margin-left: 5px;
-}
-input.value {
-	height: 26px;
-}
-textarea.value {
-	height: 60px;
-}
-.gap {
-	height:17px;
 }
 
 

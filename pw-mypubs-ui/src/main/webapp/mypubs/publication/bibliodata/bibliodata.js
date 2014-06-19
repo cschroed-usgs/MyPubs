@@ -8,7 +8,7 @@ mod.config([
 	'$routeProvider',
 	function($routeProvider) {
 		$routeProvider.when('/Bibliodata', {
-	    	templateUrl: 'templates/bibliodata.html',
+	    	templateUrl: 'mypubs/publication/bibliodata/bibliodata.html',
 	    	controller: 'biblioCtrl'
 	    })
 	}

@@ -7,7 +7,10 @@
 
 	<link rel="stylesheet" type="text/css" href="lib/bootstrap/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="lib/select2/select2.css">
-	<link rel="stylesheet" type="text/css" href="css/pubs2.css">
+	<link rel="stylesheet" type="text/css" href="mypubs/main/mypubs.css">
+	<link rel="stylesheet" type="text/css" href="mypubs/main/header.css">
+	<link rel="stylesheet" type="text/css" href="mypubs/tabs/tabs.css">
+	<link rel="stylesheet" type="text/css" href="mypubs/datarow/datarow.css">
 
 </head>
 
@@ -16,10 +19,10 @@
 
 		<div class="navbar navbar-fixed-top banner-area">
 				<a class="navbar-brand" href="http://usgs.gov" target="_new">
-					<img alt="USGS" src="img/usgslogo-40.png"></img>
+					<img alt="USGS" src="mypubs/main/img/usgslogo-40.png"></img>
 				</a>
 				<a class="navbar-brand" href="http://cida.usgs.gov" target="_new" title="Center for Integrated Data Analytics">
-					<img alt="CIDA" src="img/cidalogo-40.png"></img>
+					<img alt="CIDA" src="mypubs/main/img/cidalogo-40.png"></img>
 				</a>
 
 				<div id="ccsa-area">
@@ -61,20 +64,19 @@
 
 	<script type="text/javascript" src="lib/angular/angular.1.2.17.js"></script>
 	<script type="text/javascript" src="lib/angular/angular-route.1.2.17.js"></script>
-	<script type="text/javascript" src="lib/angular/angular-ui-select2.js"></script>
+	<script type="text/javascript" src="lib/angular/ui-select2.js"></script>
 	<script type="text/javascript" src="lib/angular/ui-bootstrap-tpls-0.11.0.js"></script>
 	<script type="text/javascript" src="lib/angular/ui-tinymce.0.5.x.js"></script>
 
-	<!-- app directives -->
-	<script type="text/javascript" src="js/app/tabs.js"></script>
-	<script type="text/javascript" src="js/app/datarow.js"></script>
+	<!-- mypubs application -->
 
-	<!-- app controllers -->
-	<script type="text/javascript" src="js/app/main.js"></script>
-	<script type="text/javascript" src="js/app/bibliodata.js"></script>
+	<script type="text/javascript" src="mypubs/tabs/tabs.js"></script>
+	<script type="text/javascript" src="mypubs/datarow/datarow.js"></script>
 
-	<!-- app services -->
-	<script type="text/javascript" src="js/app/fetcher.js"></script>
+	<script type="text/javascript" src="mypubs/main/mypubs.js"></script>
+
+	<script type="text/javascript" src="mypubs/publication/bibliodata/bibliodata.js"></script>
+	<script type="text/javascript" src="mypubs/publication/fetcher.js"></script>
 
 </body>
 </html>	

@@ -1,4 +1,4 @@
-describe("main module", function() {
+describe("pw.mypubs module", function() {
 
 
 	var scope, location

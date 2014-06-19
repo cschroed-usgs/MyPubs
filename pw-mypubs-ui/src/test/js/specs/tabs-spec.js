@@ -25,7 +25,7 @@ describe("pw.tabs module", function() {
 		module("pw.tabs")
 		inject(function($rootScope, $compile, $templateCache) {
 			$scope = $rootScope
-	    	$templateCache.put("templates/tabs.html", templateSrc)
+	    	$templateCache.put("mypubs/tabs/tabs.html", templateSrc)
 		})
 	})
 
@@ -39,7 +39,7 @@ describe("pw.tabs module", function() {
 		    // Note that the relative path may be different from your unit test HTML file.
 		    // Using `false` as the third parameter to open() makes the operation synchronous.
 		    // Gentle reminder that boolean parameters are not the best API choice.
-		    req.open("get", "src/main/webapp/templates/tabs.html", false)
+		    req.open("get", "src/main/webapp/mypubs/tabs/tabs.html", false)
 		    req.send()
 		})
 		expect(templateSrc).toBeDefined()
@@ -76,24 +76,7 @@ describe("pw.tabs module", function() {
 	});
 
 
-	it('should change route on click', function() {
-		var setRouteCalled = false
-
-		$scope.setRoute = function() {
-		 	setRouteCalled = true
-		 	console.log('setRouteCalled')
-		}
-		
-		var el  = compileTemplate()
-		var tab = $(el).find('.disabled')[0]
-		var ln  = $(tab).find('a')
-		$(ln).trigger('click')
-
-		expect(setRouteCalled).toBeTruthy()
-	});
-
-
-	it('should change call setTab on click', function() {
+	it('should call setTab on click', function() {
 		
 		var el  = compileTemplate()
 
@@ -108,6 +91,23 @@ describe("pw.tabs module", function() {
 		$(ln).trigger('click')
 
 		expect(setTabCalled).toBeTruthy()
+	});
+
+
+	it('should call setRoute on click', function() {
+		var setRouteCalled = false
+
+		$scope.setRoute = function() {
+		 	setRouteCalled = true
+		 	console.log('setRouteCalled')
+		}
+		
+		var el  = compileTemplate()
+		var tab = $(el).find('.disabled')[0]
+		var ln  = $(tab).find('a')
+		$(ln).trigger('click')
+
+		expect(setRouteCalled).toBeTruthy()
 	});
 
 
