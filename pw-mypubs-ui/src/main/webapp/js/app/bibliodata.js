@@ -81,13 +81,6 @@ var fieldMapping = function() {
 			label  : "Display to Public Date",
 			rowType: "Date", 
 			elId   : "PublicDate",
-			
-			// TODO move to datarow service
-			format : "mm/dd/yyyy",
-			options: {
-			    formatYear: 'yy',
-			    startingDay: 1
-			},
 		},
 		{
 			rowType: "Gap",
@@ -143,12 +136,6 @@ var fieldMapping = function() {
 			name   : "abstract",
 			label  : "Abstract",
 			rowType: "Editor",
-
-			// TODO move to datarow service
-			options: {
-				menubar   : false,
-				//statusbar : false,
-			}
 		},
 		{
 			name   : "usgs_citation",

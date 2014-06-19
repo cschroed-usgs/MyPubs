@@ -67,7 +67,7 @@ mod.directive('pubsDatarow', function($compile) {
 mod.service('DataRowFieldService', function() {
 	var service = this
 
-	service.openDatePicker = function(event, field) {
+	service.openDatePicker = function(field, event) {
 		var dpDate = document.getElementById("dp"+field.elId)
 		var keydown      = jQuery.Event("keydown")
 		keydown.ctrlKey  = false
@@ -82,14 +82,33 @@ mod.service('DataRowFieldService', function() {
 	}
 
 
+	service.formatDate = function(date) {
+		date.format  = "mm/dd/yyyy"
+		date.options = {
+		    formatYear: 'yy',
+		    startingDay: 1
+		}
+		date.open = function(event) {
+			service.openDatePicker(date, event)
+		}
+	}
+
+
+	service.formatEditor = function(editor) {
+		editor.options = {
+			menubar   : false,
+		}
+	}
+
+
 	service.fieldMapper = function(fieldMapping, data) {
 		_.each(fieldMapping, function(field){
 			field.value = data[field.name]
 
 			if (field.rowType === "Date") {
-				field.open = function(event) {
-					service.openDatePicker(event, field)
-				}
+				service.formatDate(field)
+			} else if (field.rowType == "Editor") {
+				service.formatEditor(field)
 			}
 		})
 	}
