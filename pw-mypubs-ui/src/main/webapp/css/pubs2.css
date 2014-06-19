@@ -44,7 +44,7 @@ button.publicationsList {
 }
 
 
-/** BS 2 vs 3 **/
+/** bootstrap 2.x vs 3.x **/
 
 .btn {
 	display: inline-block;
@@ -122,6 +122,14 @@ button.publicationsList {
 }
 .value {
 	width: 400px;
+}
+.editorValue {
+	vertical-align: top;
+	width: 570px;
+	margin-bottom: 5px;
+}
+.mce-path {
+    display: none !important;
 }
 div.value {
 	display: inline-block;

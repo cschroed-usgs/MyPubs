@@ -8,9 +8,11 @@ var templates    = ['Checkbox','Date','Editor','Gap','Readonly','Select','Text',
 var templatePath = 'templates/data/data'
 var templateCache
 
+
 var getTemplate  = function(rowType) {
     return templatePath+rowType+'.html'
 }
+
 
 var registerTemplate = function($templateCache, templateUrl) {
     var req = new XMLHttpRequest()

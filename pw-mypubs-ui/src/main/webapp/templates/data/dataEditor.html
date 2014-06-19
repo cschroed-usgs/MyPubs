@@ -1,4 +1,6 @@
 		<div class="data">
 			<div class="label" ng-bind="data.label"></div>
-			<div class="value"><textarea ng-bind="data.value" class="value"></textarea></div>
+			<div class="value editorValue">
+				<textarea ui-tinymce="data.options" class="value" ng-model="data.value"></textarea>
+			</div>
 		</div>

@@ -11,12 +11,13 @@ function ($scope, DataRowFieldService, $log) {
 	var pubData = { // TODO to be fetched
 			pid  : "700000000",
 			idx  : "otr8068900",
-			public_date  : "05/28/2014", // 6/17/14
-			pub_type  : "2",
-			series_title  : "",
-			subseries  : "Climate change adaption Series",
+			public_date    : "05/28/2014", // 6/17/14
+			pub_type       : "2",
+			series_title   : "",
+			subseries      : "Climate change adaption Series",
 			series_number  : "2012-1234",
 			collaborators  : "ABC",
+			abstract       : "This is an entry. The quick brown fox jumps over the lazy dog. Sally sells sea shells at the sea shore.",
 			usgs_citation  : "This is an entry. The quick brown fox jumps over the lazy dog. Sally sells sea shells at the sea shore.",
 		}
 
@@ -78,13 +79,15 @@ var fieldMapping = function() {
 		{
 			name   : "public_date",
 			label  : "Display to Public Date",
-			rowType: "Date", // Date
+			rowType: "Date", 
+			elId   : "PublicDate",
+			
+			// TODO move to datarow service
 			format : "mm/dd/yyyy",
 			options: {
 			    formatYear: 'yy',
 			    startingDay: 1
 			},
-			elId : "PublicDate",
 		},
 		{
 			rowType: "Gap",
@@ -140,6 +143,12 @@ var fieldMapping = function() {
 			name   : "abstract",
 			label  : "Abstract",
 			rowType: "Editor",
+
+			// TODO move to datarow service
+			options: {
+				menubar   : false,
+				//statusbar : false,
+			}
 		},
 		{
 			name   : "usgs_citation",
