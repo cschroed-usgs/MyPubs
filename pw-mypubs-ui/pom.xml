@@ -154,14 +154,14 @@
 			        <webDriverClassName>org.openqa.selenium.phantomjs.PhantomJSDriver</webDriverClassName>
 					<preloadSources>
 			            <!-- source>src/main/webapp/js/lib/jquery.1.11.0.min.js</source -->
-						<source>src/main/webapp/js/lib/jquery.1.11.0.js</source>
-						<source>src/main/webapp/js/lib/underscore.1.6.0.js</source>
-						<source>src/main/webapp/js/lib/select2.3.4.8.js</source>
+						<source>src/main/webapp/lib/jquery/jquery.1.11.0.js</source>
+						<source>src/main/webapp/lib/underscore/underscore.1.6.0.js</source>
+						<source>src/main/webapp/lib/select2/select2.3.4.8.js</source>
 
-						<source>src/main/webapp/js/lib/angular.1.2.17.js</source>
-						<source>src/main/webapp/js/lib/angular-route.1.2.17.js</source>
-						<source>src/main/webapp/js/lib/angular-ui-select2.js</source>
-						<source>src/main/webapp/js/lib/ui-bootstrap-tpls-0.11.0.js</source>
+						<source>src/main/webapp/lib/angular/angular.1.2.17.js</source>
+						<source>src/main/webapp/lib/angular/angular-route.1.2.17.js</source>
+						<source>src/main/webapp/lib/angular/angular-ui-select2.js</source>
+						<source>src/main/webapp/lib/angular/ui-bootstrap-tpls-0.11.0.js</source>
 
 						<!-- testing libs -->
 						<source>src/test/js/lib/angular-mocks.1.2.17.js</source>
