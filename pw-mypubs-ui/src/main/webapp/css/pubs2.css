@@ -107,6 +107,7 @@ button.publicationsList {
 	width: 170px;
 	text-align: right;
 	display: inline-block;
+	vertical-align: top;
 	margin-bottom: 10px;
 	font-size: 12px !important;
 	color: #000 !important;
@@ -130,7 +131,6 @@ input.value {
 	height: 26px;
 }
 textarea.value {
-	margin-top: -17px;
 	height: 60px;
 }
 .gap {
