@@ -37,7 +37,7 @@ mod.run(['$templateCache',function($templateCache) {
 
 mod.directive('pwDatarow', function($compile) {
 
-	var _this = {
+	var pwDatarow = {
 		restrict    : 'E', //AEC
 		replace     : true,
 		transclude  : true,
@@ -52,11 +52,13 @@ mod.directive('pwDatarow', function($compile) {
 	        var templateSrc = templateCache.get(templateUrl)
 	        el.html(templateSrc)
 
+	        console.log(templateUrl)
+
 	        $compile(el.contents())($scope)
         }
 	}
 
-	return _this
+	return pwDatarow
 })
 
 
@@ -107,6 +109,7 @@ mod.service('DataRowFieldService', function() {
 				service.formatEditor(field)
 			}
 		})
+		return fieldMapping
 	}
 
 })

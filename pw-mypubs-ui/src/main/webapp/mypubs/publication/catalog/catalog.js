@@ -20,13 +20,13 @@ mod.controller('catalogCtrl', [
 function ($scope, DataRowFieldService, PublicationFetcher, $log) {
 
 	var pubData = PublicationFetcher.getById('asdf')
-	$scope.rows = biblioFields()
+	$scope.rows = fields()
 	DataRowFieldService.fieldMapper($scope.rows, pubData)
 
 }])
 
 
-var biblioFields = function() {
+var fields = function() {
 	return [
 		{
 			name   : "keywords",

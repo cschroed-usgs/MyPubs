@@ -6,41 +6,43 @@ var mod = angular.module('pw.tabs', [])
 
 mod.directive('pwTabs', function() {
 
-	var _this = {
+	var pwTabs = {
+		
 		restrict   : 'E', //AEC
 		replace    : true,
 		transclude : true,
 		templateUrl: 'mypubs/tabs/tabs.html',
 
 		setActive  : function(tabName) {
-			_this.activeTab = tabName
+			pwTabs.activeTab = tabName
 		},
 		getActive  : function() {
-			return _this.activeTab
+			return pwTabs.activeTab
 		},
 
 		controller : function($scope) {
 			$scope.setTab = function(tabName) {
+				$scope.showPreview(true)
 				$scope.setRoute(tabName)
-				_this.setActive(tabName)
+				pwTabs.setActive(tabName)
 			}
 			
 			$scope.isActive = function(tabName) {
-				return tabName === _this.getActive()
+				return tabName === pwTabs.getActive()
 			}
 		},
 
 		link : function($scope, el, attrs) {
 			$scope.tabs = attrs.names.split(',')
 			if (attrs.active) {
-				_this.setActive(attrs.active)
+				pwTabs.setActive(attrs.active)
 			} else {
-				_this.setActive($scope.tabs[0])
+				pwTabs.setActive($scope.tabs[0])
 			}
 		}
 	}
 
-	return _this
+	return pwTabs
 })
 
 

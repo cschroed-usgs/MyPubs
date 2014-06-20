@@ -40,5 +40,5 @@ textarea.value {
 	height:17px;
 }
 .btn-calendar {
-	font-size: 18px;	
+	font-size: 18px !important;
 }

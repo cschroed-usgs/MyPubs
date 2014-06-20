@@ -6,7 +6,7 @@ var mod = angular.module('pw.actions', [])
 
 mod.directive('pwActions', function() {
 
-	var _this = {
+	var pwActions = {
 		restrict   : 'E', //AEC
 		replace    : true,
 		transclude : true,
@@ -46,7 +46,7 @@ mod.directive('pwActions', function() {
 		}
 	}
 
-	return _this
+	return pwActions
 })
 
 
