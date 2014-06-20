@@ -1,0 +1,15 @@
+.addressName {
+	font-weight:bold;
+}
+
+.addressState:after {
+	content: ",";
+}
+
+.contactSelected {
+	background-color: #FAFAFF;
+}
+
+.contactSelected:hover {
+	background-color: #EEEEFF !important;
+}

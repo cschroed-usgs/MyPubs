@@ -4,8 +4,11 @@
 angular.module('pw.fetcher',[])
 .service('PublicationFetcher', function() {
 
+    var ctx = this
 
-	this.getById = function(pubId) {
+    ctx.pub = {}
+
+	ctx.getById = function(pubId) {
 		var pub = { // TODO to be fetched
 			pid  : "700000000",
 			idx  : "otr8068900",
@@ -17,9 +20,43 @@ angular.module('pw.fetcher',[])
 			collaborators  : "ABC",
 			abstract       : "This is an entry. The quick brown fox jumps over the lazy dog. Sally sells sea shells at the sea shore.",
 			usgs_citation  : "This is an entry. The quick brown fox jumps over the lazy dog. Sally sells sea shells at the sea shore.",
+            contacts       : [
+                {
+                    id : "a",
+                    link: "https://github.com/USGS-CIDA/Publications-Warehouse",
+                    link_text: "github home",
+                    name:"USGS Center for Integrated Data Analytics",
+                    address1:"8505 Reseach Way",
+                    address2:"Suite 200",
+                    address3:"c/o Scott",
+                    city:"Midleton",
+                    state:"WI",
+                    zipcode:"53562",
+                    website:"http://cida.usgs.gov",
+                },
+                {
+                    id : "b",
+                    link: "https://github.com/USGS",
+                    link_text: "github home",
+                    name:"USGS Cartographic Applications and Processing Program",
+                    address1:"505 Science Drive",
+                    address2:"Suite 200",
+                    address3:"c/o Frank",
+                    city:"Madison",
+                    state:"WI",
+                    zipcode:"53711",
+                    website:"http://www.usgs.gov",
+                },
+            ],
 		}
+        ctx.pub = pub
 		return pub
 	}
+
+
+    this.get = function() {
+        return ctx.pub
+    }
 
 
 	this.getByFilter = function(filter) {

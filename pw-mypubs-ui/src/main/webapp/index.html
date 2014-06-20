@@ -13,6 +13,7 @@
 	<link rel="stylesheet" type="text/css" href="mypubs/datarow/datarow.css">
 	<link rel="stylesheet" type="text/css" href="mypubs/publication/action/buttons.css">
 	<link rel="stylesheet" type="text/css" href="mypubs/publication/header/header.css">
+	<link rel="stylesheet" type="text/css" href="mypubs/publication/contacts/contacts.css">
 
 </head>
 
@@ -49,10 +50,13 @@
 				</div>
 
 				<div class="col-lg-4">
-					<div id="preview" class="preview">
+					<div id="preview" class="preview" ng-show="showPreview()">
 						<div class="previewTitle">Public Pubs Preview</div>
 						<iframe src="resources/preview.html"></iframe>
 						<!-- iframe src="http://pubs.er.usgs.gov/publication/sir20145055"></iframe -->
+					</div>
+					<div id="sideView">
+						<pw:contacts></pw:contacts>
 					</div>
 				</div>
 
