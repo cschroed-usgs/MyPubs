@@ -89,7 +89,7 @@ var biblioFields = function() {
 			rowType: "Gap",
 		},
 		{
-			name   : "lang",
+			name   : "language",
 			label  : "Language",
 			rowType: "Text",
 		},
