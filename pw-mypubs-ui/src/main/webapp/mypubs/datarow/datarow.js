@@ -4,7 +4,7 @@
 var mod = angular.module('pw.dataRow', [])
 
 
-var templates    = ['Checkbox','Date','Editor','Gap','Readonly','Select','Text','Textbox']
+var templates    = ['Date','Editor','Gap','Readonly','Select','Text','Textbox']
 var templatePath = 'mypubs/datarow/row'
 var templateCache
 
@@ -41,9 +41,7 @@ mod.directive('pwDatarow', function($compile) {
 		restrict    : 'E', //AEC
 		replace     : true,
 		transclude  : true,
-		scope       : {
-			data : "=",
-		},
+		scope       : {data:"="},
 
 		controller : function($scope) {
 		},
@@ -71,7 +69,7 @@ mod.service('DataRowFieldService', function() {
 		keydown.ctrlKey  = false
 		keydown.which    = 40
 		keydown.target   = dpDate
-			keydown.preventDefault()
+		keydown.preventDefault()
 		$(dpDate).trigger(keydown)
 
 		event.preventDefault()
