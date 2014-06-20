@@ -1,0 +1,5 @@
+<div id="pubHeader" ng-controller="pubHeaderCtrl">
+	<button class="btn publicationsList" ng-click="pubslist.action" ng-bind="pubslist.name"></button>
+
+    <pw:datarow ng-repeat="row in rows" data="row" class="relativeButton"></pw:datarow>
+</div>

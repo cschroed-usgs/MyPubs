@@ -1,16 +1,4 @@
 
-
-button.publicationsList {
-	position: relative;
-	left: 450px;
-	top: 45px;
-}
-/** because fo the relative button **/
-#bibliodata {
-	margin-top: -20px;
-}
-
-
 /** bootstrap 2.x vs 3.x **/
 
 .navbar-brand {

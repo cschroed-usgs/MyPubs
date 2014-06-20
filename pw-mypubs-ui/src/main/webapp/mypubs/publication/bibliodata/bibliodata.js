@@ -29,25 +29,6 @@ function ($scope, DataRowFieldService, PublicationFetcher, $log) {
 var biblioFields = function() {
 	return [
 		{
-			name   : "pid",
-			label  : "Prod ID",
-			rowType: "Readonly",
-		},
-		{
-			name   : "idx",
-			label  : "Index ID",
-			rowType: "Readonly",
-		},
-		{
-			name   : "public_date",
-			label  : "Display to Public Date",
-			rowType: "Date", 
-			elId   : "PublicDate",
-		},
-		{
-			rowType: "Gap",
-		},
-		{
 			name   : "pub_type",
 			label  : "Publication Type",
 			rowType: "Select",

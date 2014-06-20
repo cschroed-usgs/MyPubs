@@ -16,12 +16,6 @@ mod.directive('pwActions', function() {
 
 		controller : function($scope) {
 
-			$scope.pubslist = {
-				name   : "Publications List",
-				action : function() {
-					// TODO service.doPublicaitonsList
-				}
-			}
 			$scope.reset = {
 				name   : "Reset",
 				action : function() {

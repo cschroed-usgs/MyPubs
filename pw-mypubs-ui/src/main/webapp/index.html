@@ -12,6 +12,7 @@
 	<link rel="stylesheet" type="text/css" href="mypubs/tabs/tabs.css">
 	<link rel="stylesheet" type="text/css" href="mypubs/datarow/datarow.css">
 	<link rel="stylesheet" type="text/css" href="mypubs/publication/action/buttons.css">
+	<link rel="stylesheet" type="text/css" href="mypubs/publication/header/header.css">
 
 </head>
 
@@ -38,6 +39,8 @@
 
 				<div class="col-lg-8">
 				  	<pw:tabs names="Bibliodata,Contributors,Links,Contact,Cataloging,Geospatial,Reservations"></pw:tabs>
+
+					<pw:pubheader></pw:pubheader>
 
 					<div ng-view id="view"></div>
 
@@ -78,9 +81,10 @@
 
 	<script type="text/javascript" src="mypubs/main/mypubs.js"></script>
 
+	<script type="text/javascript" src="mypubs/publication/fetcher.js"></script>
 	<script type="text/javascript" src="mypubs/publication/bibliodata/bibliodata.js"></script>
 	<script type="text/javascript" src="mypubs/publication/action/actions.js"></script>
-	<script type="text/javascript" src="mypubs/publication/fetcher.js"></script>
+	<script type="text/javascript" src="mypubs/publication/header/header.js"></script>
 
 
 </body>
