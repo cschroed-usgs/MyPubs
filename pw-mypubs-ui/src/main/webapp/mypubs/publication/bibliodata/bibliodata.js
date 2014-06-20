@@ -23,40 +23,6 @@ function ($scope, DataRowFieldService, PublicationFetcher, $log) {
 	$scope.rows = biblioFields()
 	DataRowFieldService.fieldMapper($scope.rows, pubData)
 
-
-// TODO move to main if this is on all tabs
-
-	$scope.pubslist = {
-		name   : "Publications List",
-		action : function() {
-			// TODO service.doPublicaitonsList
-		}
-	}
-	$scope.reset = {
-		name   : "Reset",
-		action : function() {
-			// TODO service.doReset 
-		}
-	}
-	$scope.release = {
-		name   : "Release",
-		action : function() {
-			// TODO service.doRelease
-		}
-	}
-	$scope.save = {
-		name   : "Save Changes",
-		action : function() {
-			// TODO service.doSave 
-		}
-	}
-	$scope.publish = {
-		name   : "Publish",
-		action : function() {
-			// TODO service.doPublish 
-		}
-	}
-
 }])
 
 
