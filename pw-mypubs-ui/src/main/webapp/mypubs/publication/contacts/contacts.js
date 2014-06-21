@@ -25,6 +25,19 @@ function (DataRowFieldService, PublicationFetcher) {
 	ctx.id       = ''
 	ctx.contacts = []
 	ctx.contact  = []
+	
+	ctx.listeners= []
+	ctx.listenToActive = function(listener) {
+		if (typeof listener === 'function') {
+			ctx.listeners.push(listener)
+			listener(ctx.contact)
+		}
+	}
+	ctx.braudCast= function() {
+		_.each(ctx.listeners, function(listener) {
+			listener(ctx.contact)
+		})
+	}
 
 	ctx.setContacts = function(contacts) {
 		if (contacts) {
@@ -43,6 +56,8 @@ function (DataRowFieldService, PublicationFetcher) {
 		ctx.contact = DataRowFieldService.fieldMapper(fields(), contact)
 
 		console.log("Contacts Service: " + contact.id)
+
+		ctx.braudCast()
 	}
 
 	ctx.isActive = function(id) {
@@ -67,11 +82,16 @@ function ($scope, Contacts, $log) {
 
 	Contacts.setContacts()
 
-	$scope.$watch(Contacts.contact, function() {
-		$scope.contact = Contacts.contact
-
-		console.log("Contact Ctrl: " + Contacts.id)
+	Contacts.listenToActive(function(contact){
+		$scope.contact = contact
+	 	console.log("Contact Ctrl: " + Contacts.id)
 	})
+
+	// $scope.$watch(Contacts.contact, function() {
+	// 	$scope.contact = Contacts.contact
+
+	// 	console.log("Contact Ctrl: " + Contacts.id)
+	// })
 	$scope.showPreview(false)
 	
 }])
