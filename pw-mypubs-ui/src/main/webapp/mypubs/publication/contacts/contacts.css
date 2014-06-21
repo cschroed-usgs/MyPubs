@@ -13,3 +13,12 @@
 .contactSelected:hover {
 	background-color: #EEEEFF !important;
 }
+
+.list-group-item {
+	border-bottom: none !important;
+}
+.list-group-item-links {
+	border: 1px solid #ddd;
+	border-top: none;
+	padding: 0px 15px 10px 15px;
+}

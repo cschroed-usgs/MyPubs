@@ -1,6 +1,7 @@
 <div class="list-group" id="contacts" ng-controller="contactsCtrl">
 	<h4>All Contacts</h4>
 	<div clas="contactList" ng-repeat="contact in contacts" ng-click="select(contact.id)">
+
 		<a href="#" class="list-group-item" prevent-default
 			ng-class="isSelected(contact.id)?'contactSelected':'contact'">
 			<div class="addressName list-group-item-heading" ng-bind="contact.name"></div>
@@ -13,13 +14,16 @@
 				<span class="addressZip"   ng-bind="contact.zipcode"></span>
 			</div>
 		</a>
-		<div class="addressWeb list-group-item-text">
-			Web Address: 
-			<a href="{{contact.website}}" target="_new" ng-bind="contact.website"></a>
+		<div class="list-group-item-links" ng-class="isSelected(contact.id)?'contactSelected':'contact'">
+			<div class="addressWeb list-group-item-text">
+				Web Address: 
+				<a href="{{contact.website}}" target="_new" ng-bind="contact.website"></a>
+			</div>
+			<div class="addressLink ">
+				Link:
+				<a href="{{contact.link}}" target="_new" ng-bind="contact.link_text"></a>
+			</div>
 		</div>
-		<div class="addressLink ">
-			Link:
-			<a href="{{contact.link}}" target="_new" ng-bind="contact.link_text"></a>
-		</div>
+
 	</div>
 </div>
