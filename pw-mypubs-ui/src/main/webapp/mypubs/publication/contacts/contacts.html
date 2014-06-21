@@ -1,29 +1,31 @@
-<div class="list-group" id="contacts" ng-controller="contactsCtrl">
-	<h4>All Contacts</h4>
-	<div clas="contactList" ng-repeat="contact in contacts" ng-click="select(contact.id)">
+<div id="contacts"  ng-controller="contactsCtrl">
+	<h4>All {{contacts.length}} Contact{{contacts.length===1?'':'s'}}</h4>
+	<div class="list-group" >
+		<div class="contactList" ng-repeat="contact in contacts" ng-click="select(contact.id)">
 
-		<a href="#" class="list-group-item" prevent-default
-			ng-class="isSelected(contact.id)?'contactSelected':'contact'">
-			<div class="addressName list-group-item-heading" ng-bind="contact.name"></div>
-			<div class="addressLine list-group-item-text" ng-bind="contact.address1"></div>
-			<div class="addressLine list-group-item-text" ng-bind="contact.address2"></div>
-			<div class="addressLine list-group-item-text" ng-bind="contact.address3"></div>
-			<div class="addressCityStateZip list-group-item-text">
-				<span class="addressCity"  ng-bind="contact.city"></span>
-				<span class="addressState" ng-bind="contact.state"></span>
-				<span class="addressZip"   ng-bind="contact.zipcode"></span>
+			<a href="#" class="list-group-item" prevent-default
+				ng-class="isSelected(contact.id)?'contactSelected':'contact'">
+				<div class="addressName list-group-item-heading" ng-bind="contact.name"></div>
+				<div class="addressLine list-group-item-text" ng-bind="contact.address1"></div>
+				<div class="addressLine list-group-item-text" ng-bind="contact.address2"></div>
+				<div class="addressLine list-group-item-text" ng-bind="contact.address3"></div>
+				<div class="addressCityStateZip list-group-item-text">
+					<span class="addressCity"  ng-bind="contact.city"></span>
+					<span class="addressState" ng-bind="contact.state"></span>
+					<span class="addressZip"   ng-bind="contact.zipcode"></span>
+				</div>
+			</a>
+			<div class="list-group-item-links" ng-class="isSelected(contact.id)?'contactSelected':'contact'">
+				<div class="addressWeb list-group-item-text">
+					Web Address: 
+					<a href="{{contact.website}}" target="_new" ng-bind="contact.website"></a>
+				</div>
+				<div class="addressLink ">
+					Link:
+					<a href="{{contact.link}}" target="_new" ng-bind="contact.link_text"></a>
+				</div>
 			</div>
-		</a>
-		<div class="list-group-item-links" ng-class="isSelected(contact.id)?'contactSelected':'contact'">
-			<div class="addressWeb list-group-item-text">
-				Web Address: 
-				<a href="{{contact.website}}" target="_new" ng-bind="contact.website"></a>
-			</div>
-			<div class="addressLink ">
-				Link:
-				<a href="{{contact.link}}" target="_new" ng-bind="contact.link_text"></a>
-			</div>
+
 		</div>
-
 	</div>
 </div>
