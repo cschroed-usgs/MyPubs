@@ -15,6 +15,8 @@ var getTemplate  = function(rowType) {
 
 
 var registerTemplate = function($templateCache, templateUrl) {
+	if ($templateCache.get(templateUrl)) return
+
     var req = new XMLHttpRequest()
     req.onload = function() {
         var templateSrc = this.responseText
@@ -52,7 +54,7 @@ mod.directive('pwDatarow', function($compile) {
 	        var templateSrc = templateCache.get(templateUrl)
 	        el.html(templateSrc)
 
-	        console.log(templateUrl)
+	        //console.log(templateUrl)
 
 	        $compile(el.contents())($scope)
         }

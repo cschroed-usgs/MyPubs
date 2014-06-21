@@ -1,8 +1,8 @@
 
-button.publicationsList {
+.changePubActions {
 	position: relative;
-	left: 450px;
-	top: 45px;
+	left: 345px;
+	top: 75px;
 }
 
 #pubHeader {

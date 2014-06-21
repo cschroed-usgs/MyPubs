@@ -28,13 +28,15 @@ function ($scope, $log, $location) {
 
 
 	// TODO I know the bellow sould be in a service - will get there in some future refactor
-	ctrl.showPreview = true
+	$scope._showPreview = true
 
 	$scope.showPreview = function(show) {
-		if (typeof show !== 'undefined') {
-			ctrl.showPreview = show ? true : false
+		if (typeof show === 'undefined') {
+			console.log($scope._showPreview)
+			return $scope._showPreview
 		}
-		return ctrl.showPreview
+		console.log('Setting '+show)
+		$scope._showPreview = show ? true : false
 	}
 
 	// sets the angular path on the url location hash

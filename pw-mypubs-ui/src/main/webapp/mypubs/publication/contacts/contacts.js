@@ -9,7 +9,7 @@ mod.config([
 	function($routeProvider) {
 		$routeProvider.when('/Contacts', {
 	    	templateUrl: 'mypubs/publication/contacts/contact.html',
-	    	//controller: 'contactCtrl'
+	    	controller: 'contactCtrl'
 	    })
 	}
 ])
@@ -55,8 +55,6 @@ function (DataRowFieldService, PublicationFetcher) {
 		ctx.id = contact.id
 		ctx.contact = DataRowFieldService.fieldMapper(fields(), contact)
 
-		console.log("Contacts Service: " + contact.id)
-
 		ctx.braudCast()
 	}
 
@@ -77,29 +75,23 @@ function (DataRowFieldService, PublicationFetcher) {
 
 
 mod.controller('contactCtrl', [
-'$scope',  'Contacts', '$log',
-function ($scope, Contacts, $log) {
+'$scope',  'Contacts', '$log', '$location',
+function ($scope, Contacts, $log, $location) {
 
 	Contacts.setContacts()
 
 	Contacts.listenToActive(function(contact){
 		$scope.contact = contact
-	 	console.log("Contact Ctrl: " + Contacts.id)
 	})
 
-	// $scope.$watch(Contacts.contact, function() {
-	// 	$scope.contact = Contacts.contact
-
-	// 	console.log("Contact Ctrl: " + Contacts.id)
-	// })
-	$scope.showPreview(false)
+	$scope.showPreview( $location.path() !== '/Contacts' )
 	
 }])
 
 
 mod.controller('contactsCtrl', [
-'$scope',  'Contacts', '$log',
-function ($scope, Contacts, $log) {
+'$scope',  'Contacts', '$log', '$location',
+function ($scope, Contacts, $log, $location) {
 
 	Contacts.setContacts()
 
@@ -108,14 +100,13 @@ function ($scope, Contacts, $log) {
 	}
 
 	$scope.select = function(contactId) {
-		console.log("Contacts Ctrl: " + contactId)
-
 		Contacts.select(contactId)
 		return false
 	}
 
 	$scope.contacts = Contacts.contacts
-	$scope.showPreview(false)
+
+	$scope.showPreview( $location.path() !== '/Contacts' )
 
 }])
 

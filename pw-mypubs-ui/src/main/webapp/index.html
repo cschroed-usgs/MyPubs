@@ -39,7 +39,7 @@
 			<div class="row">
 
 				<div class="col-lg-8">
-				  	<pw:tabs names="Bibliodata,Contributors,Links,Contacts,Cataloging,Geospatial,Reservations"></pw:tabs>
+				  	<pw:tabs names="Bibliodata,Contributors,Links,Contacts,Cataloging,Geospatial"></pw:tabs>
 
 					<pw:pubheader></pw:pubheader>
 
@@ -55,7 +55,7 @@
 						<iframe src="resources/preview.html"></iframe>
 						<!-- iframe src="http://pubs.er.usgs.gov/publication/sir20145055"></iframe -->
 					</div>
-					<div id="sideView">
+					<div id="sideView" ng-hide="showPreview()">
 						<pw:contacts></pw:contacts>
 					</div>
 				</div>

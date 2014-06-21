@@ -31,6 +31,12 @@ function ($scope, DataRowFieldService, PublicationFetcher, $log) {
 			// TODO service.doPublicaitonsList
 		}
 	}
+	$scope.reservations = {
+		name   : "Reservations",
+		action : function() {
+			// TODO service.doReserveations
+		}
+	}
 
 }])
 
