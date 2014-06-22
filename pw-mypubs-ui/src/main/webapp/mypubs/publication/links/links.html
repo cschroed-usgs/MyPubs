@@ -1,0 +1,25 @@
+
+<div id="links" ng-controller="linksCtrl">
+    <div ng-repeat="link in links" class="tabPane" >
+
+		<select placeholder="Link Type" ui-select2 ng-model="link.type" class="linkMedium linkType">
+			<option value=""></option>
+			<option ng-repeat="option in typeOptions" value="{{option.value}}" ng-bind="option.text"></option>
+		</select>
+
+		<input placeholder="Link URL"  type="text" ng-model="link.url"  class="linkLarge">
+		<input placeholder="Link Text" type="text" ng-model="link.text" class="linkMedium">
+
+		<input placeholder="File Size" type="text" ng-model="link.size" class="linkSmall">
+
+		<select placeholder="File Type" ui-select2 ng-model="link.fileType" class="linkMedium">
+			<option value=""></option>
+			<option ng-repeat="option in fileOptions" value="{{option.value}}" ng-bind="option.text"></option>
+		</select>
+
+		<input placeholder="Description Text" type="text" ng-model="link.description" class="linkLarge">
+
+    </div>
+
+	<button ng-click="newLink()" class="btn" ng-disabled="isNewLink" style="float:right;">New Link</button>
+</div>

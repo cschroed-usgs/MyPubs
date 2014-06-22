@@ -1,0 +1,19 @@
+.tabPane {
+	margin-bottom:10px;
+}
+
+.linkType {
+	margin-right: 4px;
+}
+
+.linkSmall {
+	width:75px;
+}
+
+.linkMedium {
+	width:100px;
+}
+
+.linkLarge {
+	width:175px;
+}

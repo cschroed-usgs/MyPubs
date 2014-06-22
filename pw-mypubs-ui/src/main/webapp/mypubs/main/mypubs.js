@@ -4,7 +4,7 @@
 var mod = angular.module('pw.mypubs', [
 	'ngRoute','ui.select2','ui.bootstrap', 'ui.tinymce',
 	'pw.tabs','pw.dataRow', 'pw.actions', 'pw.pubHeader',
-	'pw.bibliodata', 'pw.catalog', 'pw.contacts'
+	'pw.bibliodata', 'pw.catalog', 'pw.contacts', 'pw.links'
 ])
 
 
@@ -32,10 +32,10 @@ function ($scope, $log, $location) {
 
 	$scope.showPreview = function(show) {
 		if (typeof show === 'undefined') {
-			console.log($scope._showPreview)
+			//console.log($scope._showPreview)
 			return $scope._showPreview
 		}
-		console.log('Setting '+show)
+		//console.log('Setting '+show)
 		$scope._showPreview = show ? true : false
 	}
 

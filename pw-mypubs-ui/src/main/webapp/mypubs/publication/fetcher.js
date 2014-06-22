@@ -20,6 +20,16 @@ angular.module('pw.fetcher',[])
 			collaborators  : "ABC",
 			abstract       : "This is an entry. The quick brown fox jumps over the lazy dog. Sally sells sea shells at the sea shore.",
 			usgs_citation  : "This is an entry. The quick brown fox jumps over the lazy dog. Sally sells sea shells at the sea shore.",
+            links          : [
+                {
+                    type:"r",
+                    url :"http://foo/bar.pdf",
+                    text:"Report",
+                    size:"354 kb",
+                    fileType:"pdf",
+                    description:"A Test Link",
+                }
+            ],
             contacts       : [
                 {
                     id : "a",

@@ -21,3 +21,7 @@
 	height: 100%;
 	width: 700px;
 }
+
+input[type='text'] {
+	border-radius: 4px;	
+}
