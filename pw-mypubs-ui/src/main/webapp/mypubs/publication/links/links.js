@@ -176,6 +176,9 @@ function ($scope, DataRowFieldService, Links, $log) {
 	}
 
 	$scope.remove = function(id) {
+		if (id===$scope.aNewLink.id) {
+			$scope.isNewLink = false
+		}
 		$scope.links = Links.remove(id)
 	}
 
