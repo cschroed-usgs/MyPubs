@@ -2,7 +2,7 @@
 
 
 var mod = angular.module('pw.mypubs', [
-	'ngRoute','ui.select2','ui.bootstrap', 'ui.tinymce',
+	'ngRoute','ui.select2','ui.bootstrap', 'ui.tinymce', 'ngAnimate',
 	'pw.tabs','pw.dataRow', 'pw.actions', 'pw.pubHeader',
 	'pw.bibliodata', 'pw.catalog', 'pw.contacts', 'pw.links'
 ])

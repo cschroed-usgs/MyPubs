@@ -1,6 +1,6 @@
 
 <div id="links" ng-controller="linksCtrl" class="tabPane">
-    <div ng-repeat="link in links" class="linkPane">
+    <div ng-repeat="link in links track by link.id" class="linkPane animate"  ng-animate="'animate'">
 
     	<div class="linkHandleRemove">
 			<div class="glyphicon glyphicon-remove-circle linkRemove"  ng-click="remove(link.id)"></div>
