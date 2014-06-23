@@ -1,6 +1,8 @@
 
-<div id="links" ng-controller="linksCtrl" class="tabPane">
-    <div ng-repeat="link in links track by link.id" class="linkPane animate"  ng-animate="'animate'">
+<div id="links" ng-controller="linksCtrl" class="tabPane listAnimateReorder"
+     ng-style="{height: ((links.length * 89) + 'px')}">
+    <div ng-repeat="link in links track by link.id" class="linkPane animate listAnimateReorder-entry"
+    ng-style="{top: ((link.order * 89) + 'px')}">
 
     	<div class="linkHandleRemove">
 			<div class="glyphicon glyphicon-remove-circle linkRemove"  ng-click="remove(link.id)"></div>
@@ -29,10 +31,13 @@
 
 	    </div>
 	    <div class="linkHandleReorder">
-			<div class="glyphicon glyphicon-collapse-up linkUp" ng-click="reorderUp(link.id)" ng-hide="$index===0"></div>
-			<div class="glyphicon glyphicon-collapse-down linkDown" ng-click="reorderDown(link.id)" ng-hide="$index===links.length-1"></div>
+			<div class="glyphicon glyphicon-collapse-up linkUp" ng-click="reorderUp(link.id)" ng-hide="link.order===0"></div>
+			<div class="glyphicon glyphicon-collapse-down linkDown" ng-click="reorderDown(link.id)" ng-hide="link.order===links.length-1"></div>
 		</div>
     </div>
 
-	<button ng-click="newLink()" class="btn" ng-disabled="isNewLink" style="float:right;">New Link</button>
+	<button ng-click="newLink()" class="btn" ng-disabled="isNewLink" style="position:relative;float:right;" 
+	ng-style="{top: ((links.length * 89) + 'px')}">New Link</button>
 </div>
+<div ng-style="{height: ((links.length * 89) + 'px')}">
+</div>	

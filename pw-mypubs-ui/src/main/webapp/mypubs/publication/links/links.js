@@ -68,6 +68,7 @@ function (PublicationFetcher) {
             size:"",
             fileType:"",
             description:"",
+            order:ctx.links.length
 		}
 		ctx.links.push(link)
 		return link
@@ -82,6 +83,15 @@ function (PublicationFetcher) {
 			}
 		}
 		return i
+	}
+	var findByOrder = function(order) {
+		var i
+		for (i=0;i<ctx.links.length;i++) {
+			if (ctx.links[i].order === order) {
+				break
+			}
+		}
+		return ctx.links[i]
 	}
 	var findElement = function(id) {
 		var i
@@ -108,6 +118,23 @@ function (PublicationFetcher) {
 	}
 
 	ctx.reorder = function(id,direction) {
+		var i0 = findIndex(id)
+		var e0 = ctx.links[i0]
+		var i1 = e0.order+direction
+		var e1
+		if (i1>=0 && i1<ctx.links.length) {
+			e1 = findByOrder(i1)
+
+			var order = e0.order
+			e0.order  = e1.order
+			e1.order  = order
+		}
+
+
+		//return ctx.links = links1
+	}
+
+	ctx.reorderArray = function(id,direction) {
 		var i0 = findIndex(id)
 		var e0 = ctx.links[i0]
 		var i1 = i0+direction
@@ -184,11 +211,13 @@ function ($scope, DataRowFieldService, Links, $log) {
 
 	$scope.reorderUp = function(id) {
 //		console.log('up')
-		$scope.links = Links.reorder(id,-1)
+		//$scope.links = 
+		Links.reorder(id,-1)
 	}
 	$scope.reorderDown = function(id) {
 //		console.log('down')
-		$scope.links = Links.reorder(id,+1)
+		//$scope.links = 
+		Links.reorder(id,+1)
 	}
 
 }])

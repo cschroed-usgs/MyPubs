@@ -29,6 +29,7 @@ angular.module('pw.fetcher',[])
                     size:"1 kb",
                     fileType:"pdf",
                     description:"A Test Link",
+                    order:0,
                 },
                 {
                     id:"b",
@@ -38,6 +39,7 @@ angular.module('pw.fetcher',[])
                     size:"2 kb",
                     fileType:"pdf",
                     description:"B Test Link",
+                    order:1,
                 },
                 {
                     id:"c",
@@ -47,6 +49,7 @@ angular.module('pw.fetcher',[])
                     size:"3 kb",
                     fileType:"pdf",
                     description:"C Test Link",
+                    order:2,
                 }
             ],
             contacts       : [
