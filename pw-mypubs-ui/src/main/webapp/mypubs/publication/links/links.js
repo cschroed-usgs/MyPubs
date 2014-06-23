@@ -22,6 +22,7 @@ function (PublicationFetcher) {
 	var ctx = this
 
 	ctx.links = []
+	ctx.hasLinks = false
 	
 
 	ctx.getLinks = function() {
@@ -32,8 +33,9 @@ function (PublicationFetcher) {
 	ctx.setLinks = function(links) {
 		if (links) {
 			ctx.links = links
-		} else {
+		} else if ( ! ctx.hasLinks ) {
 			ctx.links = PublicationFetcher.get().links
+			ctx.hasLinks = true
 		}
 	}
 
@@ -55,7 +57,11 @@ function (PublicationFetcher) {
 
 
 	ctx.newLink = function() {
+		var id = "_" + Math.random()
+		    id = id.replace("0.","")
+
 		var link = {
+			id  :id,
             type:"",
             url :"",
             text:"",
@@ -66,6 +72,70 @@ function (PublicationFetcher) {
 		ctx.links.push(link)
 		return link
 	}
+
+
+	var findIndex = function(id) {
+		var i
+		for (i=0;i<ctx.links.length;i++) {
+			if (ctx.links[i].id === id) {
+				break
+			}
+		}
+		return i
+	}
+	var findElement = function(id) {
+		var i
+		for (i=0;i<ctx.links.length;i++) {
+			if (ctx.links[i].id === id) {
+				break
+			}
+		}
+		return ctx.links[i]
+	}
+
+
+	ctx.remove = function(id) {
+		var i = findIndex(id)
+		var links1 = []
+		if (i>0) {
+			links1 = ctx.links.slice(0,i)
+		}
+		if (i<ctx.links.length-1) {
+			var links2 = ctx.links.slice(i+1)
+			links1.push.apply(links1,links2)
+		}
+		return ctx.links = links1
+	}
+
+	ctx.reorder = function(id,direction) {
+		var i0 = findIndex(id)
+		var e0 = ctx.links[i0]
+		var i1 = i0+direction
+		var e1
+		if (i1>=0 && i1<ctx.links.length) {
+			e1 = ctx.links[i0+direction]
+		}
+
+		var links1 = []
+		if (i0+direction>0) {
+			links1 = ctx.links.slice(0, i0 - (direction<0 ?1 :0) )
+		}
+		if (direction<0) {
+			links1.push(e0)
+			if (e1) links1.push(e1)
+		} else {
+			if (e1) links1.push(e1)
+			links1.push(e0)
+		}
+		if ( i0+1 + (direction>0 ?1 :0) < ctx.links.length ) {
+			var links2 = ctx.links.slice(i0+1 + (direction>0 ?1 :0))
+			links1.push.apply(links1,links2)
+		}
+
+		return ctx.links = links1
+	}
+
+
 
 }])
 
@@ -103,6 +173,19 @@ function ($scope, DataRowFieldService, Links, $log) {
 			}
 			$scope.isNewLink = false
 		}, true)
+	}
+
+	$scope.remove = function(id) {
+		$scope.links = Links.remove(id)
+	}
+
+	$scope.reorderUp = function(id) {
+//		console.log('up')
+		$scope.links = Links.reorder(id,-1)
+	}
+	$scope.reorderDown = function(id) {
+//		console.log('down')
+		$scope.links = Links.reorder(id,+1)
 	}
 
 }])

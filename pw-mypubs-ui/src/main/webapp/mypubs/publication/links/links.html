@@ -1,24 +1,37 @@
 
-<div id="links" ng-controller="linksCtrl">
-    <div ng-repeat="link in links" class="tabPane" >
+<div id="links" ng-controller="linksCtrl" class="tabPane">
+    <div ng-repeat="link in links" class="linkPane">
 
-		<select placeholder="Link Type" ui-select2 ng-model="link.type" class="linkMedium linkType">
-			<option value=""></option>
-			<option ng-repeat="option in typeOptions" value="{{option.value}}" ng-bind="option.text"></option>
-		</select>
+    	<div class="linkHandleRemove">
+			<div class="glyphicon glyphicon-remove-circle linkRemove"  ng-click="remove(link.id)"></div>
+		</div>
+    	<div class="linkRow">
+    		<div class="linkLabel label">Link:</div>
+			<input placeholder="Link Text" type="text" ng-model="link.text" class="linkText">
+			<input placeholder="Link URL"  type="text" ng-model="link.url"  class="linkLarge">
 
-		<input placeholder="Link URL"  type="text" ng-model="link.url"  class="linkLarge">
-		<input placeholder="Link Text" type="text" ng-model="link.text" class="linkMedium">
+			<br>
+    		<div class="linkLabel label">Metadata:</div>
 
-		<input placeholder="File Size" type="text" ng-model="link.size" class="linkSmall">
+			<select placeholder="Link Type" ui-select2 ng-model="link.type" class="linkMedium linkType">
+				<option value=""></option>
+				<option ng-repeat="option in typeOptions" value="{{option.value}}" ng-bind="option.text"></option>
+			</select>
 
-		<select placeholder="File Type" ui-select2 ng-model="link.fileType" class="linkMedium">
-			<option value=""></option>
-			<option ng-repeat="option in fileOptions" value="{{option.value}}" ng-bind="option.text"></option>
-		</select>
+			<input placeholder="File Size" type="text" ng-model="link.size" class="linkSmall">
 
-		<input placeholder="Description Text" type="text" ng-model="link.description" class="linkLarge">
+			<select placeholder="File Type" ui-select2 ng-model="link.fileType" class="linkSmall">
+				<option value=""></option>
+				<option ng-repeat="option in fileOptions" value="{{option.value}}" ng-bind="option.text"></option>
+			</select>
 
+			<input placeholder="Description Text" type="text" ng-model="link.description" class="linkLarge">
+
+	    </div>
+	    <div class="linkHandleReorder">
+			<div class="glyphicon glyphicon-collapse-up linkUp" ng-click="reorderUp(link.id)"></div>
+			<div class="glyphicon glyphicon-collapse-down linkDown" ng-click="reorderDown(link.id)"></div>
+		</div>
     </div>
 
 	<button ng-click="newLink()" class="btn" ng-disabled="isNewLink" style="float:right;">New Link</button>

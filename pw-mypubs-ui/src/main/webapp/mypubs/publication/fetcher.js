@@ -22,12 +22,31 @@ angular.module('pw.fetcher',[])
 			usgs_citation  : "This is an entry. The quick brown fox jumps over the lazy dog. Sally sells sea shells at the sea shore.",
             links          : [
                 {
+                    id:"a",
                     type:"r",
                     url :"http://foo/bar.pdf",
-                    text:"Report",
-                    size:"354 kb",
+                    text:"Report A",
+                    size:"1 kb",
                     fileType:"pdf",
                     description:"A Test Link",
+                },
+                {
+                    id:"b",
+                    type:"r",
+                    url :"http://foo/bar.pdf",
+                    text:"Report B",
+                    size:"2 kb",
+                    fileType:"pdf",
+                    description:"B Test Link",
+                },
+                {
+                    id:"c",
+                    type:"r",
+                    url :"http://foo/bar.pdf",
+                    text:"Report C",
+                    size:"3 kb",
+                    fileType:"pdf",
+                    description:"C Test Link",
                 }
             ],
             contacts       : [
