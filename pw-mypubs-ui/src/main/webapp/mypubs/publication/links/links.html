@@ -29,8 +29,8 @@
 
 	    </div>
 	    <div class="linkHandleReorder">
-			<div class="glyphicon glyphicon-collapse-up linkUp" ng-click="reorderUp(link.id)"></div>
-			<div class="glyphicon glyphicon-collapse-down linkDown" ng-click="reorderDown(link.id)"></div>
+			<div class="glyphicon glyphicon-collapse-up linkUp" ng-click="reorderUp(link.id)" ng-hide="$index===0"></div>
+			<div class="glyphicon glyphicon-collapse-down linkDown" ng-click="reorderDown(link.id)" ng-hide="$index===links.length-1"></div>
 		</div>
     </div>
 
