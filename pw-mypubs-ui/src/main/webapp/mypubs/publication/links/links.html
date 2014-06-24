@@ -1,7 +1,7 @@
 
-<div id="links" ng-controller="linksCtrl" class="tabPane listAnimateReorder"
+<div id="links" ng-controller="linksCtrl" class="tabPane dnd-animate-reorder"
      ng-style="{height: ((links.length * 89) + 'px')}">
-    <div ng-repeat="link in links track by link.id" class="linkPane animate listAnimateReorder-entry"
+    <div ng-repeat="link in links track by link.id" class="linkPane animate dnd-animate-reorder-entry"
     ng-style="{top: ((link.order * 89) + 'px')}" pw-droppable drop="reoderDnd(link.order)" pw-draggable drag="startDnd(link.order)">
 
     	<div class="linkHandleRemove">

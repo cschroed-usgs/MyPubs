@@ -226,15 +226,12 @@ function ($scope, DataRowFieldService, Links, $log) {
 		var start = $scope.indexDrag
 		var link  = Links.findByOrder(start)
 		var inc   = (((end-start) < 1) ?-1 :+1)
-		console.log('reoderDnd from '+ start +' to '+ end +" by "+ inc)
 
+		// handle bi-directional reorder
 		while ( (inc<0 && start+inc > end) || (inc>0 && start+inc < end) ) {
 			Links.reorder( link.id, inc)
 			start += inc
-			console.log('reoderDnd from '+ start +' to '+ end +" by "+ inc)
 		}
-		console.log('-')
-
 	}
 
 }])

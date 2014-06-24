@@ -1,3 +1,10 @@
+.authorMedium {
+	display:inline-block;
+	width:150px;
+}
+
+
+
 /*
 .tabPane {
 	margin-bottom:10px;
@@ -36,10 +43,6 @@
 	width:75px;
 }
 
-.linkMedium {
-	display:inline-block;
-	width:100px;
-}
 
 .linkLarge {
 	display:inline-block;
@@ -78,4 +81,5 @@
 	width: 75px;
 	display: inline-block;
 	background-color: #F5F5F5 !important;
+
 }

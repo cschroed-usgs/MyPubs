@@ -20,6 +20,28 @@ angular.module('pw.fetcher',[])
 			collaborators  : "ABC",
 			abstract       : "This is an entry. The quick brown fox jumps over the lazy dog. Sally sells sea shells at the sea shore.",
 			usgs_citation  : "This is an entry. The quick brown fox jumps over the lazy dog. Sally sells sea shells at the sea shore.",
+            author         : [
+                {
+                    id:"mm",
+                    family : "Mastin",
+                    given  : "Mark",
+                    email  : "mm@mm.com",
+                    literal: "MM Enterprises",
+                    order:0,
+                },
+                {
+                    id:"je",
+                    family : "Josberger",
+                    given  : "Edward",
+                    literal: "JD Edwards",
+                    order:2,
+                },
+                {
+                    id:"usgs",
+                    "literal": "US Geological Survey",
+                    order:1,
+                }
+            ],
             links          : [
                 {
                     id:"a",
@@ -65,6 +87,7 @@ angular.module('pw.fetcher',[])
                     state:"WI",
                     zipcode:"53562",
                     website:"http://cida.usgs.gov",
+                    order:0,
                 },
                 {
                     id : "b",
@@ -78,6 +101,7 @@ angular.module('pw.fetcher',[])
                     state:"WI",
                     zipcode:"53711",
                     website:"http://www.usgs.gov",
+                    order:1,
                 },
                 {
                     id : "c",
@@ -91,6 +115,7 @@ angular.module('pw.fetcher',[])
                     state:"WI",
                     zipcode:"53562",
                     website:"http://cida.usgs.gov",
+                    order:2,
                 },
                 {
                     id : "d",
@@ -104,6 +129,7 @@ angular.module('pw.fetcher',[])
                     state:"WI",
                     zipcode:"53711",
                     website:"http://www.usgs.gov",
+                    order:3,
                 },
             ],
 		}

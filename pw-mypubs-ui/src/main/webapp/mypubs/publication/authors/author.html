@@ -1,0 +1,40 @@
+
+<div id="authors" ng-controller="authorsCtrl" class="tabPane dnd-animate-reorder"
+     ng-style="{height: ((entries.length * 89) + 'px')}">
+    <div ng-repeat="author in entries track by author.id" class="linkPane animate dnd-animate-reorder-entry"
+    ng-style="{top: ((author.order * 89) + 'px')}" 
+    pw-droppable drop="reoderDnd(author.order)" 
+    pw-draggable drag="startDnd(author.order)">
+
+    	<div class="linkHandleRemove">
+			<div class="glyphicon glyphicon-remove-circle linkRemove"  ng-click="remove(author.id)"></div>
+		</div>
+    	<div class="linkRow">
+			<select placeholder="Type" ui-select2 ng-model="author.type" class="linkType" style="width:125px;">
+				<option value=""></option>
+				<option ng-repeat="option in typeOptions" value="{{option.value}}" ng-bind="option.text"></option>
+			</select>
+			<span ng-hide="isCorporation(author)">
+				<input placeholder="Last Name"  type="text" ng-model="author.family" style="width:165px;">
+				<input placeholder="First Name" type="text" ng-model="author.given"  style="width:200px;">
+				<input placeholder="Email"      type="text" ng-model="author.email"  style="width:200px;">
+				<div></div>
+				<span style="width:129px;display: inline-block;"></span>
+			</span>
+			<input placeholder="Corporation"  type="text" ng-model="author.literal"  style="width:574px;">
+			<div ng-show="isCorporation(author)">&nbsp;</div>
+
+	    </div>
+	    <div class="linkHandleReorder">
+			<div class="glyphicon glyphicon-collapse-up linkUp" ng-click="reorderUp(author.id)" 
+			     ng-hide="author.order===0"></div>
+			<div class="glyphicon glyphicon-collapse-down linkDown" ng-click="reorderDown(author.id)" 
+			     ng-hide="author.order===entries.length-1"></div>
+		</div>
+    </div>
+
+	<button ng-click="newEntry()" class="btn" ng-disabled="isNewEntry" style="position:relative;float:right;" 
+	ng-style="{top: ((entries.length * 89) + 'px')}">New Author</button>
+</div>
+<div ng-style="{height: ((entries.length * 89) + 'px')}">
+</div>	
