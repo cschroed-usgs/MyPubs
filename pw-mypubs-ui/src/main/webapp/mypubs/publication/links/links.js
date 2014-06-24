@@ -1,7 +1,7 @@
 (function() {
 
 
-var mod = angular.module('pw.links',['ngRoute','pw.fetcher'])
+var mod = angular.module('pw.links',['ngRoute','pw.fetcher', 'pw.dragdrop'])
 
 
 mod.config([
@@ -75,7 +75,7 @@ function (PublicationFetcher) {
 	}
 
 
-	var findIndex = function(id) {
+	ctx.findById = function(id) {
 		var i
 		for (i=0;i<ctx.links.length;i++) {
 			if (ctx.links[i].id === id) {
@@ -84,7 +84,7 @@ function (PublicationFetcher) {
 		}
 		return i
 	}
-	var findByOrder = function(order) {
+	ctx.findByOrder = function(order) {
 		var i
 		for (i=0;i<ctx.links.length;i++) {
 			if (ctx.links[i].order === order) {
@@ -105,7 +105,7 @@ function (PublicationFetcher) {
 
 
 	ctx.remove = function(id) {
-		var i = findIndex(id)
+		var i = ctx.findById(id)
 		var links1 = []
 		if (i>0) {
 			links1 = ctx.links.slice(0,i)
@@ -118,24 +118,22 @@ function (PublicationFetcher) {
 	}
 
 	ctx.reorder = function(id,direction) {
-		var i0 = findIndex(id)
+		var i0 = ctx.findById(id)
 		var e0 = ctx.links[i0]
 		var i1 = e0.order+direction
 		var e1
 		if (i1>=0 && i1<ctx.links.length) {
-			e1 = findByOrder(i1)
+			e1 = ctx.findByOrder(i1)
 
 			var order = e0.order
 			e0.order  = e1.order
 			e1.order  = order
 		}
-
-
 		//return ctx.links = links1
 	}
 
 	ctx.reorderArray = function(id,direction) {
-		var i0 = findIndex(id)
+		var i0 = ctx.findById(id)
 		var e0 = ctx.links[i0]
 		var i1 = i0+direction
 		var e1
@@ -210,14 +208,33 @@ function ($scope, DataRowFieldService, Links, $log) {
 	}
 
 	$scope.reorderUp = function(id) {
-//		console.log('up')
-		//$scope.links = 
 		Links.reorder(id,-1)
 	}
 	$scope.reorderDown = function(id) {
-//		console.log('down')
-		//$scope.links = 
 		Links.reorder(id,+1)
+	}
+
+	$scope.startDnd  = function(index) {
+		$scope.indexDrag = index
+	}
+	$scope.reoderDnd = function(end) {
+		if ( $(".dnd-over-top").length ) {
+			end -= 0.5 // insert above drop location
+		} else {
+			end += 0.5 // insert below drop location
+		}
+		var start = $scope.indexDrag
+		var link  = Links.findByOrder(start)
+		var inc   = (((end-start) < 1) ?-1 :+1)
+		console.log('reoderDnd from '+ start +' to '+ end +" by "+ inc)
+
+		while ( (inc<0 && start+inc > end) || (inc>0 && start+inc < end) ) {
+			Links.reorder( link.id, inc)
+			start += inc
+			console.log('reoderDnd from '+ start +' to '+ end +" by "+ inc)
+		}
+		console.log('-')
+
 	}
 
 }])

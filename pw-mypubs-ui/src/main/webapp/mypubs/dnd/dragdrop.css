@@ -1,0 +1,14 @@
+
+.dnd-drag {
+  opacity: 0.33;
+}
+
+.dnd-over {
+  background-color: #EEF;
+}
+.dnd-over-top {
+  border-top: 1px solid blue;
+}
+.dnd-over-bottom {
+  border-bottom: 1px solid blue;
+}
