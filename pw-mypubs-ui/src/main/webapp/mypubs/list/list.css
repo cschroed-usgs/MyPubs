@@ -1,0 +1,41 @@
+.list-group {
+
+
+}
+.list-group:hover {
+	background-color: #FAFAFA !important;
+	width: 100%;
+}
+
+
+.list-entry {
+	padding-top: 10px;
+	width: 95%;
+	display: inline-block;
+	border-top: 1px solid #eee;
+}
+
+.list-remove {
+	cursor: pointer;
+}
+.list-remove-handle {
+	height: 50px;
+	display: inline-block;
+	vertical-align: middle;
+	width: 14px;
+}
+
+.list-reorder-before {
+	cursor: pointer;
+}
+.list-reorder-after {
+	cursor: pointer;
+}
+.list-reorder-handle {
+	height: 65px;
+	display: inline-block;
+	vertical-align: middle;
+	width: 14px;
+}
+
+

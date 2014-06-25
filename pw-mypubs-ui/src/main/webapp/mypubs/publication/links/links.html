@@ -3,13 +3,13 @@
 														
   <div ng-style="{height: ((links.length * 89) + 'px')}" class="tabPane dnd-animate-reorder">
   	
-    <div ng-repeat="link in links track by link.id" class="linkPane animate dnd-animate-reorder-entry"
+    <div ng-repeat="link in links track by link.id" class="list-group animate dnd-animate-reorder-entry"
     ng-style="{top: ((link.order * 89) + 'px')}" pw-droppable drop="reoderDnd(link.order)" pw-draggable drag="startDnd(link.order)">
 
-    	<div class="linkHandleRemove">
-			<div class="glyphicon glyphicon-remove-circle linkRemove"  ng-click="remove(link.id)"></div>
+    	<div class="list-remove-handle">
+			<div class="glyphicon glyphicon-remove-circle list-remove"  ng-click="remove(link.id)"></div>
 		</div>
-    	<div class="linkRow">
+    	<div class="list-entry">
     		<div class="linkLabel label">Link:</div>
 			<input placeholder="Link Text" type="text" ng-model="link.text" class="linkText">
 			<input placeholder="Link URL"  type="text" ng-model="link.url"  class="linkLarge">
@@ -32,9 +32,9 @@
 			<input placeholder="Description Text" type="text" ng-model="link.description" class="linkLarge">
 
 	    </div>
-	    <div class="linkHandleReorder">
-			<div class="glyphicon glyphicon-collapse-up linkUp" ng-click="reorderUp(link.id)" ng-hide="link.order===0"></div>
-			<div class="glyphicon glyphicon-collapse-down linkDown" ng-click="reorderDown(link.id)" ng-hide="link.order===links.length-1"></div>
+	    <div class="list-reorder-handle">
+			<div class="glyphicon glyphicon-collapse-up list-reorder-before" ng-click="reorderUp(link.id)" ng-hide="link.order===0"></div>
+			<div class="glyphicon glyphicon-collapse-down list-reorder-after" ng-click="reorderDown(link.id)" ng-hide="link.order===links.length-1"></div>
 		</div>
     </div>
 

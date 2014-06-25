@@ -3,16 +3,16 @@
 
   <div ng-style="{height: ((entries.length * 89) + 'px')}" class="tabPane dnd-animate-reorder">
 
-    <div ng-repeat="author in entries track by author.id" class="linkPane animate dnd-animate-reorder-entry"
+    <div ng-repeat="author in entries track by author.id" class="list-group animate dnd-animate-reorder-entry"
     ng-style="{top: ((author.order * 89) + 'px')}" 
     pw-droppable drop="reoderDnd(author.order)" 
     pw-draggable drag="startDnd(author.order)">
 
-    	<div class="linkHandleRemove">
-			<div class="glyphicon glyphicon-remove-circle linkRemove"  ng-click="remove(author.id)"></div>
+    	<div class="list-remove-handle">
+			<div class="glyphicon glyphicon-remove-circle list-remove"  ng-click="remove(author.id)"></div>
 		</div>
-    	<div class="linkRow">
-			<select placeholder="Type" ui-select2 ng-model="author.type" class="linkType" style="width:125px;">
+    	<div class="list-entry">
+			<select placeholder="Type" ui-select2 ng-model="author.type" class="authorType" style="width:125px;">
 				<option value=""></option>
 				<option ng-repeat="option in typeOptions" value="{{option.value}}" ng-bind="option.text"></option>
 			</select>
@@ -27,10 +27,10 @@
 			<div ng-show="isCorporation(author)">&nbsp;</div>
 
 	    </div>
-	    <div class="linkHandleReorder">
-			<div class="glyphicon glyphicon-collapse-up linkUp" ng-click="reorderUp(author.id)" 
+	    <div class="list-reorder-handle">
+			<div class="glyphicon glyphicon-collapse-up list-reorder-before" ng-click="reorderUp(author.id)" 
 			     ng-hide="author.order===0"></div>
-			<div class="glyphicon glyphicon-collapse-down linkDown" ng-click="reorderDown(author.id)" 
+			<div class="glyphicon glyphicon-collapse-down list-reorder-after" ng-click="reorderDown(author.id)" 
 			     ng-hide="author.order===entries.length-1"></div>
 		</div>
     </div>
@@ -41,7 +41,7 @@
   <div ng-style="{height: ((entries.length * 89) + 'px')}" class="animate-remove-entry"></div>	
 <div style="margin-bottom:10px;">
     <div class="label labelSelect" style="width:146px">Cost Centers</div>
-	<select placeholder="Enter a Cost Center" ui-select2 ng-model="costcenters" class="linkType" style="width:450px">
+	<select placeholder="Enter a Cost Center" ui-select2 ng-model="costcenters" class="authorType" style="width:450px">
 		<option value=""></option>
 		<option ng-repeat="option in costCenterOptions" value="{{option.value}}" ng-bind="option.text"></option>
 	</select>
