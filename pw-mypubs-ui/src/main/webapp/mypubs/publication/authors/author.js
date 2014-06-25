@@ -97,6 +97,7 @@ function (PublicationFetcher) {
 
 	ctx.remove = function(id) {
 		var i = ctx.findIndexById(id)
+		var oldOrder = ctx.entries[i].order
 		var entries1 = []
 		if (i>0) {
 			entries1 = ctx.entries.slice(0,i)
@@ -105,6 +106,12 @@ function (PublicationFetcher) {
 			var entries2 = ctx.entries.slice(i+1)
 			entries1.push.apply(entries1,entries2)
 		}
+		_.each(entries1, function(entry) {
+			if (entry.order > oldOrder) {
+				entry.order--
+			}			
+		})
+
 		return ctx.entries = entries1
 	}
 
@@ -231,6 +238,7 @@ function ($scope, DataRowFieldService, Authors, $log) {
 	$scope.isCorporation = function(entry) {
 		return entry.type === 'c'
 	}
+
 
 }])
 

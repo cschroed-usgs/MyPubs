@@ -1,6 +1,8 @@
 
-<div id="links" ng-controller="linksCtrl" class="tabPane dnd-animate-reorder"
-     ng-style="{height: ((links.length * 89) + 'px')}">
+<div id="links" ng-controller="linksCtrl" >
+														
+  <div ng-style="{height: ((links.length * 89) + 'px')}" class="tabPane dnd-animate-reorder">
+  	
     <div ng-repeat="link in links track by link.id" class="linkPane animate dnd-animate-reorder-entry"
     ng-style="{top: ((link.order * 89) + 'px')}" pw-droppable drop="reoderDnd(link.order)" pw-draggable drag="startDnd(link.order)">
 
@@ -38,6 +40,6 @@
 
 	<button ng-click="newLink()" class="btn" ng-disabled="isNewLink" style="position:relative;float:right;" 
 	ng-style="{top: ((links.length * 89) + 'px')}">New Link</button>
+  </div>
+  <div ng-style="{height: ((links.length * 89) + 'px')}" class="animate-remove-entry"></div>	
 </div>
-<div ng-style="{height: ((links.length * 89) + 'px')}">
-</div>	

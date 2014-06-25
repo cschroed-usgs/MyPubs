@@ -106,6 +106,7 @@ function (PublicationFetcher) {
 
 	ctx.remove = function(id) {
 		var i = ctx.findById(id)
+		var oldOrder = ctx.links[i].order
 		var links1 = []
 		if (i>0) {
 			links1 = ctx.links.slice(0,i)
@@ -114,6 +115,11 @@ function (PublicationFetcher) {
 			var links2 = ctx.links.slice(i+1)
 			links1.push.apply(links1,links2)
 		}
+		_.each(links1, function(entry) {
+			if (entry.order > oldOrder) {
+				entry.order--
+			}			
+		})
 		return ctx.links = links1
 	}
 

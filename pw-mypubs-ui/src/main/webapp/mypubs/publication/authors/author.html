@@ -1,6 +1,8 @@
 
-<div id="authors" ng-controller="authorsCtrl" class="tabPane dnd-animate-reorder"
-     ng-style="{height: ((entries.length * 89) + 'px')}">
+<div id="authors" ng-controller="authorsCtrl">
+
+  <div ng-style="{height: ((entries.length * 89) + 'px')}" class="tabPane dnd-animate-reorder">
+
     <div ng-repeat="author in entries track by author.id" class="linkPane animate dnd-animate-reorder-entry"
     ng-style="{top: ((author.order * 89) + 'px')}" 
     pw-droppable drop="reoderDnd(author.order)" 
@@ -35,6 +37,17 @@
 
 	<button ng-click="newEntry()" class="btn" ng-disabled="isNewEntry" style="position:relative;float:right;" 
 	ng-style="{top: ((entries.length * 89) + 'px')}">New Author</button>
+  </div>
+  <div ng-style="{height: ((entries.length * 89) + 'px')}" class="animate-remove-entry"></div>	
 </div>
-<div ng-style="{height: ((entries.length * 89) + 'px')}">
-</div>	
+
+
+<!--
+	<div>
+	    <div class="label">Cost Centers<div>
+		<select placeholder="Enter a Cost Center" ui-select2 ng-model="costcenters" class="linkType" style="width:400px">
+			<option value=""></option>
+			<option ng-repeat="option in costCenterOptions" value="{{option.value}}" ng-bind="option.text"></option>
+		</select>
+	</div>
+-->

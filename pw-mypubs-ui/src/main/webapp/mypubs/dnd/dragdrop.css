@@ -33,6 +33,15 @@
 }
 
 
+.animate-remove-entry  {
+    /*  Simple transition */
+    -webkit-transition: height 0.25s ease-in-out;
+    -moz-transition: height 0.25s ease-in-out;
+    transition: height 0.25s ease-in-out;
+}
+
+
+
 .animate.ng-enter, 
 .animate.ng-leave
 { 
