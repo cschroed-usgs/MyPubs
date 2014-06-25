@@ -219,12 +219,17 @@ function ($scope, DataRowFieldService, Authors, $log) {
 		$scope.indexDrag = index
 	}
 	$scope.reoderDnd = function(end) {
+		var start = $scope.indexDrag
+
+		if ( start === undefined ) {
+			return
+		}
+
 		if ( $(".dnd-over-top").length ) {
 			end -= 0.5 // insert above drop location
 		} else {
 			end += 0.5 // insert below drop location
 		}
-		var start = $scope.indexDrag
 		var entry = Authors.findIndexByOrder(start)
 		var inc   = (((end-start) < 1) ?-1 :+1)
 
@@ -232,7 +237,7 @@ function ($scope, DataRowFieldService, Authors, $log) {
 			Authors.reorder( entry.id, inc)
 			start += inc
 		}
-
+		$scope.indexDrag = undefined
 	}
 
 	$scope.isCorporation = function(entry) {

@@ -224,12 +224,18 @@ function ($scope, DataRowFieldService, Links, $log) {
 		$scope.indexDrag = index
 	}
 	$scope.reoderDnd = function(end) {
+		var start = $scope.indexDrag
+
+		if ( start === undefined ) {
+			return
+		}
+
 		if ( $(".dnd-over-top").length ) {
 			end -= 0.5 // insert above drop location
 		} else {
 			end += 0.5 // insert below drop location
 		}
-		var start = $scope.indexDrag
+
 		var link  = Links.findByOrder(start)
 		var inc   = (((end-start) < 1) ?-1 :+1)
 
@@ -238,6 +244,8 @@ function ($scope, DataRowFieldService, Links, $log) {
 			Links.reorder( link.id, inc)
 			start += inc
 		}
+
+		$scope.indexDrag = undefined
 	}
 
 }])
