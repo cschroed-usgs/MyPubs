@@ -39,15 +39,15 @@
 	ng-style="{top: ((entries.length * 89) + 'px')}">New Author</button>
   </div>
   <div ng-style="{height: ((entries.length * 89) + 'px')}" class="animate-remove-entry"></div>	
+<div style="margin-bottom:10px;">
+    <div class="label labelSelect" style="width:146px">Cost Centers</div>
+	<select placeholder="Enter a Cost Center" ui-select2 ng-model="costcenters" class="linkType" style="width:450px">
+		<option value=""></option>
+		<option ng-repeat="option in costCenterOptions" value="{{option.value}}" ng-bind="option.text"></option>
+	</select>
+</div>
 </div>
 
 
 <!--
-	<div>
-	    <div class="label">Cost Centers<div>
-		<select placeholder="Enter a Cost Center" ui-select2 ng-model="costcenters" class="linkType" style="width:400px">
-			<option value=""></option>
-			<option ng-repeat="option in costCenterOptions" value="{{option.value}}" ng-bind="option.text"></option>
-		</select>
-	</div>
 -->
