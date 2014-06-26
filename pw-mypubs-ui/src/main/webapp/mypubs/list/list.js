@@ -9,7 +9,7 @@ mod.directive('pwList', ['$compile', function($compile) {
 	var pwList = {
 		restrict     : 'AEC', //AEC
 		replace      : true,
-		transclude   : true,
+		transclude   : 'element',
 //		scope        : true,
 		scope        : {
 			entries  : "=entries",
@@ -86,7 +86,7 @@ mod.directive('pwList', ['$compile', function($compile) {
 			// $scope.aNewEntry   = {}
 
 			transclude($scope, function(inner) {
-				$scope.listEntry = inner
+				$scope.listEntry = $compile(inner)
 			})
 
 		}
@@ -101,7 +101,8 @@ mod.directive('pwListEntry', function($compile) {
 		transclude  : true,
         link: function($scope, element, attrs, ctrl, $transclude){
             $transclude($scope, function(inner) {              
-                element.append($compile($scope.listEntry.clone())($scope) );
+//                element.append($compile($scope.listEntry.clone())($scope) );
+                element.append( $scope.listEntry($scope) );
             });
         }
     }
