@@ -133,10 +133,9 @@
 		          </execution>
 		        </executions>
 		        <configuration>
-		          <version>1.9.2</version>
+		          <version>1.9.7</version>
 		        </configuration>
 		    </plugin>
-
 			<plugin>
 				<groupId>com.github.searls</groupId>
 				<artifactId>jasmine-maven-plugin</artifactId>
@@ -152,7 +151,13 @@
 
 				<configuration>
 			        <webDriverClassName>org.openqa.selenium.phantomjs.PhantomJSDriver</webDriverClassName>
-					<preloadSources>
+				<webDriverCapabilities>
+	                               <capability>
+	                                  <name>phantomjs.binary.path</name>
+	                                  <value>${phantomjs.binary}</value>
+	                               </capability>
+	                        </webDriverCapabilities>			        
+				<preloadSources>
 			            <!-- source>src/main/webapp/js/lib/jquery.1.11.0.min.js</source -->
 						<source>src/main/webapp/lib/jquery/jquery.1.11.0.js</source>
 						<source>src/main/webapp/lib/underscore/underscore.1.6.0.js</source>
