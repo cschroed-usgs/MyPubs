@@ -13,19 +13,18 @@ mod.directive('pwTabs', function() {
 		transclude : true,
 		templateUrl: 'mypubs/tabs/tabs.html',
 
-		setActive  : function($scope, tabName) {
+		setActive  : function(tabName) {
 			pwTabs.activeTab = tabName
-			$scope.setRoute(tabName)
 		},
 		getActive  : function() {
 			return pwTabs.activeTab
 		},
 
 		controller : function($scope) {
-
 			$scope.setTab = function(tabName) {
 				$scope.showPreview(true)
-				pwTabs.setActive($scope, tabName)
+				$scope.setRoute(tabName)
+				pwTabs.setActive(tabName)
 			}
 			
 			$scope.isActive = function(tabName) {
@@ -35,11 +34,10 @@ mod.directive('pwTabs', function() {
 
 		link : function($scope, el, attrs) {
 			$scope.tabs = attrs.names.split(',')
-
 			if (attrs.active) {
 				pwTabs.setActive(attrs.active)
 			} else {
-				pwTabs.setActive($scope, $scope.tabs[0])
+				pwTabs.setActive($scope.tabs[0])
 			}
 		}
 	}
