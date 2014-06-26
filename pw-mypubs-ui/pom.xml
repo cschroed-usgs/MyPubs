@@ -143,7 +143,7 @@
             <executions> 
             <execution>
             <goals> 
-               <goal>install</goal> 
+               <goal>test</goal> 
             </goals> 
             </execution> 
             </executions>
