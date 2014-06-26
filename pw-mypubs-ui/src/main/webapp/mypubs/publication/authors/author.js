@@ -1,7 +1,7 @@
 (function() {
 
 
-var mod = angular.module('pw.author',['ngRoute','pw.fetcher', 'pw.dragdrop'])
+var mod = angular.module('pw.author',['ngRoute','pw.fetcher', 'pw.dragdrop', 'pw.list'])
 
 
 mod.config([
@@ -37,6 +37,12 @@ function (PublicationFetcher) {
 			ctx.entries = PublicationFetcher.get().author
 			ctx.hasEntries = true
 		}
+
+		_.each(ctx.entries, function(entry) {
+			if ( ! entry.type || entry.type==="") {
+				entry.type = (!entry.given||entry.given==='') ?'c':'a'
+			}
+		})
 	}
 
 
@@ -169,78 +175,22 @@ function ($scope, DataRowFieldService, Authors, $log) {
 
 	Authors.setEntries()
 
-	$scope.entries     = Authors.getEntries()
+	$scope.Authors     = Authors
+	$scope.authors     = Authors.getEntries()
 	$scope.typeOptions = Authors.getTypeOptions()
 
-	$scope.isNewEntry  = false
-	$scope.aNewEntry   = {}
 
-	_.each($scope.entries, function(entry) {
-		if ( ! entry.type || entry.type==="") {
-			entry.type = (!entry.given||entry.given==='') ?'c':'a'
-		}
-	})
-
-	$scope.newEntry = function() {
-		if ( $scope.isNewEntry ) {
-			return
-		}
-
-		$scope.aNewEntry = Authors.newEntry()
-		$scope.isNewEntry = true
-
-		$scope.$watch('aNewEntry', function(entry) {
-			if (entry.email   === ""
-			 && entry.family  === ""
-			 && entry.given   === ""
-			 && entry.literal === ""
-				) {
-				return
-			}
-			$scope.isNewEntry = false
-		}, true)
+	$scope.isDirty     = function(entry) {
+		return (entry.email   !== ""
+			 || entry.family  !== ""
+			 || entry.given   !== ""
+			 || entry.literal !== ""
+			) 
 	}
 
-	$scope.remove = function(id) {
-		if (id===$scope.aNewEntry.id) {
-			$scope.isNewEntry = false
-		}
-		$scope.entries = Authors.remove(id)
-	}
-
-	$scope.reorderUp = function(id) {
-		Authors.reorder(id,-1)
-	}
-	$scope.reorderDown = function(id) {
-		Authors.reorder(id,+1)
-	}
-
-	$scope.startDnd  = function(index) {
-		$scope.indexDrag = index
-	}
-	$scope.reoderDnd = function(end) {
-		var start = $scope.indexDrag
-
-		if ( start === undefined ) {
-			return
-		}
-
-		if ( $(".dnd-over-top").length ) {
-			end -= 0.5 // insert above drop location
-		} else {
-			end += 0.5 // insert below drop location
-		}
-		var entry = Authors.findIndexByOrder(start)
-		var inc   = (((end-start) < 1) ?-1 :+1)
-
-		while ( (inc<0 && start+inc > end) || (inc>0 && start+inc < end) ) {
-			Authors.reorder( entry.id, inc)
-			start += inc
-		}
-		$scope.indexDrag = undefined
-	}
 
 	$scope.isCorporation = function(entry) {
+		console.log('isCorporation')
 		return entry.type === 'c'
 	}
 

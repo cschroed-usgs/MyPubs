@@ -41,7 +41,7 @@ function ($scope, $log, $location) {
 
 	// sets the angular path on the url location hash
 	$scope.setRoute = function(routeName) {
-		$scope.log('setRoute ' + routeName)
+		//$scope.log('setRoute ' + routeName)
 		$location.path('/' + routeName)
 	}
 
