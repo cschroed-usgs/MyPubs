@@ -1,6 +1,5 @@
 .list-group {
-
-
+	overflow:hidden; 
 }
 .list-group:hover {
 	background-color: #FAFAFA !important;
