@@ -19,9 +19,7 @@ mod.service('Contacts',
 [ 'DataRowFieldService', 'PublicationFetcher', 'Collection',
 function (DataRowFieldService, PublicationFetcher, Collection) {
 
-	var ctx = this
-
-	Collection(ctx)
+	var ctx = Collection(this)
 
 	ctx.id       = ''
 	ctx.contact  = []

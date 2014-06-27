@@ -7,9 +7,7 @@ angular.module('pw.collection',['pw.fetcher'])
 .factory('Collection', 
 [ 'PublicationFetcher',
 function (PublicationFetcher) {
-	return function(extend) {
-
-		var ctx = {}
+	return function(ctx) {
 
 		ctx.entries = []
 		ctx.hasEntries = false
@@ -137,10 +135,6 @@ function (PublicationFetcher) {
 
 			return ctx.entries = entries1
 		}
-
-		_.each(ctx, function(value, key){
-			extend[key] = value
-		})
 
 		return ctx
 	}

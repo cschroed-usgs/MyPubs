@@ -19,9 +19,7 @@ mod.service('Authors',
 [ 'PublicationFetcher', 'Collection',
 function (PublicationFetcher, Collection) {
 
-	var ctx = this
-
-	Collection(ctx)
+	var ctx = Collection(this)
 
 
 	ctx.setAuthors = function(entries) {

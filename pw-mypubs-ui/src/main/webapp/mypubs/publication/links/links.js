@@ -19,9 +19,7 @@ mod.service('Links',
 [ 'PublicationFetcher', 'Collection',
 function (PublicationFetcher, Collection) {
 
-	var ctx = this
-
-	Collection(ctx)	
+	var ctx = Collection(this)
 
 
 	ctx.setLinks = function(links) {
