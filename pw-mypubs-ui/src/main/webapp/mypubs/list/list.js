@@ -19,6 +19,7 @@ mod.directive('pwList', function($parse) {
 			$scope.entryHeight = $parse($attrs.entryHeight)()
 			$scope.rowHeight   = ($scope.entryHeight) + 'px'
 			$scope.rowWidth    = $parse($attrs.entryWidth)() + 'px'
+			$scope.controlsLeft= $attrs.controlsAlign === 'left'
 		},
 
 		controller   : function($scope) {
@@ -85,6 +86,12 @@ mod.directive('pwList', function($parse) {
 			}
 			$scope.listHeight  = function() {
 				return ($scope.entries.length * $scope.entryHeight) + 'px'
+			}
+			$scope.controlsAlignment = function() {
+				return 'list-reorder-handle-' + ($scope.controlsLeft ?'left' :'right')
+			}
+			$scope.controlsTop = function() {
+				return (-$scope.entryHeight/2 -14) + 'px'
 			}
 
 		},

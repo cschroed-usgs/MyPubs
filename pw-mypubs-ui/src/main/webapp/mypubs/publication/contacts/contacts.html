@@ -2,7 +2,8 @@
 	<h4>All {{contacts.length}} Contact{{contacts.length===1?'':'s'}}</h4>
 	<div class="contactsGroup">
 
-    	<div pw-list entries="contacts" type-label="'Contact'" entry-height="166" entry-width="400" service="Contacts">
+    	<div pw-list entries="contacts" type-label="'Contact'" entry-height="166" entry-width="400" 
+    		 service="Contacts" controls-align="left">
 			<div class="contactItem" ng-click="select(entry.id)"
 				 ng-class="isSelected(entry.id)?'contactSelected':'contact'">
 
