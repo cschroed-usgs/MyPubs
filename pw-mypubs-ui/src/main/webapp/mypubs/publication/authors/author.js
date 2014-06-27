@@ -70,7 +70,6 @@ function ($scope, Authors, $log) {
 
 
 	$scope.isCorporation = function(author) {
-		console.log('isCorporation')
 		return author.type === 'c'
 	}
 

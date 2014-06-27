@@ -79,6 +79,11 @@ function ($scope, Contacts, $log, $location) {
 	})
 
 	$scope.showPreview( $location.path() !== '/Contacts' )
+
+	$scope.newEntry = function() {
+		var contact = Contacts.newEntry(['name','address1','address2','address3','city','state','zipcode','website','link','link_text'])
+		Contacts.select(contact.id)
+	}
 	
 }])
 
@@ -159,13 +164,13 @@ var fields = function() {
 			rowType: "Gap",
 		},
 		{
-			name   : "link",
-			label  : "Link",
+			name   : "link_text",
+			label  : "Link Text",
 			rowType: "Text",
 		},
 		{
-			name   : "link_text",
-			label  : "Link Text",
+			name   : "link",
+			label  : "Link",
 			rowType: "Text",
 		},
 
