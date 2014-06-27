@@ -1,25 +1,24 @@
 (function() {
 
 
-var mod = angular.module('pw.list', [])
+var mod = angular.module('pw.list', ['pw.dragdrop'])
 
 
-mod.directive('pwList', ['$compile', function($compile) {
+mod.directive('pwList', function() {
 
 	var pwList = {
-		restrict     : 'AEC', //AEC
 		replace      : true,
-		transclude   : 'element',
-//		scope        : true,
+		transclude   : true,
+		templateUrl: 'mypubs/list/list.html',
 		scope        : {
-			entries  : "=entries",
-			Entries  : "=service",
-			type: "=type",
+			entries    : '=',
+			Entries    : "=service",
+			type       : '=',
+			entryHeight: '=',
 		},
 		templateUrl: 'mypubs/list/list.html',
 
 		controller  : function($scope) {
-//console.log($scope.type)
 
 			$scope.isNewEntry  = false
 			$scope.aNewEntry   = {}
@@ -81,32 +80,20 @@ mod.directive('pwList', ['$compile', function($compile) {
 
 		},
 
-		link : function($scope, el, attrs, ctrl, transclude) {
-			// $scope.isNewEntry  = false
-			// $scope.aNewEntry   = {}
-
-			transclude($scope, function(inner) {
-				$scope.listEntry = $compile(inner)
-			})
-
-		}
 	}
 
 	return pwList
-}])
+})
 
 
-mod.directive('pwListEntry', function($compile) {
+mod.directive('pwListEntry', function(){
     return {
-		transclude  : true,
-        link: function($scope, element, attrs, ctrl, $transclude){
-            $transclude($scope, function(inner) {              
-//                element.append($compile($scope.listEntry.clone())($scope) );
-                element.append( $scope.listEntry($scope) );
+        link: function(scope, element, attrs, ctrl, transclude){
+            transclude(scope, function(inner) {              
+                element.append(inner);
             });
         }
     }
-
-})
+});
 
 }) ()

@@ -24,7 +24,7 @@
     /* Top: 0; this will be changed for every single list item by AngularJS */
     top:0;
     /* Item height; hold this in sync with template file */
-    height: 89px;
+    /*height: 89px;*/
     /*  Simple transition */
     -webkit-transition: top 0.5s ease-in-out;
     -moz-transition: top 0.5s ease-in-out;
@@ -64,5 +64,5 @@
 
 .animate.ng-enter.ng-enter-active, 
 .animate.ng-leave {
-	height: 89px;
+	/*height: 89px;*/
 }

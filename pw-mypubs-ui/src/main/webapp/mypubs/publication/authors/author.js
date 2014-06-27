@@ -1,7 +1,7 @@
 (function() {
 
 
-var mod = angular.module('pw.author',['ngRoute','pw.fetcher', 'pw.dragdrop', 'pw.list'])
+var mod = angular.module('pw.author',['ngRoute','pw.fetcher', 'pw.list'])
 
 
 mod.config([

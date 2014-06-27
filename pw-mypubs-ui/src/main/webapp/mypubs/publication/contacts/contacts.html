@@ -1,6 +1,6 @@
 <div id="contacts"  ng-controller="contactsCtrl">
 	<h4>All {{contacts.length}} Contact{{contacts.length===1?'':'s'}}</h4>
-	<div class="list-group" >
+	<div class="list-group-contacts" >
 		<div class="contactList" ng-repeat="contact in contacts" ng-click="select(contact.id)">
 
 			<a href="#" class="list-group-item" prevent-default

@@ -1,13 +1,13 @@
 
 <div id="authors" ng-controller="authorsCtrl">
+    <div pw-list entries="authors" type="'Author'" entry-height="75" service="Authors" >
 
-    <pw:list entries="authors" service="Authors" type="'Author'">
 		<select placeholder="Type" ui-select2 ng-model="entry.type" class="authorType" style="width:125px;">
 			<option value=""></option>
 			<option ng-repeat="option in typeOptions" value="{{option.value}}" ng-bind="option.text"></option>
 		</select>
 		<span ng-hide="isCorporation(entry)">
-			<input placeholder="Last Name"  type="text" ng-model="entry.family" style="width:165px;">
+			<input placeholder="Last Name"  type="text" ng-model="entry.family" style="width:166px;">
 			<input placeholder="First Name" type="text" ng-model="entry.given"  style="width:200px;">
 			<input placeholder="Email"      type="text" ng-model="entry.email"  style="width:200px;">
 			<div></div>
@@ -15,7 +15,8 @@
 		</span>
 		<input placeholder="Corporation"  type="text" ng-model="entry.literal"  style="width:574px;">
 		<div ng-show="isCorporation(entry)">&nbsp;</div>
-    </pw:list>
+
+    </div>
 
 	<div style="margin-bottom:10px;">
 	    <div class="label labelSelect" style="width:146px">Cost Centers</div>
