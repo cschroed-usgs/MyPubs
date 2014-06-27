@@ -44,7 +44,7 @@ function (PublicationFetcher, Collection) {
 
 
 	ctx.newEntry = function() {
-         return ctx._newEntry(['type','url','text','size','fileType','description'])
+        return ctx._newEntry(['type','url','text','size','fileType','description'])
 	}
 
 
