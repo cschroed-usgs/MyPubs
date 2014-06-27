@@ -1,7 +1,7 @@
 (function() {
 
 
-var mod = angular.module('pw.links',['ngRoute','pw.fetcher', 'pw.dragdrop'])
+var mod = angular.module('pw.links',['ngRoute','pw.fetcher', 'pw.list'])
 
 
 mod.config([
@@ -172,8 +172,8 @@ function (PublicationFetcher) {
 
 
 mod.controller('linksCtrl', [
-'$scope', 'PublicationFetcher', 'Links', '$log',
-function ($scope, DataRowFieldService, Links, $log) {
+'$scope', 'Links', '$log',
+function ($scope, Links, $log) {
 
 	Links.setLinks()
 
@@ -181,71 +181,14 @@ function ($scope, DataRowFieldService, Links, $log) {
 	$scope.typeOptions = Links.getTypeOptions()
 	$scope.fileOptions = Links.getFileOptions()
 
-	$scope.isNewLink = false
-	$scope.aNewLink  = {}
-
-	$scope.newLink = function() {
-		if ( $scope.isNewLink ) {
-			return
-		}
-
-		$scope.aNewLink = Links.newLink()
-		$scope.isNewLink = true
-
-		$scope.$watch('aNewLink', function(link) {
-			if (link.description === ""
-			 && link.type === ""
-			 && link.url  === ""
-			 && link.text === ""
-			 && link.size === ""
-			 && link.fileType    === ""
-				) {
-				return
-			}
-			$scope.isNewLink = false
-		}, true)
-	}
-
-	$scope.remove = function(id) {
-		if (id===$scope.aNewLink.id) {
-			$scope.isNewLink = false
-		}
-		$scope.links = Links.remove(id)
-	}
-
-	$scope.reorderUp = function(id) {
-		Links.reorder(id,-1)
-	}
-	$scope.reorderDown = function(id) {
-		Links.reorder(id,+1)
-	}
-
-	$scope.startDnd  = function(index) {
-		$scope.indexDrag = index
-	}
-	$scope.reoderDnd = function(end) {
-		var start = $scope.indexDrag
-
-		if ( start === undefined ) {
-			return
-		}
-
-		if ( $(".dnd-over-top").length ) {
-			end -= 0.5 // insert above drop location
-		} else {
-			end += 0.5 // insert below drop location
-		}
-
-		var link  = Links.findByOrder(start)
-		var inc   = (((end-start) < 1) ?-1 :+1)
-
-		// handle bi-directional reorder
-		while ( (inc<0 && start+inc > end) || (inc>0 && start+inc < end) ) {
-			Links.reorder( link.id, inc)
-			start += inc
-		}
-
-		$scope.indexDrag = undefined
+	$scope.isDirty     = function(entry) {
+		return (link.description !== ""
+			 || link.type !== ""
+			 || link.url  !== ""
+			 || link.text !== ""
+			 || link.size !== ""
+			 || link.fileType    !== ""
+			) 
 	}
 
 }])

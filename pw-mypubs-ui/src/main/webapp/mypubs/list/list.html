@@ -30,7 +30,7 @@
 	</div>
 	
 	<button ng-click="newEntry()" class="btn" ng-disabled="isNewEntry" style="position:relative;float:right;" 
-			ng-style="{top: listHeight}">New {{type}}</button>
-	<div ng-style="{height: listHeight}" class="animate-remove-entry"></div>	
+			ng-style="{top: listHeight()}">New {{typeLabel}}</button>
+	<div ng-style="{height: listHeight()}" class="animate-remove-entry"></div>	
 </div>
 

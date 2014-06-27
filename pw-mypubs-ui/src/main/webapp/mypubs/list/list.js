@@ -13,11 +13,10 @@ mod.directive('pwList', function($parse) {
 		templateUrl  : 'mypubs/list/list.html',
 
 		link : function($scope, $el, $attrs) {
-			$scope.entries = $scope[$attrs.entries]
-			pwList.service = $scope[$attrs.service]
-			$scope.type    = $parse($attrs.type)()
+			pwList.service     = $scope[$attrs.service]
+			$scope.entries     = $scope[$attrs.entries]
+			$scope.typeLabel   = $parse($attrs.typeLabel)()
 			$scope.entryHeight = $parse($attrs.entryHeight)()
-			$scope.listHeight  = ($scope.entries.length * $scope.entryHeight) + 'px'
 			$scope.rowHeight   = ($scope.entryHeight) + 'px'
 		},
 
@@ -33,7 +32,6 @@ mod.directive('pwList', function($parse) {
 
 				$scope.aNewEntry  = pwList.service.newEntry()
 				$scope.isNewEntry = true
-				$scope.listHeight  = ($scope.entries.length * $scope.entryHeight) + 'px'
 
 				$scope.$watch('aNewEntry', function(entry) {
 					if ( $scope.isDirty(entry) ) {
@@ -83,6 +81,9 @@ mod.directive('pwList', function($parse) {
 
 			$scope.entryTop   = function(count) {
 				return (count * $scope.entryHeight) + 'px'
+			}
+			$scope.listHeight  = function() {
+				return ($scope.entries.length * $scope.entryHeight) + 'px'
 			}
 
 		},

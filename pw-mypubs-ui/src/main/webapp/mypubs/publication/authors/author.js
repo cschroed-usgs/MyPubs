@@ -170,8 +170,8 @@ function (PublicationFetcher) {
 
 
 mod.controller('authorsCtrl', [
-'$scope', 'PublicationFetcher', 'Authors', '$log',
-function ($scope, DataRowFieldService, Authors, $log) {
+'$scope', 'Authors', '$log',
+function ($scope, Authors, $log) {
 
 	Authors.setEntries()
 
