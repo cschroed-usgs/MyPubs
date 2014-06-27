@@ -6,23 +6,27 @@
 	content: ",";
 }
 
+
+.contactsGroup {
+	height: 520px;
+	width: 400px;
+	overflow-y: scroll;
+}
+
+.contactList {
+	width: 400px;
+}
+
+
+.contactItem {
+	padding: 0px 15px 10px 15px;
+	width: 400px;
+}
+
 .contactSelected {
 	background-color: #FAFAFF;
 }
-
 .contactSelected:hover {
 	background-color: #EEEEFF !important;
 }
 
-.list-group-contacts {
-	height: 520px;
-	overflow-y: scroll;
-}
-.list-group-item {
-	border-bottom: none !important;
-}
-.list-group-item-links {
-	border: 1px solid #ddd;
-	border-top: none;
-	padding: 0px 15px 10px 15px;
-}

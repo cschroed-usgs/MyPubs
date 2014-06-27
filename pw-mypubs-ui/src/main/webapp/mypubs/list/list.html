@@ -3,7 +3,7 @@
 
 		<div ng-repeat="entry in entries track by entry.id"
 		    class="list-group animate dnd-animate-reorder-entry"
-		    ng-style="{top: entryTop(entry.order), height:rowHeight}" 
+		    ng-style="{top: entryTop(entry.order), height:rowHeight, width:rowWidth}" 
 		    pw-droppable drop="reoderDnd(entry.order)" 
 		    pw-draggable drag="startDnd(entry.order)">
 

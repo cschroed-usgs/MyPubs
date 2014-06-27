@@ -53,12 +53,12 @@
 				</div>
 
 				<div class="col-lg-4">
-					<div id="preview" class="preview" ng-show="showPreview()">
+					<div id="preview" class="preview" ng-if="showPreview()">
 						<div class="previewTitle">Public Pubs Preview</div>
 						<iframe src="preview.html"></iframe>
 						<!-- iframe src="http://pubs.er.usgs.gov/publication/sir20145055"></iframe -->
 					</div>
-					<div id="sideView" ng-hide="showPreview()">
+					<div id="sideView" ng-if="!showPreview()">
 						<pw:contacts></pw:contacts>
 					</div>
 				</div>

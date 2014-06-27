@@ -17,7 +17,7 @@
 .dnd-animate-reorder {
     /* Needed, otherwise items would be at top of the page (see below) */
     position: absolute;
-    width: 750px;
+/*    width: 750px;*/
 }
 .dnd-animate-reorder-entry  {
     position: absolute;
@@ -29,7 +29,7 @@
     -webkit-transition: top 0.5s ease-in-out;
     -moz-transition: top 0.5s ease-in-out;
     transition: top 0.5s ease-in-out;
-    width: 750px;
+    /*width: 750px;*/
 }
 
 

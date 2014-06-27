@@ -1,7 +1,7 @@
 (function() {
 
 
-var mod = angular.module('pw.contacts',['pw.dataRow','ngRoute','pw.fetcher'])
+var mod = angular.module('pw.contacts',['pw.dataRow','ngRoute','pw.fetcher', 'pw.list'])
 
 
 mod.config([
@@ -95,6 +95,10 @@ function ($scope, Contacts, $log, $location) {
 
 	Contacts.setContacts()
 
+	$scope.Contacts = Contacts
+	$scope.contacts = Contacts.contacts
+	
+
 	$scope.isSelected = function(contactId) {
 		return Contacts.isActive(contactId)
 	}
@@ -104,7 +108,6 @@ function ($scope, Contacts, $log, $location) {
 		return false
 	}
 
-	$scope.contacts = Contacts.contacts
 
 	$scope.showPreview( $location.path() !== '/Contacts' )
 

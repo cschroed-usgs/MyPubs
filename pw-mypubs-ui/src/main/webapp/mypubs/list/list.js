@@ -18,6 +18,7 @@ mod.directive('pwList', function($parse) {
 			$scope.typeLabel   = $parse($attrs.typeLabel)()
 			$scope.entryHeight = $parse($attrs.entryHeight)()
 			$scope.rowHeight   = ($scope.entryHeight) + 'px'
+			$scope.rowWidth    = $parse($attrs.entryWidth)() + 'px'
 		},
 
 		controller   : function($scope) {
