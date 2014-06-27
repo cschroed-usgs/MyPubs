@@ -21,7 +21,7 @@ function (DataRowFieldService, PublicationFetcher, Collection) {
 
 	var ctx = this
 
-	Collection.extend(ctx)
+	Collection(ctx)
 
 	ctx.id       = ''
 	ctx.contact  = []
