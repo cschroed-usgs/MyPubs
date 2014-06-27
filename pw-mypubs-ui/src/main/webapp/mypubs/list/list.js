@@ -4,33 +4,36 @@
 var mod = angular.module('pw.list', ['pw.dragdrop'])
 
 
-mod.directive('pwList', function() {
+mod.directive('pwList', function($parse) {
 
 	var pwList = {
 		replace      : true,
 		transclude   : true,
-		templateUrl: 'mypubs/list/list.html',
-		scope        : {
-			entries    : '=',
-			Entries    : "=service",
-			type       : '=',
-			entryHeight: '=',
-		},
-		templateUrl: 'mypubs/list/list.html',
+		scope        : true,
+		templateUrl  : 'mypubs/list/list.html',
 
-		controller  : function($scope) {
+		link : function($scope, $el, $attrs) {
+			$scope.entries = $scope[$attrs.entries]
+			pwList.service = $scope[$attrs.service]
+			$scope.type    = $parse($attrs.type)()
+			$scope.entryHeight = $parse($attrs.entryHeight)()
+			$scope.listHeight  = ($scope.entries.length * $scope.entryHeight) + 'px'
+			$scope.rowHeight   = ($scope.entryHeight) + 'px'
+		},
+
+		controller   : function($scope) {
 
 			$scope.isNewEntry  = false
 			$scope.aNewEntry   = {}
-			var Entries = $scope.Entries
 
 			$scope.newEntry = function() {
 				if ( $scope.isNewEntry ) {
 					return
 				}
 
-				$scope.aNewEntry  = Entries.newEntry()
+				$scope.aNewEntry  = pwList.service.newEntry()
 				$scope.isNewEntry = true
+				$scope.listHeight  = ($scope.entries.length * $scope.entryHeight) + 'px'
 
 				$scope.$watch('aNewEntry', function(entry) {
 					if ( $scope.isDirty(entry) ) {
@@ -43,14 +46,14 @@ mod.directive('pwList', function() {
 				if (id===$scope.aNewEntry.id) {
 					$scope.isNewEntry = false
 				}
-				$scope.entries = Entries.remove(id)
+				$scope.entries = pwList.service.remove(id)
 			}
 
 			$scope.reorderBefore = function(id) {
-				Entries.reorder(id,-1)
+				pwList.service.reorder(id,-1)
 			}
 			$scope.reorderAfter = function(id) {
-				Entries.reorder(id,+1)
+				pwList.service.reorder(id,+1)
 			}
 
 			$scope.startDnd  = function(index) {
@@ -68,14 +71,18 @@ mod.directive('pwList', function() {
 				} else {
 					end += 0.5 // insert below drop location
 				}
-				var entry = Entries.findIndexByOrder(start)
+				var entry = pwList.service.findIndexByOrder(start)
 				var inc   = (((end-start) < 1) ?-1 :+1)
 
 				while ( (inc<0 && start+inc > end) || (inc>0 && start+inc < end) ) {
-					Entries.reorder( entry.id, inc)
+					pwList.service.reorder( entry.id, inc)
 					start += inc
 				}
 				$scope.indexDrag = undefined
+			}
+
+			$scope.entryTop   = function(count) {
+				return (count * $scope.entryHeight) + 'px'
 			}
 
 		},
@@ -95,5 +102,6 @@ mod.directive('pwListEntry', function(){
         }
     }
 });
+
 
 }) ()

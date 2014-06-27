@@ -1,8 +1,9 @@
 <div style="width:750px;">
-	<div ng-style="{height: ((entries.length * entryHeight) + 'px')}" class="dnd-animate-reorder">
+	<div class="dnd-animate-reorder">
+
 		<div ng-repeat="entry in entries track by entry.id"
 		    class="list-group animate dnd-animate-reorder-entry"
-		    ng-style="{top: ((entry.order * entryHeight) + 'px')}" 
+		    ng-style="{top: entryTop(entry.order), height:rowHeight}" 
 		    pw-droppable drop="reoderDnd(entry.order)" 
 		    pw-draggable drag="startDnd(entry.order)">
 
@@ -29,7 +30,7 @@
 	</div>
 	
 	<button ng-click="newEntry()" class="btn" ng-disabled="isNewEntry" style="position:relative;float:right;" 
-			ng-style="{top: ((entries.length * entryHeight) + 'px')}">New {{type}}</button>
-	<div ng-style="{height: ((entries.length * entryHeight) + 'px')}" class="animate-remove-entry"></div>	
+			ng-style="{top: listHeight}">New {{type}}</button>
+	<div ng-style="{height: listHeight}" class="animate-remove-entry"></div>	
 </div>
 
