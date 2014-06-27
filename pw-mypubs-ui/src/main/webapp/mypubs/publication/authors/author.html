@@ -1,53 +1,29 @@
 
 <div id="authors" ng-controller="authorsCtrl">
+    <div pw-list entries="authors" type-label="'Author'" entry-height="75"  entry-width="750" service="Authors">
 
-  <div ng-style="{height: ((entries.length * 89) + 'px')}" class="tabPane dnd-animate-reorder">
+		<select placeholder="Type" ui-select2 ng-model="entry.type" class="authorType" style="width:125px;">
+			<option value=""></option>
+			<option ng-repeat="option in typeOptions" value="{{option.value}}" ng-bind="option.text"></option>
+		</select>
+		<span ng-hide="isCorporation(entry)">
+			<input placeholder="Last Name"  type="text" ng-model="entry.family" style="width:166px;">
+			<input placeholder="First Name" type="text" ng-model="entry.given"  style="width:200px;">
+			<input placeholder="Email"      type="text" ng-model="entry.email"  style="width:200px;">
+			<div></div>
+			<span style="width:122px;display: inline-block;"></span>
+		</span>
+		<input placeholder="Corporation"  type="text" ng-model="entry.literal"  style="width:574px;margin-left:3px;">
+		<div ng-show="isCorporation(entry)">&nbsp;</div>
 
-    <div ng-repeat="author in entries track by author.id" class="list-group animate dnd-animate-reorder-entry"
-    ng-style="{top: ((author.order * 89) + 'px')}" 
-    pw-droppable drop="reoderDnd(author.order)" 
-    pw-draggable drag="startDnd(author.order)">
-
-    	<div class="list-remove-handle">
-			<div class="glyphicon glyphicon-remove-circle list-remove"  ng-click="remove(author.id)"></div>
-		</div>
-    	<div class="list-entry">
-			<select placeholder="Type" ui-select2 ng-model="author.type" class="authorType" style="width:125px;">
-				<option value=""></option>
-				<option ng-repeat="option in typeOptions" value="{{option.value}}" ng-bind="option.text"></option>
-			</select>
-			<span ng-hide="isCorporation(author)">
-				<input placeholder="Last Name"  type="text" ng-model="author.family" style="width:165px;">
-				<input placeholder="First Name" type="text" ng-model="author.given"  style="width:200px;">
-				<input placeholder="Email"      type="text" ng-model="author.email"  style="width:200px;">
-				<div></div>
-				<span style="width:129px;display: inline-block;"></span>
-			</span>
-			<input placeholder="Corporation"  type="text" ng-model="author.literal"  style="width:574px;">
-			<div ng-show="isCorporation(author)">&nbsp;</div>
-
-	    </div>
-	    <div class="list-reorder-handle">
-			<div class="glyphicon glyphicon-collapse-up list-reorder-before" ng-click="reorderUp(author.id)" 
-			     ng-hide="author.order===0"></div>
-			<div class="glyphicon glyphicon-collapse-down list-reorder-after" ng-click="reorderDown(author.id)" 
-			     ng-hide="author.order===entries.length-1"></div>
-		</div>
     </div>
 
-	<button ng-click="newEntry()" class="btn" ng-disabled="isNewEntry" style="position:relative;float:right;" 
-	ng-style="{top: ((entries.length * 89) + 'px')}">New Author</button>
-  </div>
-  <div ng-style="{height: ((entries.length * 89) + 'px')}" class="animate-remove-entry"></div>	
-<div style="margin-bottom:10px;">
-    <div class="label labelSelect" style="width:146px">Cost Centers</div>
-	<select placeholder="Enter a Cost Center" ui-select2 ng-model="costcenters" class="authorType" style="width:450px">
-		<option value=""></option>
-		<option ng-repeat="option in costCenterOptions" value="{{option.value}}" ng-bind="option.text"></option>
-	</select>
-</div>
-</div>
+	<div style="margin-bottom:10px;">
+	    <div class="label labelSelect" style="width:146px">Cost Centers</div>
+		<select placeholder="Enter a Cost Center" ui-select2 ng-model="costcenters" class="authorType" style="width:450px">
+			<option value=""></option>
+			<option ng-repeat="option in costCenterOptions" value="{{option.value}}" ng-bind="option.text"></option>
+		</select>
+	</div>
 
-
-<!--
--->
+</div>

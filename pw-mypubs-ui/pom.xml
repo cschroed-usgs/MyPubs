@@ -151,12 +151,6 @@
 
 				<configuration>
 			        <webDriverClassName>org.openqa.selenium.phantomjs.PhantomJSDriver</webDriverClassName>
-				<webDriverCapabilities>
-	                               <capability>
-	                                  <name>phantomjs.binary.path</name>
-	                                  <value>${phantomjs.binary}</value>
-	                               </capability>
-	                        </webDriverCapabilities>			        
 				<preloadSources>
 			            <!-- source>src/main/webapp/js/lib/jquery.1.11.0.min.js</source -->
 						<source>src/main/webapp/lib/jquery/jquery.1.11.0.js</source>

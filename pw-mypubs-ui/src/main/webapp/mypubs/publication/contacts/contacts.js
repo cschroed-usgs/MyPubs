@@ -1,7 +1,7 @@
 (function() {
 
 
-var mod = angular.module('pw.contacts',['pw.dataRow','ngRoute','pw.fetcher'])
+var mod = angular.module('pw.contacts',['pw.dataRow','ngRoute','pw.fetcher', 'pw.list', 'pw.collection'])
 
 
 mod.config([
@@ -16,14 +16,12 @@ mod.config([
 
 
 mod.service('Contacts', 
-[ 'DataRowFieldService', 'PublicationFetcher',
-function (DataRowFieldService, PublicationFetcher) {
+[ 'DataRowFieldService', 'PublicationFetcher', 'Collection',
+function (DataRowFieldService, PublicationFetcher, Collection) {
 
-
-	var ctx = this
+	var ctx = Collection(this)
 
 	ctx.id       = ''
-	ctx.contacts = []
 	ctx.contact  = []
 	
 	ctx.listeners= []
@@ -40,18 +38,14 @@ function (DataRowFieldService, PublicationFetcher) {
 	}
 
 	ctx.setContacts = function(contacts) {
-		if (contacts) {
-			ctx.contacts = contacts
-		} else {
-			ctx.contacts = PublicationFetcher.get().contacts
-		}
+		ctx.setEntries(contacts, 'contacts')
 
-		if (ctx.contacts && ctx.contacts[0]) {
-			assignContact( ctx.contacts[0] )
+		if (ctx.getEntries() && ctx.getEntries()[0]) {
+			ctx._assignContact( ctx.getEntries()[0] )
 		}
 	}
 
-	var assignContact = function(contact) {
+	ctx._assignContact = function(contact) {
 		ctx.id = contact.id
 		ctx.contact = DataRowFieldService.fieldMapper(fields(), contact)
 
@@ -65,10 +59,10 @@ function (DataRowFieldService, PublicationFetcher) {
 	ctx.select = function(id) {
 		if ( ctx.isActive(id) ) return
 
-		var contact = _.where(ctx.contacts, {id: id})
+		var contact = _.where(ctx.getEntries(), {id: id})
 
 		if ( contact  && (contact=contact[0]) ) {
-			assignContact(contact)
+			ctx._assignContact(contact)
 		}
 	}
 }])
@@ -85,6 +79,11 @@ function ($scope, Contacts, $log, $location) {
 	})
 
 	$scope.showPreview( $location.path() !== '/Contacts' )
+
+	$scope.newEntry = function() {
+		var contact = Contacts.newEntry(['name','address1','address2','address3','city','state','zipcode','website','link','link_text'])
+		Contacts.select(contact.id)
+	}
 	
 }])
 
@@ -95,6 +94,10 @@ function ($scope, Contacts, $log, $location) {
 
 	Contacts.setContacts()
 
+	$scope.Contacts = Contacts
+	$scope.contacts = Contacts.getEntries()
+
+
 	$scope.isSelected = function(contactId) {
 		return Contacts.isActive(contactId)
 	}
@@ -104,7 +107,6 @@ function ($scope, Contacts, $log, $location) {
 		return false
 	}
 
-	$scope.contacts = Contacts.contacts
 
 	$scope.showPreview( $location.path() !== '/Contacts' )
 
@@ -162,13 +164,13 @@ var fields = function() {
 			rowType: "Gap",
 		},
 		{
-			name   : "link",
-			label  : "Link",
+			name   : "link_text",
+			label  : "Link Text",
 			rowType: "Text",
 		},
 		{
-			name   : "link_text",
-			label  : "Link Text",
+			name   : "link",
+			label  : "Link",
 			rowType: "Text",
 		},
 

@@ -53,12 +53,12 @@
 				</div>
 
 				<div class="col-lg-4">
-					<div id="preview" class="preview" ng-show="showPreview()">
+					<div id="preview" class="preview" ng-if="showPreview()">
 						<div class="previewTitle">Public Pubs Preview</div>
 						<iframe src="preview.html"></iframe>
 						<!-- iframe src="http://pubs.er.usgs.gov/publication/sir20145055"></iframe -->
 					</div>
-					<div id="sideView" ng-hide="showPreview()">
+					<div id="sideView" ng-if="!showPreview()">
 						<pw:contacts></pw:contacts>
 					</div>
 				</div>
@@ -88,6 +88,7 @@
 	<script type="text/javascript" src="mypubs/datarow/datarow.js"></script>
 
 	<script type="text/javascript" src="mypubs/main/mypubs.js"></script>
+	<script type="text/javascript" src="mypubs/main/collection.js"></script>
 
 	<script type="text/javascript" src="mypubs/publication/fetcher.js"></script>
 	<script type="text/javascript" src="mypubs/publication/action/actions.js"></script>
@@ -100,6 +101,7 @@
 	<script type="text/javascript" src="mypubs/publication/links/links.js"></script>
 	<script type="text/javascript" src="mypubs/publication/authors/author.js"></script>
 	<script type="text/javascript" src="mypubs/dnd/dragdrop.js"></script>
+	<script type="text/javascript" src="mypubs/list/list.js"></script>
 
 </body>
 </html>	
