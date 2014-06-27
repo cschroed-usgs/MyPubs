@@ -62,18 +62,18 @@ function ($scope, Authors, $log) {
 	$scope.typeOptions = Authors.getTypeOptions()
 
 
-	$scope.isDirty     = function(entry) {
-		return (entry.email   !== ""
-			 || entry.family  !== ""
-			 || entry.given   !== ""
-			 || entry.literal !== ""
+	$scope.isDirty     = function(author) {
+		return (author.email   !== ""
+			 || author.family  !== ""
+			 || author.given   !== ""
+			 || author.literal !== ""
 			) 
 	}
 
 
-	$scope.isCorporation = function(entry) {
+	$scope.isCorporation = function(author) {
 		console.log('isCorporation')
-		return entry.type === 'c'
+		return author.type === 'c'
 	}
 
 
