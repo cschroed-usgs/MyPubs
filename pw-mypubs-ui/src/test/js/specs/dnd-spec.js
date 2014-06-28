@@ -1,5 +1,5 @@
 
-describe("pw.dragdrop module dataRow directive", function() {
+describe("pw.dragdrop module directive", function() {
 
 
 	var $scope, el, idrag, idrop
