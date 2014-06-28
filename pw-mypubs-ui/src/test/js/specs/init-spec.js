@@ -8,6 +8,10 @@ describe("Javascript importing", function() {
         expect(jQuery).toBeDefined();
     }); 
        
+    it("loads jQuery simulate library", function() {
+        expect(jQuery.simulate).toBeDefined();
+    });  
+
     it("loads underscore.js library", function() {
         expect(_).toBeDefined();
     });
@@ -35,6 +39,10 @@ describe("Javascript importing", function() {
 
     it("loads Angular route library", function() {
         expect( angular.module('ngRoute') ).toBeDefined();
+    }); 
+       
+    it("loads Angular animate library", function() {
+        expect( angular.module('ngAnimate') ).toBeDefined();
     }); 
        
     it("loads Angular bootstrap library", function() {
