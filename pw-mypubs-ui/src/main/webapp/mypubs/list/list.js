@@ -24,27 +24,27 @@ mod.directive('pwList', function($parse) {
 
 		controller   : function($scope) {
 
-			$scope.isNewEntry  = false
+			$scope.isNewEntry  = {val:false}
 			$scope.aNewEntry   = {}
 
 			$scope.newEntry = function() {
-				if ( $scope.isNewEntry ) {
+				if ( $scope.isNewEntry.val ) {
 					return
 				}
 
 				$scope.aNewEntry  = pwList.service.newEntry()
-				$scope.isNewEntry = true
+				$scope.isNewEntry.val = true
 
 				$scope.$watch('aNewEntry', function(entry) {
 					if ( $scope.isDirty(entry) ) {
-						$scope.isNewEntry = false
+						$scope.isNewEntry.val = false
 					}
 				}, true)
 			}
 
 			$scope.remove = function(id) {
 				if (id===$scope.aNewEntry.id) {
-					$scope.isNewEntry = false
+					$scope.isNewEntry.val = false
 				}
 				$scope.entries = pwList.service.remove(id)
 			}
@@ -62,18 +62,20 @@ mod.directive('pwList', function($parse) {
 			$scope.reoderDnd = function(end) {
 				var start = $scope.indexDrag
 
-				if ( start === undefined ) {
+				if ( start === undefined || end === undefined
+					|| end < 0 || end >= $scope.entries.length ) {
 					return
 				}
+				var entry = pwList.service.findIndexByOrder(start)
 
 				if ( $(".dnd-over-top").length ) {
 					end -= 0.5 // insert above drop location
 				} else {
 					end += 0.5 // insert below drop location
 				}
-				var entry = pwList.service.findIndexByOrder(start)
-				var inc   = (((end-start) < 1) ?-1 :+1)
 
+				var inc   = (((end-start) < 1) ?-1 :+1)
+				// bi-directional loop
 				while ( (inc<0 && start+inc > end) || (inc>0 && start+inc < end) ) {
 					pwList.service.reorder( entry.id, inc)
 					start += inc

@@ -136,7 +136,7 @@ describe("pw.dragdrop module directive", function() {
 		describe("dragover events", function() {
 
 
-			it('should not have applied class after dragover with DragStarted.is false', function() {
+			it('should NOT have applied class after dragover with DragStarted.is false', function() {
 				inject( function(DragStarted) {
 					var d = el.find('#dropit')
 					var classBefore = d.attr('class')
@@ -270,7 +270,7 @@ describe("pw.dragdrop module directive", function() {
 			});
 
 
-			it('should not have called drop after drop if DragStarted.is false', function() {
+			it('should NOT have called drop after drop if DragStarted.is false', function() {
 				inject( function(DragStarted) {
 					var d = el.find('#dropit')
 
