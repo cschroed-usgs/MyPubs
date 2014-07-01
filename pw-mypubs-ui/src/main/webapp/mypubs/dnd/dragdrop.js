@@ -5,10 +5,11 @@ var mod = angular.module('pw.dragdrop', []);
 
 
 // prevent other drag-drop actions from triggering here
-var isDragStarted = false;
+// no DND from OS or other stay items from the page
+mod.value('DragStarted',{is:false})
 
 
-mod.directive('pwDraggable', function() {
+mod.directive('pwDraggable', ['DragStarted', function(DragStarted) {
     return { restrict : 'A',
         link: function($scope, element, attributes) {
             var el = element[0];
@@ -16,9 +17,7 @@ mod.directive('pwDraggable', function() {
             el.draggable = true;
 
             el.addEventListener('dragstart', function(e) {
-                e.dataTransfer.effectAllowed = 'move';
-
-                isDragStarted = true;
+                DragStarted.is = true;
                 this.classList.add('dnd-drag');
 
                 $scope.$apply(attributes.drag);
@@ -27,17 +26,17 @@ mod.directive('pwDraggable', function() {
             }, false);
 
             el.addEventListener('dragend', function(e) {
-                isDragStarted = false;
+                DragStarted.is = false;
                 this.classList.remove('dnd-drag');
 
                 return false;
             }, false);
         }
     }
-});
+}]);
 
 
-mod.directive('pwDroppable', function() {
+mod.directive('pwDroppable', ['DragStarted', function(DragStarted) {
     var removeDndClasses = function(el) {
         el.classList.remove('dnd-over');
         el.classList.remove('dnd-over-top');
@@ -52,11 +51,9 @@ mod.directive('pwDroppable', function() {
                 if (e.preventDefault) {
                     e.preventDefault();
                 }
-                if ( ! isDragStarted ) {
+                if ( ! DragStarted.is ) {
                     return
                 }
-
-                e.dataTransfer.dropEffect = 'move';
 
                 var top    = $(this).offset().top
                 var height = $(this).height()
@@ -83,7 +80,8 @@ mod.directive('pwDroppable', function() {
                 if (e.stopPropagation) {
                     e.stopPropagation();
                 }
-                if ( ! isDragStarted ) {
+                if ( ! DragStarted.is ) {
+                    removeDndClasses(this);
                     return
                 }
 
@@ -95,7 +93,7 @@ mod.directive('pwDroppable', function() {
             }, false);
         }
     }
-});
+}]);
 
 
 }) ()

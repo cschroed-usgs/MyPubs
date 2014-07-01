@@ -169,6 +169,7 @@
 						<source>src/test/js/lib/angular-mocks.1.2.17.js</source>
 			            <source>src/test/js/lib/sinon-1.10.1.js</source>
 			            <source>src/test/js/lib/jasmine-fixture.js</source>
+			            <source>src/test/js/lib/jquery.simulate.js</source>
 	          		</preloadSources>
 
 					<jsSrcDir>src/main/webapp/mypubs</jsSrcDir>
