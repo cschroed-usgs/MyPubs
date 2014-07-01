@@ -337,11 +337,11 @@ describe("pw.list module directive", function() {
 		});
 
 
-		it('should NOT have called findIndexByOrder if NO start dnd index set on reoderDnd', function() {
-			var findIndexByOrderCalled = false
+		it('should NOT have called findEntryByOrder if NO start dnd index set on reoderDnd', function() {
+			var findEntryByOrderCalled = false
 			$scope.TestService = {
-				findIndexByOrder : function(order) {
-					findIndexByOrderCalled = true
+				findEntryByOrder : function(order) {
+					findEntryByOrderCalled = true
 				},
 			}
 			compileTemplate()
@@ -350,15 +350,15 @@ describe("pw.list module directive", function() {
 			var scope = $(el).scope().$$childHead
 			scope.reoderDnd(0)
 
-			expect(findIndexByOrderCalled).toBeFalsy()
+			expect(findEntryByOrderCalled).toBeFalsy()
 		});
 
 
-		it('should NOT have called findIndexByOrder if end undefined on reoderDnd', function() {
-			var findIndexByOrderCalled = false
+		it('should NOT have called findEntryByOrder if end undefined on reoderDnd', function() {
+			var findEntryByOrderCalled = false
 			$scope.TestService = {
-				findIndexByOrder : function(order) {
-					findIndexByOrderCalled = true
+				findEntryByOrder : function(order) {
+					findEntryByOrderCalled = true
 				},
 			}
 			compileTemplate()
@@ -370,15 +370,15 @@ describe("pw.list module directive", function() {
 			var scope = $(el).scope().$$childHead
 			scope.reoderDnd()
 
-			expect(findIndexByOrderCalled).toBeFalsy()
+			expect(findEntryByOrderCalled).toBeFalsy()
 		});
 
 
-		it('should NOT have called findIndexByOrder if end out of bounds on reoderDnd', function() {
-			var findIndexByOrderCalled = false
+		it('should NOT have called findEntryByOrder if end out of bounds on reoderDnd', function() {
+			var findEntryByOrderCalled = false
 			$scope.TestService = {
-				findIndexByOrder : function(order) {
-					findIndexByOrderCalled = true
+				findEntryByOrder : function(order) {
+					findEntryByOrderCalled = true
 				},
 			}
 			compileTemplate()
@@ -390,18 +390,18 @@ describe("pw.list module directive", function() {
 			var scope = $(el).scope().$$childHead
 
 			scope.reoderDnd(-1)
-			expect(findIndexByOrderCalled).toBeFalsy()
+			expect(findEntryByOrderCalled).toBeFalsy()
 
 			scope.reoderDnd(3)
-			expect(findIndexByOrderCalled).toBeFalsy()
+			expect(findEntryByOrderCalled).toBeFalsy()
 		});
 
 
-		it('should have called findIndexByOrder if start dnd index set on reoderDnd', function() {
-			var findIndexByOrderCalled = false
+		it('should have called findEntryByOrder if start dnd index set on reoderDnd', function() {
+			var findEntryByOrderCalled = false
 			$scope.TestService = {
-				findIndexByOrder : function(order) {
-					findIndexByOrderCalled = true
+				findEntryByOrder : function(order) {
+					findEntryByOrderCalled = true
 				},
 			}
 			compileTemplate()
@@ -413,13 +413,13 @@ describe("pw.list module directive", function() {
 			var scope = $(el).scope().$$childHead
 			scope.reoderDnd(0)
 
-			expect(findIndexByOrderCalled).toBeTruthy()
+			expect(findEntryByOrderCalled).toBeTruthy()
 		});
 
 
 		it('should have cleared drag index to prepare for next drag on reoderDnd', function() {
 			$scope.TestService = {
-				findIndexByOrder : function(order) {},
+				findEntryByOrder : function(order) {},
 				reoder : function(order) {},
 			}
 			compileTemplate()
@@ -443,7 +443,7 @@ describe("pw.list module directive", function() {
 			var reorderId, reorderDir, count=0
 
 			$scope.TestService = {
-				findIndexByOrder : function(order) {
+				findEntryByOrder : function(order) {
 					return {id:'z'}
 				},
 				reorder : function(id,dir) {
@@ -477,7 +477,7 @@ describe("pw.list module directive", function() {
 			var reorderId, reorderDir
 
 			$scope.TestService = {
-				findIndexByOrder : function(order) {
+				findEntryByOrder : function(order) {
 					return {id:'z'}
 				},
 				reorder : function(id,dir) {
@@ -506,7 +506,7 @@ describe("pw.list module directive", function() {
 			var reorderId, reorderDir, count=0
 
 			$scope.TestService = {
-				findIndexByOrder : function(order) {
+				findEntryByOrder : function(order) {
 					return {id:'z'}
 				},
 				reorder : function(id,dir) {
@@ -537,7 +537,7 @@ describe("pw.list module directive", function() {
 			var reorderId, reorderDir
 
 			$scope.TestService = {
-				findIndexByOrder : function(order) {
+				findEntryByOrder : function(order) {
 					return {id:'z'}
 				},
 				reorder : function(id,dir) {
@@ -568,7 +568,7 @@ describe("pw.list module directive", function() {
 			var reorderId, reorderDir, count=0
 
 			$scope.TestService = {
-				findIndexByOrder : function(order) {
+				findEntryByOrder : function(order) {
 					return {id:'z'}
 				},
 				reorder : function(id,dir) {

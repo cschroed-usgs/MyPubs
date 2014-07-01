@@ -8,6 +8,9 @@ angular.module('pw.collection',['pw.fetcher'])
 [ 'PublicationFetcher',
 function (PublicationFetcher) {
 	return function(ctx) {
+		if (!ctx) {
+			ctx = {}
+		}
 
 		ctx.entries = []
 		ctx.hasEntries = false
@@ -21,6 +24,7 @@ function (PublicationFetcher) {
 		ctx.setEntries = function(entries, type) {
 			if (entries) {
 				ctx.entries = entries
+				ctx.hasEntries = true
 			} else if ( ! ctx.hasEntries && type ) {
 				ctx.entries = PublicationFetcher.get()[type]
 				ctx.hasEntries = true
@@ -52,30 +56,28 @@ function (PublicationFetcher) {
 					break
 				}
 			}
-			return i
+			return (i===ctx.entries.length) ?-1 :i
 		}
-		ctx.findIndexByOrder = function(order) {
+		ctx.findEntryByOrder = function(order) {
 			var i
 			for (i=0;i<ctx.entries.length;i++) {
 				if (ctx.entries[i].order === order) {
 					break
 				}
 			}
-			return ctx.entries[i]
+			return (i===ctx.entries.length) ?undefined :ctx.entries[i]
 		}
-		ctx._findElement = function(id) {
-			var i
-			for (i=0;i<ctx.entries.length;i++) {
-				if (ctx.entries[i].id === id) {
-					break
-				}
-			}
-			return ctx.entries[i]
+		ctx.findEntryById = function(id) {
+			var i = ctx.findIndexById(id)
+			return (i<0) ?undefined :ctx.entries[i]
 		}
 
 
 		ctx.remove = function(id) {
 			var i = ctx.findIndexById(id)
+			if (i<0) {
+				return
+			}
 			var oldOrder = ctx.entries[i].order
 			var entries1 = []
 			if (i>0) {
@@ -96,18 +98,21 @@ function (PublicationFetcher) {
 
 		ctx.reorder = function(id,direction) {
 			var i0 = ctx.findIndexById(id)
+			if (i0<0) {
+				return
+			}
 			var e0 = ctx.entries[i0]
 			var i1 = e0.order+direction
 			var e1
 			if (i1>=0 && i1<ctx.entries.length) {
-				e1 = ctx.findIndexByOrder(i1)
+				e1 = ctx.findEntryByOrder(i1)
 
 				var order = e0.order
 				e0.order  = e1.order
 				e1.order  = order
 			}
 		}
-
+/* TODO I know this should be delete this code but it works - commenting it for now until used
 		ctx.reorderArray = function(id,direction) {
 			var i0 = ctx.findIndexById(id)
 			var e0 = ctx.entries[i0]
@@ -135,6 +140,7 @@ function (PublicationFetcher) {
 
 			return ctx.entries = entries1
 		}
+*/
 
 		return ctx
 	}

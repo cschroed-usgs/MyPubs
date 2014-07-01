@@ -1,12 +1,12 @@
  /*!
- * jQuery Simulate v0.0.1 - simulate browser mouse and keyboard events
+ * jQuery Simulate v@VERSION - simulate browser mouse and keyboard events
  * https://github.com/jquery/jquery-simulate
  *
  * Copyright 2012 jQuery Foundation and other contributors
  * Released under the MIT license.
  * http://jquery.org/license
  *
- * Date: Sun Dec 9 12:15:33 2012 -0500
+ * Date: @DATE
  */
 
 ;(function( $, undefined ) {
@@ -72,7 +72,6 @@ $.extend( $.simulate.prototype, {
 	simulateEvent: function( elem, type, options ) {
 		var event = this.createEvent( type, options );
 		this.dispatchEvent( elem, type, event, options );
-		return event;
 	},
 
 	createEvent: function( type, options ) {
@@ -202,7 +201,9 @@ $.extend( $.simulate.prototype, {
 	},
 
 	dispatchEvent: function( elem, type, event ) {
-		if ( elem.dispatchEvent ) {
+		if ( elem[ type ] ) {
+			elem[ type ]();
+		} else if ( elem.dispatchEvent ) {
 			elem.dispatchEvent( event );
 		} else if ( elem.fireEvent ) {
 			elem.fireEvent( "on" + type, event );
@@ -278,37 +279,20 @@ function findCenter( elem ) {
 	};
 }
 
-function findCorner( elem ) {
-	var offset,
-		document = $( elem.ownerDocument );
-	elem = $( elem );
-	offset = elem.offset();
-
-	return {
-		x: offset.left - document.scrollLeft(),
-		y: offset.top - document.scrollTop()
-	};
-}
-
 $.extend( $.simulate.prototype, {
 	simulateDrag: function() {
 		var i = 0,
 			target = this.target,
 			options = this.options,
-			center = options.handle === "corner" ? findCorner( target ) : findCenter( target ),
+			center = findCenter( target ),
 			x = Math.floor( center.x ),
 			y = Math.floor( center.y ),
-			coord = { clientX: x, clientY: y },
-			dx = options.dx || ( options.x !== undefined ? options.x - x : 0 ),
-			dy = options.dy || ( options.y !== undefined ? options.y - y : 0 ),
-			moves = options.moves || 3;
+			dx = options.dx || 0,
+			dy = options.dy || 0,
+			moves = options.moves || 3,
+			coord = { clientX: x, clientY: y };
 
-		var e = this.simulateEvent( target, "mousedown", coord );
-		e = this.simulateEvent( target, "dragstart", coord );
-
-		if (options.dragStart) {
-			options.dragStart(e)
-		}
+		this.simulateEvent( target, "mousedown", coord );
 
 		for ( ; i < moves ; i++ ) {
 			x += dx / moves;
@@ -319,23 +303,11 @@ $.extend( $.simulate.prototype, {
 				clientY: Math.round( y )
 			};
 
-			e = this.simulateEvent( target.ownerDocument, "mousemove", coord );
-			e = this.simulateEvent( target, "dragover", coord );
-			if (options.dragIt) {
-				options.dragIt(e)
-			}
+			this.simulateEvent( document, "mousemove", coord );
 		}
 
-		if ( $.contains( document, target ) ) {
-			this.simulateEvent( target, "mouseup", coord );
-			e = this.simulateEvent( target, "click", coord );
-		} else {
-			e = this.simulateEvent( document, "mouseup", coord );
-		}
-		e = this.simulateEvent( target, "dragend", coord );
-		if (options.dragStop) {
-			options.dragStop(e)
-		}
+		this.simulateEvent( target, "mouseup", coord );
+		this.simulateEvent( target, "click", coord );
 	}
 });
 

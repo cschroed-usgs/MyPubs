@@ -4,7 +4,7 @@
 var mod = angular.module('pw.list', ['pw.dragdrop'])
 
 
-mod.directive('pwList', function($parse) {
+mod.directive('pwList', ['$parse', function($parse) {
 
 	var pwList = {
 		replace      : true,
@@ -66,7 +66,7 @@ mod.directive('pwList', function($parse) {
 					|| end < 0 || end >= $scope.entries.length ) {
 					return
 				}
-				var entry = pwList.service.findIndexByOrder(start)
+				var entry = pwList.service.findEntryByOrder(start)
 
 				if ( $(".dnd-over-top").length ) {
 					end -= 0.5 // insert above drop location
@@ -101,7 +101,7 @@ mod.directive('pwList', function($parse) {
 	}
 
 	return pwList
-})
+}])
 
 
 mod.directive('pwListEntry', function(){
