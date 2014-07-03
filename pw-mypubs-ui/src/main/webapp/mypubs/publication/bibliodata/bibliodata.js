@@ -1,7 +1,7 @@
 (function() {
 
 
-angular.module('pw.bibliodata',['pw.dataRow','ngRoute','pw.fetcher'])
+angular.module('pw.bibliodata',['pw.dataRow','ngRoute','pw.fetcher', 'pw.lookups'])
 
 
 .config(['$routeProvider',
@@ -15,13 +15,14 @@ angular.module('pw.bibliodata',['pw.dataRow','ngRoute','pw.fetcher'])
 
 
 .controller('biblioCtrl', [
-'$scope', 'DataRowFieldService', 'PublicationFetcher', '$log', 'biblioFields',
-function ($scope, DataRowFieldService, PublicationFetcher, $log, fields) {
+'$scope', 'DataRowFieldService', 'PublicationFetcher', '$log', 'biblioFields', 'LookupFetcher',
+function ($scope, DataRowFieldService, PublicationFetcher, $log, fields, Lookup) {
 
 	var pubData = PublicationFetcher.getById('asdf')
 	$scope.rows = fields
 	DataRowFieldService.fieldMapper(fields, pubData)
 
+	Lookup.get(Lookup.type.publication, optionsDecorator(fields[0], $scope))
 }])
 
 
@@ -31,7 +32,7 @@ function ($scope, DataRowFieldService, PublicationFetcher, $log, fields) {
 			name   : "pub_type",
 			label  : "Publication Type",
 			rowType: "Select",
-			options: [{value:"1",text:'USGS Series'},{value:"2",text:'Other Series'},],
+			options: [],
 			placeholder:"Select a Publication Type",
 		},
 		{
@@ -106,5 +107,15 @@ function ($scope, DataRowFieldService, PublicationFetcher, $log, fields) {
 	]
 })
 
+
+var optionsDecorator = function(datum, scope) {
+	return {
+		setValues : function(options) {
+			if (datum.options.length === 0) {
+				datum.options.push.apply(datum.options, options)
+			}
+		}
+	}
+}
 
 }) ()
