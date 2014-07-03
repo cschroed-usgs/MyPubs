@@ -1,0 +1,3 @@
+<div ng-controller="notifyCtrl">
+  <alert ng-repeat="msg in msgs" type="{{msg.type}}" close="close($index)">{{msg.text}}</alert>
+</div>
