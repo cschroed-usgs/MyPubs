@@ -19,27 +19,17 @@ angular.module('pw.mypubs', [
 '$scope', '$log', '$location',
 function ($scope, $log, $location) {
 
-	// TODO need to work with server side on these
-	// TODO login service should intercept all actions
-	$scope.doc = {name:"testDoc"} // TODO service should load publication
-	$scope.log = $log.log // needed for directives - maybe
+	$scope._show = 'Preview' // TODO index.html must compare to this when preview is impl
 
-
-	// TODO I know the bellow sould be in a service - will get there in some future refactor
-	$scope._showPreview = true
-
-	$scope.showPreview = function(show) {
+	$scope.show = function(show) {
 		if (typeof show === 'undefined') {
-			//console.log($scope._showPreview)
-			return $scope._showPreview
+			return $scope._show
 		}
-		//console.log('Setting '+show)
-		$scope._showPreview = show ? true : false
+		return $scope._show = show
 	}
 
 	// sets the angular path on the url location hash
 	$scope.setRoute = function(routeName) {
-		//$scope.log('setRoute ' + routeName)
 		$location.path('/' + routeName)
 	}
 
