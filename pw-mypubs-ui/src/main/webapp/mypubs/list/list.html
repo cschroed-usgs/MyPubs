@@ -26,7 +26,7 @@
 	</div>
 	
 	<button ng-click="newEntry()" ng-disabled="isNewEntry.val" style="position:relative;float:right;" 
-			ng-style="{top: listHeight()}" class="btn" >New {{typeLabel}}</button>
+			ng-style="{top: listHeight()}" class="btn" ng-hide="hideButton">New {{typeLabel}}</button>
 	<div ng-style="{height: listHeight()}" class="animate-remove-entry"></div>	
 </div>
 

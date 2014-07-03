@@ -20,6 +20,7 @@ mod.directive('pwList', ['$parse', function($parse) {
 			$scope.rowHeight   = ($scope.entryHeight) + 'px'
 			$scope.rowWidth    = $parse($attrs.entryWidth)() + 'px'
 			$scope.controlsLeft= $attrs.controlsAlign === 'left'
+			$scope.hideButton  = $attrs.hideButton && $attrs.hideButton !== 'false'
 		},
 
 		controller   : function($scope) {

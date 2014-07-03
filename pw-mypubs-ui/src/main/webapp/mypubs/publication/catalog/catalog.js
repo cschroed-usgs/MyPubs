@@ -1,10 +1,10 @@
 (function() {
 
 
-var mod = angular.module('pw.catalog',['pw.dataRow','ngRoute','pw.fetcher'])
+angular.module('pw.catalog',['pw.dataRow','ngRoute','pw.fetcher'])
 
 
-mod.config([
+.config([
 	'$routeProvider',
 	function($routeProvider) {
 		$routeProvider.when('/Cataloging', {
@@ -15,18 +15,18 @@ mod.config([
 ])
 
 
-mod.controller('catalogCtrl', [
-'$scope', 'DataRowFieldService', 'PublicationFetcher', '$log',
-function ($scope, DataRowFieldService, PublicationFetcher, $log) {
+.controller('catalogCtrl', [
+'$scope', 'DataRowFieldService', 'PublicationFetcher', '$log', 'catFields',
+function ($scope, DataRowFieldService, PublicationFetcher, $log, fields) {
 
 	var pubData = PublicationFetcher.getById('asdf')
-	$scope.rows = fields()
-	DataRowFieldService.fieldMapper($scope.rows, pubData)
+	$scope.rows = fields
+	DataRowFieldService.fieldMapper(fields, pubData)
 
 }])
 
 
-var fields = function() {
+.factory('catFields', function() {
 	return [
 		{
 			name   : "keywords",
@@ -85,7 +85,7 @@ var fields = function() {
 		},
 
 	]
-}
+})
 
 
 }) ()

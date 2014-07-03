@@ -1,9 +1,6 @@
 (function() {
 
 
-var mod = angular.module('pw.dataRow', [])
-
-
 var templates    = ['Date','Editor','Gap','Readonly','Select','Text','Textbox']
 var templatePath = 'mypubs/datarow/row'
 var templateCache
@@ -27,7 +24,11 @@ var registerTemplate = function($templateCache, templateUrl) {
 }
 
 
-mod.run(['$templateCache',function($templateCache) {
+
+angular.module('pw.dataRow', [])
+
+
+.run(['$templateCache',function($templateCache) {
 	templateCache = $templateCache
 
 	_.each(templates, function(template) {
@@ -37,7 +38,7 @@ mod.run(['$templateCache',function($templateCache) {
 }])
 
 
-mod.directive('pwDatarow', function($compile) {
+.directive('pwDatarow', function($compile) {
 
 	var pwDatarow = {
 		restrict    : 'E', //AEC
@@ -64,7 +65,7 @@ mod.directive('pwDatarow', function($compile) {
 })
 
 
-mod.service('DataRowFieldService', function() {
+.service('DataRowFieldService', function() {
 	var service = this
 
 	service.openDatePicker = function(field, event) {

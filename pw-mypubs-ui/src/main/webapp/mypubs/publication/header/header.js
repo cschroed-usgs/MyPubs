@@ -1,10 +1,10 @@
 (function() {
 
 
-var mod = angular.module('pw.pubHeader', [])
+angular.module('pw.pubHeader', [])
 
 
-mod.directive('pwPubheader', function() {
+.directive('pwPubheader', function() {
 
 	var _this = {
 		restrict   : 'E', //AEC
@@ -17,13 +17,13 @@ mod.directive('pwPubheader', function() {
 })
 
 
-mod.controller('pubHeaderCtrl', [
-'$scope', 'DataRowFieldService', 'PublicationFetcher', '$log',
-function ($scope, DataRowFieldService, PublicationFetcher, $log) {
+.controller('pubHeaderCtrl', [
+'$scope', 'DataRowFieldService', 'PublicationFetcher', '$log', 'headerFields',
+function ($scope, DataRowFieldService, PublicationFetcher, $log, fields) {
 
 	var pubData = PublicationFetcher.getById('asdf')
-	$scope.rows = fields()
-	DataRowFieldService.fieldMapper($scope.rows, pubData)
+	$scope.rows = fields
+	DataRowFieldService.fieldMapper(fields, pubData)
 	
 	$scope.pubslist = {
 		name   : "Publications List",
@@ -41,7 +41,7 @@ function ($scope, DataRowFieldService, PublicationFetcher, $log) {
 }])
 
 
-var fields = function() {
+.factory('headerFields', function() {
 	return [
 		{
 			name   : "pid",
@@ -60,7 +60,7 @@ var fields = function() {
 			elId   : "PublicDate",
 		},
 	]
-}
+})
 
 
 }) ()

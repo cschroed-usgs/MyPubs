@@ -16,7 +16,7 @@ angular.module('pw.contacts',['pw.dataRow','ngRoute','pw.fetcher', 'pw.list', 'p
 
 
 .service('Contacts', 
-[ 'DataRowFieldService', 'PublicationFetcher', 'Collection', '$rootScope', 'fields',
+[ 'DataRowFieldService', 'PublicationFetcher', 'Collection', '$rootScope', 'contactFields',
 function (DataRowFieldService, PublicationFetcher, Collection, $rootScope, fields) {
 
 	var ctx = Collection(this)
@@ -106,7 +106,7 @@ function ($scope, Contacts, $log) {
 }])
 
 
-.factory('fields', function() {
+.factory('contactFields', function() {
 	return [
 		{
 			name   : "name",

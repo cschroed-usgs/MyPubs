@@ -1,11 +1,10 @@
 (function() {
 
 
-var mod = angular.module('pw.bibliodata',['pw.dataRow','ngRoute','pw.fetcher'])
+angular.module('pw.bibliodata',['pw.dataRow','ngRoute','pw.fetcher'])
 
 
-mod.config([
-	'$routeProvider',
+.config(['$routeProvider',
 	function($routeProvider) {
 		$routeProvider.when('/Bibliodata', {
 	    	templateUrl: 'mypubs/publication/bibliodata/bibliodata.html',
@@ -15,18 +14,18 @@ mod.config([
 ])
 
 
-mod.controller('biblioCtrl', [
-'$scope', 'DataRowFieldService', 'PublicationFetcher', '$log',
-function ($scope, DataRowFieldService, PublicationFetcher, $log) {
+.controller('biblioCtrl', [
+'$scope', 'DataRowFieldService', 'PublicationFetcher', '$log', 'biblioFields',
+function ($scope, DataRowFieldService, PublicationFetcher, $log, fields) {
 
 	var pubData = PublicationFetcher.getById('asdf')
-	$scope.rows = fields()
-	DataRowFieldService.fieldMapper($scope.rows, pubData)
+	$scope.rows = fields
+	DataRowFieldService.fieldMapper(fields, pubData)
 
 }])
 
 
-var fields = function() {
+.factory('biblioFields', function() {
 	return [
 		{
 			name   : "pub_type",
@@ -105,7 +104,7 @@ var fields = function() {
 		},
 
 	]
-}
+})
 
 
 }) ()
