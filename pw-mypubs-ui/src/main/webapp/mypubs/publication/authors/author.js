@@ -1,11 +1,10 @@
 (function() {
 
 
-var mod = angular.module('pw.author',['ngRoute','pw.fetcher', 'pw.list', 'pw.collection'])
+angular.module('pw.author',['ngRoute','pw.fetcher', 'pw.list', 'pw.collection'])
 
 
-mod.config([
-	'$routeProvider',
+.config(['$routeProvider',
 	function($routeProvider) {
 		$routeProvider.when('/Contributors', {
 	    	templateUrl: 'mypubs/publication/authors/author.html',
@@ -15,8 +14,8 @@ mod.config([
 ])
 
 
-mod.service('Authors', 
-[ 'PublicationFetcher', 'Collection',
+.service('Authors', [
+'PublicationFetcher', 'Collection',
 function (PublicationFetcher, Collection) {
 
 	var ctx = Collection(this)
@@ -49,7 +48,7 @@ function (PublicationFetcher, Collection) {
 }])
 
 
-mod.controller('authorsCtrl', [
+.controller('authorsCtrl', [
 '$scope', 'Authors', '$log',
 function ($scope, Authors, $log) {
 

@@ -1,10 +1,10 @@
 (function() {
 
 
-var mod = angular.module('pw.links',['ngRoute','pw.fetcher', 'pw.list', 'pw.collection'])
+angular.module('pw.links',['ngRoute','pw.fetcher', 'pw.list', 'pw.collection'])
 
 
-mod.config([
+.config([
 	'$routeProvider',
 	function($routeProvider) {
 		$routeProvider.when('/Links', {
@@ -15,7 +15,7 @@ mod.config([
 ])
 
 
-mod.service('Links', 
+.service('Links', 
 [ 'PublicationFetcher', 'Collection',
 function (PublicationFetcher, Collection) {
 
@@ -51,7 +51,7 @@ function (PublicationFetcher, Collection) {
 }])
 
 
-mod.controller('linksCtrl', [
+.controller('linksCtrl', [
 '$scope', 'Links', '$log',
 function ($scope, Links, $log) {
 
