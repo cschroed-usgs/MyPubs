@@ -93,7 +93,7 @@ describe("pw.tabs module", function() {
 		$scope.setRoute = function() {
 		 	setRouteCalled = true
 		}
-		$scope.showPreview = function() {}
+		$scope.show = function() {}
 		
 		var el  = compileTemplate()
 		var tab = $(el).find('.disabled')[0]
@@ -115,7 +115,7 @@ describe("pw.tabs module", function() {
 
 	it('setTab should result in a change of the isActive result', function() {
 		$scope.setRoute = function() {}
-		$scope.showPreview = function() {}
+		$scope.show = function() {}
 		
 		var el  = compileTemplate()
 
@@ -130,7 +130,7 @@ describe("pw.tabs module", function() {
 
 	it('should have tab1 active on click', function() {
 		$scope.setRoute = function() {}
-		$scope.showPreview = function() {}
+		$scope.show = function() {}
 
 		var el  = compileTemplate()
 

@@ -22,7 +22,7 @@ mod.directive('pwTabs', function() {
 
 		controller : function($scope) {
 			$scope.setTab = function(tabName) {
-				$scope.showPreview(true)
+				$scope.show('Preview')
 				$scope.setRoute(tabName)
 				pwTabs.setActive(tabName)
 			}

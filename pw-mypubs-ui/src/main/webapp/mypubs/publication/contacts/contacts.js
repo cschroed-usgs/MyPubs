@@ -1,10 +1,10 @@
 (function() {
 
 
-var mod = angular.module('pw.contacts',['pw.dataRow','ngRoute','pw.fetcher', 'pw.list', 'pw.collection'])
+angular.module('pw.contacts',['pw.dataRow','ngRoute','pw.fetcher', 'pw.list', 'pw.collection'])
 
 
-mod.config([
+.config([
 	'$routeProvider',
 	function($routeProvider) {
 		$routeProvider.when('/Contacts', {
@@ -15,27 +15,15 @@ mod.config([
 ])
 
 
-mod.service('Contacts', 
-[ 'DataRowFieldService', 'PublicationFetcher', 'Collection',
-function (DataRowFieldService, PublicationFetcher, Collection) {
+.service('Contacts', 
+[ 'DataRowFieldService', 'PublicationFetcher', 'Collection', '$rootScope', 'fields',
+function (DataRowFieldService, PublicationFetcher, Collection, $rootScope, fields) {
 
 	var ctx = Collection(this)
 
 	ctx.id       = ''
 	ctx.contact  = []
 	
-	ctx.listeners= []
-	ctx.listenToActive = function(listener) {
-		if (typeof listener === 'function') {
-			ctx.listeners.push(listener)
-			listener(ctx.contact)
-		}
-	}
-	ctx.braudCast= function() {
-		_.each(ctx.listeners, function(listener) {
-			listener(ctx.contact)
-		})
-	}
 
 	ctx.setContacts = function(contacts) {
 		ctx.setEntries(contacts, 'contacts')
@@ -45,16 +33,19 @@ function (DataRowFieldService, PublicationFetcher, Collection) {
 		}
 	}
 
+
 	ctx._assignContact = function(contact) {
 		ctx.id = contact.id
-		ctx.contact = DataRowFieldService.fieldMapper(fields(), contact)
+		ctx.contact = DataRowFieldService.fieldMapper(fields, contact)
 
-		ctx.braudCast()
+		$rootScope.$broadcast('activeContact')
 	}
+
 
 	ctx.isActive = function(id) {
 		return ctx.id === id
 	}
+
 
 	ctx.select = function(id) {
 		if ( ctx.isActive(id) ) return
@@ -65,20 +56,24 @@ function (DataRowFieldService, PublicationFetcher, Collection) {
 			ctx._assignContact(contact)
 		}
 	}
+
 }])
 
 
-mod.controller('contactCtrl', [
+.controller('contactCtrl', [
 '$scope',  'Contacts', '$log', '$location',
 function ($scope, Contacts, $log, $location) {
 
 	Contacts.setContacts()
 
-	Contacts.listenToActive(function(contact){
-		$scope.contact = contact
+	if ($location.path() === '/Contacts') {
+		$scope.show('Contacts')
+	}
+
+	$scope.$on('activeContact', function() {
+		$scope.contact = Contacts.contact
 	})
 
-	$scope.showPreview( $location.path() !== '/Contacts' )
 
 	$scope.newEntry = function() {
 		var contact = Contacts.newEntry(['name','address1','address2','address3','city','state','zipcode','website','link','link_text'])
@@ -88,9 +83,9 @@ function ($scope, Contacts, $log, $location) {
 }])
 
 
-mod.controller('contactsCtrl', [
-'$scope',  'Contacts', '$log', '$location',
-function ($scope, Contacts, $log, $location) {
+.controller('contactsCtrl', [
+'$scope',  'Contacts', '$log',
+function ($scope, Contacts, $log) {
 
 	Contacts.setContacts()
 
@@ -102,18 +97,16 @@ function ($scope, Contacts, $log, $location) {
 		return Contacts.isActive(contactId)
 	}
 
+
 	$scope.select = function(contactId) {
 		Contacts.select(contactId)
 		return false
 	}
 
-
-	$scope.showPreview( $location.path() !== '/Contacts' )
-
 }])
 
 
-var fields = function() {
+.factory('fields', function() {
 	return [
 		{
 			name   : "name",
@@ -175,10 +168,10 @@ var fields = function() {
 		},
 
 	]
-}
+})
 
 
-mod.directive('pwContacts', function(){
+.directive('pwContacts', function(){
 
 	var pwContacts = {
 		restrict   : 'E', //AEC
@@ -186,15 +179,12 @@ mod.directive('pwContacts', function(){
 		transclude : true,
 		templateUrl: 'mypubs/publication/contacts/contacts.html',
 
-//		controller : contactsCtrl,
-		
 		link       : function($scope, el, attrs) {
-
+			// placeholder
 		}
 	}
 
 	return pwContacts
-
 })
 
 

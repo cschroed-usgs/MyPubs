@@ -152,451 +152,107 @@ angular.module('pw.fetcher',[])
 
 }) ()
 
-/** CSL JSON
-{
-    "description": "JSON schema (draft 3) for CSL input data",
-    "id": "https://github.com/citation-style-language/schema/raw/master/csl-data.json",
-    "type": "array",
-    "items": {
-        "type": "object",
-        "properties": {
-            "type": {
-                "type": "string",
-                "required": true,
-                "enum" : [
-                    "article",
-                    "article-journal",
-                    "article-magazine",
-                    "article-newspaper",
-                    "bill",
-                    "book",
-                    "broadcast",
-                    "chapter",
-                    "dataset",
-                    "entry",
-                    "entry-dictionary",
-                    "entry-encyclopedia",
-                    "figure",
-                    "graphic",
-                    "interview",
-                    "legal_case",
-                    "legislation",
-                    "manuscript",
-                    "map",
-                    "motion_picture",
-                    "musical_score",
-                    "pamphlet",
-                    "paper-conference",
-                    "patent",
-                    "personal_communication",
-                    "post",
-                    "post-weblog",
-                    "report",
-                    "review",
-                    "review-book",
-                    "song",
-                    "speech",
-                    "thesis",
-                    "treaty",
-                    "webpage" 
-                ] 
-            },
-            "id": {
-                "type": [
-                    "string",
-                    "number" 
-                ],
-                "required": true 
-            },
-            "categories": {
-                "type": "array",
-                "items": {
-                    "type": "string" 
-                } 
-            },
-            "language": {
-                "type": "string" 
-            },
-            "journalAbbreviation": {
-                "type": "string" 
-            },
-            "shortTitle": {
-                "type": "string" 
-            },
-            "author": {
-                "type": "array",
-                "items": {
-                    "id": "name-variable",
-                    "type": [
-                        {
-                            "properties": {
-                                "family" : {
-                                    "type": "string" 
-                                },
-                                "given" : {
-                                    "type": "string" 
-                                },
-                                "dropping-particle" : {
-                                    "type": "string" 
-                                },
-                                "non-dropping-particle" : {
-                                    "type": "string" 
-                                },
-                                "suffix" : {
-                                    "type": "string" 
-                                },
-                                "comma-suffix" : {
-                                    "type": [
-                                        "string",
-                                        "number",
-                                        "boolean" 
-                                    ] 
-                                },
-                                "static-ordering" : {
-                                    "type": [
-                                        "string",
-                                        "number",
-                                        "boolean" 
-                                    ] 
-                                },
-                                "literal" : {
-                                    "type": "string" 
-                                },
-                                "parse-names" : {
-                                    "type": [
-                                        "string",
-                                        "number",
-                                        "boolean" 
-                                    ] 
-                                } 
-                            },
-                            "additionalProperties" : false 
-                        },
-                        {
-                            "properties": {
-                                "literal" : {
-                                    "type": "string" 
-                                } 
-                            },
-                            "additionalProperties" : false 
-                        } 
-                    ] 
-                } 
-            },
-            "collection-editor": {
-                "type": "array",
-                "items": {
-                    "$ref": "name-variable" 
-                } 
-            },
-            "composer": {
-                "type": "array",
-                "items": {
-                    "$ref": "name-variable" 
-                } 
-            },
-            "container-author": {
-                "type": "array",
-                "items": {
-                    "$ref": "name-variable" 
-                } 
-            },
-            "director": {
-                "type": "array",
-                "items": {
-                    "$ref": "name-variable" 
-                } 
-            },
-            "editor": {
-                "type": "array",
-                "items": {
-                    "$ref": "name-variable" 
-                } 
-            },
-            "editorial-director": {
-                "type": "array",
-                "items": {
-                    "$ref": "name-variable" 
-                } 
-            },
-            "interviewer": {
-                "type": "array",
-                "items": {
-                    "$ref": "name-variable" 
-                } 
-            },
-            "illustrator": {
-                "type": "array",
-                "items": {
-                    "$ref": "name-variable" 
-                } 
-            },
-            "original-author": {
-                "type": "array",
-                "items": {
-                    "$ref": "name-variable" 
-                } 
-            },
-            "recipient": {
-                "type": "array",
-                "items": {
-                    "$ref": "name-variable" 
-                } 
-            },
-            "reviewed-author": {
-                "type": "array",
-                "items": {
-                    "$ref": "name-variable" 
-                } 
-            },
-            "translator": {
-                "type": "array",
-                "items": {
-                    "$ref": "name-variable" 
-                } 
-            },
-            "accessed": {
-                "id": "date-variable",
-                "type": [
-                    {
-                        "properties": {
-                            "date-parts": {
-                                "type": "array",
-                                "items": {
-                                    "type": "array",
-                                    "items": {
-                                        "type": [
-                                            "string",
-                                            "number" 
-                                        ] 
-                                    },
-                                    "maxItems": 3 
-                                },
-                                "maxItems": 2 
-                            },
-                            "season": {
-                                "type": [
-                                    "string",
-                                    "number" 
-                                ] 
-                            },
-                            "circa": {
-                                "type": [
-                                    "string",
-                                    "number",
-                                    "boolean" 
-                                ] 
-                            },
-                            "literal": {
-                                "type": "string" 
-                            },
-                            "raw": {
-                                "type": "string" 
-                            }
-                        },
-                        "additionalProperties" : false 
-                    },
-                    {
-                        "properties": {
-                            "literal": {
-                                "type": "string" 
-                            } 
-                        },
-                        "additionalProperties" : false 
-                    } 
-                ] 
-            },
-            "container": {
-                "$ref": "date-variable" 
-            },
-            "event-date": {
-                "$ref": "date-variable" 
-            },
-            "issued": {
-                "$ref": "date-variable" 
-            },
-            "original-date": {
-                "$ref": "date-variable" 
-            },
-            "submitted": {
-                "$ref": "date-variable" 
-            },
-            "abstract": {
-                "type": "string" 
-            },
-            "annote": {
-                "type": "string" 
-            },
-            "archive": {
-                "type": "string" 
-            },
-            "archive_location": {
-                "type": "string" 
-            },
-            "archive-place": {
-                "type": "string" 
-            },
-            "authority": {
-                "type": "string" 
-            },
-            "call-number": {
-                "type": "string" 
-            },
-            "chapter-number": {
-                "type": "string" 
-            },
-            "citation-number": {
-                "type": "string" 
-            },
-            "citation-label": {
-                "type": "string" 
-            },
-            "collection-number": {
-                "type": "string" 
-            },
-            "collection-title": {
-                "type": "string" 
-            },
-            "container-title": {
-                "type": "string" 
-            },
-            "container-title-short": {
-                "type": "string" 
-            },
-            "dimensions": {
-                "type": "string" 
-            },
-            "DOI": {
-                "type": "string" 
-            },
-            "edition": {
-                "type": [
-                    "string",
-                    "number" 
-                ] 
-            },
-            "event": {
-                "type": "string" 
-            },
-            "event-place": {
-                "type": "string" 
-            },
-            "first-reference-note-number": {
-                "type": "string" 
-            },
-            "genre": {
-                "type": "string" 
-            },
-            "ISBN": {
-                "type": "string" 
-            },
-            "ISSN": {
-                "type": "string" 
-            },
-            "issue": {
-                "type": [
-                    "string",
-                    "number" 
-                ] 
-            },
-            "jurisdiction": {
-                "type": "string" 
-            },
-            "keyword": {
-                "type": "string" 
-            },
-            "locator": {
-                "type": "string" 
-            },
-            "medium": {
-                "type": "string" 
-            },
-            "note": {
-                "type": "string" 
-            },
-            "number": {
-                "type": [
-                    "string",
-                    "number" 
-                ] 
-            },
-            "number-of-pages": {
-                "type": "string" 
-            },
-            "number-of-volumes": {
-                "type": [
-                    "string",
-                    "number" 
-                ] 
-            },
-            "original-publisher": {
-                "type": "string" 
-            },
-            "original-publisher-place": {
-                "type": "string" 
-            },
-            "original-title": {
-                "type": "string" 
-            },
-            "page": {
-                "type": "string" 
-            },
-            "page-first": {
-                "type": "string" 
-            },
-            "PMCID": {
-                "type": "string" 
-            },
-            "PMID": {
-                "type": "string" 
-            },
-            "publisher": {
-                "type": "string" 
-            },
-            "publisher-place": {
-                "type": "string" 
-            },
-            "references": {
-                "type": "string" 
-            },
-            "reviewed-title": {
-                "type": "string" 
-            },
-            "scale": {
-                "type": "string" 
-            },
-            "section": {
-                "type": "string" 
-            },
-            "source": {
-                "type": "string" 
-            },
-            "status": {
-                "type": "string" 
-            },
-            "title": {
-                "type": "string" 
-            },
-            "title-short": {
-                "type": "string" 
-            },
-            "URL": {
-                "type": "string" 
-            },
-            "version": {
-                "type": "string" 
-            },
-            "volume": {
-                "type": [
-                    "string",
-                    "number" 
-                ] 
-            },
-            "year-suffix": {
-                "type": "string" 
-            } 
-        },
-        "additionalProperties" : false 
-    } 
-}
+/**
+[{
+    "id": 32132135,
+    "type": "Report",
+    "genre": "USGS Numbered Series",
+    "collection-title": "Scientific Investigations Report",
+    "number": "2014-5083",
+    "Subseries-title": "Climate Change Adaption Series",
+    "chapter-number": "",
+    "sub-chapter-number": "",
+    "title": "Monitoring recharge in areas of seasonally frozen ground in the Columbia Plateau and Snake River Plain, Idaho, Oregon, and Washington",
+    "abstract": "Seasonally frozen ground occurs over approximately one‑third of the contiguous United States, causing increased winter runoff. Frozen ground generally rejects potential groundwater recharge. Nearly all recharge from precipitation in semi-arid regions such as the Columbia Plateau and the Snake River Plain in Idaho, Oregon, and Washington, occurs between October and March, when precipitation is most abundant and seasonally frozen ground is commonplace. The temporal and spatial distribution of frozen ground is expected to change as the climate warms. It is difficult to predict the distribution of frozen ground, however, because of the complex ways ground freezes and the way that snow cover thermally insulates soil, by keeping it frozen longer than it would be if it was not snow covered or, more commonly, keeping the soil thawed during freezing weather.\n\nA combination of satellite remote sensing and ground truth measurements was used with some success to investigate seasonally frozen ground at local to regional scales. The frozen-ground/snow-cover algorithm from the National Snow and Ice Data Center, combined with the 21-year record of passive microwave observations from the Special Sensor Microwave Imager onboard a Defense Meteorological Satellite Program satellite, provided a unique time series of frozen ground. Periodically repeating this methodology and analyzing for trends can be a means to monitor possible regional changes to frozen ground that could occur with a warming climate.\n\nThe Precipitation-Runoff Modeling System watershed model constructed for the upper Crab Creek Basin in the Columbia Plateau and Reynolds Creek basin on the eastern side of the Snake River Plain simulated recharge and frozen ground for several future climate scenarios. Frozen ground was simulated with the Continuous Frozen Ground Index, which is influenced by air temperature and snow cover. Model simulation results showed a decreased occurrence of frozen ground that coincided with increased temperatures in the future climate scenarios. Snow cover decreased in the future climate scenarios coincident with the temperature increases. Although annual precipitation was greater in future climate scenarios, thereby increasing the amount of water available for recharge over current (baseline) simulations, actual evapotranspiration also increased and reduced the amount of water available for recharge over baseline simulations. The upper Crab Creek model shows no significant trend in the rates of recharge in future scenarios. In these scenarios, annual precipitation is greater than the baseline averages, offsetting the effects of greater evapotranspiration in future scenarios. In the Reynolds Creek Basin simulations, precipitation was held constant in future scenarios and recharge was reduced by 1.0 percent for simulations representing average conditions in 2040 and reduced by 4.3 percent for simulations representing average conditions in 2080. The focus of the results of future scenarios for the Reynolds Creek Basin was the spatial components of selected hydrologic variables for this 92 square mile mountainous basin with 3,600 feet of relief. Simulation results from the watershed model using the Continuous Frozen Ground Index provided a relative measure of change in frozen ground, but could not identify the within-soil processes that allow or reject available water to recharge aquifers. The model provided a means to estimate what might occur in the future under prescribed climate scenarios, but more detailed energy-balance models of frozen-ground hydrology are needed to accurately simulate recharge under seasonally frozen ground and provide a better understanding of how changes in climate may alter infiltration.",
+    "language": "English",
+    "publisher": "U.S. Geological Survey",
+    "publisher-place": "Reston, VA",
+    "DOI": "string",
+    "ISSN": "string",
+    "ISBN": "string",
+    "number-of-pages": "Number of Pages",
+    "page-first": "Start Page",
+    "page-last:": "End Page",
+
+    "author": [
+        {
+            "family": "Mastin",
+            "given": "Mark",
+            "suffix": "Jr.",
+            "email": "mmastin@usgs.gov",
+            "rank": "1",
+            "id": "1231",
+            "affiliation": {
+                    "name": "Colorado Ice Science Center",
+                    "id": "213"
+                },
+        }, {
+            "family": "Josberger",
+            "given": "Edward",
+            "email": "",
+            "rank": "2",
+            "id": "2121",
+            "affiliation": {
+                "name": "University of Colorado, Boulder",
+                    "id": "221313"
+                },
+        }, {
+            "literal": "US Geological Survey Ice Survey Team",
+            "rank": "3",
+            "id": "343"
+        }
+    ],
+    "editor": [
+        {
+            "family": "Itor",
+            "given": "Ed",
+            "email": "eitor@usgs.gov",
+            "rank": "1",
+            "id": "124123",
+            "affiliation": {
+                "name": "Colorado Ice Science Center",
+                "id": "213"
+            },
+        }
+    ],
+}, {
+    "additionalProperties": {
+        "display-to-public-date": "2014-01-01T23:28:56.782Z",
+        "indexID": "sir20145083",
+        "collaboration": "Written in collaboration with the National Snow and Ice Data Center",
+        "usgs-citation": "Mastin, Mark, and Josberger, Edward, 2014, Monitoring recharge in areas of seasonally frozen ground in the Columbia Plateau and Snake River Plain, Idaho, Oregon, and Washington: U.S. Geological Survey Scientific Investigations Report 2014–5083, 64 p., http://dx.doi.org/10.3133/sir20145083",
+        "Cost Center": [
+            {
+                "id": "74",
+                "name": "Colorado Ice Science Center"
+            }, {
+                "id": "115",
+                "name": "Earth Resources Observations Center"
+            }
+        ],
+        "links": [
+            {
+                "id": "65163516",
+                "rank": "1",
+                "type": {
+                    "value": "3",
+                    "text": "index page"
+                },
+                "url": "http://pubs.usgs.gov/sir/2014/5083/",
+                "text": "Index Page",
+                "size": "14 MB",
+                "mime_type": {
+                    "value": "3",
+                    "text": "pdf"
+                }
+            }
+        ],
+        "product-description": "Product description, typically a short string",
+        "online-only": "Y",
+        "additional-online-files": "N",
+        "temporal-start": "1-1-2011",
+        "temporal-end": "1-1-2013",
+        "Notes": "This is where we put all the notes about this publication"
+    }
+}]
 **/
