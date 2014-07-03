@@ -3,7 +3,7 @@
 			<div class="value">
 				<select ui-select2 placeholder="{{data.placeholder}}" ng-model="data.value" style="width:400px;">
 					<option value=""></option>
-					<option ng-repeat="option in data.options" value="{{option.value}}" ng-bind="option.text"></option>
+					<option ng-repeat="option in data.options track by option.value" value="{{option.value}}" ng-bind="option.text"></option>
 				</select>
 			</div>
 		</div>

@@ -3,6 +3,7 @@
 
 angular.module('pw.lookups',['pw.notify'])
 
+
 .service('LookupFetcher', ['$http', 'Notifier', function($http, Notifier) {
 
     var ctx = this
@@ -18,8 +19,9 @@ angular.module('pw.lookups',['pw.notify'])
 		var values
     	if ( values=ctx._cache[type] ) { // assign intentional
 		    component.setValues(values)
-    	}
-    	ctx._fetch(type, component)
+    	} else {
+	    	ctx._fetch(type, component)
+	    }
 	}
 
 
