@@ -45,9 +45,9 @@ describe('pw.lookups module', function() {
     });
 
 
-    it('should fetch testing token and that apply to component is called', inject(function(LookupFetcher) {
+    it('should fetch testing token and than apply to component is called', inject(function(LookupFetcher) {
         var resp, component
-        LookupFetcher._apply = function(data, comp) {
+        LookupFetcher._apply = function(type, data, comp) {
             resp = data
             component = comp
         }
