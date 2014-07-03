@@ -1,25 +1,23 @@
 (function() {
 
 
-var mod = angular.module('pw.mypubs', [
-	'ngRoute','ui.select2','ui.bootstrap', 'ui.tinymce', 'ngAnimate',
-	'pw.tabs','pw.dataRow', 'pw.actions', 'pw.pubHeader',
-	'pw.bibliodata', 'pw.catalog', 'pw.contacts', 'pw.links', 'pw.author'
+angular.module('pw.mypubs', [
+	'ngRoute','ui.select2','ui.bootstrap', 'ui.tinymce', 'ngAnimate', // angualr utils
+	'pw.tabs', 'pw.actions', 'pw.pubHeader', 'pw.notify', // pw utils
+	'pw.bibliodata', 'pw.catalog', 'pw.contacts', 'pw.links', 'pw.author' // tabs
 ])
 
 
-mod.config([
-	'$routeProvider',
+.config(['$routeProvider',
 	function($routeProvider) {
-		$routeProvider // Placeholder for default, login, or routes
+		// Placeholder for default, login, or routes
 	}
 ])
 
 
-mod.controller('mainCtrl', [
+.controller('mainCtrl', [
 '$scope', '$log', '$location',
 function ($scope, $log, $location) {
-	var ctrl = this
 
 	// TODO need to work with server side on these
 	// TODO login service should intercept all actions
@@ -48,7 +46,8 @@ function ($scope, $log, $location) {
 }])
 
 
-mod.directive('preventDefault', function() {
+// nice utility directive
+.directive('preventDefault', function() {
     return function(scope, element, attrs) {
         $(element).click(function(event) {
             event.preventDefault();
