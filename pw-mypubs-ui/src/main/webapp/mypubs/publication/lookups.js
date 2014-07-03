@@ -40,7 +40,7 @@ angular.module('pw.lookups',['pw.notify'])
 		$http({method: 'GET', url: ctx._url(type)})
 
 	    .success(function(data, status, headers, config) {
-	    	ctx._apply(data)
+	    	ctx._apply(type, data, component)
 	    })
 	    .error(function(data, status, headers, config) {
 		    Notifier.error("Server not available.")
@@ -48,7 +48,7 @@ angular.module('pw.lookups',['pw.notify'])
 	}
 
 
-	ctx._apply = function(json) {
+	ctx._apply = function(type, json, component) {
     	try {
 	    	var values = angular.fromJson(json)
 	    	// store in cache
