@@ -25,19 +25,6 @@ function ($scope, DataRowFieldService, PublicationFetcher, $log, fields) {
 	$scope.rows = fields
 	DataRowFieldService.fieldMapper(fields, pubData)
 	
-	$scope.pubslist = {
-		name   : "Publications List",
-		action : function() {
-			// TODO service.doPublicaitonsList
-		}
-	}
-	$scope.reservations = {
-		name   : "Reservations",
-		action : function() {
-			// TODO service.doReserveations
-		}
-	}
-
 }])
 
 
