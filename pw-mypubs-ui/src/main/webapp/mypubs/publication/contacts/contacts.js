@@ -66,9 +66,6 @@ function ($scope, Contacts, $log, $location) {
 
 	Contacts.setContacts()
 
-	if ($location.path() === '/Contacts') {
-		$scope.show('Contacts')
-	}
 
 	$scope.$on('activeContact', function() {
 		$scope.contact = Contacts.contact
@@ -89,6 +86,8 @@ function ($scope, Contacts, $log) {
 
 	Contacts.setContacts()
 
+	$scope.listName = 'contact_'
+	
 	$scope.Contacts = Contacts
 	$scope.contacts = Contacts.getEntries()
 

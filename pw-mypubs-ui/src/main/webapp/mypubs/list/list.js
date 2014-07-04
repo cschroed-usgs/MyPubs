@@ -47,6 +47,14 @@ mod.directive('pwList', ['$parse', function($parse) {
 				if (id===$scope.aNewEntry.id) {
 					$scope.isNewEntry.val = false
 				}
+				setTimeout(function() {
+					// has to be in a timeout or it will
+					// go through its cycle without visual
+					$('#'+$scope.listName+id).fadeOut()
+					// using jquery because CSS3 did not work
+					// it works in the console window
+					// just not here in this code
+				},1)
 				$scope.entries = pwList.service.remove(id)
 			}
 

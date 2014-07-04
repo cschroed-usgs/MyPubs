@@ -7,9 +7,9 @@ angular.module('pw.author',['ngRoute','pw.fetcher', 'pw.list', 'pw.collection'])
 .config(['$routeProvider',
 	function($routeProvider) {
 		$routeProvider.when('/Contributors', {
-	    	templateUrl: 'mypubs/publication/authors/author.html',
-	    	controller: 'authorsCtrl'
-	    })
+			templateUrl: 'mypubs/publication/authors/author.html',
+			controller: 'authorsCtrl'
+		})
 	}
 ])
 
@@ -21,12 +21,13 @@ function (PublicationFetcher, Collection) {
 	var ctx = Collection(this)
 
 
-	ctx.setAuthors = function(entries) {
-		ctx.setEntries(entries, 'author')
+	ctx.setAuthors = function(type) {
+		ctx.hasEntries = false
+		ctx.setEntries(null, type)
 
 		_.each(ctx.getEntries(), function(entry) {
 			if ( ! entry.type || entry.type==="") {
-				entry.type = (!entry.given||entry.given==='') ?'c':'a'
+				entry.type = (!entry.given||entry.given==='') ?'c':'p'
 			}
 		})
 	}
@@ -34,7 +35,7 @@ function (PublicationFetcher, Collection) {
 
 	ctx.getTypeOptions = function() {
 		return [
-			{value:"a", text:"Author"},
+			{value:"p", text:"Person"},
 			{value:"c", text:"Corporation"},
 		]
 	}
@@ -52,12 +53,36 @@ function (PublicationFetcher, Collection) {
 '$scope', 'Authors', '$log',
 function ($scope, Authors, $log) {
 
-	Authors.setAuthors()
-
+	$scope.listName    = 'contrib_'
+	
 	$scope.Authors     = Authors
-	$scope.authors     = Authors.getEntries()
 	$scope.typeOptions = Authors.getTypeOptions()
 
+	$scope.contribTypes= [
+		{
+			type :'author',
+			title:'Authors',
+		},
+		{
+			type :'editor',
+			title:'Editors',
+		},
+	]
+
+
+	$scope.authorType = 'author'
+
+	$scope.authorShow = function(type) {
+		if (typeof type === 'undefined') {
+			return $scope.authorType
+		}
+		$scope.authorType = type
+	
+		Authors.setAuthors(type)
+
+		$scope.authors     = Authors.getEntries()
+	}
+	$scope.authorShow( $scope.authorType )
 
 	$scope.isDirty     = function(author) {
 		return (author.email   !== ""

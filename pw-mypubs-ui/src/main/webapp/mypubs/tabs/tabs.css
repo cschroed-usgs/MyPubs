@@ -4,6 +4,6 @@
 .nav-tabs>.active>a,.nav-tabs>.active>a:hover {
 	font-weight: bold;
 }
-.nav>li.disabled>a {
+.nav-tabs > li > a {
 	cursor: pointer !important;
 }

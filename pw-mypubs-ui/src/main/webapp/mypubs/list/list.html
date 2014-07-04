@@ -1,8 +1,8 @@
 <div>
 	<div class="dnd-animate-reorder">
 
-		<div ng-repeat="entry in entries track by entry.id" class="list-group animate dnd-animate-reorder-entry"
-		     ng-style="{top: entryTop(entry.order), height:rowHeight, width:rowWidth}" 
+		<div ng-repeat="entry in entries track by entry.id" class="list-group animate dnd-animate-reorder-entry "
+		     ng-style="{top: entryTop(entry.order), height:rowHeight, width:rowWidth}" id="{{listName+entry.id}}"
 		     pw-draggable drag="startDnd(entry.order)" pw-droppable drop="reoderDnd(entry.order)">
 
 	    	<div class="list-remove-handle">
