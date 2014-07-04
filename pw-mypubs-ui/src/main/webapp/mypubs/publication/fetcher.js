@@ -26,14 +26,14 @@ angular.module('pw.fetcher',[])
 					family : "Mastin",
 					given  : "Mark",
 					email  : "mm@mm.com",
-					literal: "MM Enterprises",
+				affiliation: "MM Enterprises",
 					order:0,
 				},
 				{
 					id:"je",
 					family : "Josberger",
 					given  : "Edward",
-					literal: "JD Edwards",
+				affiliation: "JD Edwards",
 					order:2,
 				},
 				{
@@ -48,7 +48,7 @@ angular.module('pw.fetcher',[])
 					family : "Geological",
 					given  : "George",
 					email  : "gg@gg.com",
-					literal: "GG Inc",
+				affiliation: "GG Inc",
 					order:0,
 				},
 				{

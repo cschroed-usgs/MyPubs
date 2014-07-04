@@ -6,23 +6,25 @@
 				active="tab.active" disabled="tab.disabled">
 			<div ng-if="colaboratorShow() === tab.value">
 
-				<div id="{{tab.text}}_tab" pw-list entries="colaborators" type-label="'Colaborators'" 
+				<div id="{{tab.text}}_tab" pw-list entries="colaborators" type-label="'{{tab.value}}'" 
 					entry-height="75"entry-width="750" service="Colaborators">
 
 					<select placeholder="Type" ui-select2 ng-model="entry.type" class="colaboratorType">
 						<option value=""></option>
 						<option ng-repeat="option in typeOptions" value="{{option.value}}" ng-bind="option.text"></option>
 					</select>
-					<span ng-hide="isCorporation(entry)">
+					<span ng-if="!isCorporation(entry)">
 						<input placeholder="Last Name"  type="text" ng-model="entry.family" class="colaboratorSmall">
 						<input placeholder="First Name" type="text" ng-model="entry.given"  class="colaboratorMedium">
 						<input placeholder="Email"      type="text" ng-model="entry.email"  class="colaboratorMedium">
 						<div></div>
 						<span class="colaboratorSpacer"></span>
+						<input placeholder="Affiliation"  type="text" ng-model="entry.affiliation" class="colaboratorLarge">
 					</span>
-					<input placeholder="Corporation"  type="text" ng-model="entry.literal"  class="colaboratorLarge">
-					<div ng-show="isCorporation(entry)">&nbsp;</div>
-
+					<span ng-if="isCorporation(entry)">
+						<input placeholder="Corporation"  type="text" ng-model="entry.literal"  class="colaboratorLarge">
+						<div ng-show="isCorporation(entry)">&nbsp;</div>
+					</span>
 				</div>
 
 			</div>
