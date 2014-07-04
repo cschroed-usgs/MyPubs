@@ -103,7 +103,11 @@ function ($scope, DataRowFieldService, PublicationFetcher, $log, fields, Lookup)
 			label  : "Publication Location",
 			rowType: "Text",
 		},
-
+		{
+			name   : "costcenters",
+			label  : "Cost Centers",
+			rowType: "Select",
+		},
 	]
 })
 

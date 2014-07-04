@@ -1,11 +1,13 @@
 
 <div id="colaborators" ng-controller="colaboratorsCtrl">
+	
 	<tabset justified="true">
 		<tab ng-repeat="tab in contribTypes" heading="{{tab.title}}" select="colaboratorShow(tab.type)"
 				active="tab.active" disabled="tab.disabled">
 			<div ng-if="colaboratorShow() === tab.type">
 
-				<div id="{{tab.title}}_tab" pw-list entries="colaborators" type-label="'Colaborators'" entry-height="75"  entry-width="750" service="Colaborators">
+				<div id="{{tab.title}}_tab" pw-list entries="colaborators" type-label="'Colaborators'" 
+					entry-height="75"entry-width="750" service="Colaborators">
 
 					<select placeholder="Type" ui-select2 ng-model="entry.type" class="colaboratorType">
 						<option value=""></option>
@@ -18,19 +20,10 @@
 						<div></div>
 						<span style="width:122px;display: inline-block;"></span>
 					</span>
-					<input placeholder="Corporation"  type="text" ng-model="entry.literal"  style="width:574px;margin-left:3px;">
+					<input placeholder="Corporation"  type="text" ng-model="entry.literal"  style="width:574px;margin-left:7px;">
 					<div ng-show="isCorporation(entry)">&nbsp;</div>
 
 				</div>
-
-				<div style="margin-bottom:10px;">
-					<div class="label labelSelect" style="width:146px">Cost Centers</div>
-					<select placeholder="Enter a Cost Center" ui-select2 ng-model="costcenters" class="costCenterType">
-						<option value=""></option>
-						<option ng-repeat="option in costCenterOptions" value="{{option.value}}" ng-bind="option.text"></option>
-					</select>
-				</div>
-
 
 			</div>
 		</tab>
