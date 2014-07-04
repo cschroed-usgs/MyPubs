@@ -1,27 +1,27 @@
 (function() {
 
 
-angular.module('pw.author',['ngRoute','pw.fetcher', 'pw.list', 'pw.collection'])
+angular.module('pw.colaborator',['ngRoute','pw.fetcher', 'pw.list', 'pw.collection'])
 
 
 .config(['$routeProvider',
 	function($routeProvider) {
 		$routeProvider.when('/Contributors', {
-			templateUrl: 'mypubs/publication/authors/author.html',
-			controller: 'authorsCtrl'
+			templateUrl: 'mypubs/publication/colaborators/colaborator.html',
+			controller: 'colaboratorsCtrl'
 		})
 	}
 ])
 
 
-.service('Authors', [
+.service('Colaborators', [
 'PublicationFetcher', 'Collection',
 function (PublicationFetcher, Collection) {
 
 	var ctx = Collection(this)
 
 
-	ctx.setAuthors = function(type) {
+	ctx.setColaborators = function(type) {
 		ctx.hasEntries = false
 		ctx.setEntries(null, type)
 
@@ -49,14 +49,14 @@ function (PublicationFetcher, Collection) {
 }])
 
 
-.controller('authorsCtrl', [
-'$scope', 'Authors', '$log',
-function ($scope, Authors, $log) {
+.controller('colaboratorsCtrl', [
+'$scope', 'Colaborators', '$log',
+function ($scope, Colaborators, $log) {
 
 	$scope.listName    = 'contrib_'
 	
-	$scope.Authors     = Authors
-	$scope.typeOptions = Authors.getTypeOptions()
+	$scope.Colaborators= Colaborators
+	$scope.typeOptions = Colaborators.getTypeOptions()
 
 	$scope.contribTypes= [
 		{
@@ -70,31 +70,33 @@ function ($scope, Authors, $log) {
 	]
 
 
-	$scope.authorType = 'author'
+	$scope.colaboratorType = 'author'
 
-	$scope.authorShow = function(type) {
+	$scope.colaboratorShow = function(type) {
 		if (typeof type === 'undefined') {
-			return $scope.authorType
+			return $scope.colaboratorType
 		}
-		$scope.authorType = type
+		$scope.colaboratorType = type
 	
-		Authors.setAuthors(type)
+		Colaborators.setColaborators(type)
 
-		$scope.authors     = Authors.getEntries()
+		$scope.colaborators    = Colaborators.getEntries()
 	}
-	$scope.authorShow( $scope.authorType )
+	$scope.colaboratorShow( $scope.colaboratorType )
 
-	$scope.isDirty     = function(author) {
-		return (author.email   !== ""
-			 || author.family  !== ""
-			 || author.given   !== ""
-			 || author.literal !== ""
+
+	$scope.isDirty     = function(colaborator) {
+		return (colaborator.email   !== ""
+			 || colaborator.family  !== ""
+			 || colaborator.given   !== ""
+			 || colaborator.literal !== ""
+			 || colaborator.affiliation !== ""
 			) 
 	}
 
 
-	$scope.isCorporation = function(author) {
-		return author.type === 'c'
+	$scope.isCorporation = function(colaborator) {
+		return colaborator.type === 'c'
 	}
 
 

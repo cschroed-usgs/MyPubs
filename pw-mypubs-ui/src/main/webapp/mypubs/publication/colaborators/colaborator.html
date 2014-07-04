@@ -1,13 +1,13 @@
 
-<div id="authors" ng-controller="authorsCtrl">
+<div id="colaborators" ng-controller="colaboratorsCtrl">
 	<tabset justified="true">
-		<tab ng-repeat="tab in contribTypes" heading="{{tab.title}}" select="authorShow(tab.type)"
+		<tab ng-repeat="tab in contribTypes" heading="{{tab.title}}" select="colaboratorShow(tab.type)"
 				active="tab.active" disabled="tab.disabled">
-			<div ng-if="authorShow() === tab.type">
+			<div ng-if="colaboratorShow() === tab.type">
 
-				<div id="{{tab.title}}_tab" pw-list entries="authors" type-label="'Author'" entry-height="75"  entry-width="750" service="Authors">
+				<div id="{{tab.title}}_tab" pw-list entries="colaborators" type-label="'Colaborators'" entry-height="75"  entry-width="750" service="Colaborators">
 
-					<select placeholder="Type" ui-select2 ng-model="entry.type" class="authorType" style="width:125px;">
+					<select placeholder="Type" ui-select2 ng-model="entry.type" class="colaboratorType">
 						<option value=""></option>
 						<option ng-repeat="option in typeOptions" value="{{option.value}}" ng-bind="option.text"></option>
 					</select>
@@ -25,7 +25,7 @@
 
 				<div style="margin-bottom:10px;">
 					<div class="label labelSelect" style="width:146px">Cost Centers</div>
-					<select placeholder="Enter a Cost Center" ui-select2 ng-model="costcenters" class="authorType" style="width:450px">
+					<select placeholder="Enter a Cost Center" ui-select2 ng-model="costcenters" class="costCenterType">
 						<option value=""></option>
 						<option ng-repeat="option in costCenterOptions" value="{{option.value}}" ng-bind="option.text"></option>
 					</select>
