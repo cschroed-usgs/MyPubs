@@ -4,7 +4,7 @@
 angular.module('pw.mypubs', [
 	'ngRoute','ui.select2','ui.bootstrap', 'ui.tinymce', 'ngAnimate', // angular util modules
 	'pw.actions', 'pw.pubHeader', 'pw.notify', // pw util modules
-	'pw.bibliodata', 'pw.catalog', 'pw.contacts', 'pw.links', 'pw.author' // pub edit modules
+	'pw.bibliodata', 'pw.catalog', 'pw.contacts', 'pw.links', 'pw.colaborator' // pub edit modules
 ])
 
 
@@ -27,8 +27,8 @@ function ($scope, $log, $location) {
 		},
 		{
 			title:"Colaborators",
-			templateUrl: 'mypubs/publication/authors/author.html',
-			controller: 'authorsCtrl'
+			templateUrl: 'mypubs/publication/colaborators/colaborator.html',
+			controller: 'colaboratorsCtrl'
 		},
 		{
 			title:"Links",
