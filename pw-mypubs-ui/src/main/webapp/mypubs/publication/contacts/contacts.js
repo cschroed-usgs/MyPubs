@@ -1,7 +1,7 @@
 (function() {
 
 
-angular.module('pw.contacts',['pw.dataRow','pw.fetcher', 'pw.list', 'pw.collection'])
+angular.module('pw.contacts',['pw.dataRow','pw.fetcher', 'pw.list', 'pw.collection', 'pw.lookups'])
 
 
 .service('Contacts', 
@@ -95,7 +95,7 @@ function ($scope, Contacts, $log) {
 }])
 
 
-.factory('contactFields', function() {
+.factory('contactFields', ['LookupFetcher', function(Lookup) {
 	return [
 		{
 			name   : "name",
@@ -126,8 +126,9 @@ function ($scope, Contacts, $log) {
 			name   : "state",
 			label  : "State",
 			rowType: "Select",
-			options: [{value:"WI",text:'Need-To-Make-This'},{value:"2",text:'Populated-with-States'},],
+			options: [],
 			placeholder:"Select a State",
+			type   : Lookup.type.states,
 		},
 		{
 			name   : "zipcode",
@@ -155,9 +156,8 @@ function ($scope, Contacts, $log) {
 			label  : "Link",
 			rowType: "Text",
 		},
-
 	]
-})
+}])
 
 
 .directive('pwContacts', function(){
