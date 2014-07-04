@@ -42,6 +42,21 @@ angular.module('pw.fetcher',[])
                     order:1,
                 }
             ],
+            editor         : [
+                {
+                    id:"gg",
+                    family : "Geological",
+                    given  : "George",
+                    email  : "gg@gg.com",
+                    literal: "GG Inc",
+                    order:0,
+                },
+                {
+                    id:"cc",
+                    "literal": "Corp Editor",
+                    order:1,
+                }
+            ],
             links          : [
                 {
                     id:"a",

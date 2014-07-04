@@ -57,6 +57,8 @@ function ($scope, Links, $log) {
 
 	Links.setLinks()
 
+	$scope.listName    = 'link_'
+
 	$scope.Links       = Links
 	$scope.links       = Links.getEntries()
 	$scope.typeOptions = Links.getTypeOptions()

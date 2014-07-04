@@ -32,23 +32,33 @@
 				</a>
 
 				<div id="ccsa-area">
-	                <a href="http://www.usgs.gov/" title="Link to main USGS page">USGS Home</a>
-	                <a href="http://www.usgs.gov/ask/index.html" title="Link to main USGS contact page">Contact USGS</a>
-	                <a href="http://search.usgs.gov/" title="Link to main USGS search (not publications search)">Search USGS</a>
-            	</div>				
+					<a href="http://www.usgs.gov/" title="Link to main USGS page">USGS Home</a>
+					<a href="http://www.usgs.gov/ask/index.html" title="Link to main USGS contact page">Contact USGS</a>
+					<a href="http://search.usgs.gov/" title="Link to main USGS search (not publications search)">Search USGS</a>
+				</div>
 		</div>
 
 		<div class="container mainContainer" ng-controller="mainCtrl">
 			<div class="row">
 
 				<div class="col-lg-8">
+
 					<pw:notify></pw:notify>
 
-				  	<pw:tabs names="Bibliodata,Contributors,Links,Contacts,Cataloging,Geospatial"></pw:tabs>
+					<!-- pw:tabs names="Bibliodata,Contributors,Links,Contacts,Cataloging,Geospatial"></pw:tabs -->
 
-					<pw:pubheader></pw:pubheader>
-
-					<div ng-view id="view"></div>
+					<div id="tabs">
+					  <tabset>
+						<tab ng-repeat="tab in tabs" heading="{{tab.title}}" select="show(tab.title)"
+								active="tab.active" disabled="tab.disabled">
+							<div ng-if="show() === tab.title">
+								<pw:pubheader></pw:pubheader>
+								<div id="{{tab.title}}_tab" style="width:750px" ng-include src="tab.templateUrl"></div>
+							</div>
+						</tab>
+					  </tabset>
+					</div>
+					<!-- div ng-view id="view"></div -->
 
 					<pw:actions></pw:actions>
 
@@ -86,7 +96,6 @@
 
 	<!-- mypubs application -->
 
-	<script type="text/javascript" src="mypubs/tabs/tabs.js"></script>
 	<script type="text/javascript" src="mypubs/datarow/datarow.js"></script>
 	<script type="text/javascript" src="mypubs/dnd/dragdrop.js"></script>
 	<script type="text/javascript" src="mypubs/list/list.js"></script>
