@@ -27,9 +27,10 @@ function ($scope, DataRowFieldService, PublicationFetcher, $log, fields) {
 		{
 			name   : "costcenters",
 			label  : "Cost Centers",
-			rowType: "MultiSelect",
+			rowType: "Multiselect",
 			type   : Lookup.type.costCenters,
 			options: [],
+			value  : [],
 			placeholder:"Select Centers",
 		},
 		{

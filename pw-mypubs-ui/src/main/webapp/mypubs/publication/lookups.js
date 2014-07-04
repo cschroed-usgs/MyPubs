@@ -79,6 +79,12 @@ angular.module('pw.lookups',['pw.notify'])
             query: function (query) {
             	var proxy = {
             		setValues : function(options) {
+            			if (options && options[0] 
+            			 && options[0].id!==options[0].value) {
+            				_.each(options, function(option){
+            					option.id=option.value
+            				})
+            			}
 		                query.callback({ results: options });
             		}
             	}
