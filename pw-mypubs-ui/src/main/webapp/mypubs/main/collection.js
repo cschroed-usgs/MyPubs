@@ -34,7 +34,7 @@ function (PublicationFetcher) {
 
 		ctx._newEntry = function(fields) {
 			var id = "_" + Math.random()
-			    id = id.replace("0.","")
+				id = id.replace("0.","")
 
 			var entry = {
 				id:id,

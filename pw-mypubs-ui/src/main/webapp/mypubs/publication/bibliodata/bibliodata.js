@@ -7,9 +7,9 @@ angular.module('pw.bibliodata',['pw.dataRow','ngRoute','pw.fetcher', 'pw.lookups
 .config(['$routeProvider',
 	function($routeProvider) {
 		$routeProvider.when('/Bibliodata', {
-	    	templateUrl: 'mypubs/publication/bibliodata/bibliodata.html',
-	    	controller: 'biblioCtrl'
-	    })
+			templateUrl: 'mypubs/publication/bibliodata/bibliodata.html',
+			controller: 'biblioCtrl'
+		})
 	}
 ])
 

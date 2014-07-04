@@ -8,9 +8,9 @@ angular.module('pw.links',['ngRoute','pw.fetcher', 'pw.list', 'pw.collection'])
 	'$routeProvider',
 	function($routeProvider) {
 		$routeProvider.when('/Links', {
-	    	templateUrl: 'mypubs/publication/links/links.html',
-	    	controller: 'linksCtrl'
-	    })
+			templateUrl: 'mypubs/publication/links/links.html',
+			controller: 'linksCtrl'
+		})
 	}
 ])
 
@@ -44,7 +44,7 @@ function (PublicationFetcher, Collection) {
 
 
 	ctx.newEntry = function() {
-        return ctx._newEntry(['type','url','text','size','fileType','description'])
+		return ctx._newEntry(['type','url','text','size','fileType','description'])
 	}
 
 

@@ -8,9 +8,9 @@ angular.module('pw.contacts',['pw.dataRow','ngRoute','pw.fetcher', 'pw.list', 'p
 	'$routeProvider',
 	function($routeProvider) {
 		$routeProvider.when('/Contacts', {
-	    	templateUrl: 'mypubs/publication/contacts/contact.html',
-	    	controller: 'contactCtrl'
-	    })
+			templateUrl: 'mypubs/publication/contacts/contact.html',
+			controller: 'contactCtrl'
+		})
 	}
 ])
 
