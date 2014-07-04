@@ -1,10 +1,13 @@
 
-.changePubActions {
-	position: relative;
+#pubTime {
+	display: inline-block;
+	position: absolute;
 	left: 345px;
-	top: 75px;
+	top: 70px;
+	width: 160px;
 }
 
 #pubHeader {
-	margin-bottom: 20px;
+	margin-bottom: 30px;
+	margin-top: 3px;
 }

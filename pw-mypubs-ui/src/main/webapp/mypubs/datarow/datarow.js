@@ -1,7 +1,7 @@
 (function() {
 
 
-var templates    = ['Date','Editor','Gap','Readonly','Select','Text','Textbox']
+var templates    = ['Date','Editor','Gap','Readonly','Select','Text','Textbox','Time']
 var templatePath = 'mypubs/datarow/row'
 var templateCache
 
