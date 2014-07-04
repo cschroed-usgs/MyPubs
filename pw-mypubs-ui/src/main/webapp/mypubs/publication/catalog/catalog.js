@@ -17,13 +17,13 @@ function ($scope, DataRowFieldService, PublicationFetcher, $log, fields) {
 
 .factory('catFields', function() {
 	return [
-		{
-			name   : "keywords",
-			label  : "Keywords",
-			rowType: "Select",
-			options: [{value:"1",text:'Need-To-Make-This'},{value:"2",text:'A-Multiple-Select'},],
-			placeholder:"Enter Keywords",
-		},
+		// {
+		// 	name   : "keywords",
+		// 	label  : "Keywords",
+		// 	rowType: "MultiAjax",
+		// 	options: [{value:"1",text:'Need-To-Make-This'},{value:"2",text:'A-Multiple-Select'},],
+		// 	placeholder:"Enter Keywords",
+		// },
 		{
 			name   : "description",
 			label  : "Prod Description",
