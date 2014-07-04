@@ -2,11 +2,11 @@
 <div id="colaborators" ng-controller="colaboratorsCtrl">
 
 	<tabset justified="true">
-		<tab ng-repeat="tab in contribTypes" heading="{{tab.title}}" select="colaboratorShow(tab.type)"
+		<tab ng-repeat="tab in contribTypes" heading="{{tab.text}}" select="colaboratorShow(tab.value)"
 				active="tab.active" disabled="tab.disabled">
-			<div ng-if="colaboratorShow() === tab.type">
+			<div ng-if="colaboratorShow() === tab.value">
 
-				<div id="{{tab.title}}_tab" pw-list entries="colaborators" type-label="'Colaborators'" 
+				<div id="{{tab.text}}_tab" pw-list entries="colaborators" type-label="'Colaborators'" 
 					entry-height="75"entry-width="750" service="Colaborators">
 
 					<select placeholder="Type" ui-select2 ng-model="entry.type" class="colaboratorType">

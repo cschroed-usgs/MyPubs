@@ -1,12 +1,12 @@
 (function() {
 
 
-angular.module('pw.colaborator',['pw.fetcher', 'pw.list', 'pw.collection'])
+angular.module('pw.colaborator',['pw.fetcher', 'pw.list', 'pw.collection', 'pw.lookups'])
 
 
 .service('Colaborators', [
-'PublicationFetcher', 'Collection',
-function (PublicationFetcher, Collection) {
+'PublicationFetcher', 'Collection', 'LookupFetcher',
+function (PublicationFetcher, Collection, Lookup) {
 
 	var ctx = Collection(this)
 
@@ -31,6 +31,27 @@ function (PublicationFetcher, Collection) {
 	}
 
 
+	ctx.colaboratorTypes= []
+	ctx.getColaboratorTypes = function() {
+		return ctx.fetchOptions(Lookup.type.colaborators, ctx.colaboratorTypes)
+	}
+
+
+	ctx.fetchOptions = function(type, cOptions) {
+		if (cOptions && cOptions.length>0) {
+			return
+		}
+		var proxy = {
+			setValues : function(options) {
+				cOptions.push.apply(cOptions, options)
+			}
+		}
+		Lookup.get(type, proxy)
+		return cOptions
+	}
+
+
+
 	ctx.newEntry = function() {
 		return ctx._newEntry(['type','family','given','email','literal'])
 	}
@@ -47,18 +68,7 @@ function ($scope, Colaborators, $log) {
 	
 	$scope.Colaborators= Colaborators
 	$scope.typeOptions = Colaborators.getTypeOptions()
-
-	$scope.contribTypes= [
-		{
-			type :'author',
-			title:'Authors',
-		},
-		{
-			type :'editor',
-			title:'Editors',
-		},
-	]
-
+	$scope.contribTypes= Colaborators.getColaboratorTypes()
 
 	$scope.colaboratorType = 'author'
 

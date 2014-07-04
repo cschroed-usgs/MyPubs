@@ -17,6 +17,7 @@ angular.module('pw.lookups',['pw.notify'])
 		linkSubjects: 'linktype',
 		linkFiles:    'linkfiletype',
 		states:       'statetype',
+		colaborators: 'colaboratortype',
 	}
 
 
@@ -31,6 +32,7 @@ angular.module('pw.lookups',['pw.notify'])
 
 
 	ctx._cache = {
+		colaboratortype : [{"value" :"author","text":"Authors",},{"value" :"editor","text":"Editors",}],
 		statetype       : [{"value":"WA","text":"Washington"},{"value":"WI","text":"Wisconsin"},],
 		linktype        : [{"value":"m","text":"Map"},{"value":"r","text":"Report"},],
 		linkfiletype    : [{"value":"pdf","text":"PDF"},{"value":"gif","text":"giff"},],
