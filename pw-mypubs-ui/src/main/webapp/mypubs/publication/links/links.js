@@ -18,27 +18,13 @@ function (PublicationFetcher, Collection, Lookup) {
 
 	ctx.typeOptions = []
 	ctx.getTypeOptions = function() {
-		return ctx.fetchOptions(Lookup.type.linkSubjects, ctx.typeOptions)
+		return Lookup.fetchOptions(Lookup.type.linkSubjects, ctx.typeOptions)
 	}
 
 
 	ctx.fileOptions = []
 	ctx.getFileOptions = function() {
-		return ctx.fetchOptions(Lookup.type.linkFiles, ctx.fileOptions)
-	}
-
-
-	ctx.fetchOptions = function(type, linkOptions) {
-		if (linkOptions && linkOptions.length>0) {
-			return
-		}
-		var proxy = {
-			setValues : function(options) {
-				linkOptions.push.apply(linkOptions, options)
-			}
-		}
-		Lookup.get(type, proxy)
-		return linkOptions
+		return Lookup.fetchOptions(Lookup.type.linkFiles, ctx.fileOptions)
 	}
 
 

@@ -33,23 +33,8 @@ function (PublicationFetcher, Collection, Lookup) {
 
 	ctx.colaboratorTypes= []
 	ctx.getColaboratorTypes = function() {
-		return ctx.fetchOptions(Lookup.type.colaborators, ctx.colaboratorTypes)
+		return Lookup.fetchOptions(Lookup.type.colaborators, ctx.colaboratorTypes)
 	}
-
-
-	ctx.fetchOptions = function(type, cOptions) {
-		if (cOptions && cOptions.length>0) {
-			return
-		}
-		var proxy = {
-			setValues : function(options) {
-				cOptions.push.apply(cOptions, options)
-			}
-		}
-		Lookup.get(type, proxy)
-		return cOptions
-	}
-
 
 
 	ctx.newEntry = function() {

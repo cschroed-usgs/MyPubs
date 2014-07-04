@@ -110,6 +110,20 @@ angular.module('pw.lookups',['pw.notify'])
 	}
 
 
+	ctx.fetchOptions = function(type, options) {
+		if (options && options.length>0) {
+			return
+		}
+		var proxy = {
+			setValues : function(fOptions) {
+				options.push.apply(options, fOptions)
+			}
+		}
+		ctx.get(type, proxy)
+		return options
+	}
+
+
 	ctx.affixAjax = function(type, component) {
 		component.ajax = {
 			url: ctx._url(type),
