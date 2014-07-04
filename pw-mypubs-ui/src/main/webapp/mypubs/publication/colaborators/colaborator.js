@@ -1,17 +1,7 @@
 (function() {
 
 
-angular.module('pw.colaborator',['ngRoute','pw.fetcher', 'pw.list', 'pw.collection'])
-
-
-.config(['$routeProvider',
-	function($routeProvider) {
-		$routeProvider.when('/Contributors', {
-			templateUrl: 'mypubs/publication/colaborators/colaborator.html',
-			controller: 'colaboratorsCtrl'
-		})
-	}
-])
+angular.module('pw.colaborator',['pw.fetcher', 'pw.list', 'pw.collection'])
 
 
 .service('Colaborators', [

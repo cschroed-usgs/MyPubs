@@ -1,18 +1,7 @@
 (function() {
 
 
-angular.module('pw.links',['ngRoute','pw.fetcher', 'pw.list', 'pw.collection'])
-
-
-.config([
-	'$routeProvider',
-	function($routeProvider) {
-		$routeProvider.when('/Links', {
-			templateUrl: 'mypubs/publication/links/links.html',
-			controller: 'linksCtrl'
-		})
-	}
-])
+angular.module('pw.links',['pw.fetcher', 'pw.list', 'pw.collection'])
 
 
 .service('Links', 

@@ -1,18 +1,7 @@
 (function() {
 
 
-angular.module('pw.contacts',['pw.dataRow','ngRoute','pw.fetcher', 'pw.list', 'pw.collection'])
-
-
-.config([
-	'$routeProvider',
-	function($routeProvider) {
-		$routeProvider.when('/Contacts', {
-			templateUrl: 'mypubs/publication/contacts/contact.html',
-			controller: 'contactCtrl'
-		})
-	}
-])
+angular.module('pw.contacts',['pw.dataRow','pw.fetcher', 'pw.list', 'pw.collection'])
 
 
 .service('Contacts', 

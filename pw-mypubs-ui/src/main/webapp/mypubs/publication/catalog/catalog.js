@@ -1,18 +1,7 @@
 (function() {
 
 
-angular.module('pw.catalog',['pw.dataRow','ngRoute','pw.fetcher'])
-
-
-.config([
-	'$routeProvider',
-	function($routeProvider) {
-		$routeProvider.when('/Cataloging', {
-			templateUrl: 'mypubs/publication/catalog/catalog.html',
-			controller: 'catalogCtrl'
-		})
-	}
-])
+angular.module('pw.catalog',['pw.dataRow','pw.fetcher'])
 
 
 .controller('catalogCtrl', [
