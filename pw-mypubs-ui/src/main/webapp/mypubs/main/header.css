@@ -1,27 +1,27 @@
 .banner-area {
-    background-image: url(../main/img/banner.gif) !important; /* Modify for alternate banner images */
-    background-position: 0px 0px;
+	background-image: url(../main/img/banner.gif) !important; /* Modify for alternate banner images */
+	background-position: 0px 0px;
 }
 #ccsa-area {
-    float: right;
-    color: #FFF;
-    background-color: #000;
-    margin-top: 5px;
+	float: right;
+	color: #FFF;
+	background-color: #000;
+	margin-top: 5px;
 }
 #ccsa-area a {
 	font-weight: bold;
-    font-family: Verdana,Arial,Helvetica,sans-serif;
+	font-family: Verdana,Arial,Helvetica,sans-serif;
 	display: block;
 	font-size: 12px;
-	margin-bottom: 2px;    
-    padding-right: 1em;
-    line-height: 1;
-    margin-left: 4px;
-    color: #FFF;
-    background-color: transparent;
+	margin-bottom: 2px;
+	padding-right: 1em;
+	line-height: 1;
+	margin-left: 4px;
+	color: #FFF;
+	background-color: transparent;
 }
 
 
 .mainContainer {
-    margin-top:55px;
+	margin-top:55px;
 }

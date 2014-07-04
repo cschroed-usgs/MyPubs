@@ -1,39 +1,36 @@
 
 .dnd-drag {
-  opacity: 0.33;
+	opacity: 0.33;
 }
 
 .dnd-over {
-  background-color: #EEF;
+	background-color: #EEF;
 }
 .dnd-over-top {
-  border-top: 1px solid blue;
+	border-top: 1px solid blue;
 }
 .dnd-over-bottom {
-  border-bottom: 1px solid blue;
+	border-bottom: 1px solid blue;
 }
 
 
 .dnd-animate-reorder {
-    /* Needed, otherwise items would be at top of the page (see below) */
-    position: absolute;
+	/* Needed, otherwise items would be at top of the page (see below) */
+	position: absolute;
 }
-.dnd-animate-reorder-entry  {
-    position: absolute;
-    /* Top: 0; this will be changed for every single list item by AngularJS */
-    top:0;
-    /*  Simple transition */
-
-    transition: top 0.5s ease-in-out, opacity 0.5s ease-in-out;
+.dnd-animate-reorder-entry {
+	position: absolute;
+	/* Top: 0; this will be changed for every single list item by AngularJS */
+	top:0;
+	transition: top 0.5s ease-in-out, opacity 0.5s ease-in-out;
 }
 
 
-.animate-remove-entry  {
-    /*  Simple transition */
-    -webkit-transition: height 0.25s ease-in-out, opacity 0.25s ease-in-out;
-    -moz-transition: height 0.25s ease-in-out, opacity 0.25s ease-in-out;
-    -o-transition: height 0.25s ease-in-out, opacity 0.25s ease-in-out;
-    transition: height 0.25s ease-in-out, opacity 0.25s ease-in-out;
+.animate-remove-entry {
+	-webkit-transition: height 0.25s ease-in-out, opacity 0.25s ease-in-out;
+	-moz-transition: height 0.25s ease-in-out, opacity 0.25s ease-in-out;
+	-o-transition: height 0.25s ease-in-out, opacity 0.25s ease-in-out;
+	transition: height 0.25s ease-in-out, opacity 0.25s ease-in-out;
 }
 
 
@@ -42,10 +39,10 @@
 .animate.ng-leave
 { 
 	-webkit-transition: 500ms height;
-	-moz-transition: 500ms  height;
+	-moz-transition: 500ms height;
 	-ms-transition: 500ms height;
 	-o-transition: 500ms height;
-	transition: 500ms  height;
+	transition: 500ms height;
 	position: relative;
 	display: block;
 	overflow: hidden;

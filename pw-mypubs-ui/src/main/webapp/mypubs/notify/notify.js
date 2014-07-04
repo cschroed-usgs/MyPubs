@@ -19,46 +19,46 @@ angular.module('pw.notify',[])
 
 .service('Notifier', ['$rootScope', function($rootScope) {
 
-    var ctx = this
+	var ctx = this
 
-    ctx._msgs = [] // should this be an angular.value?
-
-
-    ctx.getMsgs = function() {
-    	return ctx._msgs
-    }
+	ctx._msgs = [] // should this be an angular.value?
 
 
-    ctx.remove = function(index) {
-    	ctx._msgs.splice(index, 1)
-    }
+	ctx.getMsgs = function() {
+		return ctx._msgs
+	}
 
 
-    ctx.notify = function(msg, type) {
-    	ctx._msgs.push({
-    		type: type,
-    		text: msg
-    	})
-    	$rootScope.$broadcast('notifier')
-    }
+	ctx.remove = function(index) {
+		ctx._msgs.splice(index, 1)
+	}
 
 
-    // informative messages are success in ui-bootstrap
-    ctx.info = function(msg) {
-    	ctx.notify(msg, 'success')
-    }
-    
-
-    // warn is the default in ui-bootstrap
-    ctx.warn = function(msg) {
-    	ctx.notify(msg)
-    }
+	ctx.notify = function(msg, type) {
+		ctx._msgs.push({
+			type: type,
+			text: msg
+		})
+		$rootScope.$broadcast('notifier')
+	}
 
 
-    // erro messages are danger in ui-bootstrap
-    ctx.error = function(msg) {
-    	ctx.notify(msg, 'danger')
-    }
+	// informative messages are success in ui-bootstrap
+	ctx.info = function(msg) {
+		ctx.notify(msg, 'success')
+	}
+	
+
+	// warn is the default in ui-bootstrap
+	ctx.warn = function(msg) {
+		ctx.notify(msg)
+	}
+
+
+	// erro messages are danger in ui-bootstrap
+	ctx.error = function(msg) {
+		ctx.notify(msg, 'danger')
+	}
 
 }])
 

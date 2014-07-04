@@ -114,13 +114,13 @@ mod.directive('pwList', ['$parse', function($parse) {
 
 
 mod.directive('pwListEntry', function(){
-    return {
-        link: function(scope, element, attrs, ctrl, transclude){
-            transclude(scope, function(inner) {              
-                element.append(inner);
-            });
-        }
-    }
+	return {
+		link: function(scope, element, attrs, ctrl, transclude){
+			transclude(scope, function(inner) {
+				element.append(inner);
+			});
+		}
+	}
 });
 
 

@@ -7,20 +7,20 @@ var templateCache
 
 
 var getTemplate  = function(rowType) {
-    return templatePath+rowType+'.html'
+	return templatePath+rowType+'.html'
 }
 
 
 var registerTemplate = function($templateCache, templateUrl) {
 	if ($templateCache.get(templateUrl)) return
 
-    var req = new XMLHttpRequest()
-    req.onload = function() {
-        var templateSrc = this.responseText
+	var req = new XMLHttpRequest()
+	req.onload = function() {
+		var templateSrc = this.responseText
 		$templateCache.put(templateUrl,	templateSrc)
-    }
-    req.open("get", templateUrl, false)
-    req.send()
+	}
+	req.open("get", templateUrl, false)
+	req.send()
 }
 
 
@@ -51,14 +51,14 @@ angular.module('pw.dataRow', [])
 
 		link : function($scope, el, attrs) {
 
-	        var templateUrl = getTemplate($scope.data.rowType)
-	        var templateSrc = templateCache.get(templateUrl)
-	        el.html(templateSrc)
+			var templateUrl = getTemplate($scope.data.rowType)
+			var templateSrc = templateCache.get(templateUrl)
+			el.html(templateSrc)
 
-	        //console.log(templateUrl)
+			//console.log(templateUrl)
 
-	        $compile(el.contents())($scope)
-        }
+			$compile(el.contents())($scope)
+		}
 	}
 
 	return pwDatarow
@@ -86,8 +86,8 @@ angular.module('pw.dataRow', [])
 	service.formatDate = function(date) {
 		date.format  = "mm/dd/yyyy"
 		date.options = {
-		    formatYear: 'yy',
-		    startingDay: 1
+			formatYear: 'yy',
+			startingDay: 1
 		}
 		date.open = function(event) {
 			service.openDatePicker(date, event)

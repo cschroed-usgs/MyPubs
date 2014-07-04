@@ -8,9 +8,9 @@ angular.module('pw.catalog',['pw.dataRow','ngRoute','pw.fetcher'])
 	'$routeProvider',
 	function($routeProvider) {
 		$routeProvider.when('/Cataloging', {
-	    	templateUrl: 'mypubs/publication/catalog/catalog.html',
-	    	controller: 'catalogCtrl'
-	    })
+			templateUrl: 'mypubs/publication/catalog/catalog.html',
+			controller: 'catalogCtrl'
+		})
 	}
 ])
 
