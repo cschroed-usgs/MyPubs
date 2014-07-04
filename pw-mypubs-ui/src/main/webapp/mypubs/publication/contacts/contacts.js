@@ -54,6 +54,7 @@ function (DataRowFieldService, PublicationFetcher, Collection, $rootScope, field
 function ($scope, Contacts, $log, $location) {
 
 	Contacts.setContacts()
+	$scope.contact = Contacts.contact
 
 
 	$scope.$on('activeContact', function() {
