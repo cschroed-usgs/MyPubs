@@ -1,11 +1,10 @@
 <div class="data">
 
 	<div class="label" ng-bind="data.label"></div>
-	<div class="value" style="width:160px;">
+	<div class="value">
 
-		<input type="text" class="form-control" ng-model="data.value" ng-required="true" close-text="Close"
-		 datepicker-options="data.options" datepicker-popup="{{data.format}}" id="dp{{data.elId}}"
-		 style="width:100px; float:left; margin-right: 2px;display: inline-block;" />
+		<input type="text" class="form-control form-date" ng-model="data.value" ng-required="true" close-text="Close"
+		 datepicker-options="data.options" datepicker-popup="{{data.format}}" id="dp{{data.elId}}"/>
 
 		<button type="button" class="btn btn-default btn-calendar" ng-click="data.open($event)">
 			<i class="glyphicon glyphicon-calendar" ></i>

@@ -1,6 +1,5 @@
 <div id="contact" ng-controller="contactCtrl">
 	<pw:datarow ng-repeat="line in contact" data="line" class="relativeButton"></pw:datarow>
 
-	<button ng-click="newEntry()" class="btn" ng-disabled="isNewEntry" 
-			style="position:relative;float:right;">New Contact</button>
+	<button ng-click="newEntry()" ng-disabled="isNewEntry" class="btn newEntryButton">New Contact</button>
 </div>

@@ -40,3 +40,8 @@
 	width: 14px;
 	position: relative;
 }
+
+.newEntryButton {
+	position:relative;
+	float:right;
+}

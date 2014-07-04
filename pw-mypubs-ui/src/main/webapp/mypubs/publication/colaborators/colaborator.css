@@ -1,10 +1,20 @@
-.colaboratorMedium {
-	display:inline-block;
-	width:150px;
+.colaboratorSmall {
+	width:166px;
 }
-
-
+.colaboratorMedium {
+	width:200px;
+}
+.colaboratorLarge {
+	width:574px;
+	margin-left:7px;
+}
+.colaboratorSpacer {
+	display: inline-block;
+	width:122px;
+}
 .colaboratorType {
 	margin-right: 4px;
 	width:125px;
 }
+
+

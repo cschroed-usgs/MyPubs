@@ -24,13 +24,4 @@
 		<input placeholder="Description Text" type="text" ng-model="entry.description" class="linkLarge">
 
 	</div>
-
-	<div style="margin-bottom:10px;">
-		<div class="label labelSelect" style="width:146px">Cost Centers</div>
-		<select placeholder="Enter a Cost Center" ui-select2 ng-model="costcenters" class="colaboratorType">
-			<option value=""></option>
-			<option ng-repeat="option in costCenterOptions" value="{{option.value}}" ng-bind="option.text"></option>
-		</select>
-	</div>
-
 </div>
