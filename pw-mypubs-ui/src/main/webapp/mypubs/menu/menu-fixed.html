@@ -1,0 +1,11 @@
+
+<div class="btn-group" id="menu">
+	<span class="btn-menu btn-primary" ng-model="selected" btn-radio="'main'">Home</span>
+	<span class="btn-menu btn-primary" ng-model="selected" ng-class="isLoggedIn()?'':'disabled'" btn-radio="'search'">Search</span>
+	<span class="btn-menu btn-primary" ng-model="selected" ng-class="isLoggedIn()?'':'disabled'" btn-radio="'pub'">Publication</span>
+	<span class="btn-menu btn-primary" ng-model="selected" ng-class="isLoggedIn()?'':'disabled'" btn-radio="'res'">Reservations</span>
+	<span class="btn-group-right">
+		<span class="btn-menu btn-primary" ng-model="selected" btn-radio="'login'"  ng-hide="isLoggedIn()">Login</span>
+		<span class="btn-menu btn-primary" ng-model="selected" btn-radio="'logout'" ng-show="isLoggedIn()">Logout</span>
+	</span>
+</div>
