@@ -14,6 +14,11 @@ angular.module('pw.menu', [])
 
 		controller : function($scope) {
 
+		},
+
+		link : function($scope, el, attrs) {
+			// this is the button group scope not each ngRepeat scope
+
 			$scope.menuLeft = [
 				{
 					name  : "Home",
@@ -48,13 +53,32 @@ angular.module('pw.menu', [])
 				login : false
 			}
 
+
+			var menuBoth = []
+			menuBoth.push.apply(menuBoth, $scope.menuLeft)
+			menuBoth.push.apply(menuBoth, $scope.menuRight)
+
+			var menuState = function() {
+				_.each(menuBoth, function(btn){
+					btn.state = btn.enable === undefined || btn.enable && $scope.isLogin() ?'':'disabled'
+				})
+				// let the state take effect then respond to it
+				setTimeout(function(){
+					$(el.find('button')).removeAttr('disabled')
+					$(el.find('.disabled')).attr('disabled',true)
+				},0)
+			}
+
+
 			$scope.$watch('menu.selected', function(){
 				if ($scope.menu.selected === 'Login') {
 					$scope.menu.login = true
 				} else if ($scope.menu.selected === 'Logout') {
 					$scope.menu.login = false
 				}
+				menuState()
 			})
+
 
 			$scope.isLogin = function() {
 				return $scope.menu.login
@@ -66,10 +90,7 @@ angular.module('pw.menu', [])
 				// show when login state matches requests state
 				return  show === $scope.isLogin()
 			}
-		},
 
-		link : function($scope, el, attrs) {
-			// this is the button group scope not each ngRepeat scope
 		}
 	}
 
