@@ -38,7 +38,7 @@ angular.module('pw.dataRow', ['pw.lookups'])
 }])
 
 
-.directive('pwDatarow', function($compile) {
+.directive('pwDatarow', ['$compile', function($compile) {
 
 	var pwDatarow = {
 		restrict    : 'E', //AEC
@@ -62,7 +62,7 @@ angular.module('pw.dataRow', ['pw.lookups'])
 	}
 
 	return pwDatarow
-})
+}])
 
 
 .service('DataRowFieldService', ['LookupFetcher', function(Lookup) {
