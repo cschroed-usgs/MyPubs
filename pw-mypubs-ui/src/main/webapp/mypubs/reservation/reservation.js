@@ -16,6 +16,8 @@ angular.module('pw.reservation', ['ngRoute'])
 
 .controller('reservationCtrl', [ '$scope', function($scope) {
 
+	// TODO show pubs ids currently editing and by whom
+
 }])
 
 

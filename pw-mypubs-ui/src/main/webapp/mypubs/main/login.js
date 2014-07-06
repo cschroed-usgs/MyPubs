@@ -16,6 +16,15 @@ angular.module('pw.login', ['ngRoute'])
 
 .controller('loginCtrl', [ '$scope', function($scope) {
 
+	// TODO login user/pwd and fetch session token
+
+}])
+
+
+.controller('logoutCtrl', [ '$scope', function($scope) {
+
+	// TODO remove login token
+
 }])
 
 
