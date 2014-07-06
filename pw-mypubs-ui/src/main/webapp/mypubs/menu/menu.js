@@ -12,7 +12,12 @@ angular.module('pw.menu', [])
 		transclude  : true,
 		templateUrl : "mypubs/menu/menu.html",
 
-		controller : function($scope) {
+		controller : function($scope, $location) {
+
+			// sets the angular path on the url location hash
+			$scope.setRoute = function(routeName) {
+				$location.path('/' + routeName)
+			}
 
 		},
 
@@ -77,6 +82,7 @@ angular.module('pw.menu', [])
 					$scope.menu.login = false
 				}
 				menuState()
+				$scope.setRoute($scope.menu.selected)
 			})
 
 
