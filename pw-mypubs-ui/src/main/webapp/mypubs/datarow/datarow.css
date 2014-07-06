@@ -45,3 +45,30 @@ textarea.value {
 .form-control {
 	height: 28px !important;
 }
+.form-date {
+	width:100px;
+	float:left;
+	margin-right: 2px;
+	display: inline-block;
+}
+.form-select {
+	width:400px;
+}
+.form-time {
+	width:160px;
+}
+.rowSelect {
+	margin-bottom: 8px;
+}
+.select2-container-multi .select2-choices {
+	height: 25px !important;
+	min-height: 25px !important;
+	border-radius: 4px;
+}
+.select2-container-multi .select2-choices .select2-search-choice {
+	margin: 5px 1px !important;
+}
+.select2-container-multi .select2-search-choice-close {
+	top : 2px;
+	left: 4px;
+}

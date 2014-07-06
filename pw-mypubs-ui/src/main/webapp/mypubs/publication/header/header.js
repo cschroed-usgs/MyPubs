@@ -25,19 +25,6 @@ function ($scope, DataRowFieldService, PublicationFetcher, $log, fields) {
 	$scope.rows = fields
 	DataRowFieldService.fieldMapper(fields, pubData)
 	
-	$scope.pubslist = {
-		name   : "Publications List",
-		action : function() {
-			// TODO service.doPublicaitonsList
-		}
-	}
-	$scope.reservations = {
-		name   : "Reservations",
-		action : function() {
-			// TODO service.doReserveations
-		}
-	}
-
 }])
 
 
@@ -55,7 +42,7 @@ function ($scope, DataRowFieldService, PublicationFetcher, $log, fields) {
 		},
 		{
 			name   : "public_date",
-			label  : "Display to Public Date",
+			label  : "Display to Public",
 			rowType: "Date", 
 			elId   : "PublicDate",
 		},
@@ -64,4 +51,3 @@ function ($scope, DataRowFieldService, PublicationFetcher, $log, fields) {
 
 
 }) ()
-

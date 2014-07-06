@@ -1,7 +1,6 @@
 <div id="pubHeader" ng-controller="pubHeaderCtrl">
-	<div class="changePubActions">
-		<button class="btn" ng-click="pubslist.action" ng-bind="pubslist.name"></button>
-		<button class="btn" ng-click="reservations.action" ng-bind="reservations.name"></button>
+	<div id="pubTime">
+		<timepicker ng-model="publicTime" hour-step="1" minute-step="10" show-meridian="true"></timepicker>
 	</div>
 	<pw:datarow ng-repeat="row in rows" data="row" class="relativeButton"></pw:datarow>
 </div>

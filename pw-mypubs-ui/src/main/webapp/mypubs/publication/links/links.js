@@ -1,23 +1,12 @@
 (function() {
 
 
-angular.module('pw.links',['ngRoute','pw.fetcher', 'pw.list', 'pw.collection'])
-
-
-.config([
-	'$routeProvider',
-	function($routeProvider) {
-		$routeProvider.when('/Links', {
-			templateUrl: 'mypubs/publication/links/links.html',
-			controller: 'linksCtrl'
-		})
-	}
-])
+angular.module('pw.links',['pw.fetcher', 'pw.list', 'pw.collection', 'pw.lookups'])
 
 
 .service('Links', 
-[ 'PublicationFetcher', 'Collection',
-function (PublicationFetcher, Collection) {
+[ 'PublicationFetcher', 'Collection', 'LookupFetcher',
+function (PublicationFetcher, Collection, Lookup) {
 
 	var ctx = Collection(this)
 
@@ -27,19 +16,15 @@ function (PublicationFetcher, Collection) {
 	}
 
 
+	ctx.typeOptions = []
 	ctx.getTypeOptions = function() {
-		return [
-			{value:"m", text:"Map"},
-			{value:"r", text:"Report"},
-		]
+		return Lookup.fetchOptions(Lookup.type.linkSubjects, ctx.typeOptions)
 	}
 
 
+	ctx.fileOptions = []
 	ctx.getFileOptions = function() {
-		return [
-			{value:"pdf", text:"PDF"},
-			{value:"gif", text:"giff"},
-		]
+		return Lookup.fetchOptions(Lookup.type.linkFiles, ctx.fileOptions)
 	}
 
 

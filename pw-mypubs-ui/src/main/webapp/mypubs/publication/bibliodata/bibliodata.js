@@ -1,45 +1,44 @@
 (function() {
 
 
-angular.module('pw.bibliodata',['pw.dataRow','ngRoute','pw.fetcher', 'pw.lookups'])
-
-
-.config(['$routeProvider',
-	function($routeProvider) {
-		$routeProvider.when('/Bibliodata', {
-			templateUrl: 'mypubs/publication/bibliodata/bibliodata.html',
-			controller: 'biblioCtrl'
-		})
-	}
-])
+angular.module('pw.bibliodata',['pw.dataRow','pw.fetcher', 'pw.lookups'])
 
 
 .controller('biblioCtrl', [
-'$scope', 'DataRowFieldService', 'PublicationFetcher', '$log', 'biblioFields', 'LookupFetcher',
-function ($scope, DataRowFieldService, PublicationFetcher, $log, fields, Lookup) {
+'$scope', 'DataRowFieldService', 'PublicationFetcher', '$log', 'biblioFields',
+function ($scope, DataRowFieldService, PublicationFetcher, $log, fields) {
 
 	var pubData = PublicationFetcher.getById('asdf')
 	$scope.rows = fields
 	DataRowFieldService.fieldMapper(fields, pubData)
-
-	Lookup.get(Lookup.type.publication, optionsDecorator(fields[0], $scope))
 }])
 
 
-.factory('biblioFields', function() {
+.factory('biblioFields',['LookupFetcher', function(Lookup) {
 	return [
 		{
 			name   : "pub_type",
 			label  : "Publication Type",
 			rowType: "Select",
 			options: [],
+			type   : Lookup.type.publications,
 			placeholder:"Select a Publication Type",
+		},
+		{
+			name   : "costcenters",
+			label  : "Cost Centers",
+			rowType: "Multiselect",
+			type   : Lookup.type.costCenters,
+			options: [],
+			value  : [],
+			placeholder:"Select Centers",
 		},
 		{
 			name   : "series_title",
 			label  : "Series Title",
 			rowType: "Select",
-			options: [{value:"1",text:'Open File Report'},{value:"2",text:'Book'},],
+			options: [],
+			type   : Lookup.type.seriesTitles,
 			placeholder:"Select a Series",
 		},
 		{
@@ -103,19 +102,7 @@ function ($scope, DataRowFieldService, PublicationFetcher, $log, fields, Lookup)
 			label  : "Publication Location",
 			rowType: "Text",
 		},
-
 	]
-})
-
-
-var optionsDecorator = function(datum, scope) {
-	return {
-		setValues : function(options) {
-			if (datum.options.length === 0) {
-				datum.options.push.apply(datum.options, options)
-			}
-		}
-	}
-}
+}])
 
 }) ()

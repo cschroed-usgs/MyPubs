@@ -9,11 +9,11 @@
 	<link rel="stylesheet" type="text/css" href="lib/select2/select2.css">
 	<link rel="stylesheet" type="text/css" href="mypubs/main/mypubs.css">
 	<link rel="stylesheet" type="text/css" href="mypubs/main/header.css">
-	<link rel="stylesheet" type="text/css" href="mypubs/tabs/tabs.css">
 	<link rel="stylesheet" type="text/css" href="mypubs/datarow/datarow.css">
 	<link rel="stylesheet" type="text/css" href="mypubs/publication/action/buttons.css">
 	<link rel="stylesheet" type="text/css" href="mypubs/publication/header/header.css">
 	<link rel="stylesheet" type="text/css" href="mypubs/publication/contacts/contacts.css">
+	<link rel="stylesheet" type="text/css" href="mypubs/publication/colaborators/colaborator.css">	
 	<link rel="stylesheet" type="text/css" href="mypubs/publication/links/links.css">
 	<link rel="stylesheet" type="text/css" href="mypubs/dnd/dragdrop.css">
 	<link rel="stylesheet" type="text/css" href="mypubs/list/list.css">
@@ -24,19 +24,20 @@
 	<div id="main" class="container">
 
 		<div class="navbar navbar-fixed-top banner-area">
-				<a class="navbar-brand" href="http://usgs.gov" target="_new">
-					<img alt="USGS" src="mypubs/main/img/usgslogo-40.png"></img>
-				</a>
-				<a class="navbar-brand" href="http://cida.usgs.gov" target="_new" title="Center for Integrated Data Analytics">
-					<img alt="CIDA" src="mypubs/main/img/cidalogo-40.png"></img>
-				</a>
+			<a class="navbar-brand" href="http://usgs.gov" target="_new">
+				<img alt="USGS" src="mypubs/main/img/usgslogo-40.png"></img>
+			</a>
+			<a class="navbar-brand" href="http://cida.usgs.gov" target="_new" title="Center for Integrated Data Analytics">
+				<img alt="CIDA" src="mypubs/main/img/cidalogo-40.png"></img>
+			</a>
 
-				<div id="ccsa-area">
-					<a href="http://www.usgs.gov/" title="Link to main USGS page">USGS Home</a>
-					<a href="http://www.usgs.gov/ask/index.html" title="Link to main USGS contact page">Contact USGS</a>
-					<a href="http://search.usgs.gov/" title="Link to main USGS search (not publications search)">Search USGS</a>
-				</div>
+			<div id="ccsa-area">
+				<a href="http://www.usgs.gov/" title="Link to main USGS page">USGS Home</a>
+				<a href="http://www.usgs.gov/ask/index.html" title="Link to main USGS contact page">Contact USGS</a>
+				<a href="http://search.usgs.gov/" title="Link to main USGS search (not publications search)">Search USGS</a>
+			</div>
 		</div>
+
 
 		<div class="container mainContainer" ng-controller="mainCtrl">
 			<div class="row">
@@ -47,13 +48,13 @@
 
 					<!-- pw:tabs names="Bibliodata,Contributors,Links,Contacts,Cataloging,Geospatial"></pw:tabs -->
 
-					<div id="tabs">
+					<div id="tabs" class="tabSet">
 					  <tabset>
 						<tab ng-repeat="tab in tabs" heading="{{tab.title}}" select="show(tab.title)"
 								active="tab.active" disabled="tab.disabled">
 							<div ng-if="show() === tab.title">
 								<pw:pubheader></pw:pubheader>
-								<div id="{{tab.title}}_tab" style="width:750px" ng-include src="tab.templateUrl"></div>
+								<div id="{{tab.title}}_tab" class="tabPane" ng-include src="tab.templateUrl"></div>
 							</div>
 						</tab>
 					  </tabset>
@@ -114,7 +115,7 @@
 	<script type="text/javascript" src="mypubs/publication/catalog/catalog.js"></script>
 	<script type="text/javascript" src="mypubs/publication/contacts/contacts.js"></script>
 	<script type="text/javascript" src="mypubs/publication/links/links.js"></script>
-	<script type="text/javascript" src="mypubs/publication/authors/author.js"></script>
+	<script type="text/javascript" src="mypubs/publication/colaborators/colaborator.js"></script>
 
 
 </body>

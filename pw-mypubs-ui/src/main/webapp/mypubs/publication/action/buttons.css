@@ -1,8 +1,12 @@
 /** button styles **/
 
 div.actions {
-	margin-left: 215px;
+	margin-left: 202px;
 	margin-bottom: 10px;
+	padding: 10px;
+	background-color: #eee;
+	width: 353px;
+	border-radius: 4px;
 }
 
 /** bootstrap 2.x vs 3.x **/
@@ -38,4 +42,11 @@ div.actions {
 	-moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2),0 1px 2px rgba(0, 0, 0, 0.05);
 	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2),0 1px 2px rgba(0, 0, 0, 0.05);
 	cursor: pointer;
+}
+
+.btn:hover {
+	color: #87ADCF;
+	border:1px solid #87ADCF;
+	outline: -webkit-focus-ring-color auto 5px;
+	outline-offset: -2px;
 }

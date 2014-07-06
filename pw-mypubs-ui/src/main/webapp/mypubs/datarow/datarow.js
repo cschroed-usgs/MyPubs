@@ -1,7 +1,7 @@
 (function() {
 
 
-var templates    = ['Date','Editor','Gap','Readonly','Select','Text','Textbox']
+var templates    = ['Date','Editor','Gap','Readonly','Multiselect','Select','Text','Textbox','Time']
 var templatePath = 'mypubs/datarow/row'
 var templateCache
 
@@ -25,7 +25,7 @@ var registerTemplate = function($templateCache, templateUrl) {
 
 
 
-angular.module('pw.dataRow', [])
+angular.module('pw.dataRow', ['pw.lookups'])
 
 
 .run(['$templateCache',function($templateCache) {
@@ -38,7 +38,7 @@ angular.module('pw.dataRow', [])
 }])
 
 
-.directive('pwDatarow', function($compile) {
+.directive('pwDatarow', ['$compile', function($compile) {
 
 	var pwDatarow = {
 		restrict    : 'E', //AEC
@@ -62,10 +62,10 @@ angular.module('pw.dataRow', [])
 	}
 
 	return pwDatarow
-})
+}])
 
 
-.service('DataRowFieldService', function() {
+.service('DataRowFieldService', ['LookupFetcher', function(Lookup) {
 	var service = this
 
 	service.openDatePicker = function(field, event) {
@@ -110,12 +110,29 @@ angular.module('pw.dataRow', [])
 				service.formatDate(field)
 			} else if (field.rowType == "Editor") {
 				service.formatEditor(field)
+			} else if (field.rowType == "Select" && field.type) {
+				Lookup.get( field.type, optionsProxy(field) )
+			} else if (field.rowType == "Multiselect") {
+				Lookup.affixMultiselect(field.type, field)
+			} else if (field.rowType == "MultiAjax") {
+				//Lookups.affixAjax(field.type, field) // TODO
 			}
 		})
 		return fieldMapping
 	}
 
-})
+}])
+
+
+var optionsProxy = function(datum) {
+	return {
+		setValues : function(options) {
+			if (datum.options.length === 0) {
+				datum.options.push.apply(datum.options, options)
+			}
+		}
+	}
+}
 
 
 }) ()
