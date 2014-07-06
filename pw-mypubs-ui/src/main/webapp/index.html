@@ -1,5 +1,6 @@
 <html ng-app="pw.mypubs">
 <head>
+
 	<title>MyPubs 2.0</title>
 
 	<link rel="icon" type="img/x-icon" href="favicon.ico">
@@ -17,10 +18,12 @@
 	<link rel="stylesheet" type="text/css" href="mypubs/publication/links/links.css">
 	<link rel="stylesheet" type="text/css" href="mypubs/dnd/dragdrop.css">
 	<link rel="stylesheet" type="text/css" href="mypubs/list/list.css">
+	<link rel="stylesheet" type="text/css" href="mypubs/menu/menu.css">
 
 </head>
 
 <body>
+
 	<div id="main" class="container">
 
 		<div class="navbar navbar-fixed-top banner-area">
@@ -36,6 +39,8 @@
 				<a href="http://www.usgs.gov/ask/index.html" title="Link to main USGS contact page">Contact USGS</a>
 				<a href="http://search.usgs.gov/" title="Link to main USGS search (not publications search)">Search USGS</a>
 			</div>
+
+			<pw:menu style="width:100%" width="80px"></pw:menu>
 		</div>
 
 
@@ -43,26 +48,7 @@
 			<div class="row">
 
 				<div class="col-lg-8">
-
-					<pw:notify></pw:notify>
-
-					<!-- pw:tabs names="Bibliodata,Contributors,Links,Contacts,Cataloging,Geospatial"></pw:tabs -->
-
-					<div id="tabs" class="tabSet">
-					  <tabset>
-						<tab ng-repeat="tab in tabs" heading="{{tab.title}}" select="show(tab.title)"
-								active="tab.active" disabled="tab.disabled">
-							<div ng-if="show() === tab.title">
-								<pw:pubheader></pw:pubheader>
-								<div id="{{tab.title}}_tab" class="tabPane" ng-include src="tab.templateUrl"></div>
-							</div>
-						</tab>
-					  </tabset>
-					</div>
-					<!-- div ng-view id="view"></div -->
-
-					<pw:actions></pw:actions>
-
+					<div ng-view id="view"></div>
 				</div>
 
 				<div class="col-lg-4">
@@ -95,28 +81,46 @@
 	<script type="text/javascript" src="lib/angular/ui-bootstrap-tpls-0.11.0.js"></script>
 	<script type="text/javascript" src="lib/angular/ui-tinymce.0.5.x.js"></script>
 
-	<!-- mypubs application -->
+	<!-- mypubs application utils -->
 
 	<script type="text/javascript" src="mypubs/datarow/datarow.js"></script>
 	<script type="text/javascript" src="mypubs/dnd/dragdrop.js"></script>
 	<script type="text/javascript" src="mypubs/list/list.js"></script>
+	<script type="text/javascript" src="mypubs/main/collection.js"></script>
+	<script type="text/javascript" src="mypubs/menu/menu.js"></script>
 	<script type="text/javascript" src="mypubs/notify/notify.js"></script>
 
+	<!-- main controller -->
 	<script type="text/javascript" src="mypubs/main/mypubs.js"></script>
-	<script type="text/javascript" src="mypubs/main/collection.js"></script>
+
+	<!-- login page -->
+	<script type="text/javascript" src="mypubs/main/auth.js"></script>
+
+	<!-- home page -->
+	<script type="text/javascript" src="mypubs/main/home.js"></script>
+
+	<!-- search page -->
+	<script type="text/javascript" src="mypubs/search/search.js"></script>
+
+	<!-- reservation page -->
+	<script type="text/javascript" src="mypubs/reservation/reservation.js"></script>
+
+	<!-- publications page -->
+
+	<script type="text/javascript" src="mypubs/publication/publication.js"></script>
 
 	<script type="text/javascript" src="mypubs/publication/fetcher.js"></script>
 	<script type="text/javascript" src="mypubs/publication/lookups.js"></script>
 	<script type="text/javascript" src="mypubs/publication/action/actions.js"></script>
-	<script type="text/javascript" src="mypubs/publication/header/header.js"></script>
 
-	<!-- tabs -->
+	<script type="text/javascript" src="mypubs/publication/header/header.js"></script>
+	
+	<!-- publications tabs -->
 	<script type="text/javascript" src="mypubs/publication/bibliodata/bibliodata.js"></script>
 	<script type="text/javascript" src="mypubs/publication/catalog/catalog.js"></script>
 	<script type="text/javascript" src="mypubs/publication/contacts/contacts.js"></script>
 	<script type="text/javascript" src="mypubs/publication/links/links.js"></script>
 	<script type="text/javascript" src="mypubs/publication/colaborators/colaborator.js"></script>
-
 
 </body>
 </html>	

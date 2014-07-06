@@ -65,6 +65,9 @@ public class HTTP {
 			// default type
 		} else if (path.endsWith(".html")) {
 			contentType = "text/html";
+			if (path.contains("index")) {
+				log("");
+			}
 		} else if (path.endsWith(".css")) {
 			contentType = "text/css";
 		} else if (path.endsWith(".js")) {
