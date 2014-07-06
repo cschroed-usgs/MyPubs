@@ -15,9 +15,10 @@ function (PublicationFetcher, Collection, Lookup) {
 		ctx.hasEntries = false
 		ctx.setEntries(null, type)
 
+		// set corporate or person entry
 		angular.forEach(ctx.getEntries(), function(entry) {
-			if ( ! entry.type || entry.type==="") {
-				entry.type = (!entry.given||entry.given==='') ?'c':'p'
+			if ( angular.isUndefined(entry.type) || entry.type === '' ) {
+				entry.type = ( angular.isUndefined(entry.given) || entry.given === '') ?'c' :'p'
 			}
 		})
 	}

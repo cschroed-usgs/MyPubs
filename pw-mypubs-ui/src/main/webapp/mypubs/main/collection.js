@@ -8,7 +8,7 @@ angular.module('pw.collection',['pw.fetcher'])
 [ 'PublicationFetcher',
 function (PublicationFetcher) {
 	return function(ctx) {
-		if (!ctx) {
+		if ( angular.isUndefined(ctx) ) {
 			ctx = {}
 		}
 
@@ -75,15 +75,15 @@ function (PublicationFetcher) {
 
 		ctx.remove = function(id) {
 			var i = ctx.findIndexById(id)
-			if (i<0) {
+			if (i < 0) {
 				return
 			}
 			var oldOrder = ctx.entries[i].order
 			var entries1 = []
-			if (i>0) {
+			if (i > 0) {
 				entries1 = ctx.entries.slice(0,i)
 			}
-			if (i<ctx.entries.length-1) {
+			if (i < ctx.entries.length-1) {
 				var entries2 = ctx.entries.slice(i+1)
 				entries1.push.apply(entries1,entries2)
 			}
@@ -98,13 +98,13 @@ function (PublicationFetcher) {
 
 		ctx.reorder = function(id,direction) {
 			var i0 = ctx.findIndexById(id)
-			if (i0<0) {
+			if (i0 < 0) {
 				return
 			}
 			var e0 = ctx.entries[i0]
 			var i1 = e0.order+direction
 			var e1
-			if (i1>=0 && i1<ctx.entries.length) {
+			if (i1 >= 0 && i1 < ctx.entries.length) {
 				e1 = ctx.findEntryByOrder(i1)
 
 				var order = e0.order
@@ -118,12 +118,12 @@ function (PublicationFetcher) {
 			var e0 = ctx.entries[i0]
 			var i1 = i0+direction
 			var e1
-			if (i1>=0 && i1<ctx.entries.length) {
+			if (i1 >= 0 && i1 < ctx.entries.length) {
 				e1 = ctx.entries[i0+direction]
 			}
 
 			var entries1 = []
-			if (i0+direction>0) {
+			if (i0+direction > 0) {
 				entries1 = ctx.entries.slice(0, i0 - (direction<0 ?1 :0) )
 			}
 			if (direction<0) {

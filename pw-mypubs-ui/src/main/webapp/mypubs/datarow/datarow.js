@@ -12,7 +12,9 @@ var getTemplate  = function(rowType) {
 
 
 var registerTemplate = function($templateCache, templateUrl) {
-	if ($templateCache.get(templateUrl)) return
+	if ( $templateCache.get(templateUrl) ) {
+		return
+	}
 
 	var req = new XMLHttpRequest()
 	req.onload = function() {

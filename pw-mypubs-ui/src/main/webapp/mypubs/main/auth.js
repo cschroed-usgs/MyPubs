@@ -24,11 +24,11 @@ function ($rootScope, $location, $routeParams, $route, auth) {
 	$rootScope.$on('$routeChangeStart', function (event, next, current) {
 
 		// TODO find a better place for this
-		if ( ! auth.openRoutes ) {
+		if ( angular.isUndefined(auth.openRoutes) ) {
 			auth.openRoutes = []
 			angular.forEach($route.routes, function(route, path) {
 				route.openAccess && (auth.openRoutes.push(path));
-			});		
+			});
 		}
 
 

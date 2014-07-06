@@ -111,7 +111,7 @@ angular.module('pw.lookups',['pw.notify'])
 
 
 	ctx.fetchOptions = function(type, options) {
-		if (options && options.length>0) {
+		if ( angular.isDefined(options) && options.length > 0 ) {
 			return
 		}
 		var proxy = {
