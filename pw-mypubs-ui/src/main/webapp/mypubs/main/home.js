@@ -8,7 +8,8 @@ angular.module('pw.home', ['ngRoute'])
 	function($routeProvider) {
 		$routeProvider.when('/Home', {
 			templateUrl: 'mypubs/main/home.html',
-			controller: 'homeCtrl'
+			controller: 'homeCtrl',
+			openAccess: true
 		})
 		$routeProvider.otherwise({
 			redirectTo: '/Home'
