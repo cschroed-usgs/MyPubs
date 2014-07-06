@@ -4,7 +4,7 @@
 angular.module('pw.links',['pw.fetcher', 'pw.list', 'pw.collection', 'pw.lookups'])
 
 
-.service('Links', 
+.service('Links',
 [ 'PublicationFetcher', 'Collection', 'LookupFetcher',
 function (PublicationFetcher, Collection, Lookup) {
 
@@ -57,7 +57,7 @@ function ($scope, Links, $log) {
 			 || link.text !== ""
 			 || link.size !== ""
 			 || link.fileType !== ""
-			) 
+			)
 	}
 
 }])

@@ -19,7 +19,7 @@ angular.module('pw.auth', ['ngRoute'])
 ])
 
 
-.run(['$rootScope', '$location', '$routeParams', '$route', 'Authenticaiton', 
+.run(['$rootScope', '$location', '$routeParams', '$route', 'Authenticaiton',
 function ($rootScope, $location, $routeParams, $route, auth) {
 	$rootScope.$on('$routeChangeStart', function (event, next, current) {
 

@@ -35,9 +35,9 @@
 
 
 
-.animate.ng-enter, 
+.animate.ng-enter,
 .animate.ng-leave
-{ 
+{
 	-webkit-transition: 500ms height;
 	-moz-transition: 500ms height;
 	-ms-transition: 500ms height;
@@ -48,13 +48,13 @@
 	overflow: hidden;
 	text-overflow: clip;
 	white-space:nowrap;
-} 
+}
 
 .animate.ng-leave.animate.ng-leave-active,
 .animate.ng-enter {
 	height: 0px;
 }
 
-.animate.ng-enter.ng-enter-active, 
+.animate.ng-enter.ng-enter-active,
 .animate.ng-leave {
 }

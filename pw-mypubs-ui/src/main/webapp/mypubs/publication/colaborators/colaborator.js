@@ -77,7 +77,7 @@ function ($scope, Colaborators, $log) {
 			 || colaborator.given   !== ""
 			 || colaborator.literal !== ""
 			 || colaborator.affiliation !== ""
-			) 
+			)
 	}
 
 

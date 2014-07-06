@@ -4,7 +4,7 @@
 angular.module('pw.contacts',['pw.dataRow','pw.fetcher', 'pw.list', 'pw.collection', 'pw.lookups'])
 
 
-.service('Contacts', 
+.service('Contacts',
 [ 'DataRowFieldService', 'PublicationFetcher', 'Collection', '$rootScope', 'contactFields',
 function (DataRowFieldService, PublicationFetcher, Collection, $rootScope, fields) {
 

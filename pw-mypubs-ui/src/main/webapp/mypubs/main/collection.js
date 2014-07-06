@@ -4,7 +4,7 @@
 angular.module('pw.collection',['pw.fetcher'])
 
 
-.factory('Collection', 
+.factory('Collection',
 [ 'PublicationFetcher',
 function (PublicationFetcher) {
 	return function(ctx) {
