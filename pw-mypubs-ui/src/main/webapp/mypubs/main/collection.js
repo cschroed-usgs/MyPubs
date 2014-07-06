@@ -40,7 +40,7 @@ function (PublicationFetcher) {
 				id:id,
 				order:ctx.entries.length
 			}
-			_.each(fields, function(field) {
+			angular.forEach(fields, function(field) {
 				entry[field] = ''
 			})
 
@@ -87,7 +87,7 @@ function (PublicationFetcher) {
 				var entries2 = ctx.entries.slice(i+1)
 				entries1.push.apply(entries1,entries2)
 			}
-			_.each(entries1, function(entry) {
+			angular.forEach(entries1, function(entry) {
 				if (entry.order > oldOrder) {
 					entry.order--
 				}			

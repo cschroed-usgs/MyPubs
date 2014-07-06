@@ -83,7 +83,7 @@ angular.module('pw.lookups',['pw.notify'])
             		setValues : function(options) {
             			if (options && options[0] 
             			 && options[0].id!==options[0].value) {
-            				_.each(options, function(option){
+            				angular.forEach(options, function(option){
             					option.id=option.value
             				})
             			}
@@ -98,7 +98,7 @@ angular.module('pw.lookups',['pw.notify'])
 
                 var proxy = {
                 	setValues : function(options) {
-		                _.each(val, function(v){
+		                angular.forEach(val, function(v){
 							var partial = _.where(options, {value: v.value});
 							results.push.apply(results, partial)
 		                })

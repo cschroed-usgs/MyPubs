@@ -31,7 +31,7 @@ angular.module('pw.dataRow', ['pw.lookups'])
 .run(['$templateCache',function($templateCache) {
 	templateCache = $templateCache
 
-	_.each(templates, function(template) {
+	angular.forEach(templates, function(template) {
 		var templateUrl = getTemplate(template)
 		registerTemplate($templateCache, templateUrl)
 	})
@@ -103,7 +103,7 @@ angular.module('pw.dataRow', ['pw.lookups'])
 
 
 	service.fieldMapper = function(fieldMapping, data) {
-		_.each(fieldMapping, function(field){
+		angular.forEach(fieldMapping, function(field){
 			field.value = data[field.name]
 
 			if (field.rowType === "Date") {

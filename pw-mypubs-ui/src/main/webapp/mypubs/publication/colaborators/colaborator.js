@@ -15,7 +15,7 @@ function (PublicationFetcher, Collection, Lookup) {
 		ctx.hasEntries = false
 		ctx.setEntries(null, type)
 
-		_.each(ctx.getEntries(), function(entry) {
+		angular.forEach(ctx.getEntries(), function(entry) {
 			if ( ! entry.type || entry.type==="") {
 				entry.type = (!entry.given||entry.given==='') ?'c':'p'
 			}
