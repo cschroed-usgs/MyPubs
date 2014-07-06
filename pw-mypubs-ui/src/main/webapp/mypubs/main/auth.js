@@ -34,9 +34,7 @@ function ($rootScope, $location, $routeParams, $route, auth) {
 
 		if (next.$$route) {
 			var nextPath = next.$$route.originalPath
-			console.log('routeChangeStart ' + nextPath)
 			if ( ! auth.isLoggedIn() && ! _.contains(auth.openRoutes, nextPath) ) {
-				console.log('not isLoggedIn')
 				event.preventDefault()
 				$location.path('otherwise') // undefined route causes the default to be reouted
 			}
@@ -87,8 +85,7 @@ function ($rootScope, $location, $routeParams, $route, auth) {
 
 
 	auth.isLoggedIn = function() {
-		console.log('isLoggedIn')
-		return auth.token !== undefined;
+		return angular.isDefined(auth.token);
 	}
 
 

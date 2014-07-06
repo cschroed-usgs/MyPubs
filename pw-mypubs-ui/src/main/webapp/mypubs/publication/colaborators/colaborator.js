@@ -58,7 +58,7 @@ function ($scope, Colaborators, $log) {
 	$scope.colaboratorType = 'author'
 
 	$scope.colaboratorShow = function(type) {
-		if (typeof type === 'undefined') {
+		if ( angular.isUndefined(type) ) {
 			return $scope.colaboratorType
 		}
 		$scope.colaboratorType = type

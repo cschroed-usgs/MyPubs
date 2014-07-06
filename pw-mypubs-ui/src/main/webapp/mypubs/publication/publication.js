@@ -22,8 +22,6 @@ angular.module('pw.publication', ['ngRoute'])
 
 	// TODO if pubsid the fetch else use currently loaded
 
-	console.log($routeParams.pubsid)
-
 }])
 
 

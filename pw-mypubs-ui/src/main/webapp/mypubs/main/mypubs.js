@@ -57,7 +57,7 @@ function ($scope, $log, $location) {
 	$scope._show = 'Preview' // TODO index.html must compare to this when preview is impl
 
 	$scope.show = function(show) {
-		if (typeof show === 'undefined') {
+		if ( angular.isUndefined(show) ) {
 			return $scope._show
 		}
 		return $scope._show = show

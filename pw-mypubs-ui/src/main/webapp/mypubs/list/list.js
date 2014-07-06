@@ -71,7 +71,7 @@ mod.directive('pwList', ['$parse', function($parse) {
 			$scope.reoderDnd = function(end) {
 				var start = $scope.indexDrag
 
-				if ( start === undefined || end === undefined
+				if ( angular.isUndefined(start) || angular.isUndefined(end)
 					|| end < 0 || end >= $scope.entries.length ) {
 					return
 				}

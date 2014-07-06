@@ -55,8 +55,6 @@ angular.module('pw.dataRow', ['pw.lookups'])
 			var templateSrc = templateCache.get(templateUrl)
 			el.html(templateSrc)
 
-			//console.log(templateUrl)
-
 			$compile(el.contents())($scope)
 		}
 	}
