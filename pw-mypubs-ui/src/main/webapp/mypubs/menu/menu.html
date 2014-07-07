@@ -1,12 +1,12 @@
 
 <div class="btn-group" id="menu">
 	<span class="btn-group-left">
-		<button class="btn-menu btn-primary" ng-model="menu.selected" ng-repeat="btn in menuLeft" 
-				btn-radio="btn.name" ng-class="btn.state" 
+		<button class="btn-menu btn-primary" ng-model="menu.selected" ng-repeat="btn in menuLeft"
+				btn-radio="btn.name" ng-class="btn.state"
 				ng-show="showOnLogin(btn.show)" ng-bind="btn.name"></button>
 	</span>
 	<span class="btn-group-right">
-		<button class="btn-menu btn-primary" ng-model="menu.selected" ng-repeat="btn in menuRight" 
+		<button class="btn-menu btn-primary" ng-model="menu.selected" ng-repeat="btn in menuRight"
 				btn-radio="btn.name" ng-class="btn.state"
 				ng-show="showOnLogin(btn.show)" ng-bind="btn.name"></button>
 	</span>

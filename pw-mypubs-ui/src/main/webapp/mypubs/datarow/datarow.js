@@ -12,7 +12,9 @@ var getTemplate  = function(rowType) {
 
 
 var registerTemplate = function($templateCache, templateUrl) {
-	if ($templateCache.get(templateUrl)) return
+	if ( $templateCache.get(templateUrl) ) {
+		return
+	}
 
 	var req = new XMLHttpRequest()
 	req.onload = function() {
@@ -31,7 +33,7 @@ angular.module('pw.dataRow', ['pw.lookups'])
 .run(['$templateCache',function($templateCache) {
 	templateCache = $templateCache
 
-	_.each(templates, function(template) {
+	angular.forEach(templates, function(template) {
 		var templateUrl = getTemplate(template)
 		registerTemplate($templateCache, templateUrl)
 	})
@@ -54,8 +56,6 @@ angular.module('pw.dataRow', ['pw.lookups'])
 			var templateUrl = getTemplate($scope.data.rowType)
 			var templateSrc = templateCache.get(templateUrl)
 			el.html(templateSrc)
-
-			//console.log(templateUrl)
 
 			$compile(el.contents())($scope)
 		}
@@ -103,7 +103,7 @@ angular.module('pw.dataRow', ['pw.lookups'])
 
 
 	service.fieldMapper = function(fieldMapping, data) {
-		_.each(fieldMapping, function(field){
+		angular.forEach(fieldMapping, function(field){
 			field.value = data[field.name]
 
 			if (field.rowType === "Date") {

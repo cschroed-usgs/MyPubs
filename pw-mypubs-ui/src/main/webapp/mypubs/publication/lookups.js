@@ -10,7 +10,7 @@ angular.module('pw.lookups',['pw.notify'])
 
 
 	// here fore lookup not enforcement
-	ctx.type = { 
+	ctx.type = {
 		publications: 'publicationtype',
 		costCenters : 'costcentertype',
 		seriesTitles: 'seriestitletype',
@@ -76,42 +76,42 @@ angular.module('pw.lookups',['pw.notify'])
 
 
 	ctx.affixMultiselect = function(type, component) {
-        component.options = {
-            multiple: true,
-            query: function (query) {
-            	var proxy = {
-            		setValues : function(options) {
-            			if (options && options[0] 
-            			 && options[0].id!==options[0].value) {
-            				_.each(options, function(option){
-            					option.id=option.value
-            				})
-            			}
-		                query.callback({ results: options });
-            		}
-            	}
-            	ctx.get(type, proxy)
-            },
-            initSelection: function (element, callback) {
-                var val = $(element).select2('val')
-                var results = []
+		component.options = {
+			multiple: true,
+			query: function (query) {
+				var proxy = {
+					setValues : function(options) {
+						if (options && options[0]
+						 && options[0].id!==options[0].value) {
+							angular.forEach(options, function(option){
+								option.id=option.value
+							})
+						}
+						query.callback({ results: options });
+					}
+				}
+				ctx.get(type, proxy)
+			},
+			initSelection: function (element, callback) {
+				var val = $(element).select2('val')
+				var results = []
 
-                var proxy = {
-                	setValues : function(options) {
-		                _.each(val, function(v){
+				var proxy = {
+					setValues : function(options) {
+						angular.forEach(val, function(v){
 							var partial = _.where(options, {value: v.value});
 							results.push.apply(results, partial)
-		                })
-		                callback(results);
-                	}
-                }
-            }
-        };
+						})
+						callback(results);
+					}
+				}
+			}
+		};
 	}
 
 
 	ctx.fetchOptions = function(type, options) {
-		if (options && options.length>0) {
+		if ( angular.isDefined(options) && options.length > 0 ) {
 			return
 		}
 		var proxy = {

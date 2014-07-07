@@ -19,25 +19,25 @@ mod.directive('pwActions', function() {
 			$scope.reset = {
 				name   : "Reset",
 				action : function() {
-					// TODO service.doReset 
+					// TODO service.doReset
 				}
 			}
 			$scope.release = {
 				name   : "Release",
 				action : function() {
-					// TODO service.doRelease
+					// TODO service.doReleas
 				}
 			}
 			$scope.save = {
 				name   : "Save Changes",
 				action : function() {
-					// TODO service.doSave 
+					// TODO service.doSave
 				}
 			}
 			$scope.publish = {
 				name   : "Publish",
 				action : function() {
-					// TODO service.doPublish 
+					// TODO service.doPublish
 				}
 			}
 		},

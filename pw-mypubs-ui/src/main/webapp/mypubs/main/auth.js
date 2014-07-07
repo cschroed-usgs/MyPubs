@@ -19,24 +19,22 @@ angular.module('pw.auth', ['ngRoute'])
 ])
 
 
-.run(['$rootScope', '$location', '$routeParams', '$route', 'Authenticaiton', 
+.run(['$rootScope', '$location', '$routeParams', '$route', 'Authenticaiton',
 function ($rootScope, $location, $routeParams, $route, auth) {
 	$rootScope.$on('$routeChangeStart', function (event, next, current) {
 
 		// TODO find a better place for this
-		if ( ! auth.openRoutes ) {
+		if ( angular.isUndefined(auth.openRoutes) ) {
 			auth.openRoutes = []
 			angular.forEach($route.routes, function(route, path) {
 				route.openAccess && (auth.openRoutes.push(path));
-			});		
+			});
 		}
 
 
 		if (next.$$route) {
 			var nextPath = next.$$route.originalPath
-			console.log('routeChangeStart ' + nextPath)
 			if ( ! auth.isLoggedIn() && ! _.contains(auth.openRoutes, nextPath) ) {
-				console.log('not isLoggedIn')
 				event.preventDefault()
 				$location.path('otherwise') // undefined route causes the default to be reouted
 			}
@@ -87,8 +85,7 @@ function ($rootScope, $location, $routeParams, $route, auth) {
 
 
 	auth.isLoggedIn = function() {
-		console.log('isLoggedIn')
-		return auth.token !== undefined;
+		return angular.isDefined(auth.token);
 	}
 
 

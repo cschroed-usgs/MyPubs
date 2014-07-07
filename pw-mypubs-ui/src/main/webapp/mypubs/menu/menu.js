@@ -64,8 +64,8 @@ angular.module('pw.menu', [])
 			menuBoth.push.apply(menuBoth, $scope.menuRight)
 
 			var menuState = function() {
-				_.each(menuBoth, function(btn){
-					btn.state = btn.enable === undefined || btn.enable && $scope.isLogin() ?'':'disabled'
+				angular.forEach(menuBoth, function(btn){
+					btn.state = angular.isUndefined(btn.enable) || btn.enable && $scope.isLogin() ?'':'disabled'
 				})
 				// let the state take effect then respond to it
 				setTimeout(function(){
@@ -90,7 +90,7 @@ angular.module('pw.menu', [])
 				return $scope.menu.login
 			}
 			$scope.showOnLogin = function(show) {
-				if (show === undefined) {
+				if ( angular.isUndefined(show) ) {
 					return true // always show
 				}
 				// show when login state matches requests state

@@ -43,7 +43,7 @@ function ($scope, DataRowFieldService, PublicationFetcher, $log, fields) {
 		{
 			name   : "public_date",
 			label  : "Display to Public",
-			rowType: "Date", 
+			rowType: "Date",
 			elId   : "PublicDate",
 		},
 	]

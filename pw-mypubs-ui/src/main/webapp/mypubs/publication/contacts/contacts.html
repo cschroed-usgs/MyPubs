@@ -2,7 +2,7 @@
 	<h4>All {{contacts.length}} Contact{{contacts.length===1?'':'s'}}</h4>
 	<div class="contactsGroup">
 
-		<div pw-list entries="contacts" type-label="'Contact'" entry-height="166" entry-width="400" 
+		<div pw-list entries="contacts" type-label="'Contact'" entry-height="166" entry-width="400"
 			 service="Contacts" controls-align="left" hide-button="true">
 			<div class="contactItem" ng-click="select(entry.id)"
 				 ng-class="isSelected(entry.id)?'contactSelected':'contact'">
@@ -17,7 +17,7 @@
 					<span class="addressZip"   ng-bind="entry.zipcode"></span>
 				</div>
 				<div class="addressWeb list-group-item-text">
-					Web Address: 
+					Web Address:
 					<a href="{{entry.website}}" target="_new" ng-bind="entry.website"></a>
 				</div>
 				<div class="addressLink ">

@@ -15,9 +15,10 @@ function (PublicationFetcher, Collection, Lookup) {
 		ctx.hasEntries = false
 		ctx.setEntries(null, type)
 
-		_.each(ctx.getEntries(), function(entry) {
-			if ( ! entry.type || entry.type==="") {
-				entry.type = (!entry.given||entry.given==='') ?'c':'p'
+		// set corporate or person entry
+		angular.forEach(ctx.getEntries(), function(entry) {
+			if ( angular.isUndefined(entry.type) || entry.type === '' ) {
+				entry.type = ( angular.isUndefined(entry.given) || entry.given === '') ?'c' :'p'
 			}
 		})
 	}
@@ -58,7 +59,7 @@ function ($scope, Colaborators, $log) {
 	$scope.colaboratorType = 'author'
 
 	$scope.colaboratorShow = function(type) {
-		if (typeof type === 'undefined') {
+		if ( angular.isUndefined(type) ) {
 			return $scope.colaboratorType
 		}
 		$scope.colaboratorType = type
@@ -76,7 +77,7 @@ function ($scope, Colaborators, $log) {
 			 || colaborator.given   !== ""
 			 || colaborator.literal !== ""
 			 || colaborator.affiliation !== ""
-			) 
+			)
 	}
 
 

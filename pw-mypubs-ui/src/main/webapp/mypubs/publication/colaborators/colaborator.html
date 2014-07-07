@@ -6,7 +6,7 @@
 				active="tab.active" disabled="tab.disabled">
 			<div ng-if="colaboratorShow() === tab.value">
 
-				<div id="{{tab.text}}_tab" pw-list entries="colaborators" type-label="'{{tab.value}}'" 
+				<div id="{{tab.text}}_tab" pw-list entries="colaborators" type-label="'{{tab.value}}'"
 					entry-height="75"entry-width="750" service="Colaborators">
 
 					<select placeholder="Type" ui-select2 ng-model="entry.type" class="colaboratorType">
