@@ -31,17 +31,19 @@ function ($scope, DataRowFieldService, PublicationFetcher, $log, fields) {
 .factory('headerFields', function() {
 	return [
 		{
-			name   : "pid",
+			name   : "id",
 			label  : "Prod ID",
 			rowType: "Readonly",
 		},
 		{
-			name   : "idx",
+			additional:true,
+			name   : "indexID",
 			label  : "Index ID",
 			rowType: "Readonly",
 		},
 		{
-			name   : "public_date",
+			additional:true,
+			name   : "display-to-public-date",
 			label  : "Display to Public",
 			rowType: "Date",
 			elId   : "PublicDate",

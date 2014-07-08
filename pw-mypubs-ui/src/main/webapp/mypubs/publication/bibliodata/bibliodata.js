@@ -25,7 +25,16 @@ function ($scope, DataRowFieldService, PublicationFetcher, $log, fields) {
 			placeholder:"Select a Publication Type",
 		},
 		{
-			name   : "costcenters",
+			name   : "genre",
+			label  : "Publication Subtype",
+			rowType: "Select",
+			options: [],
+			type   : Lookup.type.genres,
+			placeholder:"Select a Publication Subtype",
+		},
+		{
+			additional:true,
+			name   : "Cost Center",
 			label  : "Cost Centers",
 			rowType: "Multiselect",
 			type   : Lookup.type.costCenters,
@@ -34,7 +43,7 @@ function ($scope, DataRowFieldService, PublicationFetcher, $log, fields) {
 			placeholder:"Select Centers",
 		},
 		{
-			name   : "series_title",
+			name   : "collection-title",
 			label  : "Series Title",
 			rowType: "Select",
 			options: [],
@@ -47,17 +56,17 @@ function ($scope, DataRowFieldService, PublicationFetcher, $log, fields) {
 			rowType: "Text",
 		},
 		{
-			name   : "series_num",
+			name   : "number",
 			label  : "Series Number",
 			rowType: "Text",
 		},
 		{
-			name   : "chapter",
+			name   : "chapter-number",
 			label  : "Chapter",
 			rowType: "Text",
 		},
 		{
-			name   : "subchapter",
+			name   : "sub-chapter-number",
 			label  : "Subchapter",
 			rowType: "Text",
 		},
@@ -70,7 +79,8 @@ function ($scope, DataRowFieldService, PublicationFetcher, $log, fields) {
 			rowType: "Gap",
 		},
 		{
-			name   : "collaborators",
+			additional:true,
+			name   : "collaboratortion",
 			label  : "Collaboration/Cooperation",
 			rowType: "Text",
 		},
@@ -80,7 +90,8 @@ function ($scope, DataRowFieldService, PublicationFetcher, $log, fields) {
 			rowType: "Editor",
 		},
 		{
-			name   : "usgs_citation",
+			additional:true,
+			name   : "usgs-citation",
 			label  : "USGS Citation",
 			rowType: "Textbox",
 		},
@@ -93,13 +104,28 @@ function ($scope, DataRowFieldService, PublicationFetcher, $log, fields) {
 			rowType: "Text",
 		},
 		{
-			name   : "publication",
+			name   : "publisher",
 			label  : "Publication",
 			rowType: "Text",
 		},
 		{
-			name   : "pub_location",
+			name   : "publisher-place",
 			label  : "Publication Location",
+			rowType: "Text",
+		},
+		{
+			name   : "DOI",
+			label  : "DOI",
+			rowType: "Text",
+		},
+		{
+			name   : "ISSN",
+			label  : "ISSN",
+			rowType: "Text",
+		},
+		{
+			name   : "ISBN",
+			label  : "ISBN",
 			rowType: "Text",
 		},
 	]

@@ -66,7 +66,7 @@ textarea.value {
 	border-radius: 4px;
 }
 .select2-container-multi .select2-choices .select2-search-choice {
-	margin: 5px 1px !important;
+	margin: 1px 1px !important;
 }
 .select2-container-multi .select2-search-choice-close {
 	top : 2px;

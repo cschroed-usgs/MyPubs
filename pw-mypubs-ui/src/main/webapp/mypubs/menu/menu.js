@@ -55,7 +55,7 @@ angular.module('pw.menu', [])
 
 			$scope.menu = {
 				selected : $scope.menuLeft[0].name,
-				login : false
+				login : true // TODO
 			}
 
 
@@ -77,7 +77,7 @@ angular.module('pw.menu', [])
 
 			$scope.$watch('menu.selected', function(){
 				if ($scope.menu.selected === 'Login') {
-					$scope.menu.login = true
+					$scope.menu.login = true // TODO
 				} else if ($scope.menu.selected === 'Logout') {
 					$scope.menu.login = false
 				}

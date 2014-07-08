@@ -26,7 +26,7 @@ function (PublicationFetcher) {
 				ctx.entries = entries
 				ctx.hasEntries = true
 			} else if ( ! ctx.hasEntries && type ) {
-				ctx.entries = PublicationFetcher.get()[type]
+				ctx.entries = PublicationFetcher.getType(type)
 				ctx.hasEntries = true
 			}
 		}

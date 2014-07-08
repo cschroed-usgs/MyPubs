@@ -10,143 +10,171 @@ angular.module('pw.fetcher',[])
 
 	ctx.getById = function(pubId) {
 		var pub = { // TODO to be fetched
-			pid  : "700000000",
-			idx  : "otr8068900",
-			public_date    : "05/28/2014", // 6/17/14
-			pub_type       : "2",
-			series_title   : "",
-			subseries      : "Climate change adaption Series",
-			series_number  : "2012-1234",
-			collaborators  : "ABC",
-			abstract       : "This is an entry. The quick brown fox jumps over the lazy dog. Sally sells sea shells at the sea shore.",
-			usgs_citation  : "This is an entry. The quick brown fox jumps over the lazy dog. Sally sells sea shells at the sea shore.",
-			author         : [
-				{
-					id:"mm",
-					family : "Mastin",
-					given  : "Mark",
-					email  : "mm@mm.com",
-				affiliation: "MM Enterprises",
-					order:0,
-				},
-				{
-					id:"je",
-					family : "Josberger",
-					given  : "Edward",
-				affiliation: "JD Edwards",
-					order:2,
-				},
-				{
-					id:"usgs",
-					"literal": "US Geological Survey",
-					order:1,
-				}
-			],
-			editor         : [
-				{
-					id:"gg",
-					family : "Geological",
-					given  : "George",
-					email  : "gg@gg.com",
-				affiliation: "GG Inc",
-					order:0,
-				},
-				{
-					id:"cc",
-					"literal": "Corp Editor",
-					order:1,
-				}
-			],
-			links          : [
-				{
-					id:"a",
-					type:"r",
-					url :"http://foo/bar.pdf",
-					text:"Report A",
-					size:"1 kb",
-					fileType:"pdf",
-					description:"A Test Link",
-					order:0,
-				},
-				{
-					id:"b",
-					type:"r",
-					url :"http://foo/bar.pdf",
-					text:"Report B",
-					size:"2 kb",
-					fileType:"pdf",
-					description:"B Test Link",
-					order:1,
-				},
-				{
-					id:"c",
-					type:"r",
-					url :"http://foo/bar.pdf",
-					text:"Report C",
-					size:"3 kb",
-					fileType:"pdf",
-					description:"C Test Link",
-					order:2,
-				}
-			],
-			contacts       : [
-				{
-					id : "a",
-					link: "https://github.com/USGS-CIDA/Publications-Warehouse",
-					link_text: "github home",
-					name:"USGS Center for Integrated Data Analytics",
-					address1:"8505 Reseach Way",
-					address2:"Suite 200",
-					address3:"c/o Scott",
-					city:"Midleton",
-					state:"WI",
-					zipcode:"53562",
-					website:"http://cida.usgs.gov",
-					order:0,
-				},
-				{
-					id : "b",
-					link: "https://github.com/USGS",
-					link_text: "github home",
-					name:"USGS Cartographic Applications and Processing Program",
-					address1:"505 Science Drive",
-					address2:"Suite 200",
-					address3:"c/o Frank",
-					city:"Madison",
-					state:"WI",
-					zipcode:"53711",
-					website:"http://www.usgs.gov",
-					order:1,
-				},
-				{
-					id : "c",
-					link: "https://github.com/USGS-CIDA/Publications-Warehouse",
-					link_text: "github home",
-					name:"USGS",
-					address1:"8505 Reseach Way",
-					address2:"Suite 200",
-					address3:"c/o Scott",
-					city:"Midleton",
-					state:"WI",
-					zipcode:"53562",
-					website:"http://cida.usgs.gov",
-					order:2,
-				},
-				{
-					id : "d",
-					link: "https://github.com/USGS",
-					link_text: "github home",
-					name:"CIDA",
-					address1:"505 Science Drive",
-					address2:"Suite 200",
-					address3:"c/o Frank",
-					city:"Madison",
-					state:"WI",
-					zipcode:"53711",
-					website:"http://www.usgs.gov",
-					order:3,
-				},
-			],
+			properties : {
+				id  : "700000000",
+				pub_type       : "2",
+				genre          : "2",
+				"collection-title" : "",
+				title          : "Publication Title",
+				subseries      : "Climate change adaption Series",
+				number         : "2012-1234",
+				DOI            : "DOI code",
+				ISSN           : "ISSN code",
+				ISBN           : "ISBN code",
+				"chapter-number": "1",
+				"sub-chapter-number": "a",
+				abstract       : "This is an entry. The quick brown fox jumps over the lazy dog. Sally sells sea shells at the sea shore.",
+				language       : "English",
+				publisher      : "US Geological Survey",
+				"publisher-place" : "Reston, VA",
+
+				"page-first"   : "0",
+				"page-last"    : "100",
+				"number-of-pages" : "101",
+
+				author         : [
+					{
+						id:"mm",
+						family : "Mastin",
+						given  : "Mark",
+						email  : "mm@mm.com",
+					affiliation: "MM Enterprises",
+						order:0,
+					},
+					{
+						id:"je",
+						family : "Josberger",
+						given  : "Edward",
+					affiliation: "JD Edwards",
+						order:2,
+					},
+					{
+						id:"usgs",
+						"literal": "US Geological Survey",
+						order:1,
+					}
+				],
+				editor         : [
+					{
+						id:"gg",
+						family : "Geological",
+						given  : "George",
+						email  : "gg@gg.com",
+					affiliation: "GG Inc",
+						order:0,
+					},
+					{
+						id:"cc",
+						"literal": "Corp Editor",
+						order:1,
+					}
+				],
+			},
+			additionalProperties : {
+				indexID  : "otr8068900",
+				"display-to-public-date" :  "2014-05-28", // TODO wrong date format
+				"Cost Center" : [{"value":"1","text":"Cost Center 1"},],
+				collaboratortion: "ABC",
+				"usgs-citation": "This is an entry. The quick brown fox jumps over the lazy dog. Sally sells sea shells at the sea shore.",
+
+				"product-description": "Product description, typically a short string",
+				"online-only": "Y",
+				"additional-online-files": "N",
+				"temporal-start": "2014-05-28", // TODO wrong date format
+				"temporal-end": "2014-05-28", // TODO wrong date format
+				"Notes": "This is where we put all the notes about this publication",
+
+				links          : [
+					{
+						id:"a",
+						type:"r",
+						url :"http://foo/bar.pdf",
+						text:"Report A",
+						size:"1 kb",
+						fileType:"pdf",
+						description:"A Test Link",
+						order:0,
+					},
+					{
+						id:"b",
+						type:"r",
+						url :"http://foo/bar.pdf",
+						text:"Report B",
+						size:"2 kb",
+						fileType:"pdf",
+						description:"B Test Link",
+						order:1,
+					},
+					{
+						id:"c",
+						type:"r",
+						url :"http://foo/bar.pdf",
+						text:"Report C",
+						size:"3 kb",
+						fileType:"pdf",
+						description:"C Test Link",
+						order:2,
+					}
+				],
+				contacts       : [
+					{
+						id : "a",
+						link: "https://github.com/USGS-CIDA/Publications-Warehouse",
+						link_text: "github home",
+						name:"USGS Center for Integrated Data Analytics",
+						address1:"8505 Reseach Way",
+						address2:"Suite 200",
+						address3:"c/o Scott",
+						city:"Midleton",
+						state:"WI",
+						zipcode:"53562",
+						website:"http://cida.usgs.gov",
+						order:0,
+					},
+					{
+						id : "b",
+						link: "https://github.com/USGS",
+						link_text: "github home",
+						name:"USGS Cartographic Applications and Processing Program",
+						address1:"505 Science Drive",
+						address2:"Suite 200",
+						address3:"c/o Frank",
+						city:"Madison",
+						state:"WI",
+						zipcode:"53711",
+						website:"http://www.usgs.gov",
+						order:1,
+					},
+					{
+						id : "c",
+						link: "https://github.com/USGS-CIDA/Publications-Warehouse",
+						link_text: "github home",
+						name:"USGS",
+						address1:"8505 Reseach Way",
+						address2:"Suite 200",
+						address3:"c/o Scott",
+						city:"Midleton",
+						state:"WI",
+						zipcode:"53562",
+						website:"http://cida.usgs.gov",
+						order:2,
+					},
+					{
+						id : "d",
+						link: "https://github.com/USGS",
+						link_text: "github home",
+						name:"CIDA",
+						address1:"505 Science Drive",
+						address2:"Suite 200",
+						address3:"c/o Frank",
+						city:"Madison",
+						state:"WI",
+						zipcode:"53711",
+						website:"http://www.usgs.gov",
+						order:3,
+					},
+				],
+			}
 		}
 		ctx.pub = pub
 		return pub
@@ -155,6 +183,15 @@ angular.module('pw.fetcher',[])
 
 	this.get = function() {
 		return ctx.pub
+	}
+
+
+	this.getType = function(type) {
+		var data = ctx.pub.properties[type]
+		if ( angular.isUndefined(data) ) {
+			data = ctx.pub.additionalProperties[type]
+		}
+		return data
 	}
 
 
