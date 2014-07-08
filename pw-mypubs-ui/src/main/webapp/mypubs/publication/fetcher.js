@@ -72,7 +72,7 @@ angular.module('pw.fetcher',[])
 			},
 			additionalProperties : {
 				indexID  : "otr8068900",
-				"display-to-public-date" :  "2014-05-28", // TODO wrong date format
+				"display-to-public-date" :  "2014-05-28T23:28:56.782Z",
 				"Cost Center" : [{"value":"1","text":"Cost Center 1"},],
 				collaboratortion: "ABC",
 				"usgs-citation": "This is an entry. The quick brown fox jumps over the lazy dog. Sally sells sea shells at the sea shore.",
