@@ -36,7 +36,7 @@ function ($scope, DataRowFieldService, PublicationFetcher, $log, fields) {
 		},
 		{
 			additional:true,
-			name   : "indexID",
+			name   : "index-id",
 			label  : "Index ID",
 			rowType: "Readonly",
 		},

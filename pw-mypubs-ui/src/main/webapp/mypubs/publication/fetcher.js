@@ -11,8 +11,8 @@ angular.module('pw.fetcher',[])
 	ctx.getById = function(pubId) {
 		var pub = { // TODO to be fetched
 			properties : {
-				id  : "700000000",
-				pub_type       : "2",
+				id             : "700000000",
+				type           : "2",
 				genre          : "2",
 				"collection-title" : "",
 				title          : "Publication Title",
@@ -73,7 +73,7 @@ angular.module('pw.fetcher',[])
 			additionalProperties : {
 				indexID  : "otr8068900",
 				"display-to-public-date" :  "2014-05-28T23:28:56.782Z",
-				"Cost Center" : [{"value":"1","text":"Cost Center 1"},],
+				"cost-center" : [{"value":"1","text":"Cost Center 1"},],
 				collaboratortion: "ABC",
 				"usgs-citation": "This is an entry. The quick brown fox jumps over the lazy dog. Sally sells sea shells at the sea shore.",
 
