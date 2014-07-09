@@ -264,10 +264,10 @@ describe("pw.dataRow module DataRowFieldService", function() {
 
 	describe("verify DataRowFieldService.formatEditor options", function() {
 
-		it('DataRowFieldService should have date format mm/dd/yyyy', inject(function(DataRowFieldService) {
+		it('DataRowFieldService should have date format yyyy-MM-dd', inject(function(DataRowFieldService) {
 			var opts = {}
 			DataRowFieldService.formatDate(opts)
-			expect(opts.format).toBe("mm/dd/yyyy")
+			expect(opts.format).toBe("yyyy-MM-dd")
 		}))
 	})
 		
