@@ -72,3 +72,9 @@ textarea.value {
 	top : 2px;
 	left: 4px;
 }
+.form-date-time {
+	position: relative;
+	top: -52px;
+	left: 160px;
+	height: 0;
+}

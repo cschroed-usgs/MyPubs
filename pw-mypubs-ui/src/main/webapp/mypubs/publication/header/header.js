@@ -24,8 +24,6 @@ function ($scope, DataRowFieldService, PublicationFetcher, $log, fields) {
 	var pubData = PublicationFetcher.getById('asdf')
 	$scope.rows = fields
 	DataRowFieldService.fieldMapper(fields, pubData)
-
-	$scope.publicTime = fields[2] // TODO refactor to put this as an option on date
 }])
 
 
@@ -47,6 +45,7 @@ function ($scope, DataRowFieldService, PublicationFetcher, $log, fields) {
 			name   : "display-to-public-date",
 			label  : "Display to Public",
 			rowType: "Date",
+			andTime: true,
 			elId   : "PublicDate",
 		},
 	]
