@@ -17,7 +17,7 @@ function ($scope, DataRowFieldService, PublicationFetcher, $log, fields) {
 .factory('biblioFields',['LookupFetcher', function(Lookup) {
 	return [
 		{
-			name   : "pub_type",
+			name   : "type",
 			label  : "Publication Type",
 			rowType: "Select",
 			options: [],
@@ -34,7 +34,7 @@ function ($scope, DataRowFieldService, PublicationFetcher, $log, fields) {
 		},
 		{
 			additional:true,
-			name   : "Cost Center",
+			name   : "cost-center",
 			label  : "Cost Centers",
 			rowType: "Multiselect",
 			type   : Lookup.type.costCenters,
