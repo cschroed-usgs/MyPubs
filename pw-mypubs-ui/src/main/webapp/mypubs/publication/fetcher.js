@@ -71,7 +71,7 @@ angular.module('pw.fetcher',[])
 				],
 			},
 			additionalProperties : {
-				indexID  : "otr8068900",
+				"index-id"  : "otr8068900",
 				"display-to-public-date" :  "2014-05-28T23:28:56.782Z",
 				"cost-center" : [{"value":"1","text":"Cost Center 1"},],
 				collaboratortion: "ABC",
