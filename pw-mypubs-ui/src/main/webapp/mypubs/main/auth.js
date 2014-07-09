@@ -69,7 +69,7 @@ function ($rootScope, $location, $routeParams, $route, auth) {
 	var auth = this
 
 
-	auth.token
+	auth.token = 'TODO testing default loggin token'
 
 
 	auth.setToken = function(token) {

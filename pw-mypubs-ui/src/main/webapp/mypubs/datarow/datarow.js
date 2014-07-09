@@ -1,7 +1,7 @@
 (function() {
 
 
-var templates    = ['Date','Editor','Gap','Readonly','Multiselect','Select','Text','Textbox','Time']
+var templates    = ['Checkbox','Date','Editor','Gap','Readonly','Multiselect','Select','Text','Textbox','Time']
 var templatePath = 'mypubs/datarow/row'
 var templateCache
 
@@ -84,7 +84,7 @@ angular.module('pw.dataRow', ['pw.lookups'])
 
 
 	service.formatDate = function(date) {
-		date.format  = "mm/dd/yyyy"
+		date.format  = "yyyy-MM-dd"
 		date.options = {
 			formatYear: 'yy',
 			startingDay: 1
@@ -103,8 +103,25 @@ angular.module('pw.dataRow', ['pw.lookups'])
 
 
 	service.fieldMapper = function(fieldMapping, data) {
-		angular.forEach(fieldMapping, function(field){
-			field.value = data[field.name]
+		angular.forEach(fieldMapping, function(field) {
+			if (field.rowType === "Gap") {
+				return
+			}
+
+			if (field.additional) {
+				field.value = data.additionalProperties[field.name]
+			} else if ( angular.isDefined(data.properties) ) {
+				field.value = data.properties[field.name]
+			} else {
+				field.value = data[field.name]
+			}
+			if ( angular.isUndefined(field.value) ) {
+				var msg = 'Warning: did not find value for ' + field.name + '->' + field.label
+				if (field.additional) {
+					msg += ' in additional'
+				}
+				console.log(msg)
+			}
 
 			if (field.rowType === "Date") {
 				service.formatDate(field)

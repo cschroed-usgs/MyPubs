@@ -25,52 +25,75 @@ function ($scope, DataRowFieldService, PublicationFetcher, $log, fields) {
 		// 	placeholder:"Enter Keywords",
 		// },
 		{
-			name   : "description",
-			label  : "Prod Description",
-			rowType: "Text",
+			rowType: "Gap",
 		},
 		{
-			name   : "start_page",
-			label  : "Start Page",
-			rowType: "Text",
-		},
-		{
-			name   : "end_page",
-			label  : "End Page",
-			rowType: "Text",
-		},
-		{
-			name   : "pages",
-			label  : "Number of Pages",
-			rowType: "Text",
-		},
-		{
-			name   : "online_flag_1",
-			label  : "Online Only Flag",
-			rowType: "Text",
-		},
-		{
-			name   : "online_flag_2",
-			label  : "Another Online Only Flag",
+			additional:true,
+			name   : "product-description",
+			label  : "Product Description",
 			rowType: "Text",
 		},
 		{
 			rowType: "Gap",
 		},
 		{
-			name   : "temporal_start",
+			name   : "page-first",
+			label  : "Start Page",
+			rowType: "Text",
+		},
+		{
+			name   : "page-last",
+			label  : "End Page",
+			rowType: "Text",
+		},
+		{
+			name   : "number-of-pages",
+			label  : "Number of Pages",
+			rowType: "Text",
+		},
+		{
+			rowType: "Gap",
+		},
+		{
+			additional:true,
+			name   : "online-only",
+			label  : "Online Only",
+			rowType: "Checkbox",
+		},
+		{
+			additional:true,
+			name   : "additional-online-files",
+			label  : "Additional Online Files",
+			rowType: "Checkbox",
+		},
+		{
+			rowType: "Gap",
+		},
+		{
+			additional:true,
+			name   : "temporal-start",
 			label  : "Temporal Start",
-			rowType: "Text",
+			rowType: "Date",
+			elId   : "temporalStart"
 		},
 		{
-			name   : "temporal_end",
+			additional:true,
+			name   : "temporal-end",
 			label  : "Temporal End",
-			rowType: "Text",
+			rowType: "Date",
+			elId   : "temporalEnd"
 		},
 		{
-			name   : "notes",
+			rowType: "Gap",
+		},
+		{
+			additional:true,
+			name   : "Notes",
 			label  : "Notes",
 			rowType: "Textbox",
+		},
+		{
+			rowType: "Gap",
 		},
 
 	]
