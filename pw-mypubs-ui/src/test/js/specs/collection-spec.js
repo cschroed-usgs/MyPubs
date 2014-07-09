@@ -22,13 +22,13 @@ describe("pw.collection module directive", function() {
 		//	angular.extend(this)
 			testEntries : threeEntries,
 			
-			get : function() {
+			getType : function(type) {
 				return {
 					type3 : threeEntries,
 					type0 : [],
 					type1 : [ threeEntries[1] ],
 					type2 : [ threeEntries[0], threeEntries[1] ],
-				}
+				}[type]
 			}
 		}
 		angular.module('mock.fetcher',[]).value('PublicationFetcher', MockFetcher)
