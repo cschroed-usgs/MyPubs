@@ -19,7 +19,7 @@ angular.module('pw.auth', ['ngRoute'])
 ])
 
 
-.run(['$rootScope', '$location', '$routeParams', '$route', 'Authenticaiton',
+.run(['$rootScope', '$location', '$routeParams', '$route', 'Authentication',
 function ($rootScope, $location, $routeParams, $route, auth) {
 	$rootScope.$on('$routeChangeStart', function (event, next, current) {
 
@@ -34,12 +34,12 @@ function ($rootScope, $location, $routeParams, $route, auth) {
 
 		if (next.$$route) {
 			var nextPath = next.$$route.originalPath
-			if ( ! auth.isLoggedIn() && ! _.contains(auth.openRoutes, nextPath) ) {
-				event.preventDefault()
-				$location.path('otherwise') // undefined route causes the default to be reouted
-			}
 			if (nextPath === '/Logout') {
 				auth.logout()
+				$location.path('otherwise') // undefined route causes the default to be reouted
+			}
+			if ( ! auth.isLoggedIn() && ! _.contains(auth.openRoutes, nextPath) ) {
+				event.preventDefault()
 				$location.path('otherwise') // undefined route causes the default to be reouted
 			}
 		}
@@ -48,7 +48,7 @@ function ($rootScope, $location, $routeParams, $route, auth) {
 
 
 
-.controller('loginCtrl', [ '$scope', 'Authenticaiton', function($scope, auth) {
+.controller('loginCtrl', [ '$scope', 'Authentication', function($scope, auth) {
 
 	// TODO login user/pwd and fetch session token
 
@@ -57,14 +57,16 @@ function ($rootScope, $location, $routeParams, $route, auth) {
 }])
 
 
-.controller('logoutCtrl', [ '$scope','Authenticaiton', function($scope, auth) {
+.controller('logoutCtrl', [ '$scope','Authentication', function($scope, auth) {
 
-// TODO might not be needed
+	// TODO might not be needed
+
+	auth.logout()
 
 }])
 
 
-.service('Authenticaiton', [ function() {
+.service('Authentication', [ function() {
 
 	var auth = this
 
