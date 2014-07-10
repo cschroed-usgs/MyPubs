@@ -2,16 +2,14 @@
 describe("pw.auth module", function() {
 
 
-	var scope, location, routeParams, route
+	var scope, location
 
 
 	beforeEach(function () {
 		module('pw.auth')
-		inject(function($rootScope, $location, $routeParams, $route) {
+		inject(function($rootScope, $location) {
 			scope    = $rootScope
 			location = $location
-			params   = $routeParams
-			route    = $route
 		})
 	})
 
@@ -43,23 +41,6 @@ describe("pw.auth module", function() {
 	}))
 
 
-	it("should have redirected when not logged in on any protected route", inject(function(Authentication){
-
-		var next = {
-			$$route : {originalPath:"/ProtectedPath"}
-		}
-		var current = {}
-
-		Authentication.logout()
-		var pathSpy = spyOn(location, 'path');
-
-		scope.$broadcast('$routeChangeStart', next, current)
-
-		expect(pathSpy).toHaveBeenCalledWith('otherwise')
-
-	}))
-
-
 	it("should have allowed route to protected path when logged in", inject(function(Authentication){
 
 		var next = {
@@ -77,21 +58,16 @@ describe("pw.auth module", function() {
 	}))
 
 
-	it("should have called logout on route to /Logout and sent to default path", inject(function(Authentication){
+	it("should have called logout on route to /Logout", inject(function(Authentication){
+
+		var logoutSpy = spyOn(Authentication,'logout')
 
 		var next = {
 			$$route : {originalPath:"/Logout"}
 		}
-		var current = {}
+		scope.$broadcast('$routeChangeStart', next, {})
 
-		spyOn(Authentication,'logout')
-		var pathSpy = spyOn(location, 'path');
-
-		scope.$broadcast('$routeChangeStart', next, current)
-
-		expect(Authentication.logout).toHaveBeenCalled()
-		expect(pathSpy).toHaveBeenCalledWith('otherwise')
-
+		expect(logoutSpy).toHaveBeenCalled()
 	}))
 
 
@@ -118,6 +94,10 @@ describe("pw.auth module", function() {
 
 describe("pw.auth module directive - mock route tests", function(){
 
+
+	var scope, location
+
+
 	beforeEach(function(){
 
 		angular.module('mock.routePath', ['ngRoute'])
@@ -141,7 +121,9 @@ describe("pw.auth module directive - mock route tests", function(){
 
 		module('pw.auth','mock.routePath')
 
-		inject(function($rootScope) {
+		inject(function($rootScope, $location) {
+			scope    = $rootScope
+			location = $location
 			var next = {
 				$$route : {originalPath:"/Logout"}
 			}
@@ -168,4 +150,33 @@ describe("pw.auth module directive - mock route tests", function(){
 		expect(exists).toBeFalsy()
 
 	}))
+
+
+	it("should have redirected to default/otherwise path on logout", inject(function(Authentication){
+
+		var pathSpy = spyOn(location, 'path');
+
+		Authentication.logout()
+
+		expect(pathSpy).toHaveBeenCalledWith('/anOpenPath')
+	}))
+
+
+	it("should have redirected when not logged in on any protected route", inject(function(Authentication){
+
+		var next = {
+			$$route : {originalPath:"/ProtectedPath"}
+		}
+		var current = {}
+
+		Authentication.logout()
+		var pathSpy = spyOn(location, 'path');
+
+		scope.$broadcast('$routeChangeStart', next, current)
+
+		expect(pathSpy).toHaveBeenCalledWith('/anOpenPath')
+
+	}))
+
+
 })

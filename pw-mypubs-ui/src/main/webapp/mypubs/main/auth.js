@@ -1,16 +1,6 @@
 (function() {
 
 
-function redirectOtherwise($location, $route) {
-	var otherwise = 'otherwise' // an unknown route causes the default to be reouted
-	try {
-		// in angular ngRoute the null route is the default/otherwise route
-		otherwise = $route.routes[null].redirectTo	
-	} catch (e) {} // use the default value
-	$location.path(otherwise)
-}
-
-
 angular.module('pw.auth', ['ngRoute'])
 
 
@@ -29,8 +19,9 @@ angular.module('pw.auth', ['ngRoute'])
 ])
 
 
-.run(['$rootScope', '$location', '$routeParams', '$route', 'Authentication',
-function ($rootScope, $location, $routeParams, $route, auth) {
+.run(['$rootScope', '$route', 'Authentication',
+function ($rootScope, $route, auth) {
+
 	$rootScope.$on('$routeChangeStart', function (event, next, current) {
 
 		// TODO find a better place for this
@@ -41,16 +32,14 @@ function ($rootScope, $location, $routeParams, $route, auth) {
 			});
 		}
 
-
 		if (next.$$route) {
 			var nextPath = next.$$route.originalPath
 			if (nextPath === '/Logout') {
 				auth.logout()
-				redirectOtherwise($location,$route)
 			}
 			if ( ! auth.isLoggedIn() && ! _.contains(auth.openRoutes, nextPath) ) {
 				event.preventDefault()
-				redirectOtherwise($location,$route)
+				auth.logout()
 			}
 		}
 	})
@@ -76,7 +65,9 @@ function ($rootScope, $location, $routeParams, $route, auth) {
 }])
 
 
-.service('Authentication', ['$rootScope', function($scope) {
+.service('Authentication', 
+['$rootScope','$location','$route',
+function($scope,$location,$route) {
 
 	var auth = this
 
@@ -94,11 +85,22 @@ function ($rootScope, $location, $routeParams, $route, auth) {
 
 	auth.logout = function() {
 		auth.setToken(undefined)
+		auth.redirectOtherwise()
 	}
 
 
 	auth.isLoggedIn = function() {
 		return angular.isDefined(auth.token)
+	}
+
+
+	auth.redirectOtherwise = function() {
+		var otherwise = 'otherwise' // an unknown route causes the default to be reouted
+		try {
+			// in angular ngRoute the null route is the default/otherwise route
+			otherwise = $route.routes[null].redirectTo	
+		} catch (e) {} // use the default value
+		$location.path(otherwise)
 	}
 
 
