@@ -5,19 +5,19 @@ describe("pw.list module directive", function() {
 	var $scope, el
 
 
-    function compileTemplate(template) {
-    	// default template
-        if (!template) {
-        	template = '<div><div pw-list entries="testEntries" type-label="\'TestEntries\'" entry-height="123"'
-        			 + 'entry-width="321" service="TestService"><span class="inner" ng-bind="entry.name"></span></div></div>'
+	function compileTemplate(template) {
+		// default template
+		if (!template) {
+			template = '<div><div pw-list entries="testEntries" type-label="\'TestEntries\'" entry-height="123"'
+					 + 'entry-width="321" service="TestService"><span class="inner" ng-bind="entry.name"></span></div></div>'
 		}
-        // inject the template into angular to compile and preserve the element
-        inject(function($compile) {
-            el = $compile(template)($scope)
-        });
-        // angular does this when in apps but not in tests
-        $scope.$digest()
-    }
+		// inject the template into angular to compile and preserve the element
+		inject(function($compile) {
+			el = $compile(template)($scope)
+		});
+		// angular does this when in apps but not in tests
+		$scope.$digest()
+	}
 	
 
 	// build the module and preserve the scope
@@ -25,15 +25,15 @@ describe("pw.list module directive", function() {
 		idrag = idrop = false
 		module("pw.list")
 		inject(function() {
-		    var req = new XMLHttpRequest()
-		    req.onload = function() {
-		        templateSrc = this.responseText
-		    }
-		    // Note that the relative path may be different from your unit test HTML file.
-		    // Using `false` as the third parameter to open() makes the operation synchronous.
-		    // Gentle reminder that boolean parameters are not the best API choice.
-		    req.open("get", "src/main/webapp/mypubs/list/list.html", false)
-		    req.send()
+			var req = new XMLHttpRequest()
+			req.onload = function() {
+				templateSrc = this.responseText
+			}
+			// Note that the relative path may be different from your unit test HTML file.
+			// Using `false` as the third parameter to open() makes the operation synchronous.
+			// Gentle reminder that boolean parameters are not the best API choice.
+			req.open("get", "src/main/webapp/mypubs/list/list.html", false)
+			req.send()
 		})
 		inject(function($rootScope, $compile, $templateCache) {
 			$scope = $rootScope
@@ -48,7 +48,7 @@ describe("pw.list module directive", function() {
 					order:2,id:'c',name:'qwerty'
 				}
 			]
-	    	$templateCache.put("mypubs/list/list.html", templateSrc)
+			$templateCache.put("mypubs/list/list.html", templateSrc)
 		})
 	})
 
@@ -165,8 +165,8 @@ describe("pw.list module directive", function() {
 
 
 		it('should have the controlsAlignment left by attr setting', function() {
-        	template = '<div><div pw-list       controls-align="left"      entries="testEntries" type-label="\'TestEntries\'" entry-height="123"'
-        			 + 'entry-width="321" service="TestService"><span class="inner" ng-bind="entry.name"></span></div></div>'
+			template = '<div><div pw-list       controls-align="left"      entries="testEntries" type-label="\'TestEntries\'" entry-height="123"'
+					 + 'entry-width="321" service="TestService"><span class="inner" ng-bind="entry.name"></span></div></div>'
 			compileTemplate(template)
 
 			var entry = el.find(".list-group")[0]

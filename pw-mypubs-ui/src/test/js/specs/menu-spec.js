@@ -5,29 +5,29 @@ describe("pw.menu module directive", function(){
 	var $scope, el
 
 
-    function compileTemplate(template, callback) {
-    	// default template
-        if (!template) {
-        	template = '<div><pw:menu></pw:menu></div>'
+	function compileTemplate(template, callback) {
+		// default template
+		if (!template) {
+			template = '<div><pw:menu></pw:menu></div>'
 		}
-        // inject the template into angular to compile and preserve the element
-        inject(function($compile) {
-            el = $compile(template)($scope)
-            if (callback) {
-            	callback(el)
-            }
-        });
-        // angular does this when in apps but not in tests
-        $scope.$digest()
-    }
+		// inject the template into angular to compile and preserve the element
+		inject(function($compile) {
+			el = $compile(template)($scope)
+			if (callback) {
+				callback(el)
+			}
+		});
+		// angular does this when in apps but not in tests
+		$scope.$digest()
+	}
 
 
-    function changeRoute(route) {
+	function changeRoute(route) {
 		var next = {
 			$$route : {originalPath: angular.isDefined(route) ?route :"/Logout"}
 		}
 		$scope.$broadcast('$routeChangeStart', next, {})
-    }
+	}
 
 
 	beforeEach(function() {
@@ -44,20 +44,20 @@ describe("pw.menu module directive", function(){
 		module('pw.menu')	
 
 		inject(function() {
-		    var req = new XMLHttpRequest()
-		    req.onload = function() {
-		        templateSrc = this.responseText
-		    }
-		    // Note that the relative path may be different from your unit test HTML file.
-		    // Using `false` as the third parameter to open() makes the operation synchronous.
-		    // Gentle reminder that boolean parameters are not the best API choice.
-		    req.open("get", "src/main/webapp/mypubs/menu/menu.html", false)
-		    req.send()
+			var req = new XMLHttpRequest()
+			req.onload = function() {
+				templateSrc = this.responseText
+			}
+			// Note that the relative path may be different from your unit test HTML file.
+			// Using `false` as the third parameter to open() makes the operation synchronous.
+			// Gentle reminder that boolean parameters are not the best API choice.
+			req.open("get", "src/main/webapp/mypubs/menu/menu.html", false)
+			req.send()
 		})
 
 		inject(function($rootScope, $compile, $templateCache) {
 			$scope = $rootScope
-	    	$templateCache.put("mypubs/menu/menu.html", templateSrc)
+			$templateCache.put("mypubs/menu/menu.html", templateSrc)
 			changeRoute()
 			compileTemplate()
 		})

@@ -23,20 +23,20 @@ describe("pw.dataRow module dataRow directive", function() {
 	}
 
 
-    function compileTemplate(template) {
-    	// default template
-        if (!template) {
-        	template = '<div ng-controller="testCtrl"><pw:datarow ng-repeat="row in rows" data="row"></pw:datarow></div>';
+	function compileTemplate(template) {
+		// default template
+		if (!template) {
+			template = '<div ng-controller="testCtrl"><pw:datarow ng-repeat="row in rows" data="row"></pw:datarow></div>';
 		}
-        // inject the template into angular to compile and preserve the element
-        var el
-        inject(function($compile) {
-            el = $compile(template)($scope)
-        });
-        // angular does this when in apps but not in tests
-        $scope.$digest()
-        return el
-    }
+		// inject the template into angular to compile and preserve the element
+		var el
+		inject(function($compile) {
+			el = $compile(template)($scope)
+		});
+		// angular does this when in apps but not in tests
+		$scope.$digest()
+		return el
+	}
 	
 
 	// build the module and preserve the scope
@@ -48,16 +48,16 @@ describe("pw.dataRow module dataRow directive", function() {
 			var templatePath = 'src/main/webapp/' + templateUrl
 
 			_.each(templates, function(template) {
-			    var req    = new XMLHttpRequest()
-			    req.onload = function() {
-			        templateSrc = this.responseText
-			    	$templateCache.put(templateUrl + template + ".html", templateSrc)
-			    }
-			    // Note that the relative path may be different from your unit test HTML file.
-			    // Using `false` as the third parameter to open() makes the operation synchronous.
-			    // Gentle reminder that boolean parameters are not the best API choice.
-			    req.open("get", templatePath + template + ".html", false)
-			    req.send()
+				var req    = new XMLHttpRequest()
+				req.onload = function() {
+					templateSrc = this.responseText
+					$templateCache.put(templateUrl + template + ".html", templateSrc)
+				}
+				// Note that the relative path may be different from your unit test HTML file.
+				// Using `false` as the third parameter to open() makes the operation synchronous.
+				// Gentle reminder that boolean parameters are not the best API choice.
+				req.open("get", templatePath + template + ".html", false)
+				req.send()
 			})
 		})
 		inject(function($rootScope) {

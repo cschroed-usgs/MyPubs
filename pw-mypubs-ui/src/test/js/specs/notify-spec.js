@@ -4,36 +4,36 @@ describe("pw.notify module", function() {
 	var $scope, el
 
 
-    function compileTemplate(template) {
-    	// default template
-        if (!template) {
-        	template = '<pw:notify></pw:notify>'
+	function compileTemplate(template) {
+		// default template
+		if (!template) {
+			template = '<pw:notify></pw:notify>'
 		}
-        // inject the template into angular to compile and preserve the element
-        inject(function($compile) {
-            el = $compile(template)($scope)
-        });
-        // angular does this when in apps but not in tests
-        $scope.$digest()
-    }
+		// inject the template into angular to compile and preserve the element
+		inject(function($compile) {
+			el = $compile(template)($scope)
+		});
+		// angular does this when in apps but not in tests
+		$scope.$digest()
+	}
 
 	// build the module and preserve the scope
 	beforeEach(function () {
 		module("pw.notify")
 		inject(function() {
-		    var req = new XMLHttpRequest()
-		    req.onload = function() {
-		        templateSrc = this.responseText
-		    }
-		    // Note that the relative path may be different from your unit test HTML file.
-		    // Using `false` as the third parameter to open() makes the operation synchronous.
-		    // Gentle reminder that boolean parameters are not the best API choice.
-		    req.open("get", "src/main/webapp/mypubs/notify/notify.html", false)
-		    req.send()
+			var req = new XMLHttpRequest()
+			req.onload = function() {
+				templateSrc = this.responseText
+			}
+			// Note that the relative path may be different from your unit test HTML file.
+			// Using `false` as the third parameter to open() makes the operation synchronous.
+			// Gentle reminder that boolean parameters are not the best API choice.
+			req.open("get", "src/main/webapp/mypubs/notify/notify.html", false)
+			req.send()
 		})
 		inject(function($rootScope, $compile, $templateCache) {
 			$scope = $rootScope
-	    	$templateCache.put("mypubs/notify/notify.html", templateSrc)
+			$templateCache.put("mypubs/notify/notify.html", templateSrc)
 		})
 	})
 

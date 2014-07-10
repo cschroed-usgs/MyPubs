@@ -5,15 +5,15 @@ describe("pw.dragdrop module directive", function() {
 	var $scope, el, idrag, idrop
 
 
-    function compileTemplate(template) {
-    	// default template
-        if (!template) {
-        	template = '<div><div id="dragit" pw-draggable="" drag="idrag()" class=""></div>'
-        	         + '     <div id="dropit" pw-droppable="" drop="idrop()" class=""></div></div>';
+	function compileTemplate(template) {
+		// default template
+		if (!template) {
+			template = '<div><div id="dragit" pw-draggable="" drag="idrag()" class=""></div>'
+					 + '     <div id="dropit" pw-droppable="" drop="idrop()" class=""></div></div>';
 		}
-        // inject the template into angular to compile and preserve the element
-        inject(function($compile) {
-            el = $compile(template)($scope)
+		// inject the template into angular to compile and preserve the element
+		inject(function($compile) {
+			el = $compile(template)($scope)
 			var d = el.find('#dragit')
 			d.width(10)
 			d.height(10)
@@ -21,10 +21,10 @@ describe("pw.dragdrop module directive", function() {
 			d.width(10)
 			d.height(10)
 
-        });
-        // angular does this when in apps but not in tests
-        $scope.$digest()
-    }
+		});
+		// angular does this when in apps but not in tests
+		$scope.$digest()
+	}
 	
 
 	// build the module and preserve the scope
