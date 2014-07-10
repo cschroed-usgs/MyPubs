@@ -27,7 +27,6 @@ describe("pw.dataRow module dataRow directive", function() {
     	// default template
         if (!template) {
         	template = '<div ng-controller="testCtrl"><pw:datarow ng-repeat="row in rows" data="row"></pw:datarow></div>';
-//        	template = '<pw:datarow ng-repeat="row in rows" data="row"></pw:datarow>';
 		}
         // inject the template into angular to compile and preserve the element
         var el
@@ -44,11 +43,9 @@ describe("pw.dataRow module dataRow directive", function() {
 	beforeEach(function () {
 		module("pw.dataRow")
 		inject(function($templateCache) {
-			var templates    = ['Date','Editor','Gap','Readonly','Select','Text','Textbox']
+			var templates    = ['Checkbox','Date','Editor','Gap','Readonly','Select','Text','Textbox','Time']
 			var templateUrl  = 'mypubs/datarow/row'
 			var templatePath = 'src/main/webapp/' + templateUrl
-
-//mypubs/datarow/rowReadonly.html
 
 			_.each(templates, function(template) {
 			    var req    = new XMLHttpRequest()
@@ -178,8 +175,43 @@ describe("pw.dataRow module dataRow directive", function() {
 		var val = el.find('input').attr('datepicker-options')
 		expect(val).toBe("data.options")
 
-		var val = el.find('button.btn-calendar').attr('ng-click')
+		val = el.find('button.btn-calendar').attr('ng-click')
 		expect(val).toBe("data.open($event)")
+
+		val = el.find('.form-date-time')
+		expect(val).toBeDefined()
+		expect(val.length).toBe(0)
+	});
+	
+
+	it('should have datepicker DOM in Date field with time', function() {
+		$scope.rows = rowMap(1)
+		$scope.rows[0].rowType = 'Date'
+		$scope.rows[0].andTime =  true
+
+		var el = compileTemplate()
+
+		var val = el.find('input').attr('datepicker-options')
+		expect(val).toBe("data.options")
+
+		val = el.find('button.btn-calendar').attr('ng-click')
+		expect(val).toBe("data.open($event)")
+
+		val = el.find('.form-date-time')
+		expect(val).toBeDefined()
+		expect(val.length).toBe(1)
+	});
+	
+
+	it('should have timepicker field in DOM for time', function() {
+		$scope.rows = rowMap(1)
+		$scope.rows[0].rowType = 'Time'
+
+		var el = compileTemplate()
+
+		val = el.find('timepicker')
+		expect(val).toBeDefined()
+		expect(val.length).toBe(1)
 	});
 	
 
@@ -249,8 +281,6 @@ describe("pw.dataRow module DataRowFieldService", function() {
 				$ = jQuery = jqRef // rule one, test in issolation
 			}
 
-//		keydown.target   = dpDate
-
 		}))
 	})
 
@@ -272,6 +302,22 @@ describe("pw.dataRow module DataRowFieldService", function() {
 	})
 		
 	describe("verify DataRowFieldService.formatDate options", function() {
+
+		var MockLookup = {}
+
+		beforeEach(function(){
+			MockLookup.type = ""
+			MockLookup.taget = ""
+			MockLookup.get = function(type, target) {
+				MockLookup.type   = type
+				MockLookup.target = target
+			}
+
+			angular.module('mock.lookup',[]).value('LookupFetcher', MockLookup)
+			module("pw.dataRow",'mock.lookup')
+		})
+
+
 		it('DataRowFieldService should have date options startingDay 1', inject(function(DataRowFieldService) {
 			var opts = {}
 			DataRowFieldService.formatDate(opts)
@@ -301,11 +347,152 @@ describe("pw.dataRow module DataRowFieldService", function() {
 			opts.open({})
 			expect(openDatePickerCalled).toBeTruthy()
 		}))
+
+
+		it('DataRowFieldService should have fieldMapper function find properties and additionalProperties',
+		inject(function(DataRowFieldService) {
+
+			var formatDateCalled = false
+			DataRowFieldService.formatDate = function() {
+				formatDateCalled = true
+			} 
+			var formatEditorCalled = false
+			DataRowFieldService.formatEditor = function() {
+				formatEditorCalled = true
+			}
+
+			var fields = [
+				{
+					additional:true,
+					name   : "product-description",
+					rowType: "Text",
+				},
+				{
+					name   : "page-first",
+					rowType: "Text",
+				},
+			]
+			var data = {
+				properties : {
+					"page-first" : "123"
+				},
+				additionalProperties : {
+					"product-description" : "asdf"
+				}
+			}
+
+			DataRowFieldService.fieldMapper(fields, data)
+
+			expect(formatDateCalled).toBeFalsy()
+			expect(formatEditorCalled).toBeFalsy()
+
+			expect(fields[0].value).toBe("asdf")
+			expect(fields[1].value).toBe("123")
+		}))
+
+
+		it('DataRowFieldService should have fieldMapper function Date',
+		inject(function(DataRowFieldService) {
+
+			var formatDateCalled = false
+			DataRowFieldService.formatDate = function() {
+				formatDateCalled = true
+			} 
+			var formatEditorCalled = false
+			DataRowFieldService.formatEditor = function() {
+				formatEditorCalled = true
+			}
+
+			var fields = [
+				{
+					name   : "date",
+					rowType: "Date",
+				},
+			]
+			var data = {
+				properties : {
+					"date" : "123"
+				},
+			}
+
+			DataRowFieldService.fieldMapper(fields, data)
+
+			expect(formatDateCalled).toBeTruthy()
+			expect(formatEditorCalled).toBeFalsy()
+
+			expect(fields[0].value).toBe("123")
+		}))
+
+
+		it('DataRowFieldService should have fieldMapper function Editor',
+		inject(function(DataRowFieldService) {
+
+			var formatDateCalled = false
+			DataRowFieldService.formatDate = function() {
+				formatDateCalled = true
+			} 
+			var formatEditorCalled = false
+			DataRowFieldService.formatEditor = function() {
+				formatEditorCalled = true
+			}
+
+			var fields = [
+				{
+					name   : "field-name",
+					rowType: "Editor",
+				},
+			]
+			var data = {
+				properties : {
+					"field-name" : "asdf"
+				},
+			}
+
+			DataRowFieldService.fieldMapper(fields, data)
+
+			expect(formatDateCalled).toBeFalsy()
+			expect(formatEditorCalled).toBeTruthy()
+
+			expect(fields[0].value).toBe("asdf")
+		}))
+
+
+		it('DataRowFieldService should have fieldMapper function Select calls Lookup to get options',
+		inject(function(DataRowFieldService) {
+
+			var formatDateCalled = false
+			DataRowFieldService.formatDate = function() {
+				formatDateCalled = true
+			} 
+			var formatEditorCalled = false
+			DataRowFieldService.formatEditor = function() {
+				formatEditorCalled = true
+			}
+
+			var fields = [
+				{
+					name   : "selectable",
+					rowType: "Select",
+					type   : "asdf"
+				},
+			]
+			var data = {
+				properties : {
+					"selectable" : "123"
+				},
+			}
+
+			DataRowFieldService.fieldMapper(fields, data)
+
+			expect(formatDateCalled).toBeFalsy()
+			expect(formatEditorCalled).toBeFalsy()
+
+			expect(MockLookup.type).toBe("asdf")
+			expect(fields[0].value).toBe("123")
+		}))
+
+
 	})
-
-
-
-
 
 	// service.formatDate = function(date) {
 	// 	date.open = function(event) {
