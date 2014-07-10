@@ -1,6 +1,16 @@
 (function() {
 
 
+function redirectOtherwise($location, $route) {
+	var otherwise = 'otherwise' // an unknown route causes the default to be reouted
+	try {
+		// in angular ngRoute the null route is the default/otherwise route
+		otherwise = $route.routes[null].redirectTo	
+	} catch (e) {} // use the default value
+	$location.path(otherwise)
+}
+
+
 angular.module('pw.auth', ['ngRoute'])
 
 
@@ -36,11 +46,11 @@ function ($rootScope, $location, $routeParams, $route, auth) {
 			var nextPath = next.$$route.originalPath
 			if (nextPath === '/Logout') {
 				auth.logout()
-				$location.path('otherwise') // undefined route causes the default to be reouted
+				redirectOtherwise($location,$route)
 			}
 			if ( ! auth.isLoggedIn() && ! _.contains(auth.openRoutes, nextPath) ) {
 				event.preventDefault()
-				$location.path('otherwise') // undefined route causes the default to be reouted
+				redirectOtherwise($location,$route)
 			}
 		}
 	})
@@ -59,14 +69,14 @@ function ($rootScope, $location, $routeParams, $route, auth) {
 
 .controller('logoutCtrl', [ '$scope','Authentication', function($scope, auth) {
 
-	// TODO might not be needed
+	// TODO might not be needed - the route listener calls auth.logout
 
 	auth.logout()
 
 }])
 
 
-.service('Authentication', [ function() {
+.service('Authentication', ['$rootScope', function($scope) {
 
 	var auth = this
 
@@ -75,19 +85,20 @@ function ($rootScope, $location, $routeParams, $route, auth) {
 
 
 	auth.setToken = function(token) {
-		// TODO also need to send token with fetcher, lookup, and search
+		// TODO also need to send token with publication saving
+		// TODO fetcher should listen for loggout and clear the cached data
 		auth.token = token
+		$scope.$broadcast(auth.isLoggedIn() ?'logged-in' :'logged-out')
 	}
 
 
 	auth.logout = function() {
-		// TODO also clear fetcher cache
 		auth.setToken(undefined)
 	}
 
 
 	auth.isLoggedIn = function() {
-		return angular.isDefined(auth.token);
+		return angular.isDefined(auth.token)
 	}
 
 

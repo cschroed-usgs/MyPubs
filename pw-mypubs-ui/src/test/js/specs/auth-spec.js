@@ -51,11 +51,11 @@ describe("pw.auth module", function() {
 		var current = {}
 
 		Authentication.logout()
-		spyOn(location, 'path');
+		var pathSpy = spyOn(location, 'path');
 
 		scope.$broadcast('$routeChangeStart', next, current)
 
-		expect(location.path).toHaveBeenCalledWith('otherwise')
+		expect(pathSpy).toHaveBeenCalledWith('otherwise')
 
 	}))
 
@@ -68,11 +68,11 @@ describe("pw.auth module", function() {
 		var current = {}
 
 		Authentication.setToken('logged in')
-		spyOn(location, 'path');
+		var pathSpy = spyOn(location, 'path');
 
 		scope.$broadcast('$routeChangeStart', next, current)
 
-		expect(location.path).not.toHaveBeenCalled()
+		expect(pathSpy).not.toHaveBeenCalled()
 
 	}))
 
@@ -85,12 +85,12 @@ describe("pw.auth module", function() {
 		var current = {}
 
 		spyOn(Authentication,'logout')
-		spyOn(location, 'path');
+		var pathSpy = spyOn(location, 'path');
 
 		scope.$broadcast('$routeChangeStart', next, current)
 
 		expect(Authentication.logout).toHaveBeenCalled()
-		expect(location.path).toHaveBeenCalledWith('otherwise')
+		expect(pathSpy).toHaveBeenCalledWith('otherwise')
 
 	}))
 
@@ -104,11 +104,11 @@ describe("pw.auth module", function() {
 
 		Authentication.logout()
 		Authentication.openRoutes = ['/OpenPath']
-		spyOn(location, 'path');
+		var pathSpy = spyOn(location, 'path');
 
 		scope.$broadcast('$routeChangeStart', next, current)
 
-		expect(location.path).not.toHaveBeenCalled()
+		expect(pathSpy).not.toHaveBeenCalled()
 
 	}))
 

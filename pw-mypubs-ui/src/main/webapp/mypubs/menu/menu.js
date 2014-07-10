@@ -1,10 +1,10 @@
 (function() {
 
 
-angular.module('pw.menu', [])
+angular.module('pw.menu', ['pw.auth'])
 
 
-.directive('pwMenu',[ function() {
+.directive('pwMenu',['Authentication', function(Auth) {
 
 	var menu = {
 		restrict    : 'E', //AEC
@@ -55,7 +55,6 @@ angular.module('pw.menu', [])
 
 			$scope.menu = {
 				selected : $scope.menuLeft[0].name,
-				login : true // TODO
 			}
 
 
@@ -64,39 +63,41 @@ angular.module('pw.menu', [])
 			menuBoth.push.apply(menuBoth, $scope.menuRight)
 
 			var menuState = function() {
-				angular.forEach(menuBoth, function(btn){
-					btn.state = angular.isUndefined(btn.enable) || btn.enable && $scope.isLogin() ?'':'disabled'
+				angular.forEach(menuBoth, function(btn) {
+					if ( angular.isDefined(btn.enable) ) {
+						btn.state = (btn.enable && Auth.isLoggedIn()) ?'' :'disabled'
+					}
 				})
-				// let the state take effect then respond to it
+				// let the state take effect then respond to it by applying the disabled="true" attr
 				setTimeout(function(){
 					$(el.find('button')).removeAttr('disabled')
 					$(el.find('.disabled')).attr('disabled',true)
 				},0)
 			}
 
-
-			$scope.$watch('menu.selected', function(){
-				if ($scope.menu.selected === 'Login') {
-					$scope.menu.login = true // TODO
-				} else if ($scope.menu.selected === 'Logout') {
-					$scope.menu.login = false
-				}
+			$scope.$on('logged-out', function(){
 				menuState()
+			})
+			$scope.$on('logged-in', function(){
+				menuState()
+			})
+			$scope.$watch('menu.selected', function() {
 				$scope.setRoute($scope.menu.selected)
 			})
 
 
 			$scope.isLogin = function() {
-				return $scope.menu.login
+				return Auth.isLoggedIn()
 			}
 			$scope.showOnLogin = function(show) {
 				if ( angular.isUndefined(show) ) {
-					return true // always show
+					return true // always show by default
 				}
 				// show when login state matches requests state
 				return  show === $scope.isLogin()
 			}
 
+			menuState() // init state to logged-in state
 		}
 	}
 
