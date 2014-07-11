@@ -41,7 +41,7 @@ function($scope, $routeParams, PublicationFetcher) {
 		},
 		{
 			title:"Collaborators",
-			templateUrl: 'mypubs/publication/colaborators/collaborator.html',
+			templateUrl: 'mypubs/publication/collaborators/collaborator.html',
 			controller: 'collaboratorsCtrl'
 		},
 		{
