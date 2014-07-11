@@ -23,44 +23,41 @@ describe("pw.dataRow module dataRow directive", function() {
 	}
 
 
-    function compileTemplate(template) {
-    	// default template
-        if (!template) {
-        	template = '<div ng-controller="testCtrl"><pw:datarow ng-repeat="row in rows" data="row"></pw:datarow></div>';
-//        	template = '<pw:datarow ng-repeat="row in rows" data="row"></pw:datarow>';
+	function compileTemplate(template) {
+		// default template
+		if (!template) {
+			template = '<div ng-controller="testCtrl"><pw:datarow ng-repeat="row in rows" data="row"></pw:datarow></div>';
 		}
-        // inject the template into angular to compile and preserve the element
-        var el
-        inject(function($compile) {
-            el = $compile(template)($scope)
-        });
-        // angular does this when in apps but not in tests
-        $scope.$digest()
-        return el
-    }
-	
+		// inject the template into angular to compile and preserve the element
+		var el
+		inject(function($compile) {
+			el = $compile(template)($scope)
+		});
+		// angular does this when in apps but not in tests
+		$scope.$digest()
+		return el
+	}
+
 
 	// build the module and preserve the scope
 	beforeEach(function () {
 		module("pw.dataRow")
 		inject(function($templateCache) {
-			var templates    = ['Date','Editor','Gap','Readonly','Select','Text','Textbox']
+			var templates    = ['Checkbox','Date','Editor','Gap','Readonly','Select','Text','Textbox','Time']
 			var templateUrl  = 'mypubs/datarow/row'
 			var templatePath = 'src/main/webapp/' + templateUrl
 
-//mypubs/datarow/rowReadonly.html
-
 			_.each(templates, function(template) {
-			    var req    = new XMLHttpRequest()
-			    req.onload = function() {
-			        templateSrc = this.responseText
-			    	$templateCache.put(templateUrl + template + ".html", templateSrc)
-			    }
-			    // Note that the relative path may be different from your unit test HTML file.
-			    // Using `false` as the third parameter to open() makes the operation synchronous.
-			    // Gentle reminder that boolean parameters are not the best API choice.
-			    req.open("get", templatePath + template + ".html", false)
-			    req.send()
+				var req    = new XMLHttpRequest()
+				req.onload = function() {
+					templateSrc = this.responseText
+					$templateCache.put(templateUrl + template + ".html", templateSrc)
+				}
+				// Note that the relative path may be different from your unit test HTML file.
+				// Using `false` as the third parameter to open() makes the operation synchronous.
+				// Gentle reminder that boolean parameters are not the best API choice.
+				req.open("get", templatePath + template + ".html", false)
+				req.send()
 			})
 		})
 		inject(function($rootScope) {
@@ -114,7 +111,7 @@ describe("pw.dataRow module dataRow directive", function() {
 
 		var el = compileTemplate()
 		var input = el.find('.value').find('input')
-		
+
 		expect(input.length).toBe(1)
 		expect(input.val() ).toBe('value0')
 	});
@@ -178,10 +175,45 @@ describe("pw.dataRow module dataRow directive", function() {
 		var val = el.find('input').attr('datepicker-options')
 		expect(val).toBe("data.options")
 
-		var val = el.find('button.btn-calendar').attr('ng-click')
+		val = el.find('button.btn-calendar').attr('ng-click')
 		expect(val).toBe("data.open($event)")
+
+		val = el.find('.form-date-time')
+		expect(val).toBeDefined()
+		expect(val.length).toBe(0)
 	});
-	
+
+
+	it('should have datepicker DOM in Date field with time', function() {
+		$scope.rows = rowMap(1)
+		$scope.rows[0].rowType = 'Date'
+		$scope.rows[0].andTime =  true
+
+		var el = compileTemplate()
+
+		var val = el.find('input').attr('datepicker-options')
+		expect(val).toBe("data.options")
+
+		val = el.find('button.btn-calendar').attr('ng-click')
+		expect(val).toBe("data.open($event)")
+
+		val = el.find('.form-date-time')
+		expect(val).toBeDefined()
+		expect(val.length).toBe(1)
+	});
+
+
+	it('should have timepicker field in DOM for time', function() {
+		$scope.rows = rowMap(1)
+		$scope.rows[0].rowType = 'Time'
+
+		var el = compileTemplate()
+
+		val = el.find('timepicker')
+		expect(val).toBeDefined()
+		expect(val.length).toBe(1)
+	});
+
 
 });
 
@@ -204,12 +236,9 @@ describe("pw.dataRow module DataRowFieldService", function() {
 		it('DataRowFieldService should trigger click', inject(function(DataRowFieldService) {
 			var field = {elId:"FieldId"} // dpFieldId
 			var event = {
-				preventDefaultCalled : false,
-				stopPropagationCalled : false,
-				stopImmediatePropagationCalled : false,
-				preventDefault : function() { event.preventDefaultCalled = true },
-				stopPropagation : function(){ event.stopPropagationCalled = true },
-				stopImmediatePropagation : function() { event.stopImmediatePropagationCalled = true },
+				preventDefault  : jasmine.createSpy('preventDefault'),
+				stopPropagation : jasmine.createSpy('stopPropagation'),
+				stopImmediatePropagation : jasmine.createSpy('stopImmediatePropagation'),
 			}
 
 			var jqRef = jQuery
@@ -234,9 +263,9 @@ describe("pw.dataRow module DataRowFieldService", function() {
 
 				DataRowFieldService.openDatePicker(field, event)
 
-				expect(event.preventDefaultCalled).toBeTruthy()
-				expect(event.stopPropagationCalled).toBeTruthy()
-				expect(event.stopImmediatePropagationCalled).toBeTruthy()
+				expect(event.preventDefault).toHaveBeenCalled()
+				expect(event.stopPropagation).toHaveBeenCalled()
+				expect(event.stopImmediatePropagation).toHaveBeenCalled()
 
 				expect(selected.id).toBe("dpFieldId")
 
@@ -248,8 +277,6 @@ describe("pw.dataRow module DataRowFieldService", function() {
 			} finally {
 				$ = jQuery = jqRef // rule one, test in issolation
 			}
-
-//		keydown.target   = dpDate
 
 		}))
 	})
@@ -270,20 +297,36 @@ describe("pw.dataRow module DataRowFieldService", function() {
 			expect(opts.format).toBe("yyyy-MM-dd")
 		}))
 	})
-		
+
 	describe("verify DataRowFieldService.formatDate options", function() {
+
+		var MockLookup = {}
+
+		beforeEach(function(){
+			MockLookup.type = ""
+			MockLookup.taget = ""
+			MockLookup.get = function(type, target) {
+				MockLookup.type   = type
+				MockLookup.target = target
+			}
+
+			angular.module('mock.lookup',[]).value('LookupFetcher', MockLookup)
+			module("pw.dataRow",'mock.lookup')
+		})
+
+
 		it('DataRowFieldService should have date options startingDay 1', inject(function(DataRowFieldService) {
 			var opts = {}
 			DataRowFieldService.formatDate(opts)
 			expect(opts.options.startingDay).toBe(1)
 		}))
-		
+
 		it('DataRowFieldService should have date options formatYear yy', inject(function(DataRowFieldService) {
 			var opts = {}
 			DataRowFieldService.formatDate(opts)
 			expect(opts.options.formatYear).toBe('yy')
 		}))
-		
+
 		it('DataRowFieldService should have date open function', inject(function(DataRowFieldService) {
 			var opts = {}
 			DataRowFieldService.formatDate(opts)
@@ -291,29 +334,130 @@ describe("pw.dataRow module DataRowFieldService", function() {
 			expect(typeof opts.open).toBe('function')
 		}))
 
-		it('DataRowFieldService should have date open function', inject(function(DataRowFieldService) {
-			var openDatePickerCalled = false
-			DataRowFieldService.openDatePicker = function() {
-				openDatePickerCalled = true
-			} 
+		it('DataRowFieldService should have called date open function', inject(function(DataRowFieldService) {
+			var openPicker = spyOn(DataRowFieldService,'openDatePicker')
 			var opts = {}
 			DataRowFieldService.formatDate(opts)
 			opts.open({})
-			expect(openDatePickerCalled).toBeTruthy()
+			expect(openPicker).toHaveBeenCalled()
 		}))
+
+
+		it('DataRowFieldService should have fieldMapper function find properties and additionalProperties',
+		inject(function(DataRowFieldService) {
+			var formatDate   = spyOn(DataRowFieldService,'formatDate')
+			var formatEditor = spyOn(DataRowFieldService,'formatEditor')
+
+			var fields = [
+				{
+					additional:true,
+					name   : "product-description",
+					rowType: "Text",
+				},
+				{
+					name   : "page-first",
+					rowType: "Text",
+				},
+			]
+			var data = {
+				properties : {
+					"page-first" : "123"
+				},
+				additionalProperties : {
+					"product-description" : "asdf"
+				}
+			}
+
+			DataRowFieldService.fieldMapper(fields, data)
+
+			expect(formatDate).not.toHaveBeenCalled()
+			expect(formatEditor).not.toHaveBeenCalled()
+
+			expect(fields[0].value).toBe("asdf")
+			expect(fields[1].value).toBe("123")
+		}))
+
+
+		it('DataRowFieldService should have fieldMapper function Date',
+		inject(function(DataRowFieldService) {
+			var formatDate   = spyOn(DataRowFieldService,'formatDate')
+			var formatEditor = spyOn(DataRowFieldService,'formatEditor')
+
+			var fields = [
+				{
+					name   : "date",
+					rowType: "Date",
+				},
+			]
+			var data = {
+				properties : {
+					"date" : "123"
+				},
+			}
+
+			DataRowFieldService.fieldMapper(fields, data)
+
+			expect(formatDate).toHaveBeenCalled()
+			expect(formatEditor).not.toHaveBeenCalled()
+
+			expect(fields[0].value).toBe("123")
+		}))
+
+
+		it('DataRowFieldService should have fieldMapper function Editor',
+		inject(function(DataRowFieldService) {
+			var formatDate   = spyOn(DataRowFieldService,'formatDate')
+			var formatEditor = spyOn(DataRowFieldService,'formatEditor')
+
+			var fields = [
+				{
+					name   : "field-name",
+					rowType: "Editor",
+				},
+			]
+			var data = {
+				properties : {
+					"field-name" : "asdf"
+				},
+			}
+
+			DataRowFieldService.fieldMapper(fields, data)
+
+			expect(formatDate).not.toHaveBeenCalled()
+			expect(formatEditor).toHaveBeenCalled()
+
+			expect(fields[0].value).toBe("asdf")
+		}))
+
+
+		it('DataRowFieldService should have fieldMapper function Select calls Lookup to get options',
+		inject(function(DataRowFieldService) {
+			var formatDate   = spyOn(DataRowFieldService,'formatDate')
+			var formatEditor = spyOn(DataRowFieldService,'formatEditor')
+
+			var fields = [
+				{
+					name   : "selectable",
+					rowType: "Select",
+					type   : "asdf"
+				},
+			]
+			var data = {
+				properties : {
+					"selectable" : "123"
+				},
+			}
+
+			DataRowFieldService.fieldMapper(fields, data)
+
+			expect(formatDate).not.toHaveBeenCalled()
+			expect(formatEditor).not.toHaveBeenCalled()
+
+			expect(MockLookup.type).toBe("asdf")
+			expect(fields[0].value).toBe("123")
+		}))
+
 	})
-
-
-
-
-
-	// service.formatDate = function(date) {
-	// 	date.open = function(event) {
-	// 		service.openDatePicker(date, event)
-	// 	}
-	// }
-
-
 
 
 })

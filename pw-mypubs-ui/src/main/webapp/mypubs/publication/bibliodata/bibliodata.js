@@ -8,7 +8,7 @@ angular.module('pw.bibliodata',['pw.dataRow','pw.fetcher', 'pw.lookups'])
 '$scope', 'DataRowFieldService', 'PublicationFetcher', '$log', 'biblioFields',
 function ($scope, DataRowFieldService, PublicationFetcher, $log, fields) {
 
-	var pubData = PublicationFetcher.getById('asdf')
+	var pubData = PublicationFetcher.get()
 	$scope.rows = fields
 	DataRowFieldService.fieldMapper(fields, pubData)
 }])

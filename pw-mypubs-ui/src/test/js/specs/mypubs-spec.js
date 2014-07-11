@@ -35,22 +35,4 @@ describe("pw.mypubs module", function() {
 		expect( def ).toBeTruthy()
 	});
 
-
-	it('should have a setRoute mainCtrl controller scope that sets location.url', function() {
-		expect(scope).toBeDefined()
-		expect(scope.setRoute).toBeDefined()
-		expect(typeof scope.setRoute === 'function').toBeTruthy()
-		
-		scope.setRoute('foo')
-		expect(location.url()).toBe('/foo')
-	});
-
-
-
-
-
-
-
-
-
 });
