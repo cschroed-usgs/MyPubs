@@ -18,7 +18,7 @@ describe("pw.list module directive", function() {
 		// angular does this when in apps but not in tests
 		$scope.$digest()
 	}
-	
+
 
 	// build the module and preserve the scope
 	beforeEach(function () {
@@ -137,7 +137,7 @@ describe("pw.list module directive", function() {
 			var scope = $(el).scope().$$childHead
 			var top   = scope.controlsTop()
 
-			// the mid point is 123/2 and the 14 is 1/2 the reoder controls height
+			// the mid point is 123/2 and the 14 is 1/2 the reorder controls height
 			expect(top).toBe( (-123/2-14)+'px' )
 		});
 
@@ -179,70 +179,53 @@ describe("pw.list module directive", function() {
 	});
 
 
-	describe("pw.list module controller add/remove tests", function() {
+	describe("pw.list module controller add and remove tests", function() {
 
 		it('should have the new button click call service.newEntry() if no current new entry', function() {
-			var newEntryCalled = false
-			var isDirtyCalled  = false
+			var newEntry = jasmine.createSpy('newEntry').andReturn({})
+			$scope.TestService = {newEntry:newEntry}
 
-			$scope.TestService = {
-				newEntry : function() {
-					newEntryCalled = true
-				},
-			}
-			$scope.isDirty = function(entry) {
-				isDirtyCalled  = true
-				return false
-			}
+			var isDirty  = jasmine.createSpy('isDirty').andReturn(false)
+			$scope.isDirty = isDirty
+
 			compileTemplate()
 
 			var btn = el.find("button")
 			btn.simulate('click',{})
 
 			//expect($scope.isNewEntry).toBe(false) // not just falsy
-			expect(isDirtyCalled).toBeTruthy()
-			expect(newEntryCalled).toBeTruthy()
+			expect(isDirty).toHaveBeenCalled()
+			expect(newEntry).toHaveBeenCalled()
 		});
 
 
 		it('should NOT have the new button click call service.newEntry() if there is a new entry', function() {
-			var newEntryCalled = false
-			var isDirtyCalled  = false
+			var newEntry = jasmine.createSpy('newEntry').andReturn({})
+			$scope.TestService = {newEntry:newEntry}
 
-			$scope.TestService = {
-				newEntry : function() {
-					newEntryCalled = true
-					return {}
-				},
-			}
-			$scope.isDirty = function(entry) {
-				isDirtyCalled  = true
-				return false
-			}
+			var isDirty  = jasmine.createSpy('isDirty').andReturn(false)
+			$scope.isDirty = isDirty
+
 			compileTemplate()
 
 			var btn = el.find("button")
 			btn.simulate('click',{})
 
-			expect(isDirtyCalled).toBeTruthy()
-			expect(newEntryCalled).toBeTruthy()
+			expect(isDirty).toHaveBeenCalled()
+			expect(newEntry).toHaveBeenCalled()
 
-			newEntryCalled = false
+			newEntry = jasmine.createSpy('newEntry').andReturn({})
+			$scope.TestService.newEntry = newEntry
 			btn.simulate('click',{})
 
-			expect(newEntryCalled).toBeFalsy()
+			expect(newEntry).not.toHaveBeenCalled()
 		});
 
 
 		it('should have the remove click call service.remove(id) - not the newEntry', function() {
-			var removeCalled = false
+			var remove = jasmine.createSpy('remove').andReturn([])
+			$scope.TestService = {remove:remove}
 
-			$scope.TestService = {
-				remove : function() {
-					removeCalled = true
-					return {}
-				},
-			}
 			compileTemplate()
 
 			var btn = el.find(".list-remove")[0]
@@ -253,7 +236,7 @@ describe("pw.list module directive", function() {
 			$(btn).simulate('click',{})
 
 			expect( isNewEntry.val ).toBeTruthy() // unchanged
-			expect(removeCalled).toBeTruthy()
+			expect(remove).toHaveBeenCalled()
 
 			btn = el.find(".list-remove")[0]
 			expect(btn).toBeUndefined()
@@ -261,14 +244,9 @@ describe("pw.list module directive", function() {
 
 
 		it('should have the remove click call service.remove(id) - the newEntry', function() {
-			var removeCalled = false
+			var remove = jasmine.createSpy('remove').andReturn([])
+			$scope.TestService = {remove:remove}
 
-			$scope.TestService = {
-				remove : function() {
-					removeCalled = true
-					return {}
-				},
-			}
 			compileTemplate()
 
 			var btn = el.find(".list-remove")[0]
@@ -279,7 +257,7 @@ describe("pw.list module directive", function() {
 			$(btn).simulate('click',{})
 
 			expect( isNewEntry.val ).toBeFalsy() // changed
-			expect(removeCalled).toBeTruthy()
+			expect(remove).toHaveBeenCalled()
 		});
 
 
@@ -289,41 +267,29 @@ describe("pw.list module directive", function() {
 	describe("pw.list module controller reorder tests", function() {
 
 
-		it('should have the called service.reorder(id,dir) with dir -1 for reorder-before', function() {
-			var reorderId, reorderDir
+		it('should have the called service.reorder(id, dir) with dir -1 for reorder-before', function() {
+			var reorder = jasmine.createSpy('reorder')
+			$scope.TestService = {reorder:reorder}
 
-			$scope.TestService = {
-				reorder : function(id,dir) {
-					reorderId = id
-					reorderDir = dir
-				},
-			}
 			compileTemplate()
 
 			var btn = el.find(".list-reorder-before")[0]
 			$(btn).simulate('click',{})
 
-			expect(reorderId).toBe('a')
-			expect(reorderDir).toBe(-1)
+			expect(reorder).toHaveBeenCalledWith('a',-1)
 		});
 
 
-		it('should have the called service.reorder(id,dir) with dir +1 for reorder-after', function() {
-			var reorderId, reorderDir
+		it('should have the called service.reorder(id, dir) with dir +1 for reorder-after', function() {
+			var reorder = jasmine.createSpy('reorder')
+			$scope.TestService = {reorder:reorder}
 
-			$scope.TestService = {
-				reorder : function(id,dir) {
-					reorderId = id
-					reorderDir = dir
-				},
-			}
 			compileTemplate()
 
 			var btn = el.find(".list-reorder-after")[0]
 			$(btn).simulate('click',{})
 
-			expect(reorderId).toBe('a')
-			expect(reorderDir).toBe(+1)
+			expect(reorder).toHaveBeenCalledWith('a',+1)
 		});
 
 
@@ -337,73 +303,24 @@ describe("pw.list module directive", function() {
 		});
 
 
-		it('should NOT have called findEntryByOrder if NO start dnd index set on reoderDnd', function() {
-			var findEntryByOrderCalled = false
-			$scope.TestService = {
-				findEntryByOrder : function(order) {
-					findEntryByOrderCalled = true
-				},
-			}
+		it('should NOT have called findEntryByOrder if NO start dnd index set on reorderDnd', function() {
+			var findEntryByOrder = jasmine.createSpy('findEntryByOrder')
+			$scope.TestService = {findEntryByOrder:findEntryByOrder}
+
 			compileTemplate()
 
 			var over = el.find(".list-group")[0]
 			var scope = $(el).scope().$$childHead
-			scope.reoderDnd(0)
+			scope.reorderDnd(0)
 
-			expect(findEntryByOrderCalled).toBeFalsy()
+			expect(findEntryByOrder).not.toHaveBeenCalled()
 		});
 
 
-		it('should NOT have called findEntryByOrder if end undefined on reoderDnd', function() {
-			var findEntryByOrderCalled = false
-			$scope.TestService = {
-				findEntryByOrder : function(order) {
-					findEntryByOrderCalled = true
-				},
-			}
-			compileTemplate()
-			
-			var entry = el.find(".list-group")[1]
-			$(entry).simulate('dragstart',{})
+		it('should NOT have called findEntryByOrder if end undefined on reorderDnd', function() {
+			var findEntryByOrder = jasmine.createSpy('findEntryByOrder')
+			$scope.TestService = {findEntryByOrder:findEntryByOrder}
 
-			var over = el.find(".list-group")[0]
-			var scope = $(el).scope().$$childHead
-			scope.reoderDnd()
-
-			expect(findEntryByOrderCalled).toBeFalsy()
-		});
-
-
-		it('should NOT have called findEntryByOrder if end out of bounds on reoderDnd', function() {
-			var findEntryByOrderCalled = false
-			$scope.TestService = {
-				findEntryByOrder : function(order) {
-					findEntryByOrderCalled = true
-				},
-			}
-			compileTemplate()
-			
-			var entry = el.find(".list-group")[1]
-			$(entry).simulate('dragstart',{})
-
-			var over = el.find(".list-group")[0]
-			var scope = $(el).scope().$$childHead
-
-			scope.reoderDnd(-1)
-			expect(findEntryByOrderCalled).toBeFalsy()
-
-			scope.reoderDnd(3)
-			expect(findEntryByOrderCalled).toBeFalsy()
-		});
-
-
-		it('should have called findEntryByOrder if start dnd index set on reoderDnd', function() {
-			var findEntryByOrderCalled = false
-			$scope.TestService = {
-				findEntryByOrder : function(order) {
-					findEntryByOrderCalled = true
-				},
-			}
 			compileTemplate()
 
 			var entry = el.find(".list-group")[1]
@@ -411,16 +328,53 @@ describe("pw.list module directive", function() {
 
 			var over = el.find(".list-group")[0]
 			var scope = $(el).scope().$$childHead
-			scope.reoderDnd(0)
+			scope.reorderDnd()
 
-			expect(findEntryByOrderCalled).toBeTruthy()
+			expect(findEntryByOrder).not.toHaveBeenCalled()
 		});
 
 
-		it('should have cleared drag index to prepare for next drag on reoderDnd', function() {
+		it('should NOT have called findEntryByOrder if end out of bounds on reorderDnd', function() {
+			var findEntryByOrder = jasmine.createSpy('findEntryByOrder')
+			$scope.TestService = {findEntryByOrder:findEntryByOrder}
+
+			compileTemplate()
+
+			var entry = el.find(".list-group")[1]
+			$(entry).simulate('dragstart',{})
+
+			var over = el.find(".list-group")[0]
+			var scope = $(el).scope().$$childHead
+
+			scope.reorderDnd(-1)
+			expect(findEntryByOrder).not.toHaveBeenCalled()
+
+			scope.reorderDnd(3)
+			expect(findEntryByOrder).not.toHaveBeenCalled()
+		});
+
+
+		it('should have called findEntryByOrder if start dnd index set on reorderDnd', function() {
+			var findEntryByOrder = jasmine.createSpy('findEntryByOrder')
+			$scope.TestService = {findEntryByOrder:findEntryByOrder}
+
+			compileTemplate()
+
+			var entry = el.find(".list-group")[1]
+			$(entry).simulate('dragstart',{})
+
+			var over = el.find(".list-group")[0]
+			var scope = $(el).scope().$$childHead
+			scope.reorderDnd(0)
+
+			expect(findEntryByOrder).toHaveBeenCalled()
+		});
+
+
+		it('should have cleared drag index to prepare for next drag on reorderDnd', function() {
 			$scope.TestService = {
 				findEntryByOrder : function(order) {},
-				reoder : function(order) {},
+				reorder : function(order) {},
 			}
 			compileTemplate()
 
@@ -431,7 +385,7 @@ describe("pw.list module directive", function() {
 			var scope = $(el).scope().$$childHead
 
 			var idxBefore = scope.indexDrag
-			scope.reoderDnd(0)
+			scope.reorderDnd(0)
 			var idxAfter  = scope.indexDrag
 
 			expect(idxBefore).toBeDefined()
@@ -439,19 +393,14 @@ describe("pw.list module directive", function() {
 		});
 
 
-		it('should have called reoder once with dir -1 on reoderDnd before', function() {
-			var reorderId, reorderDir, count=0
-
+		it('should have called reorder once with dir -1 on reorderDnd before', function() {
+			var findEntryByOrder = jasmine.createSpy('findEntryByOrder').andReturn({id:'z'})
+			var reorder = jasmine.createSpy('reorder')
 			$scope.TestService = {
-				findEntryByOrder : function(order) {
-					return {id:'z'}
-				},
-				reorder : function(id,dir) {
-					reorderId = id
-					reorderDir = dir
-					count++
-				},
+				findEntryByOrder:findEntryByOrder,
+				reorder:reorder
 			}
+
 			compileTemplate()
 
 			var entry = el.find(".list-group")[1]
@@ -462,29 +411,23 @@ describe("pw.list module directive", function() {
 
 			$('div').addClass('dnd-over-top')
 
-			scope.reoderDnd(0)
+			scope.reorderDnd(0)
 
 			$('div').removeClass('dnd-over-top')
 
-			expect(reorderId).toBe('z')
-			expect(reorderDir).toBe(-1)
-			expect(count).toBe(1)
-
+			expect(reorder).toHaveBeenCalledWith('z',-1)
+			expect( reorder.calls.length ).toBe(1)
 		});
 
 
-		it('should NOT have called reoder reoderDnd drop on bottom of previous component - esstial a move to current location', function() {
-			var reorderId, reorderDir
-
+		it('should NOT have called reorder reorderDnd drop on bottom of previous component - esstial a move to current location', function() {
+			var findEntryByOrder = jasmine.createSpy('findEntryByOrder').andReturn({id:'z'})
+			var reorder = jasmine.createSpy('reorder')
 			$scope.TestService = {
-				findEntryByOrder : function(order) {
-					return {id:'z'}
-				},
-				reorder : function(id,dir) {
-					reorderId = id
-					reorderDir = dir
-				},
+				findEntryByOrder:findEntryByOrder,
+				reorder:reorder
 			}
+
 			compileTemplate()
 
 			var entry = el.find(".list-group")[1]
@@ -495,26 +438,20 @@ describe("pw.list module directive", function() {
 
 			$('div').removeClass('dnd-over-top')
 
-			scope.reoderDnd(0)
+			scope.reorderDnd(0)
 
-			expect(reorderId).toBeUndefined()
-			expect(reorderDir).toBeUndefined()
+			expect(reorder).not.toHaveBeenCalled()
 		});
 
 
-		it('should have called reoder once with dir +1 on reoderDnd after', function() {
-			var reorderId, reorderDir, count=0
-
+		it('should have called reorder once with dir +1 on reorderDnd after', function() {
+			var findEntryByOrder = jasmine.createSpy('findEntryByOrder').andReturn({id:'z'})
+			var reorder = jasmine.createSpy('reorder')
 			$scope.TestService = {
-				findEntryByOrder : function(order) {
-					return {id:'z'}
-				},
-				reorder : function(id,dir) {
-					reorderId = id
-					reorderDir = dir
-					count++
-				},
+				findEntryByOrder:findEntryByOrder,
+				reorder:reorder
 			}
+
 			compileTemplate()
 
 			var entry = el.find(".list-group")[1]
@@ -525,26 +462,21 @@ describe("pw.list module directive", function() {
 
 			$('div').removeClass('dnd-over-top')
 
-			scope.reoderDnd(2)
+			scope.reorderDnd(2)
 
-			expect(reorderId).toBe('z')
-			expect(reorderDir).toBe(+1)
-			expect(count).toBe(1)
+			expect(reorder).toHaveBeenCalledWith('z',+1)
+			expect( reorder.calls.length ).toBe(1)
 		});
 
 
-		it('should NOT have called reoder reoderDnd drop on top of next component - esstial a move to current location', function() {
-			var reorderId, reorderDir
-
+		it('should NOT have called reorder reorderDnd drop on top of next component - essentially a move to current location', function() {
+			var findEntryByOrder = jasmine.createSpy('findEntryByOrder').andReturn({id:'z'})
+			var reorder = jasmine.createSpy('reorder')
 			$scope.TestService = {
-				findEntryByOrder : function(order) {
-					return {id:'z'}
-				},
-				reorder : function(id,dir) {
-					reorderId = id
-					reorderDir = dir					
-				},
+				findEntryByOrder:findEntryByOrder,
+				reorder:reorder
 			}
+
 			compileTemplate()
 
 			var entry = el.find(".list-group")[1]
@@ -555,28 +487,22 @@ describe("pw.list module directive", function() {
 
 			$('div').addClass('dnd-over-top')
 
-			scope.reoderDnd(2)
+			scope.reorderDnd(2)
 
 			$('div').removeClass('dnd-over-top')
 
-			expect(reorderId).toBeUndefined()
-			expect(reorderDir).toBeUndefined()
+			expect(reorder).not.toHaveBeenCalled()
 		});
 
 
-		it('should have called reoder twice with dir +1 on reoderDnd two rows after', function() {
-			var reorderId, reorderDir, count=0
-
+		it('should have called reorder twice with dir +1 on reorderDnd two rows after', function() {
+			var findEntryByOrder = jasmine.createSpy('findEntryByOrder').andReturn({id:'z'})
+			var reorder = jasmine.createSpy('reorder')
 			$scope.TestService = {
-				findEntryByOrder : function(order) {
-					return {id:'z'}
-				},
-				reorder : function(id,dir) {
-					reorderId = id
-					reorderDir = dir
-					count++
-				},
+				findEntryByOrder:findEntryByOrder,
+				reorder:reorder
 			}
+
 			compileTemplate()
 
 			var entry = el.find(".list-group")[0]
@@ -587,16 +513,12 @@ describe("pw.list module directive", function() {
 
 			$('div').removeClass('dnd-over-top')
 
-			scope.reoderDnd(2)
+			scope.reorderDnd(2)
 
-			expect(reorderId).toBe('z')
-			expect(reorderDir).toBe(+1)
-			expect(count).toBe(2)
+			expect(reorder).toHaveBeenCalledWith('z',+1)
+			expect( reorder.calls.length ).toBe(2)
 		});
 	});
-
-
-//console.log(el.html())
 
 
 });

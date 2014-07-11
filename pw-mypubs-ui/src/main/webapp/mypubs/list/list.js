@@ -68,7 +68,7 @@ mod.directive('pwList', ['$parse', function($parse) {
 			$scope.startDnd  = function(index) {
 				$scope.indexDrag = index
 			}
-			$scope.reoderDnd = function(end) {
+			$scope.reorderDnd = function(end) {
 				var start = $scope.indexDrag
 
 				if ( angular.isUndefined(start) || angular.isUndefined(end)

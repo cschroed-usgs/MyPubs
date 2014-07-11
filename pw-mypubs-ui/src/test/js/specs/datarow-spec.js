@@ -37,7 +37,7 @@ describe("pw.dataRow module dataRow directive", function() {
 		$scope.$digest()
 		return el
 	}
-	
+
 
 	// build the module and preserve the scope
 	beforeEach(function () {
@@ -111,7 +111,7 @@ describe("pw.dataRow module dataRow directive", function() {
 
 		var el = compileTemplate()
 		var input = el.find('.value').find('input')
-		
+
 		expect(input.length).toBe(1)
 		expect(input.val() ).toBe('value0')
 	});
@@ -182,7 +182,7 @@ describe("pw.dataRow module dataRow directive", function() {
 		expect(val).toBeDefined()
 		expect(val.length).toBe(0)
 	});
-	
+
 
 	it('should have datepicker DOM in Date field with time', function() {
 		$scope.rows = rowMap(1)
@@ -201,7 +201,7 @@ describe("pw.dataRow module dataRow directive", function() {
 		expect(val).toBeDefined()
 		expect(val.length).toBe(1)
 	});
-	
+
 
 	it('should have timepicker field in DOM for time', function() {
 		$scope.rows = rowMap(1)
@@ -213,7 +213,7 @@ describe("pw.dataRow module dataRow directive", function() {
 		expect(val).toBeDefined()
 		expect(val.length).toBe(1)
 	});
-	
+
 
 });
 
@@ -236,12 +236,9 @@ describe("pw.dataRow module DataRowFieldService", function() {
 		it('DataRowFieldService should trigger click', inject(function(DataRowFieldService) {
 			var field = {elId:"FieldId"} // dpFieldId
 			var event = {
-				preventDefaultCalled : false,
-				stopPropagationCalled : false,
-				stopImmediatePropagationCalled : false,
-				preventDefault : function() { event.preventDefaultCalled = true },
-				stopPropagation : function(){ event.stopPropagationCalled = true },
-				stopImmediatePropagation : function() { event.stopImmediatePropagationCalled = true },
+				preventDefault  : jasmine.createSpy('preventDefault'),
+				stopPropagation : jasmine.createSpy('stopPropagation'),
+				stopImmediatePropagation : jasmine.createSpy('stopImmediatePropagation'),
 			}
 
 			var jqRef = jQuery
@@ -266,9 +263,9 @@ describe("pw.dataRow module DataRowFieldService", function() {
 
 				DataRowFieldService.openDatePicker(field, event)
 
-				expect(event.preventDefaultCalled).toBeTruthy()
-				expect(event.stopPropagationCalled).toBeTruthy()
-				expect(event.stopImmediatePropagationCalled).toBeTruthy()
+				expect(event.preventDefault).toHaveBeenCalled()
+				expect(event.stopPropagation).toHaveBeenCalled()
+				expect(event.stopImmediatePropagation).toHaveBeenCalled()
 
 				expect(selected.id).toBe("dpFieldId")
 
@@ -300,7 +297,7 @@ describe("pw.dataRow module DataRowFieldService", function() {
 			expect(opts.format).toBe("yyyy-MM-dd")
 		}))
 	})
-		
+
 	describe("verify DataRowFieldService.formatDate options", function() {
 
 		var MockLookup = {}
@@ -323,13 +320,13 @@ describe("pw.dataRow module DataRowFieldService", function() {
 			DataRowFieldService.formatDate(opts)
 			expect(opts.options.startingDay).toBe(1)
 		}))
-		
+
 		it('DataRowFieldService should have date options formatYear yy', inject(function(DataRowFieldService) {
 			var opts = {}
 			DataRowFieldService.formatDate(opts)
 			expect(opts.options.formatYear).toBe('yy')
 		}))
-		
+
 		it('DataRowFieldService should have date open function', inject(function(DataRowFieldService) {
 			var opts = {}
 			DataRowFieldService.formatDate(opts)
@@ -337,29 +334,19 @@ describe("pw.dataRow module DataRowFieldService", function() {
 			expect(typeof opts.open).toBe('function')
 		}))
 
-		it('DataRowFieldService should have date open function', inject(function(DataRowFieldService) {
-			var openDatePickerCalled = false
-			DataRowFieldService.openDatePicker = function() {
-				openDatePickerCalled = true
-			} 
+		it('DataRowFieldService should have called date open function', inject(function(DataRowFieldService) {
+			var openPicker = spyOn(DataRowFieldService,'openDatePicker')
 			var opts = {}
 			DataRowFieldService.formatDate(opts)
 			opts.open({})
-			expect(openDatePickerCalled).toBeTruthy()
+			expect(openPicker).toHaveBeenCalled()
 		}))
 
 
 		it('DataRowFieldService should have fieldMapper function find properties and additionalProperties',
 		inject(function(DataRowFieldService) {
-
-			var formatDateCalled = false
-			DataRowFieldService.formatDate = function() {
-				formatDateCalled = true
-			} 
-			var formatEditorCalled = false
-			DataRowFieldService.formatEditor = function() {
-				formatEditorCalled = true
-			}
+			var formatDate   = spyOn(DataRowFieldService,'formatDate')
+			var formatEditor = spyOn(DataRowFieldService,'formatEditor')
 
 			var fields = [
 				{
@@ -383,8 +370,8 @@ describe("pw.dataRow module DataRowFieldService", function() {
 
 			DataRowFieldService.fieldMapper(fields, data)
 
-			expect(formatDateCalled).toBeFalsy()
-			expect(formatEditorCalled).toBeFalsy()
+			expect(formatDate).not.toHaveBeenCalled()
+			expect(formatEditor).not.toHaveBeenCalled()
 
 			expect(fields[0].value).toBe("asdf")
 			expect(fields[1].value).toBe("123")
@@ -393,15 +380,8 @@ describe("pw.dataRow module DataRowFieldService", function() {
 
 		it('DataRowFieldService should have fieldMapper function Date',
 		inject(function(DataRowFieldService) {
-
-			var formatDateCalled = false
-			DataRowFieldService.formatDate = function() {
-				formatDateCalled = true
-			} 
-			var formatEditorCalled = false
-			DataRowFieldService.formatEditor = function() {
-				formatEditorCalled = true
-			}
+			var formatDate   = spyOn(DataRowFieldService,'formatDate')
+			var formatEditor = spyOn(DataRowFieldService,'formatEditor')
 
 			var fields = [
 				{
@@ -417,8 +397,8 @@ describe("pw.dataRow module DataRowFieldService", function() {
 
 			DataRowFieldService.fieldMapper(fields, data)
 
-			expect(formatDateCalled).toBeTruthy()
-			expect(formatEditorCalled).toBeFalsy()
+			expect(formatDate).toHaveBeenCalled()
+			expect(formatEditor).not.toHaveBeenCalled()
 
 			expect(fields[0].value).toBe("123")
 		}))
@@ -426,15 +406,8 @@ describe("pw.dataRow module DataRowFieldService", function() {
 
 		it('DataRowFieldService should have fieldMapper function Editor',
 		inject(function(DataRowFieldService) {
-
-			var formatDateCalled = false
-			DataRowFieldService.formatDate = function() {
-				formatDateCalled = true
-			} 
-			var formatEditorCalled = false
-			DataRowFieldService.formatEditor = function() {
-				formatEditorCalled = true
-			}
+			var formatDate   = spyOn(DataRowFieldService,'formatDate')
+			var formatEditor = spyOn(DataRowFieldService,'formatEditor')
 
 			var fields = [
 				{
@@ -450,8 +423,8 @@ describe("pw.dataRow module DataRowFieldService", function() {
 
 			DataRowFieldService.fieldMapper(fields, data)
 
-			expect(formatDateCalled).toBeFalsy()
-			expect(formatEditorCalled).toBeTruthy()
+			expect(formatDate).not.toHaveBeenCalled()
+			expect(formatEditor).toHaveBeenCalled()
 
 			expect(fields[0].value).toBe("asdf")
 		}))
@@ -459,15 +432,8 @@ describe("pw.dataRow module DataRowFieldService", function() {
 
 		it('DataRowFieldService should have fieldMapper function Select calls Lookup to get options',
 		inject(function(DataRowFieldService) {
-
-			var formatDateCalled = false
-			DataRowFieldService.formatDate = function() {
-				formatDateCalled = true
-			} 
-			var formatEditorCalled = false
-			DataRowFieldService.formatEditor = function() {
-				formatEditorCalled = true
-			}
+			var formatDate   = spyOn(DataRowFieldService,'formatDate')
+			var formatEditor = spyOn(DataRowFieldService,'formatEditor')
 
 			var fields = [
 				{
@@ -484,23 +450,14 @@ describe("pw.dataRow module DataRowFieldService", function() {
 
 			DataRowFieldService.fieldMapper(fields, data)
 
-			expect(formatDateCalled).toBeFalsy()
-			expect(formatEditorCalled).toBeFalsy()
+			expect(formatDate).not.toHaveBeenCalled()
+			expect(formatEditor).not.toHaveBeenCalled()
 
 			expect(MockLookup.type).toBe("asdf")
 			expect(fields[0].value).toBe("123")
 		}))
 
-
 	})
-
-	// service.formatDate = function(date) {
-	// 	date.open = function(event) {
-	// 		service.openDatePicker(date, event)
-	// 	}
-	// }
-
-
 
 
 })

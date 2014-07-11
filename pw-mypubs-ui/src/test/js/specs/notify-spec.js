@@ -121,12 +121,12 @@ describe("pw.notify module", function() {
 
 
 		it('should have notify broadcast on messge', inject(function(Notifier) {
-			var notifyCalled = false
+			var onNotifyCalled = false
 			$scope.$on('notifier', function(){
-				notifyCalled = true
+				onNotifyCalled = true
 			})
 			Notifier.warn('asdf')
-			expect(notifyCalled).toBeTruthy()
+			expect(onNotifyCalled).toBeTruthy()
 		}))
 
 
