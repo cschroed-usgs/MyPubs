@@ -1,17 +1,17 @@
 (function() {
 
 
-angular.module('pw.colaborator',['pw.fetcher', 'pw.list', 'pw.collection', 'pw.lookups'])
+angular.module('pw.collaborator',['pw.fetcher', 'pw.list', 'pw.collection', 'pw.lookups'])
 
 
-.service('Colaborators', [
+.service('Collaborators', [
 'PublicationFetcher', 'Collection', 'LookupFetcher',
 function (PublicationFetcher, Collection, Lookup) {
 
 	var ctx = Collection(this)
 
 
-	ctx.setColaborators = function(type) {
+	ctx.setCollaborators = function(type) {
 		ctx.hasEntries = false
 		ctx.setEntries(null, type)
 
@@ -32,9 +32,9 @@ function (PublicationFetcher, Collection, Lookup) {
 	}
 
 
-	ctx.colaboratorTypes= []
-	ctx.getColaboratorTypes = function() {
-		return Lookup.fetchOptions(Lookup.type.colaborators, ctx.colaboratorTypes)
+	ctx.collaboratorTypes= []
+	ctx.getCollaboratorTypes = function() {
+		return Lookup.fetchOptions(Lookup.type.collaborators, ctx.collaboratorTypes)
 	}
 
 
@@ -46,43 +46,43 @@ function (PublicationFetcher, Collection, Lookup) {
 }])
 
 
-.controller('colaboratorsCtrl', [
-'$scope', 'Colaborators', '$log',
-function ($scope, Colaborators, $log) {
+.controller('collaboratorsCtrl', [
+'$scope', 'Collaborators', '$log',
+function ($scope, Collaborators, $log) {
 
-	$scope.listName    = 'contrib_'
-	
-	$scope.Colaborators= Colaborators
-	$scope.typeOptions = Colaborators.getTypeOptions()
-	$scope.contribTypes= Colaborators.getColaboratorTypes()
+	$scope.listName     = 'contrib_'
 
-	$scope.colaboratorType = 'author'
+	$scope.Collaborators= Collaborators
+	$scope.typeOptions  = Collaborators.getTypeOptions()
+	$scope.contribTypes = Collaborators.getCollaboratorTypes()
 
-	$scope.colaboratorShow = function(type) {
+	$scope.collaboratorType = 'author'
+
+	$scope.collaboratorShow = function(type) {
 		if ( angular.isUndefined(type) ) {
-			return $scope.colaboratorType
+			return $scope.collaboratorType
 		}
-		$scope.colaboratorType = type
-	
-		Colaborators.setColaborators(type)
+		$scope.collaboratorType = type
 
-		$scope.colaborators    = Colaborators.getEntries()
+		Collaborators.setCollaborators(type)
+
+		$scope.collaborators    = Collaborators.getEntries()
 	}
-	$scope.colaboratorShow( $scope.colaboratorType )
+	$scope.collaboratorShow( $scope.collaboratorType )
 
 
-	$scope.isDirty     = function(colaborator) {
-		return (colaborator.email   !== ""
-			 || colaborator.family  !== ""
-			 || colaborator.given   !== ""
-			 || colaborator.literal !== ""
-			 || colaborator.affiliation !== ""
+	$scope.isDirty     = function(collaborator) {
+		return (collaborator.email   !== ""
+			 || collaborator.family  !== ""
+			 || collaborator.given   !== ""
+			 || collaborator.literal !== ""
+			 || collaborator.affiliation !== ""
 			)
 	}
 
 
-	$scope.isCorporation = function(colaborator) {
-		return colaborator.type === 'c'
+	$scope.isCorporation = function(collaborator) {
+		return collaborator.type === 'c'
 	}
 
 

@@ -2,7 +2,7 @@
 
 
 angular.module('pw.publication', ['ngRoute',
-	'pw.bibliodata', 'pw.catalog', 'pw.contacts', 'pw.links', 'pw.colaborator' // pub edit modules
+	'pw.bibliodata', 'pw.catalog', 'pw.contacts', 'pw.links', 'pw.collaborator' // pub edit modules
 ])
 
 
@@ -20,8 +20,8 @@ angular.module('pw.publication', ['ngRoute',
 ])
 
 
-.controller('publicationCtrl', 
-[ '$scope', '$routeParams', 'PublicationFetcher', 
+.controller('publicationCtrl',
+[ '$scope', '$routeParams', 'PublicationFetcher',
 function($scope, $routeParams, PublicationFetcher) {
 
 	if ($routeParams.pubsid) {
@@ -40,9 +40,9 @@ function($scope, $routeParams, PublicationFetcher) {
 			controller: 'biblioCtrl'
 		},
 		{
-			title:"Colaborators",
-			templateUrl: 'mypubs/publication/colaborators/colaborator.html',
-			controller: 'colaboratorsCtrl'
+			title:"Collaborators",
+			templateUrl: 'mypubs/publication/colaborators/collaborator.html',
+			controller: 'collaboratorsCtrl'
 		},
 		{
 			title:"Links",
