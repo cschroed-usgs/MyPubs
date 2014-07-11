@@ -22,12 +22,14 @@ angular.module('pw.publication', ['ngRoute',
 
 .controller('publicationCtrl', 
 [ '$scope', '$routeParams', 'PublicationFetcher', 
-function($scope, $routeParams,PublicationFetcher) {
+function($scope, $routeParams, PublicationFetcher) {
 
 	if ($routeParams.pubsid) {
 		PublicationFetcher.getById($routeParams.pubsid)
 	} else {
 		// TODO redirect to Search or Select citation
+
+		PublicationFetcher.get()
 	}
 
 

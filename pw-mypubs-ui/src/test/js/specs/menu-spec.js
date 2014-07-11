@@ -32,15 +32,6 @@ describe("pw.menu module directive", function(){
 
 	beforeEach(function() {
 
-		// var MockAuth = {
-		// 	setToken   = function(token) {}
-		// 	logout     = function() {}
-		// 	isLoggedIn = function() {}
-		// }
-
-		// angular.module("mock.auth",[]).value("Authentication", MockAuth)
-
-		// module('pw.menu', 'mock.auth')
 		module('pw.menu')	
 
 		inject(function() {
