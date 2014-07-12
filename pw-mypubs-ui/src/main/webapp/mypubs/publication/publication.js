@@ -1,7 +1,7 @@
 (function() {
 
 
-angular.module('pw.publication', ['ngRoute',
+angular.module('pw.publication', ['ngRoute', 'pw.actions',
 	'pw.bibliodata', 'pw.catalog', 'pw.contacts', 'pw.links', 'pw.collaborator' // pub edit modules
 ])
 

@@ -5,8 +5,8 @@ angular.module('pw.catalog',['pw.dataRow','pw.fetcher'])
 
 
 .controller('catalogCtrl', [
-'$scope', 'DataRowFieldService', 'PublicationFetcher', '$log', 'catFields',
-function ($scope, DataRowFieldService, PublicationFetcher, $log, fields) {
+'$scope', 'DataRowFieldService', 'PublicationFetcher', 'catalogFields',
+function ($scope, DataRowFieldService, PublicationFetcher, fields) {
 
 	var pubData = PublicationFetcher.get()
 	$scope.rows = fields
@@ -15,7 +15,7 @@ function ($scope, DataRowFieldService, PublicationFetcher, $log, fields) {
 }])
 
 
-.factory('catFields', function() {
+.factory('catalogFields', function() {
 	return [
 		// {
 		// 	name   : "keywords",

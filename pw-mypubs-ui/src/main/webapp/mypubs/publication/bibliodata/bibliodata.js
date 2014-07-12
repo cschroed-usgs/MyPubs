@@ -5,8 +5,8 @@ angular.module('pw.bibliodata',['pw.dataRow','pw.fetcher', 'pw.lookups'])
 
 
 .controller('biblioCtrl', [
-'$scope', 'DataRowFieldService', 'PublicationFetcher', '$log', 'biblioFields',
-function ($scope, DataRowFieldService, PublicationFetcher, $log, fields) {
+'$scope', 'DataRowFieldService', 'PublicationFetcher', 'biblioFields',
+function ($scope, DataRowFieldService, PublicationFetcher, fields) {
 
 	var pubData = PublicationFetcher.get()
 	$scope.rows = fields
