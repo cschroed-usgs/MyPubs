@@ -24,10 +24,6 @@ describe("pw.publication module", function(){
 			get     : jasmine.createSpy('get'),
 		}
 
-		angular.module('mock.angular',[])
-		.value('$routeParams',routeParams)
-		.value('PublicationFetcher',pubsFetcher)
-
 		module('pw.publication')
 
 		inject (['$rootScope', '$controller', function($rootScope, $controller) {

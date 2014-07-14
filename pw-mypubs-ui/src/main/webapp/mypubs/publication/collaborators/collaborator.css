@@ -1,17 +1,17 @@
-.colaboratorSmall {
+.collaboratorSmall {
 	width:166px;
 }
-.colaboratorMedium {
+.collaboratorMedium {
 	width:200px;
 }
-.colaboratorLarge {
+.collaboratorLarge {
 	width:575px;
 }
-.colaboratorSpacer {
+.collaboratorSpacer {
 	display: inline-block;
 	width:128px;
 }
-.colaboratorType {
+.collaboratorType {
 	margin-right: 4px;
 	width:125px;
 }

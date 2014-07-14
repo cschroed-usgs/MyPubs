@@ -3,7 +3,7 @@
 
 angular.module('pw.mypubs', [
 	'ngRoute','ui.select2','ui.bootstrap', 'ui.tinymce', 'ngAnimate', // angular util modules
-	'pw.actions', 'pw.pubHeader', 'pw.notify', 'pw.menu', // pw util modules
+	'pw.pubHeader', 'pw.notify', 'pw.menu', // pw util modules
 	'pw.home','pw.search','pw.publication', 'pw.reservation',  // mypubs pages
 ])
 
