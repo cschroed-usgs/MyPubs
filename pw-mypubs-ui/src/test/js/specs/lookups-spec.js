@@ -1,8 +1,8 @@
 describe('pw.lookups module', function() {
 	var $httpBackend, $scope
 
-	var urlBase  = 'mypubs_services/lookup/'
-	var mimetype = '?mimetype=json'
+	var URL_BASE  = 'https://cida-eros-pubsdev.er.usgs.gov:8443/pubs-services/lookup/';
+	var MIMETYPE = 'mimetype=json';
 
 
 	var MockNotify = {
@@ -19,9 +19,9 @@ describe('pw.lookups module', function() {
 
 	beforeEach(inject(function($injector) {
 		$httpBackend = $injector.get('$httpBackend');
-		$httpBackend.when('GET', urlBase+'asdf'+mimetype).respond({asdf:true});
-		$httpBackend.when('GET', urlBase+'publicationtype'+mimetype).respond({publicationtype:true});
-		$httpBackend.when('GET', urlBase+'err'+mimetype).respond(500);
+		$httpBackend.when('GET', URL_BASE + 'asdf?' + MIMETYPE).respond({asdf:true});
+		$httpBackend.when('GET', URL_BASE + 'asdf?' + MIMETYPE + '&subtype=blots').respond({asdf:true});
+		$httpBackend.when('GET', URL_BASE + 'err?' + MIMETYPE).respond(500);
 
 		$scope = $injector.get('$rootScope');
 	}));
@@ -32,19 +32,42 @@ describe('pw.lookups module', function() {
 		$httpBackend.verifyNoOutstandingRequest();
 	});
 
-
 	it('should have a pubs lookups module pw.lookups', function() {
 		// angular should find a defined mod
-		var def = true
+		var def = true;
 		try {
-		  angular.module('pw.lookups')
+		  angular.module('pw.lookups');
 		} catch(e) {
-		  def = false
+		  def = false;
 		}
-		expect( def ).toBeTruthy()
+		expect(def).toBeTruthy();
 	});
 
+        it('Should use the promise function\'s parameters in the url request', inject(function(LookupFetcher) {
+            var promise = LookupFetcher.promise('asdf');
+            $httpBackend.expectGET(URL_BASE + 'asdf?' + MIMETYPE);
 
+            promise = LookupFetcher.promise('asdf', {subtype : 'blots'});
+            $httpBackend.expectGET(URL_BASE + 'asdf?' + MIMETYPE + '&subtype=blots');
+
+            $httpBackend.flush();
+        }));
+
+        it('When successful, should return a promise that returns the result', inject(function(LookupFetcher) {
+            var successSpy = jasmine.createSpy('successSpy');
+            LookupFetcher.promise('asdf').then(successSpy);
+            $httpBackend.flush(1);
+            expect(successSpy).toHaveBeenCalled();
+            expect(successSpy.calls[0].args[0].data).toEqual({ asdf : true });
+        }));
+
+        it('When error, expect notifer to be called', inject(function(LookupFetcher) {
+            LookupFetcher.promise('err');
+	    $httpBackend.flush();
+	    expect(MockNotify.calls).toBe(1);
+
+        }));
+/*
 	it('should fetch testing token and than apply to component is called', inject(function(LookupFetcher) {
 		var resp, component
 		LookupFetcher._apply = function(type, data, comp) {
@@ -95,5 +118,6 @@ describe('pw.lookups module', function() {
 		expect(values).toEqual(expected)
 		expect(LookupFetcher._cache.asdf).toEqual(expected)
 	}));
+*/
+});
 
-})

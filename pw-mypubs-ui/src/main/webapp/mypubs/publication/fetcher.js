@@ -13,7 +13,7 @@ angular.module('pw.fetcher',[])
 			properties : {
 				id             : "700000000",
 				type           : "2",
-				genre          : "2",
+				genre          : "10",
 				"collection-title" : "",
 				title          : "Publication Title",
 				subseries      : "Climate change adaption Series",

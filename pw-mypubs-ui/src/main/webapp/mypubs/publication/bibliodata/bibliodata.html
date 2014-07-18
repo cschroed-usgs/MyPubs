@@ -1,3 +1,13 @@
 <div id="bibliodata" ng-controller="biblioCtrl">
-	<pw:datarow ng-repeat="row in rows" data="row"></pw:datarow>
+    <div id="pub-type-div">
+        <label for="pub-type-input">Publication Type</label>
+        <select placeholder="Select a publication type" ng-model="type" ui-select2>
+            <option></option>
+            <option ng-repeat="option in typeOptions" value="{{option.value}}">{{option.text}}</option>            
+        </select>
+    </div>
+    <div id="pub-subtype-div">
+        <label for="pub-subtype-input">Publication Subtype</label>
+        <input type="hidden" ng-model="genre" ng-disabled="isTypeUndefined()" ui-select2="subtypeSelect2Options" />
+    </div>
 </div>
