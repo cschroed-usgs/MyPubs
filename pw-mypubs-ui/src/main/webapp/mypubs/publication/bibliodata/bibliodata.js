@@ -3,14 +3,17 @@
 
 angular.module('pw.bibliodata',['pw.dataRow','pw.fetcher', 'pw.lookups'])
     .controller('biblioCtrl', [
-        '$scope', 'PublicationFetcher', 'LookupFetcher',
-        function ($scope, PublicationFetcher, LookupFetcher) {
+        '$scope', 'PublicationFetcher', 'LookupFetcher', 'LookupCascadeSelect2',
+        function ($scope, PublicationFetcher, LookupFetcher, LookupCascadeSelect2) {
 
             var pubData = PublicationFetcher.get();
-            $scope.type;
-            $scope.genre;
+            $scope.type = '';
+            $scope.genre = '';
+            $scope.collection_title = '';
             if (pubData.properties) {
-                $scope.type = pubData.properties.type;
+                $scope.type = pubData.properties.type.id;
+                $scope.genre = pubData.properties.genre.id;
+                $scope.collection_title = pubData.properties['collection-title'].id;
             }
 
             LookupFetcher.promise('publicationtypes').then(function(response) {
@@ -20,28 +23,34 @@ angular.module('pw.bibliodata',['pw.dataRow','pw.fetcher', 'pw.lookups'])
 
             $scope.subtypeSelect2Options = {
                 query : function(query) {
-                    LookupFetcher.promise('publicationsubtypes', {publicationtypeid : $scope.type}).then(function(response) {
-                        var data = {results: []};
-                        angular.forEach(response.data, function(option) {
-                            data.results.push({id : option.value, text : option.text});
-                        });
-                        query.callback(data);
-                    });
+                    LookupCascadeSelect2.query(query, 'publicationsubtypes', {publicationtypeid : $scope.type});
                 },
                 initSelection : function(element, callback) {
-                    $scope.genre = pubData.properties.genre;
-                    LookupFetcher.promise('publicationsubtypes', {publicationtypeid : $scope.type}).then(function(response) {
-                        var items = _.where(response.data, {value : $scope.genre});
-                        if (items.length > 0) {
-                            callback({id : items[0].value, text : items[0].text});
-                        }
-                    });
+                    LookupCascadeSelect2.initSelection('publicationsubtypes', {publicationtypeid : $scope.type}, pubData.properties.genre.id, callback);
                 },
                 placeholder : 'Select a publication subtype'
             };
-            $scope.$watch('type', function() {
-                $scope.genre = '';
+
+            $scope.seriesTitleSelect2Options = {
+                query : function(query) {
+                    LookupCascadeSelect2.query(query, 'publicationseries', {publicationsubtypeid : $scope.genre.id});
+                },
+                initSelection : function(element, callback) {
+                    LookupCascadeSelect2.initSelection('publicationseries', {publicationsubtypeid : pubData.properties.genre.id}, pubData.properties['collection-title'].id, callback);
+                },
+                placeholder : 'Select a series'
+            };
+            $scope.$watch('type', function(newValue, oldValue) {
+                if ((oldValue) && (newValue !== oldValue)) {
+                    $scope.genre = '' ;
+                }
             });
+            $scope.$watch('genre', function(newValue, oldValue) {
+                if ((oldValue) && (newValue !== oldValue)) {
+                    $scope.collection_title = '';
+                }
+            });
+
     }]);
 
 }) ();

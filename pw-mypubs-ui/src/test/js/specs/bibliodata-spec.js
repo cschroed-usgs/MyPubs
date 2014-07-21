@@ -16,7 +16,8 @@ describe("pw.bibliodata module", function(){
 	});
 
         describe('pw.bibliodata.biblioCtrl', function() {
-            var scope, rootScope, q, createController, mockPubFetcher, mockLookupFetcher,  deferred;
+            var scope, rootScope, q, createController, mockPubFetcher, mockLookupFetcher;
+            var mockLookupCascadeSelect2;
             var LOOKUP_DATA = [{value : 1, text : 'Text1'}, {value : 2, text : 'Text2'}];
 
             beforeEach(function() {
@@ -30,6 +31,7 @@ describe("pw.bibliodata module", function(){
                         return q.when({data : LOOKUP_DATA});
                     }
                 };
+                mockLookupCascadeSelect2 = jasmine.createSpyObj('mockLookupCascadeSelect2', ['query', 'initSelection']);
                 spyOn(mockLookupFetcher, 'promise').andCallThrough();
             });
 
@@ -43,7 +45,8 @@ describe("pw.bibliodata module", function(){
                     return $controller('biblioCtrl', {
                         '$scope': scope,
                         'PublicationFetcher': mockPubFetcher,
-                        'LookupFetcher' : mockLookupFetcher
+                        'LookupFetcher' : mockLookupFetcher,
+                        'LookupCascadeSelect2' : mockLookupCascadeSelect2
                     });
                 };
             }));
@@ -55,71 +58,103 @@ describe("pw.bibliodata module", function(){
                 scope.$digest();
                 expect(scope.type).toBeFalsy();
                 expect(scope.genre).toBeFalsy();
+                expect(scope.collection_title).toBeFalsy();
                 expect(scope.typeOptions).toEqual(LOOKUP_DATA);
                 expect(scope.subtypeSelect2Options.query).toBeDefined();
                 expect(scope.subtypeSelect2Options.initSelection).toBeDefined();
+                expect(scope.seriesTitleSelect2Options.query).toBeDefined();
+                expect(scope.seriesTitleSelect2Options.initSelection).toBeDefined();
             });
 
-            it('Should initialize the appropriate fields when pubs data is returned from fetcher', function() {
-                mockPubFetcher.get.andReturn({properties : {
-                        type : 1,
-                        genre : 2
-                }});
-                myCtrl = createController();
-                expect(scope.type).toEqual(1);
-            });
-
-            it('Expects that if type is changed, genre is cleared', function() {
-                mockPubFetcher.get.andReturn({properties : {
-                        type : 1,
-                        genre : 2
-                }});
-                myCtrl = createController();
-                scope.genre = 2;
-                expect(scope.genre).toEqual(2);
-
-                scope.type = 3;
-                scope.$digest();
-                expect(scope.genre).toEqual('');
-            });
-
-            it('The subtypeSelect2Options.query should update the option list', function() {
-                var query, queryParam;
-                mockPubFetcher.get.andReturn({properties : {
-                        type : 1,
-                        genre : 2
-                }});
-                myCtrl = createController();
-                query = scope.subtypeSelect2Options.query;
-                queryParam = {callback : jasmine.createSpy('queryCallback')};
-                query(queryParam);
-                expect(mockLookupFetcher.promise.calls.length).toBe(2);
-                expect(mockLookupFetcher.promise.calls[1].args[1]).toEqual({
-                    publicationtypeid : 1
+            describe('Tests with pub data', function() {
+                beforeEach(function() {
+                    mockPubFetcher.get.andReturn({properties : {
+                        type : {id : 1},
+                        genre : {id : 2},
+                        'collection-title' : {id : 3}
+                    }});
                 });
-                scope.$digest();
-                expect(queryParam.callback).toHaveBeenCalledWith({results : [{id : 1, text : 'Text1'}, {id : 2, text : 'Text2'}]});
-            });
 
-            it('The subtypeSelect2Options.initSelection should set the initial selection', function() {
-                var element, callback, initSelection;
-                mockPubFetcher.get.andReturn({properties : {
-                        type : 1,
-                        genre : 2
-                }});
-                callback = jasmine.createSpy('initCallback');
-
-                myCtrl = createController();
-                initSelection = scope.subtypeSelect2Options.initSelection;
-
-                initSelection(element, callback);
-                expect(scope.genre).toEqual(2);
-                expect(mockLookupFetcher.promise.calls.length).toBe(2);
-                expect(mockLookupFetcher.promise.calls[1].args[1]).toEqual({
-                    publicationtypeid : 1
+                it('Should initialize the appropriate fields when pubs data is returned from fetcher', function() {
+                    myCtrl = createController();
+                    expect(scope.type).toEqual(1);
+                    expect(scope.genre).toEqual(2);
+                    expect(scope.collection_title).toEqual(3);
                 });
-                scope.$digest();
-                expect(callback).toHaveBeenCalledWith({id : 2, text : 'Text2'});
+
+                it('Expects that if type is changed, genre is cleared', function() {
+                    myCtrl = createController();
+                    scope.$digest();
+                    scope.genre = 2;
+                    expect(scope.genre).toEqual(2);
+
+                    scope.type = 3;
+                    scope.$digest();
+                    expect(scope.genre).toEqual('');
+                });
+
+                it('Expects that if genre is changed, collection_title is cleared', function() {
+                    myCtrl = createController();
+                    scope.$digest();
+                    scope.collection_title = 3;
+                    expect(scope.collection_title).toEqual(3);
+
+                    scope.genre = 3;
+                    scope.$digest();
+                    expect(scope.collection_title).toEqual('');
+                });
+
+                it('The subtypeSelect2Options.query should use the LookupCascadeSelect2 service', function() {
+                    var query, queryParam;
+                    myCtrl = createController();
+                    scope.$digest();
+
+                    query = scope.subtypeSelect2Options.query;
+                    queryParam = {callback : jasmine.createSpy('queryCallback')};
+                    query(queryParam);
+                    expect(mockLookupCascadeSelect2.query).toHaveBeenCalledWith(
+                        queryParam, 'publicationsubtypes', {publicationtypeid : 1});
+                });
+
+                it('The subtypeSelect2Options.initSelection should set the initial selection', function() {
+                    var element, callback, initSelection;
+                    callback = jasmine.createSpy('initCallback');
+
+                    myCtrl = createController();
+                    initSelection = scope.subtypeSelect2Options.initSelection;
+
+                    initSelection(element, callback);
+                    expect(mockLookupCascadeSelect2.initSelection).toHaveBeenCalledWith(
+                        'publicationsubtypes', {publicationtypeid : 1}, 2, callback);
+                });
+
+                it('The seriesTitleSelect2Options.query should use the LookupCascadeSelect2 service', function() {
+                    var query, queryParam;
+                    myCtrl = createController();
+                    scope.$digest();
+
+                    // This mocks what happend when the subtype select changes
+                    scope.genre = {id : 2};
+                    scope.$digest();
+
+                    query = scope.seriesTitleSelect2Options.query;
+                    queryParam = {callback : jasmine.createSpy('queryCallback')};
+                    query(queryParam);
+                    expect(mockLookupCascadeSelect2.query).toHaveBeenCalledWith(
+                        queryParam, 'publicationseries', {publicationsubtypeid : 2});
+                });
+
+                it('The seriesTitleSelect2Options.initSelection should set the initial selection', function() {
+                    var element, callback, initSelection;
+                    callback = jasmine.createSpy('initCallback');
+
+                    myCtrl = createController();
+                    initSelection = scope.seriesTitleSelect2Options.initSelection;
+
+                    initSelection(element, callback);
+                    expect(mockLookupCascadeSelect2.initSelection).toHaveBeenCalledWith(
+                        'publicationseries', {publicationsubtypeid : 2}, 3, callback);
+                });
             });
         });
 });

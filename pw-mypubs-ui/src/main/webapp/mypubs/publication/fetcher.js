@@ -12,9 +12,9 @@ angular.module('pw.fetcher',[])
 		var pub = { // TODO to be fetched
 			properties : {
 				id             : "700000000",
-				type           : "2",
-				genre          : "10",
-				"collection-title" : "",
+				type           : {id : "2"},
+				genre          : {id : "16"},
+				"collection-title" : {id : "458"},
 				title          : "Publication Title",
 				subseries      : "Climate change adaption Series",
 				number         : "2012-1234",

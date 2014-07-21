@@ -8,6 +8,10 @@
     </div>
     <div id="pub-subtype-div">
         <label for="pub-subtype-input">Publication Subtype</label>
-        <input type="hidden" ng-model="genre" ng-disabled="isTypeUndefined()" ui-select2="subtypeSelect2Options" />
+        <input type="hidden" ng-model="genre" ui-select2="subtypeSelect2Options" />
+    </div>
+    <div id="series-title-tiv">
+        <label for="series-title-input">Series Title</label>
+        <input type="hidden" ng-model="collection_title" ui-select2="seriesTitleSelect2Options" />
     </div>
 </div>
