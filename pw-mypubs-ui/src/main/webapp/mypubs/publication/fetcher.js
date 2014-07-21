@@ -10,14 +10,13 @@ angular.module('pw.fetcher',[])
 
 	ctx.getById = function(pubId) {
 		var pub = { // TODO to be fetched
-			properties : {
 				id             : "700000000",
 				type           : {id : "2"},
 				genre          : {id : "16"},
 				"collection-title" : {id : "458"},
                                 "cost-center" : [{id : 74}, {id: 157}],
 				title          : "Publication Title",
-				subseries      : "Climate change adaption Series",
+				"subseries-title"      : "Climate change adaption Series",
 				number         : "2012-1234",
 				DOI            : "DOI code",
 				ISSN           : "ISSN code",
@@ -70,11 +69,10 @@ angular.module('pw.fetcher',[])
 						order:1,
 					}
 				],
-			},
-			additionalProperties : {
+
+
 				"index-id"  : "otr8068900",
 				"display-to-public-date" :  "2014-05-28T23:28:56.782Z",
-				"cost-center" : [{"value":"1","text":"Cost Center 1"},],
 				collaboratortion: "ABC",
 				"usgs-citation": "This is an entry. The quick brown fox jumps over the lazy dog. Sally sells sea shells at the sea shore.",
 
@@ -173,17 +171,16 @@ angular.module('pw.fetcher',[])
 						zipcode:"53711",
 						website:"http://www.usgs.gov",
 						order:3,
-					},
-				],
-			}
-		}
-		ctx.pub = pub
-		return pub
-	}
+					}
+				]
+			};
+		ctx.pub = pub;
+		return pub;
+	};
 
 
 	this.get = function() {
-		return ctx.pub
+		return ctx.pub;
 	}
 
 

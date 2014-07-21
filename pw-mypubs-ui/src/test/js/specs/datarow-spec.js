@@ -360,12 +360,8 @@ describe("pw.dataRow module DataRowFieldService", function() {
 				},
 			]
 			var data = {
-				properties : {
-					"page-first" : "123"
-				},
-				additionalProperties : {
+					"page-first" : "123",
 					"product-description" : "asdf"
-				}
 			}
 
 			DataRowFieldService.fieldMapper(fields, data)
@@ -390,9 +386,7 @@ describe("pw.dataRow module DataRowFieldService", function() {
 				},
 			]
 			var data = {
-				properties : {
 					"date" : "123"
-				},
 			}
 
 			DataRowFieldService.fieldMapper(fields, data)
@@ -416,10 +410,8 @@ describe("pw.dataRow module DataRowFieldService", function() {
 				},
 			]
 			var data = {
-				properties : {
 					"field-name" : "asdf"
-				},
-			}
+			};
 
 			DataRowFieldService.fieldMapper(fields, data)
 
@@ -443,9 +435,7 @@ describe("pw.dataRow module DataRowFieldService", function() {
 				},
 			]
 			var data = {
-				properties : {
 					"selectable" : "123"
-				},
 			}
 
 			DataRowFieldService.fieldMapper(fields, data)
@@ -455,7 +445,7 @@ describe("pw.dataRow module DataRowFieldService", function() {
 
 			expect(MockLookup.type).toBe("asdf")
 			expect(fields[0].value).toBe("123")
-		}))
+		}));
 
 	})
 

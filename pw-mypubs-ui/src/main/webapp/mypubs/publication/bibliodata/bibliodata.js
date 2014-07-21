@@ -9,15 +9,41 @@ angular.module('pw.bibliodata',['pw.dataRow','pw.fetcher', 'pw.lookups'])
             var pubData = PublicationFetcher.get();
             $scope.type = '';
             $scope.genre = '';
-            $scope.collection_title = '';
-            $scope.cost_centers = [];
-            if (pubData.properties) {
-                $scope.type = pubData.properties.type.id;
-                $scope.genre = pubData.properties.genre.id;
-                $scope.collection_title = pubData.properties['collection-title'].id;
-                angular.forEach(pubData.properties['cost-center'], function(c) {
-                    $scope.cost_centers.push(c.id);
+            $scope.collectionTitle = '';
+            $scope.costCenters = [];
+            $scope.subseriesTitle = '';
+            $scope.number = '';
+            $scope.chapterNumber = '';
+            $scope.suChapterNumber = '';
+            $scope.title = '';
+            $scope.abstract = '';
+            $scope.usgsCitation = '';
+            $scope.language = '';
+            $scope.publisher = '';
+            $scope.publisherPlace = '';
+            $scope.doi = '';
+            $scope.issn = '';
+            $scope.isbn = '';
+            if (!(_.isEmpty(pubData) )){
+                $scope.type = pubData.type.id;
+                $scope.genre = pubData.genre.id;
+                $scope.collectionTitle = pubData['collection-title'].id;
+                angular.forEach(pubData['cost-center'], function(c) {
+                    $scope.costCenters.push(c.id);
                 });
+                $scope.subseriesTitle = pubData['subseries-title'];
+                $scope.number = pubData.number;
+                $scope.chapterNumber = pubData['chapter-number'];
+                $scope.subChapterNumber = pubData['sub-chapter-number'];
+                $scope.title = pubData.title;
+                $scope.abstract = pubData.abstract;
+                $scope.usgsCitation = pubData['usgs-citation'];
+                $scope.language = pubData.language;
+                $scope.publisher = pubData.publisher;
+                $scope.publisherPlace = pubData['publisher-place'];
+                $scope.doi = pubData.DOI;
+                $scope.issn = pubData.ISSN;
+                $scope.isbn = pubData.ISBN;
             }
 
             LookupFetcher.promise('publicationtypes').then(function(response) {
@@ -33,7 +59,7 @@ angular.module('pw.bibliodata',['pw.dataRow','pw.fetcher', 'pw.lookups'])
                     LookupCascadeSelect2.query(query, 'publicationsubtypes', {publicationtypeid : $scope.type});
                 },
                 initSelection : function(element, callback) {
-                    LookupCascadeSelect2.initSelection('publicationsubtypes', {publicationtypeid : $scope.type}, pubData.properties.genre.id, callback);
+                    LookupCascadeSelect2.initSelection('publicationsubtypes', {publicationtypeid : $scope.type}, pubData.genre.id, callback);
                 },
                 placeholder : 'Select a publication subtype'
             };
@@ -43,13 +69,17 @@ angular.module('pw.bibliodata',['pw.dataRow','pw.fetcher', 'pw.lookups'])
                     LookupCascadeSelect2.query(query, 'publicationseries', {publicationsubtypeid : $scope.genre.id});
                 },
                 initSelection : function(element, callback) {
-                    LookupCascadeSelect2.initSelection('publicationseries', {publicationsubtypeid : pubData.properties.genre.id}, pubData.properties['collection-title'].id, callback);
+                    LookupCascadeSelect2.initSelection('publicationseries', {publicationsubtypeid : pubData.genre.id}, pubData['collection-title'].id, callback);
                 },
                 placeholder : 'Select a series'
             };
 
             $scope.costCenterSelect2Options = {
                 placeholder : 'Select one or more cost centers'
+            };
+
+            $scope.abstractEditorOptions = {
+                menubar : false
             };
 
             $scope.$watch('type', function(newValue, oldValue) {
@@ -59,7 +89,7 @@ angular.module('pw.bibliodata',['pw.dataRow','pw.fetcher', 'pw.lookups'])
             });
             $scope.$watch('genre', function(newValue, oldValue) {
                 if ((oldValue) && (newValue !== oldValue)) {
-                    $scope.collection_title = '';
+                    $scope.collectionTitle = '';
                 }
             });
 
