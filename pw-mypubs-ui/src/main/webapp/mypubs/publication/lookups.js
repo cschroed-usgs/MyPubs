@@ -26,24 +26,18 @@ angular.module('pw.lookups',['pw.notify'])
             this.query = function(query, lookupType, parent) {
                 parent.text = query.term;
                 LookupFetcher.promise(lookupType, parent).then(function(response) {
-                    var data = {results: []};
-                    angular.forEach(response.data, function(option) {
-                        data.results.push({id : option.value, text : option.text});
-                    });
-                    query.callback(data);
+                    query.callback({results : response.data});
                 });
             };
 
             this.initSelection = function(lookupType, parent, initValue, callback) {
                 LookupFetcher.promise(lookupType, parent).then(function(response) {
-                    var items = _.where(response.data, {value : initValue});
+                    var items = _.where(response.data, {id : parseInt(initValue)});
                     if (items.length > 0) {
-                        callback({id : items[0].value, text : items[0].text});
+                        callback(items[0]);
                     }
                 });
             };
     }]);
 
 }) ();
-
-//https://cida-eros-pubsdev.er.usgs.gov:8443/mypubs_services/lookup/publicationtype?mimetype=json

@@ -77,7 +77,7 @@ describe('pw.lookups module', function() {
 
         describe('pw.lookups.LookupCascadeSelect2', function() {
             var mockLookupFetcher, q, deferred, rootscope;
-            var LOOKUP_DATA = [{value : 1, text : 'Text1'}, {value : 2, text : 'Text2'}];
+            var LOOKUP_DATA = [{id : 1, text : 'Text1'}, {id : 2, text : 'Text2'}];
 
             beforeEach(module('pw.lookups', 'mock.notify'));
 

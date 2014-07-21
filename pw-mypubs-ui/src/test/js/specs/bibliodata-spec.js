@@ -59,11 +59,14 @@ describe("pw.bibliodata module", function(){
                 expect(scope.type).toBeFalsy();
                 expect(scope.genre).toBeFalsy();
                 expect(scope.collection_title).toBeFalsy();
+                expect(scope.cost_centers.length).toBe(0);
                 expect(scope.typeOptions).toEqual(LOOKUP_DATA);
+                expect(scope.costCenterOptions).toEqual(LOOKUP_DATA);
                 expect(scope.subtypeSelect2Options.query).toBeDefined();
                 expect(scope.subtypeSelect2Options.initSelection).toBeDefined();
                 expect(scope.seriesTitleSelect2Options.query).toBeDefined();
                 expect(scope.seriesTitleSelect2Options.initSelection).toBeDefined();
+                expect(scope.costCenterSelect2Options).toBeDefined();
             });
 
             describe('Tests with pub data', function() {
@@ -71,7 +74,8 @@ describe("pw.bibliodata module", function(){
                     mockPubFetcher.get.andReturn({properties : {
                         type : {id : 1},
                         genre : {id : 2},
-                        'collection-title' : {id : 3}
+                        'collection-title' : {id : 3},
+                        'cost-center' : [{id : 4}, {id : 5}]
                     }});
                 });
 
@@ -80,6 +84,7 @@ describe("pw.bibliodata module", function(){
                     expect(scope.type).toEqual(1);
                     expect(scope.genre).toEqual(2);
                     expect(scope.collection_title).toEqual(3);
+                    expect(scope.cost_centers).toEqual([4, 5]);
                 });
 
                 it('Expects that if type is changed, genre is cleared', function() {

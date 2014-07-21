@@ -10,15 +10,22 @@ angular.module('pw.bibliodata',['pw.dataRow','pw.fetcher', 'pw.lookups'])
             $scope.type = '';
             $scope.genre = '';
             $scope.collection_title = '';
+            $scope.cost_centers = [];
             if (pubData.properties) {
                 $scope.type = pubData.properties.type.id;
                 $scope.genre = pubData.properties.genre.id;
                 $scope.collection_title = pubData.properties['collection-title'].id;
+                angular.forEach(pubData.properties['cost-center'], function(c) {
+                    $scope.cost_centers.push(c.id);
+                });
             }
 
             LookupFetcher.promise('publicationtypes').then(function(response) {
                 $scope.typeOptions = response.data;
 
+            });
+            LookupFetcher.promise('costcenters').then(function(response) {
+                $scope.costCenterOptions = response.data;
             });
 
             $scope.subtypeSelect2Options = {
@@ -40,6 +47,11 @@ angular.module('pw.bibliodata',['pw.dataRow','pw.fetcher', 'pw.lookups'])
                 },
                 placeholder : 'Select a series'
             };
+
+            $scope.costCenterSelect2Options = {
+                placeholder : 'Select one or more cost centers'
+            };
+
             $scope.$watch('type', function(newValue, oldValue) {
                 if ((oldValue) && (newValue !== oldValue)) {
                     $scope.genre = '' ;

@@ -15,6 +15,7 @@ angular.module('pw.fetcher',[])
 				type           : {id : "2"},
 				genre          : {id : "16"},
 				"collection-title" : {id : "458"},
+                                "cost-center" : [{id : 74}, {id: 157}],
 				title          : "Publication Title",
 				subseries      : "Climate change adaption Series",
 				number         : "2012-1234",
