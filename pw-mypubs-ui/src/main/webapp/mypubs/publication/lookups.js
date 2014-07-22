@@ -3,12 +3,11 @@
 
 angular.module('pw.lookups',['pw.notify'])
 
-    .service('LookupFetcher', ['$http', 'Notifier', function($http, Notifier) {
+    .service('LookupFetcher', ['$http', 'Notifier', 'APP_CONFIG', function($http, Notifier, APP_CONFIG) {
 
         var ctx = this;
 
-        // TODO replace with configurable end point
-        ctx._urlBase  = 'https://cida-eros-pubsdev.er.usgs.gov:8443/pubs-services/lookup/';
+        ctx._urlBase = APP_CONFIG.endpoint + 'lookup/';
 
         ctx.promise = function(lookupType, queryParams) {
             var params = queryParams ? queryParams : {};

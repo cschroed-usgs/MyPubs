@@ -25,7 +25,7 @@ describe("pw.catalog module", function(){
 				fieldMapper : jasmine.createSpy('fieldMapper'),
 			}
 			var pubsFetcher = {
-				get : jasmine.createSpy('get'),
+				getPub : jasmine.createSpy('getPub'),
 			}
 			var fields = [{id:123}]
 
@@ -37,7 +37,7 @@ describe("pw.catalog module", function(){
 			})
 
 			expect(fieldService.fieldMapper).toHaveBeenCalled()
-			expect(pubsFetcher.get).toHaveBeenCalled()
+			expect(pubsFetcher.getPub).toHaveBeenCalled()
 			expect(scope.rows).toBe(fields)
 		}])
 	)

@@ -2,7 +2,7 @@
     <div id="pub-type-div" class="form-group">
         <label class="control-label col-sm-3" for="pub-type-input">Publication Type</label>
         <div class="col-sm-9">
-            <select class="form-control" placeholder="Select a publication type" ng-model="type" ui-select2>
+            <select class="form-control" placeholder="Select a publication type" ng-model="type" ng-change="changeType()" ui-select2>
                 <option></option>
                 <option ng-repeat="option in typeOptions" value="{{option.id}}">{{option.text}}</option>            
             </select>
@@ -11,7 +11,7 @@
     <div id="pub-subtype-div" class="form-group">
         <label class="control-label col-sm-3" for="pub-subtype-input">Publication Subtype</label>
         <div class="col-sm-9">
-            <input class="form-control" type="hidden" ng-model="genre" ui-select2="subtypeSelect2Options" />
+            <input class="form-control" type="hidden" ng-model="genre" ng-change="changeGenre()" ui-select2="subtypeSelect2Options" />
         </div>
     </div>
     <div id="series-title-tiv"  class="form-group">

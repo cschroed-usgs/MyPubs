@@ -14,23 +14,24 @@ function (PublicationFetcher) {
 
 		ctx.entries = []
 		ctx.hasEntries = false
-		
+
 
 		ctx.getEntries = function() {
 			return ctx.entries
 		}
 
-
+                // This needs to be reworked once we know how this data is sent from the server
+                /*
 		ctx.setEntries = function(entries, type) {
 			if (entries) {
 				ctx.entries = entries
 				ctx.hasEntries = true
 			} else if ( ! ctx.hasEntries && type ) {
-				ctx.entries = PublicationFetcher.getType(type)
+				ctx.entries = PublicationFetcher.getPub.type.id;
 				ctx.hasEntries = true
 			}
 		}
-
+                */
 
 		ctx._newEntry = function(fields) {
 			var id = "_" + Math.random()
@@ -90,7 +91,7 @@ function (PublicationFetcher) {
 			angular.forEach(entries1, function(entry) {
 				if (entry.order > oldOrder) {
 					entry.order--
-				}			
+				}
 			})
 
 			return ctx.entries = entries1

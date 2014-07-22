@@ -1,12 +1,18 @@
 describe('pw.lookups module', function() {
 
     var MockNotify;
+    var ENDPOINT_BASE = 'https://test_service/'
 
     beforeEach(function() {
         MockNotify = {
                 calls : 0,
                 error : function(){ MockNotify.calls++; }
         };
+        mockWebserviceEndpoint = {
+            get : function() {
+                return ENDPOINT_BASE;
+            }
+        }
     });
 
     it('should have a pubs lookups module pw.lookups', function() {
@@ -23,7 +29,11 @@ describe('pw.lookups module', function() {
 
             var $httpBackend, $scope;
 
-            var URL_BASE  = 'https://cida-eros-pubsdev.er.usgs.gov:8443/pubs-services/lookup/';
+            var APP_CONFIG = {
+                endpoint : 'https://dummy_service/'
+            };
+            var ENDPOINT_BASE = APP_CONFIG.endpoint + 'lookup/';
+
             var MIMETYPE = 'mimetype=json';
 
             beforeEach(module('pw.lookups', 'mock.notify'));
@@ -31,13 +41,17 @@ describe('pw.lookups module', function() {
             beforeEach(function(){
                     angular.module('mock.notify',[]).value('Notifier', MockNotify);
                     MockNotify.calls = 0;
+
+                    module(function ($provide) {
+                        $provide.value('APP_CONFIG', APP_CONFIG);
+                 });
             });
 
             beforeEach(inject(function($injector) {
                     $httpBackend = $injector.get('$httpBackend');
-                    $httpBackend.when('GET', URL_BASE + 'asdf?' + MIMETYPE).respond({asdf:true});
-                    $httpBackend.when('GET', URL_BASE + 'asdf?' + MIMETYPE + '&subtype=blots').respond({asdf:true});
-                    $httpBackend.when('GET', URL_BASE + 'err?' + MIMETYPE).respond(500);
+                    $httpBackend.when('GET', ENDPOINT_BASE + 'asdf?' + MIMETYPE).respond({asdf:true});
+                    $httpBackend.when('GET', ENDPOINT_BASE + 'asdf?' + MIMETYPE + '&subtype=blots').respond({asdf:true});
+                    $httpBackend.when('GET', ENDPOINT_BASE + 'err?' + MIMETYPE).respond(500);
 
                     $scope = $injector.get('$rootScope');
             }));
@@ -51,10 +65,10 @@ describe('pw.lookups module', function() {
 
             it('Should use the promise function\'s parameters in the url request', inject(function(LookupFetcher) {
                 var promise = LookupFetcher.promise('asdf');
-                $httpBackend.expectGET(URL_BASE + 'asdf?' + MIMETYPE);
+                $httpBackend.expectGET(ENDPOINT_BASE + 'asdf?' + MIMETYPE);
 
                 promise = LookupFetcher.promise('asdf', {subtype : 'blots'});
-                $httpBackend.expectGET(URL_BASE + 'asdf?' + MIMETYPE + '&subtype=blots');
+                $httpBackend.expectGET(ENDPOINT_BASE + 'asdf?' + MIMETYPE + '&subtype=blots');
 
                 $httpBackend.flush();
             }));

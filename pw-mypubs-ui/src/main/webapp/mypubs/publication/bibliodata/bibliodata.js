@@ -6,7 +6,13 @@ angular.module('pw.bibliodata',['pw.dataRow','pw.fetcher', 'pw.lookups'])
         '$scope', 'PublicationFetcher', 'LookupFetcher', 'LookupCascadeSelect2',
         function ($scope, PublicationFetcher, LookupFetcher, LookupCascadeSelect2) {
 
-            var pubData = PublicationFetcher.get();
+            var pubData = PublicationFetcher.getPub();
+            // This are used to control whether the change* functions are executed.
+            // We don't want them to execute the first time it is fired when publication
+            // data has been loaded.
+            var typeInputIsInitialized = false;
+            var genreInputIsInitialized = false;
+
             $scope.type = '';
             $scope.genre = '';
             $scope.collectionTitle = '';
@@ -24,7 +30,11 @@ angular.module('pw.bibliodata',['pw.dataRow','pw.fetcher', 'pw.lookups'])
             $scope.doi = '';
             $scope.issn = '';
             $scope.isbn = '';
-            if (!(_.isEmpty(pubData) )){
+            if (_.isEmpty(pubData)){
+                typeInputIsInitialized = true;
+                genreInputIsInitialized = true;
+            }
+            else {
                 $scope.type = pubData.type.id;
                 $scope.genre = pubData.genre.id;
                 $scope.collectionTitle = pubData['collection-title'].id;
@@ -44,12 +54,36 @@ angular.module('pw.bibliodata',['pw.dataRow','pw.fetcher', 'pw.lookups'])
                 $scope.doi = pubData.DOI;
                 $scope.issn = pubData.ISSN;
                 $scope.isbn = pubData.ISBN;
+
+                // The first time the selects are initialized I do not want the change functions to execute
+                typeInputIsInitialized = false;
+                genreInputIsInitialized = false;
+            }
+
+            $scope.changeType = function() {
+                if (typeInputIsInitialized) {
+                    $scope.genre = '';
+                    $scope.collectionTitle = '';
+                }
+                else {
+                    typeInputIsInitialized = true;
+                }
+            };
+
+            $scope.changeGenre = function() {
+                if (genreInputIsInitialized) {
+                    $scope.collectionTitle = '';
+                }
+                else {
+                    genreInputIsInitialized = true;
+                }
             }
 
             LookupFetcher.promise('publicationtypes').then(function(response) {
                 $scope.typeOptions = response.data;
 
             });
+
             LookupFetcher.promise('costcenters').then(function(response) {
                 $scope.costCenterOptions = response.data;
             });
@@ -81,18 +115,6 @@ angular.module('pw.bibliodata',['pw.dataRow','pw.fetcher', 'pw.lookups'])
             $scope.abstractEditorOptions = {
                 menubar : false
             };
-
-            $scope.$watch('type', function(newValue, oldValue) {
-                if ((oldValue) && (newValue !== oldValue)) {
-                    $scope.genre = '' ;
-                }
-            });
-            $scope.$watch('genre', function(newValue, oldValue) {
-                if ((oldValue) && (newValue !== oldValue)) {
-                    $scope.collectionTitle = '';
-                }
-            });
-
     }]);
 
 }) ();

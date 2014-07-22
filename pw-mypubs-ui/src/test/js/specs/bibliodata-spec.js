@@ -24,7 +24,7 @@ describe("pw.bibliodata module", function(){
                 scope = {};
 
                 mockPubFetcher = {
-                    get : jasmine.createSpy('mockPubFetcher.get')
+                    getPub : jasmine.createSpy('mockPubFetcher.getPub')
                 };
                 mockLookupFetcher = {
                     promise : function() {
@@ -52,7 +52,7 @@ describe("pw.bibliodata module", function(){
             }));
 
             it('Should initialize the appropriate fields when no pubs data is returned from fetcher', function() {
-                mockPubFetcher.get.andReturn({});
+                mockPubFetcher.getPub.andReturn({});
 
                 myCtrl = createController();
                 scope.$digest();
@@ -82,11 +82,29 @@ describe("pw.bibliodata module", function(){
                 expect(scope.seriesTitleSelect2Options.initSelection).toBeDefined();
                 expect(scope.costCenterSelect2Options).toBeDefined();
                 expect(scope.abstractEditorOptions).toBeDefined();
+                expect(scope.changeType).toBeDefined();
+                expect(scope.changeGenre).toBeDefined();
+            });
+
+            it('Expects the change* functions to update the appropriate fields immediately', function() {
+                mockPubFetcher.getPub.andReturn({});
+
+                myCtrl = createController();
+                scope.$digest();
+                scope.genre = 1;
+                scope.collectionTitle = 2;
+                scope.changeType();
+                expect(scope.genre).toEqual('');
+                expect(scope.collectionTitle).toEqual('');
+
+                scope.collectionTitle = 3;
+                scope.changeGenre();
+                expect(scope.collectionTitle).toEqual('');
             });
 
             describe('Tests with pub data', function() {
                 beforeEach(function() {
-                    mockPubFetcher.get.andReturn({
+                    mockPubFetcher.getPub.andReturn({
                         type : {id : 1},
                         genre : {id : 2},
                         'collection-title' : {id : 3},
@@ -128,25 +146,24 @@ describe("pw.bibliodata module", function(){
                     expect(scope.isbn).toEqual('text13');
                 });
 
-                it('Expects that if type is changed, genre is cleared', function() {
+                it('Expects that genre and collectionTitle are cleared after the second time changeType is called', function() {
                     myCtrl = createController();
                     scope.$digest();
-                    scope.genre = 2;
+                    scope.changeType();
                     expect(scope.genre).toEqual(2);
-
-                    scope.type = 3;
-                    scope.$digest();
-                    expect(scope.genre).toEqual('');
-                });
-
-                it('Expects that if genre is changed, collection_title is cleared', function() {
-                    myCtrl = createController();
-                    scope.$digest();
-                    scope.collection_title = 3;
                     expect(scope.collectionTitle).toEqual(3);
 
-                    scope.genre = 3;
+                    scope.changeType();
+                    expect(scope.genre).toEqual('');
+                    expect(scope.collectionTitle).toEqual('');
+                });
+
+                it('Expects collectionTitle is cleared after the second time changeGenre is called', function() {
+                    myCtrl = createController();
                     scope.$digest();
+                    scope.changeGenre();
+                    expect(scope.collectionTitle).toEqual(3);
+                    scope.changeGenre();
                     expect(scope.collectionTitle).toEqual('');
                 });
 

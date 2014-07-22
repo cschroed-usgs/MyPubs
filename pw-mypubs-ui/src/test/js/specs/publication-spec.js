@@ -16,12 +16,12 @@ describe("pw.publication module", function(){
 	});
 
 
-	it('should have fetched the publication given by the routeParams', function() {
+	it('should have defined the tabas', function() {
 
 		var routeParams = {pubsid:"asdf"}
 		var pubsFetcher = {
-			getById : jasmine.createSpy('getById'),
-			get     : jasmine.createSpy('get'),
+			fetchByPubId : jasmine.createSpy('fetchByPubId'),
+			getPub     : jasmine.createSpy('getPub')
 		}
 
 		module('pw.publication')
@@ -36,7 +36,6 @@ describe("pw.publication module", function(){
 				'PublicationFetcher': pubsFetcher
 			})
 
-			expect(pubsFetcher.getById).toHaveBeenCalledWith('asdf')
 			expect(scope.tabs).toBeDefined()
 			expect( angular.isObject(scope.tabs) ).toBeTruthy()
 		}])

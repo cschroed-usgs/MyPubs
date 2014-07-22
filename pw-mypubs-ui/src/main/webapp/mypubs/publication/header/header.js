@@ -21,7 +21,7 @@ angular.module('pw.pubHeader', [])
 '$scope', 'DataRowFieldService', 'PublicationFetcher', 'headerFields',
 function ($scope, DataRowFieldService, PublicationFetcher, fields) {
 
-	var pubData = PublicationFetcher.get()
+	var pubData = PublicationFetcher.getPub()
 	$scope.rows = fields
 	DataRowFieldService.fieldMapper(fields, pubData)
 }])

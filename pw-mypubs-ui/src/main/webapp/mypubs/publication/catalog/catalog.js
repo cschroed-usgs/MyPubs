@@ -8,7 +8,7 @@ angular.module('pw.catalog',['pw.dataRow','pw.fetcher'])
 '$scope', 'DataRowFieldService', 'PublicationFetcher', 'catalogFields',
 function ($scope, DataRowFieldService, PublicationFetcher, fields) {
 
-	var pubData = PublicationFetcher.get()
+	var pubData = PublicationFetcher.getPub()
 	$scope.rows = fields
 	DataRowFieldService.fieldMapper(fields, pubData)
 

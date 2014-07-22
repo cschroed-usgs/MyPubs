@@ -2,12 +2,30 @@
 
 
 angular.module('pw.fetcher',[])
-.service('PublicationFetcher', function() {
+    .service('PublicationFetcher', ['$http',  'APP_CONFIG', function($http, APP_CONFIG) {
 
-	var ctx = this
+        var pub = {};
 
-	ctx.pub = {}
-
+        return {
+            getPub : function() {
+                return pub;
+            },
+            clear : function() {
+                pub = {};
+            },
+            fetchPubById : function(pubId) {
+                return $http.get(APP_CONFIG.endpoint + 'mppublication/' + pubId,{
+                    params : {
+                        mimetype : 'json'
+                    }
+                }).success(function(data) {
+                    pub = data;
+                });
+            }
+        };
+    }]);
+}) ();
+/*
 	ctx.getById = function(pubId) {
 		var pub = { // TODO to be fetched
 				id             : "700000000",
@@ -197,11 +215,11 @@ angular.module('pw.fetcher',[])
 		return {}
 	}
 
-})
+}])
 
 
 }) ()
-
+*/
 /**
 [{
 	"id": 32132135,
@@ -305,4 +323,4 @@ angular.module('pw.fetcher',[])
 		"Notes": "This is where we put all the notes about this publication"
 	}
 }]
-**/
+*/

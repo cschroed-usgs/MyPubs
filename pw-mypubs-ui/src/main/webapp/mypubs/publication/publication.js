@@ -11,11 +11,16 @@ angular.module('pw.publication', ['ngRoute', 'pw.actions',
 		$routeProvider.when('/Publication', {
 			templateUrl: 'mypubs/publication/publication.html',
 			controller: 'publicationCtrl'
-		})
+		});
 		$routeProvider.when('/Publication/:pubsid', {
 			templateUrl: 'mypubs/publication/publication.html',
-			controller: 'publicationCtrl'
-		})
+			controller: 'publicationCtrl',
+                        resolve : {
+                            fetch : function($route, PublicationFetcher) {
+                                return PublicationFetcher.fetchPubById($route.current.params.pubsid);
+                            }
+                        }
+		});
 	}
 ])
 
@@ -24,14 +29,11 @@ angular.module('pw.publication', ['ngRoute', 'pw.actions',
 [ '$scope', '$routeParams', 'PublicationFetcher',
 function($scope, $routeParams, PublicationFetcher) {
 
-	if ($routeParams.pubsid) {
-		PublicationFetcher.getById($routeParams.pubsid)
-	} else {
-		// TODO redirect to Search or Select citation
-
-		PublicationFetcher.get()
+	if (!$routeParams.pubsid) {
+//		PublicationFetcher.fetchPubById($routeParams.pubsid)
+//	} else {
+		PublicationFetcher.clear();
 	}
-
 
 	$scope.tabs = [
 		{
@@ -63,9 +65,9 @@ function($scope, $routeParams, PublicationFetcher) {
 			title:"Geospatial",
 			templateUrl: 'mypubs/publication/geo/geo.html',
 			controller: 'geoCtrl'
-		},
-	]
+		}
+	];
 }])
 
 
-}) ()
+}) ();
