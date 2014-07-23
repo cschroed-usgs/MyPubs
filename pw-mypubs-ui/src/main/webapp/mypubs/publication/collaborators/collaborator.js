@@ -5,8 +5,8 @@ angular.module('pw.collaborator',['pw.fetcher', 'pw.list', 'pw.collection', 'pw.
 
 
 .service('Collaborators', [
-'PublicationFetcher', 'Collection', 'LookupFetcher',
-function (PublicationFetcher, Collection, Lookup) {
+'Collection', 'LookupFetcher',
+function (Collection, Lookup) {
 
 	var ctx = Collection(this)
 

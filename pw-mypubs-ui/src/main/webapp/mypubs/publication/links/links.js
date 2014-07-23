@@ -5,8 +5,8 @@ angular.module('pw.links',['pw.fetcher', 'pw.list', 'pw.collection', 'pw.lookups
 
 
 .service('Links',
-[ 'PublicationFetcher', 'Collection', 'LookupFetcher',
-function (PublicationFetcher, Collection, Lookup) {
+[ 'Collection', 'LookupFetcher',
+function (Collection, Lookup) {
 
 	var ctx = Collection(this)
 

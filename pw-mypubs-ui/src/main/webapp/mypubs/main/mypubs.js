@@ -3,8 +3,8 @@
 
 angular.module('pw.mypubs', [
 	'ngRoute','ui.select2','ui.bootstrap', 'ui.tinymce', 'ngAnimate', // angular util modules
-	'pw.pubHeader', 'pw.notify', 'pw.menu', // pw util modules
-	'pw.home','pw.search','pw.publication', 'pw.reservation',  // mypubs pages
+	'pw.pubHeader', 'pw.notify', 'pw.menu', 'pw.fetcher',// pw util modules
+	'pw.home','pw.search', 'pw.publication', 'pw.reservation' // mypubs pages
 ])
     .constant('APP_CONFIG', {
         endpoint : 'https://cida-eros-pubsdev.er.usgs.gov:8443/pubs-services/'
@@ -24,6 +24,7 @@ function ($scope, $log, $location) {
 	};
 
 }])
+
 
 
 // nice utility directive

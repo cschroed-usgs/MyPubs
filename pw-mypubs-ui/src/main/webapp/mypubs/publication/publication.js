@@ -4,35 +4,33 @@
 angular.module('pw.publication', ['ngRoute', 'pw.actions',
 	'pw.bibliodata', 'pw.catalog', 'pw.contacts', 'pw.links', 'pw.collaborator' // pub edit modules
 ])
-
-
 .config(['$routeProvider',
 	function($routeProvider) {
 		$routeProvider.when('/Publication', {
 			templateUrl: 'mypubs/publication/publication.html',
-			controller: 'publicationCtrl'
+			controller: 'publicationCtrl',
 		});
 		$routeProvider.when('/Publication/:pubsid', {
 			templateUrl: 'mypubs/publication/publication.html',
 			controller: 'publicationCtrl',
                         resolve : {
-                            fetch : function($route, PublicationFetcher) {
-                                return PublicationFetcher.fetchPubById($route.current.params.pubsid);
-                            }
+			    pubData : function($route, PublicationFetcher) {
+				    return PublicationFetcher.fetchPubById($route.current.params.pubsid);
+			    }
                         }
 		});
 	}
-])
-
+    ])
 
 .controller('publicationCtrl',
-[ '$scope', '$routeParams', 'PublicationFetcher',
-function($scope, $routeParams, PublicationFetcher) {
+[ '$scope', '$routeParams', '$route',
+function($scope, $routeParams, $route) {
 
-	if (!$routeParams.pubsid) {
-//		PublicationFetcher.fetchPubById($routeParams.pubsid)
-//	} else {
-		PublicationFetcher.clear();
+	if ($routeParams.pubsid) {
+	    $scope.pubData = $route.current.locals.pubData.data;
+	}
+	else {
+	    $scope.pubData = {};
 	}
 
 	$scope.tabs = [
@@ -68,6 +66,5 @@ function($scope, $routeParams, PublicationFetcher) {
 		}
 	];
 }])
-
 
 }) ();

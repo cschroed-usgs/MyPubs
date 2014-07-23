@@ -1,46 +1,44 @@
 describe("pw.publication module", function(){
 
-	var scope
+	var scope;
 
 
 	it('should have a pubs publication module pw.publication', function() {
 		// angular should find a defined mod
-		module('pw.publication')
-		var def = true
+		module('pw.publication');
+		var def = true;
 		try {
-			angular.module('pw.publication')
+			angular.module('pw.publication');
 		} catch(e) {
-			def = false
+			def = false;
 		}
-		expect( def ).toBeTruthy()
+		expect( def ).toBeTruthy();
 	});
 
 
-	it('should have defined the tabas', function() {
+	it('should have defined the tabs', function() {
 
-		var routeParams = {pubsid:"asdf"}
-		var pubsFetcher = {
-			fetchByPubId : jasmine.createSpy('fetchByPubId'),
-			getPub     : jasmine.createSpy('getPub')
-		}
+		var routeParams = {pubsid:"asdf"};
+		var route = {current : {locals : {pubData : {data : {id : 1}}}}};
 
-		module('pw.publication')
+		module('pw.publication');
 
 		inject (['$rootScope', '$controller', function($rootScope, $controller) {
 
-			scope = $rootScope.$new()
+			scope = $rootScope.$new();
 
 			$controller('publicationCtrl', {
 				'$scope': scope,
 				'$routeParams': routeParams,
-				'PublicationFetcher': pubsFetcher
-			})
+				'$route': route
+			});
 
-			expect(scope.tabs).toBeDefined()
-			expect( angular.isObject(scope.tabs) ).toBeTruthy()
-		}])
+			expect(scope.tabs).toBeDefined();
+			expect( angular.isObject(scope.tabs) ).toBeTruthy();
+			expect(scope.pubData).toEqual({id : 1});
+		}]);
 
 	});
 
 
-})
+});

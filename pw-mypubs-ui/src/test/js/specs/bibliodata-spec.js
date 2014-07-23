@@ -16,16 +16,15 @@ describe("pw.bibliodata module", function(){
 	});
 
         describe('pw.bibliodata.biblioCtrl', function() {
-            var scope, rootScope, q, createController, mockPubFetcher, mockLookupFetcher;
+            var scope, rootScope, q, createController, mockLookupFetcher;
             var mockLookupCascadeSelect2;
             var LOOKUP_DATA = [{value : 1, text : 'Text1'}, {value : 2, text : 'Text2'}];
 
             beforeEach(function() {
-                scope = {};
+                scope = {
+		    pubData : {}
+		};
 
-                mockPubFetcher = {
-                    getPub : jasmine.createSpy('mockPubFetcher.getPub')
-                };
                 mockLookupFetcher = {
                     promise : function() {
                         return q.when({data : LOOKUP_DATA});
@@ -44,7 +43,6 @@ describe("pw.bibliodata module", function(){
                 createController = function() {
                     return $controller('biblioCtrl', {
                         '$scope': scope,
-                        'PublicationFetcher': mockPubFetcher,
                         'LookupFetcher' : mockLookupFetcher,
                         'LookupCascadeSelect2' : mockLookupCascadeSelect2
                     });
@@ -52,7 +50,7 @@ describe("pw.bibliodata module", function(){
             }));
 
             it('Should initialize the appropriate fields when no pubs data is returned from fetcher', function() {
-                mockPubFetcher.getPub.andReturn({});
+                scope.pubData = {};
 
                 myCtrl = createController();
                 scope.$digest();
@@ -87,7 +85,7 @@ describe("pw.bibliodata module", function(){
             });
 
             it('Expects the change* functions to update the appropriate fields immediately', function() {
-                mockPubFetcher.getPub.andReturn({});
+                scope.pubData = {};
 
                 myCtrl = createController();
                 scope.$digest();
@@ -104,7 +102,7 @@ describe("pw.bibliodata module", function(){
 
             describe('Tests with pub data', function() {
                 beforeEach(function() {
-                    mockPubFetcher.getPub.andReturn({
+                    scope.pubData = {
                         type : {id : 1},
                         genre : {id : 2},
                         'collection-title' : {id : 3},
@@ -122,7 +120,7 @@ describe("pw.bibliodata module", function(){
                         'DOI' : 'text11',
                         'ISSN' : 'text12',
                         'ISBN' : 'text13'
-                    });
+                    };
                 });
 
                 it('Should initialize the appropriate fields when pubs data is returned from fetcher', function() {

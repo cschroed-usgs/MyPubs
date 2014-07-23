@@ -24,20 +24,16 @@ describe("pw.pubHeader module", function(){
 			var fieldService = {
 				fieldMapper : jasmine.createSpy('fieldMapper'),
 			}
-			var pubsFetcher = {
-				getPub : jasmine.createSpy('getPub'),
-			}
+
 			var fields = [{id:123}]
 
 			$controller('pubHeaderCtrl', {
 				'$scope': scope,
 				'DataRowFieldService': fieldService,
-				'PublicationFetcher': pubsFetcher,
 				'headerFields' : fields
 			})
 
-			expect(fieldService.fieldMapper).toHaveBeenCalled()
-			expect(pubsFetcher.getPub).toHaveBeenCalled()
+			expect(fieldService.fieldMapper).toHaveBeenCalled();
 			expect(scope.rows).toBe(fields)
 		}])
 	)

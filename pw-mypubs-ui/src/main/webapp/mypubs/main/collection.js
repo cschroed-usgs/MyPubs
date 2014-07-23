@@ -5,8 +5,8 @@ angular.module('pw.collection',['pw.fetcher'])
 
 
 .factory('Collection',
-[ 'PublicationFetcher',
-function (PublicationFetcher) {
+[
+function () {
 	return function(ctx) {
 		if ( angular.isUndefined(ctx) ) {
 			ctx = {}
@@ -27,7 +27,7 @@ function (PublicationFetcher) {
 				ctx.entries = entries
 				ctx.hasEntries = true
 			} else if ( ! ctx.hasEntries && type ) {
-				ctx.entries = PublicationFetcher.getPub.type.id;
+				ctx.entries = $scope.pubData.type.id;
 				ctx.hasEntries = true
 			}
 		}

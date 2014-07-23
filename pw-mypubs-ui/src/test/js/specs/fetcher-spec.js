@@ -56,11 +56,7 @@ describe('pw.fetcher module', function() {
             $httpBackend.verifyNoOutstandingRequest();
         });
 
-        it('Expect returned pub object to be empty at initialization', inject(function(PublicationFetcher) {
-            expect(PublicationFetcher.getPub()).toEqual({});
-        }));
-
-        it('Expects the fetch to return a promise', inject(function(PublicationFetcher) {
+        it('Expects fetchPubById to return a promise', inject(function(PublicationFetcher) {
             var promiseSpy = jasmine.createSpy('promiseSpy');
             var promise = PublicationFetcher.fetchPubById(12).then(promiseSpy);
 
@@ -69,25 +65,6 @@ describe('pw.fetcher module', function() {
             $httpBackend.flush();
             expect(promiseSpy).toHaveBeenCalled();
             expect(promiseSpy.calls[0].args[0].data.id).toEqual(12);
-        }));
-
-        it('Expects getPub to return the last fetched publication', inject(function(PublicationFetcher) {
-            PublicationFetcher.fetchPubById(12);
-            $httpBackend.flush(1);
-            expect(PublicationFetcher.getPub().id).toEqual(12);
-
-            PublicationFetcher.fetchPubById(120);
-            $httpBackend.flush(1);
-            expect(PublicationFetcher.getPub().id).toEqual(120);
-        }));
-
-        it('Expects that calling clear sets the publication back to empty object', inject(function(PublicationFetcher) {
-            PublicationFetcher.fetchPubById(12);
-            $httpBackend.flush(1);
-            expect(PublicationFetcher.getPub().id).toEqual(12);
-
-            PublicationFetcher.clear();
-            expect(PublicationFetcher.getPub()).toEqual({});
         }));
     });
 
