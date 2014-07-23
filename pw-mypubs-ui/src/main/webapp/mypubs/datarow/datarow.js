@@ -108,13 +108,8 @@ angular.module('pw.dataRow', ['pw.lookups'])
 				return
 			}
 
-			if (field.additional) {
-				field.value = data.additionalProperties[field.name]
-			} else if ( angular.isDefined(data.properties) ) {
-				field.value = data.properties[field.name]
-			} else {
-				field.value = data[field.name]
-			}
+                        field.value = data[field.name];
+			
 			if ( angular.isUndefined(field.value) ) {
 				var msg = 'Warning: did not find value for ' + field.name + '->' + field.label
 				if (field.additional) {

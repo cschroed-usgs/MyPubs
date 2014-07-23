@@ -1,99 +1,154 @@
 describe('pw.lookups module', function() {
-	var $httpBackend, $scope
 
-	var urlBase  = 'mypubs_services/lookup/'
-	var mimetype = '?mimetype=json'
+    var MockNotify;
+    var ENDPOINT_BASE = 'https://test_service/'
 
+    beforeEach(function() {
+        MockNotify = {
+                calls : 0,
+                error : function(){ MockNotify.calls++; }
+        };
+        mockWebserviceEndpoint = {
+            get : function() {
+                return ENDPOINT_BASE;
+            }
+        }
+    });
 
-	var MockNotify = {
-		calls : 0,
-		error : function(){ MockNotify.calls++ }
-	}
+    it('should have a pubs lookups module pw.lookups', function() {
+            // angular should find a defined mod
+            var def = true;
+            try {
+              angular.module('pw.lookups');
+            } catch(e) {
+              def = false;
+            }
+            expect(def).toBeTruthy();
+    });
+        describe('pw.lookups.LookupFetcher', function() {
 
+            var $httpBackend, $scope;
 
-	beforeEach(function(){
-		angular.module('mock.notify',[]).value('Notifier', MockNotify)
-		module('pw.lookups', 'mock.notify')
-		MockNotify.calls = 0
-	})
+            var APP_CONFIG = {
+                endpoint : 'https://dummy_service/'
+            };
+            var ENDPOINT_BASE = APP_CONFIG.endpoint + 'lookup/';
 
-	beforeEach(inject(function($injector) {
-		$httpBackend = $injector.get('$httpBackend');
-		$httpBackend.when('GET', urlBase+'asdf'+mimetype).respond({asdf:true});
-		$httpBackend.when('GET', urlBase+'publicationtype'+mimetype).respond({publicationtype:true});
-		$httpBackend.when('GET', urlBase+'err'+mimetype).respond(500);
+            var MIMETYPE = 'mimetype=json';
 
-		$scope = $injector.get('$rootScope');
-	}));
+            beforeEach(module('pw.lookups', 'mock.notify'));
 
+            beforeEach(function(){
+                    angular.module('mock.notify',[]).value('Notifier', MockNotify);
+                    MockNotify.calls = 0;
 
-	afterEach(function() {
-		$httpBackend.verifyNoOutstandingExpectation();
-		$httpBackend.verifyNoOutstandingRequest();
-	});
+                    module(function ($provide) {
+                        $provide.value('APP_CONFIG', APP_CONFIG);
+                 });
+            });
 
+            beforeEach(inject(function($injector) {
+                    $httpBackend = $injector.get('$httpBackend');
+                    $httpBackend.when('GET', ENDPOINT_BASE + 'asdf?' + MIMETYPE).respond({asdf:true});
+                    $httpBackend.when('GET', ENDPOINT_BASE + 'asdf?' + MIMETYPE + '&subtype=blots').respond({asdf:true});
+                    $httpBackend.when('GET', ENDPOINT_BASE + 'err?' + MIMETYPE).respond(500);
 
-	it('should have a pubs lookups module pw.lookups', function() {
-		// angular should find a defined mod
-		var def = true
-		try {
-		  angular.module('pw.lookups')
-		} catch(e) {
-		  def = false
-		}
-		expect( def ).toBeTruthy()
-	});
-
-
-	it('should fetch testing token and than apply to component is called', inject(function(LookupFetcher) {
-		var resp, component
-		LookupFetcher._apply = function(type, data, comp) {
-			resp = data
-			component = comp
-		}
-		$httpBackend.expectGET( urlBase+'asdf'+mimetype );
-		LookupFetcher._fetch('asdf', {qwert:true})
-		$httpBackend.flush();
-
-		expect(resp).toBeDefined()
-		expect(resp.asdf).toBeTruthy()
-
-		expect(component).toBeDefined()
-		expect(component.qwert).toBeTruthy()
-
-	}));
+                    $scope = $injector.get('$rootScope');
+            }));
 
 
-	it('should notify of http error', inject(function(LookupFetcher) {
-		$httpBackend.expectGET( urlBase+'err'+mimetype );
-		LookupFetcher._fetch('err', {})
-		$httpBackend.flush();
-
-		expect(MockNotify.calls).toBe(1)
-	}));
+            afterEach(function() {
+                    $httpBackend.verifyNoOutstandingExpectation();
+                    $httpBackend.verifyNoOutstandingRequest();
+            });
 
 
-	it('should notify of json error', inject(function(LookupFetcher) {
-		LookupFetcher._apply('err', {})
+            it('Should use the promise function\'s parameters in the url request', inject(function(LookupFetcher) {
+                var promise = LookupFetcher.promise('asdf');
+                $httpBackend.expectGET(ENDPOINT_BASE + 'asdf?' + MIMETYPE);
 
-		expect(MockNotify.calls).toBe(1)
-	}));
+                promise = LookupFetcher.promise('asdf', {subtype : 'blots'});
+                $httpBackend.expectGET(ENDPOINT_BASE + 'asdf?' + MIMETYPE + '&subtype=blots');
 
+                $httpBackend.flush();
+            }));
 
-	it('should parse JSON and set on component', inject(function(LookupFetcher) {
-		expect(LookupFetcher._cache).toBeDefined()
-		expect(LookupFetcher._cache.asdf).toBeUndefined()
+            it('When successful, should return a promise that returns the result', inject(function(LookupFetcher) {
+                var successSpy = jasmine.createSpy('successSpy');
+                LookupFetcher.promise('asdf').then(successSpy);
+                $httpBackend.flush(1);
+                expect(successSpy).toHaveBeenCalled();
+                expect(successSpy.calls[0].args[0].data).toEqual({ asdf : true });
+            }));
 
-		var values
-		LookupFetcher._apply('asdf', '{"a":"1","b":"2"}', {
-		  setValues : function(v) {
-			values=v
-		  }
-		})
-		var expected = {a:'1',b:'2'}
-		expect(MockNotify.calls).toBe(0)
-		expect(values).toEqual(expected)
-		expect(LookupFetcher._cache.asdf).toEqual(expected)
-	}));
+            it('When error, expect notifer to be called', inject(function(LookupFetcher) {
+                LookupFetcher.promise('err');
+                $httpBackend.flush();
+                expect(MockNotify.calls).toBe(1);
 
-})
+            }));
+        });
+
+        describe('pw.lookups.LookupCascadeSelect2', function() {
+            var mockLookupFetcher, q, deferred, rootscope;
+            var LOOKUP_DATA = [{id : 1, text : 'Text1'}, {id : 2, text : 'Text2'}];
+
+            beforeEach(module('pw.lookups', 'mock.notify'));
+
+            beforeEach(function() {
+                mockLookupFetcher = {
+                    promise : function() {
+                        deferred = q.defer();
+                        return deferred.promise;
+                    }
+                };
+                spyOn(mockLookupFetcher, 'promise').andCallThrough();
+
+                module(function ($provide) {
+                    $provide.value('LookupFetcher', mockLookupFetcher);
+                 });
+            });
+
+            beforeEach(inject(function($injector) {
+                rootScope = $injector.get('$rootScope');
+                q = $injector.get('$q');
+            }));
+
+            it('Expects query function to use lookup service with the specified type and parent',
+                inject(function(LookupCascadeSelect2) {
+                var param = {};
+                LookupCascadeSelect2.query(param, 'subtype1', {type1 : 'one'});
+                expect(mockLookupFetcher.promise).toHaveBeenCalledWith('subtype1', {type1 : 'one'});
+            }));
+
+            it('Expects that when the promise has finished, query.callback is called with the lookup data', inject(function(LookupCascadeSelect2) {
+                var param = jasmine.createSpyObj('param', ['callback']);
+                LookupCascadeSelect2.query(param, 'subtype1', {type1 : 'one'});
+                deferred.resolve({data : LOOKUP_DATA});
+                rootScope.$apply();
+                expect(param.callback).toHaveBeenCalledWith({
+                    results : [
+                        {id : 1, text : 'Text1'},
+                        {id : 2, text : 'Text2'}
+                    ]
+                });
+            }));
+
+            it('Expects that initSelection should call promise with lookupType and parent', inject(function(LookupCascadeSelect2) {
+                var callback = {};
+                LookupCascadeSelect2.initSelection('subtype1', {type1 : 'one'}, 2, callback);
+                expect(mockLookupFetcher.promise).toHaveBeenCalledWith('subtype1', {type1 : 'one'});
+            }));
+
+            it('Expects that when initSelection\'s promise is resolved that callback is called with the initValue object',
+                inject(function(LookupCascadeSelect2) {
+                    var callback = jasmine.createSpy('callback');
+                    LookupCascadeSelect2.initSelection('subtype1', {type1 : 'one'}, 2, callback);
+                    deferred.resolve({data : LOOKUP_DATA});
+                    rootScope.$apply();
+                    expect(callback).toHaveBeenCalledWith({id : 2, text : 'Text2'});
+            }));
+
+        });
+});
+

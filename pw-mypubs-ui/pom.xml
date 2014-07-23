@@ -177,14 +177,54 @@
 			            <source>src/test/js/lib/jasmine-fixture.js</source>
 			            <source>src/test/js/lib/jquery.simulate.js</source>
 	          		</preloadSources>
-
-					<jsSrcDir>src/main/webapp/mypubs</jsSrcDir>
-					<jsTestSrcDir>src/test/js/specs</jsTestSrcDir>
-					<jasmineTargetDir>target/jasmine</jasmineTargetDir>
-
+				    <keepServerAlive>true</keepServerAlive> <!-- Needed to allow the saga-maven-plugin to run the tests -->
+				    <jsSrcDir>src/main/webapp/mypubs</jsSrcDir>
+				    <jsTestSrcDir>src/test/js/specs</jsTestSrcDir>
 
 				</configuration>
 			</plugin>
-		</plugins>
+			<plugin>
+			    <groupId>com.github.timurstrekalov</groupId>
+			    <artifactId>saga-maven-plugin</artifactId>
+			    <version>1.5.3</version>
+			    <executions>
+				<execution>
+				    <phase>verify</phase>
+				    <goals>
+					<goal>coverage</goal>
+				    </goals>
+				</execution>
+			    </executions>
+			    <configuration>
+				<baseDir>http://localhost:${jasmine.serverPort}</baseDir>
+				<outputDir>${project.build.directory}/coverage</outputDir>
+				<noInstrumentPatterns>
+				    <pattern>.+/.+spec\.js</pattern>
+				    <pattern>.+/lib/.+\.js</pattern>
+				    <!-- Add patterns for files that don't need to be analyzed such as library files -->
+				</noInstrumentPatterns>
+			    </configuration>
+			</plugin>
+			<plugin>
+			    <groupId>com.google.code.maven-replacer-plugin</groupId>
+			    <artifactId>replacer</artifactId>
+			    <version>1.5.3</version>
+			    <executions>
+				<execution>
+				    <phase>verify</phase>
+				    <goals>
+  					<goal>replace</goal>
+				    </goals>
+				</execution>
+			    </executions>
+			    <configuration>
+				<file>${project.build.directory}/coverage/total-coverage.dat</file>
+				<outputFile>${project.build.directory}/jasmine/total-coverage.dat</outputFile>
+				<regex>false</regex>
+				<token>src/</token>
+				<value>${project.basedir}/src/main/webapp/mypubs/</value>
+			    </configuration>
+			</plugin>
+		 </plugins>
 	</build>
 </project>

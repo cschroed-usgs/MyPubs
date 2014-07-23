@@ -42,29 +42,10 @@ textarea.value {
 .btn-calendar {
 	font-size: 18px !important;
 }
-.form-control {
-	height: 28px !important;
-}
-.form-select {
-	width:400px;
-}
+
 .rowSelect {
 	margin-bottom: 8px;
 }
-.select2-container-multi .select2-choices {
-	height: 25px !important;
-	min-height: 25px !important;
-	border-radius: 4px;
-}
-.select2-container-multi .select2-choices .select2-search-choice {
-	margin: 1px 1px !important;
-}
-.select2-container-multi .select2-search-choice-close {
-	top : 2px;
-	left: 4px;
-}
-
-
 .form-date {
 	width:100px;
 	float:left;

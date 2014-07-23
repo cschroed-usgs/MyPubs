@@ -24,20 +24,16 @@ describe("pw.catalog module", function(){
 			var fieldService = {
 				fieldMapper : jasmine.createSpy('fieldMapper'),
 			}
-			var pubsFetcher = {
-				get : jasmine.createSpy('get'),
-			}
+
 			var fields = [{id:123}]
 
 			$controller('catalogCtrl', {
 				'$scope': scope,
 				'DataRowFieldService': fieldService,
-				'PublicationFetcher': pubsFetcher,
 				'catalogFields' : fields
 			})
 
 			expect(fieldService.fieldMapper).toHaveBeenCalled()
-			expect(pubsFetcher.get).toHaveBeenCalled()
 			expect(scope.rows).toBe(fields)
 		}])
 	)

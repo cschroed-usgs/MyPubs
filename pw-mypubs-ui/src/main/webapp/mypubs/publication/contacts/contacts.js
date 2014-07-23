@@ -5,14 +5,14 @@ angular.module('pw.contacts',['pw.dataRow','pw.fetcher', 'pw.list', 'pw.collecti
 
 
 .service('Contacts',
-[ 'DataRowFieldService', 'PublicationFetcher', 'Collection', '$rootScope', 'contactFields',
-function (DataRowFieldService, PublicationFetcher, Collection, $rootScope, fields) {
+[ 'DataRowFieldService', 'Collection', '$rootScope', 'contactFields',
+function (DataRowFieldService, Collection, $rootScope, fields) {
 
 	var ctx = Collection(this)
 
 	ctx.id       = ''
 	ctx.contact  = []
-	
+
 
 	ctx.setContacts = function(contacts) {
 		ctx.setEntries(contacts, 'contacts')
@@ -66,7 +66,7 @@ function ($scope, Contacts, $log, $location) {
 		var contact = Contacts.newEntry(['name','address1','address2','address3','city','state','zipcode','website','link','link_text'])
 		Contacts.select(contact.id)
 	}
-	
+
 }])
 
 
@@ -77,7 +77,7 @@ function ($scope, Contacts, $log) {
 	Contacts.setContacts()
 
 	$scope.listName = 'contact_'
-	
+
 	$scope.Contacts = Contacts
 	$scope.contacts = Contacts.getEntries()
 

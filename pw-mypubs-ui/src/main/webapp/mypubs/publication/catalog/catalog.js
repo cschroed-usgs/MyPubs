@@ -5,12 +5,12 @@ angular.module('pw.catalog',['pw.dataRow','pw.fetcher'])
 
 
 .controller('catalogCtrl', [
-'$scope', 'DataRowFieldService', 'PublicationFetcher', 'catalogFields',
-function ($scope, DataRowFieldService, PublicationFetcher, fields) {
+'$scope', 'DataRowFieldService', 'catalogFields',
+function ($scope, DataRowFieldService, fields) {
 
-	var pubData = PublicationFetcher.get()
-	$scope.rows = fields
-	DataRowFieldService.fieldMapper(fields, pubData)
+	var pubData = $scope.pubData;
+	$scope.rows = fields;
+	DataRowFieldService.fieldMapper(fields, pubData);
 
 }])
 

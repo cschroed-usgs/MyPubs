@@ -1,3 +1,110 @@
-<div id="bibliodata" ng-controller="biblioCtrl">
-	<pw:datarow ng-repeat="row in rows" data="row"></pw:datarow>
+<div id="bibliodata" class="form-horizontal" ng-controller="biblioCtrl">
+    <div id="pub-type-div" class="form-group">
+        <label class="control-label col-sm-3" for="pub-type-input">Publication Type</label>
+        <div class="col-sm-9">
+            <select class="form-control" placeholder="Select a publication type" ng-model="type" ng-change="changeType()" ui-select2>
+                <option></option>
+                <option ng-repeat="option in typeOptions" value="{{option.id}}">{{option.text}}</option>            
+            </select>
+        </div>
+    </div>
+    <div id="pub-subtype-div" class="form-group">
+        <label class="control-label col-sm-3" for="pub-subtype-input">Publication Subtype</label>
+        <div class="col-sm-9">
+            <input class="form-control" type="hidden" ng-model="genre" ng-change="changeGenre()" ui-select2="subtypeSelect2Options" />
+        </div>
+    </div>
+    <div id="series-title-tiv"  class="form-group">
+        <label class="control-label col-sm-3" for="series-title-input">Series Title</label>
+        <div class="col-sm-9">
+            <input class="form-control" type="hidden" ng-model="collectionTitle" ui-select2="seriesTitleSelect2Options" />
+        </div>
+    </div>
+    <div class="form-group" id="cost-centers-div">
+        <label class="control-label col-sm-3" for="cost-centers-input">Cost Centers</label>
+        <div class="col-sm-9">
+            <select class="form-control" multiple ng-model="costCenters" ui-select2="costCenterSelect2Options">
+                <option></option>
+                <option ng-repeat="option in costCenterOptions" value="{{option.id}}">{{option.text}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group" id="subseries-div">
+         <label class="control-label col-sm-3" for="subseries-input">Subseries</label>
+         <div class="col-sm-9">
+            <input id="subseries-input" type="text" class="form-control" ng-model="subseries_Title" />
+         </div>
+    </div>
+    <div class="form-group" id="series-number-div">
+         <label class="control-label col-sm-3" for="series-number-input">Series Number</label>
+         <div class="col-sm-9">
+            <input id="series-number-input" type="text" class="form-control" ng-model="number" />
+         </div>
+    </div>
+    <div class="form-group" id="chapter-div">
+         <label class="control-label col-sm-3" for="chapter-input">Chapter</label>
+         <div class="col-sm-9">
+            <input id="chapter-input" type="text" class="form-control" ng-model="chapterNumber" />
+         </div>
+    </div>    
+    <div class="form-group" id="subchapter-div">
+         <label class="control-label col-sm-3" for="subchapter-input">Series Number</label>
+         <div class="col-sm-9">
+            <input id="subchapter-input" type="text" class="form-control" ng-model="subChapterNumber" />
+         </div>
+    </div>
+    <div class="form-group" id="title-div">
+         <label class="control-label col-sm-3" for="title-input">Title</label>
+         <div class="col-sm-9">
+            <input id="title-input" type="text" class="form-control" ng-model="title" />
+         </div>
+    </div>
+    <div class="form-group" id="abstract-div">
+        <label class="control-label col-sm-3" for="abstract-input">Abstract</label>
+        <div class="col-sm-9">
+            <textarea id="abstract-input" class="form-control" ui-tinymce="abstractEditorOptions" ng-model="abstract" ng-model="abstract"></textarea>
+        </div>
+    </div>
+    <div class="form-group" id="usgs-citation-div">
+        <label class="control-label col-sm-3" for="usgs-citation-input">USGS Citation</label>
+        <div class="col-sm-9">
+            <textarea id="usgs-citation-input" class="form-control" ng-model="usgsCitation"></textarea>
+        </div>
+    </div>    
+    <div class="form-group" id="language-div">
+         <label class="control-label col-sm-3" for="title-input">Language</label>
+         <div class="col-sm-9">
+            <input id="language-input" type="text" class="form-control" ng-model="language" />
+         </div>
+    </div>
+    <div class="form-group" id="publication-div">
+         <label class="control-label col-sm-3" for="publication-input">Publication</label>
+         <div class="col-sm-9">
+            <input id="publication-input" type="text" class="form-control" ng-model="publisher" />
+         </div>
+    </div>
+    <div class="form-group" id="publication-location-div">
+         <label class="control-label col-sm-3" for="title-input">Publication Location</label>
+         <div class="col-sm-9">
+            <input id="publication-location-input" type="text" class="form-control" ng-model="publisherPlace" />
+         </div>
+    </div>
+    <div class="form-group" id="doi-div">
+         <label class="control-label col-sm-3" for="doi-input">DOI</label>
+         <div class="col-sm-9">
+            <input id="doi-input" type="text" class="form-control" ng-model="doi" />
+         </div>
+    </div>
+    <div class="form-group" id="issn-div">
+         <label class="control-label col-sm-3" for="issn-input">ISSN</label>
+         <div class="col-sm-9">
+            <input id="issn-input" type="text" class="form-control" ng-model="issn" />
+         </div>
+    </div>
+    <div class="form-group" id="isbn-div">
+         <label class="control-label col-sm-3" for="isbn-input">ISBN</label>
+         <div class="col-sm-9">
+            <input id="isbn-input" type="text" class="form-control" ng-model="isbn" />
+         </div>
+    </div>
 </div>

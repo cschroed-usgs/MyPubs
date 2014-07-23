@@ -18,10 +18,10 @@ angular.module('pw.pubHeader', [])
 
 
 .controller('pubHeaderCtrl', [
-'$scope', 'DataRowFieldService', 'PublicationFetcher', 'headerFields',
-function ($scope, DataRowFieldService, PublicationFetcher, fields) {
+'$scope', 'DataRowFieldService', 'headerFields',
+function ($scope, DataRowFieldService, fields) {
 
-	var pubData = PublicationFetcher.get()
+	var pubData = $scope.pubData;
 	$scope.rows = fields
 	DataRowFieldService.fieldMapper(fields, pubData)
 }])

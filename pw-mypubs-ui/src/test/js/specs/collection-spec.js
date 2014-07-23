@@ -21,16 +21,9 @@ describe("pw.collection module directive", function() {
 		var MockFetcher = {
 		//	angular.extend(this)
 			testEntries : threeEntries,
-			
-			getType : function(type) {
-				return {
-					type3 : threeEntries,
-					type0 : [],
-					type1 : [ threeEntries[1] ],
-					type2 : [ threeEntries[0], threeEntries[1] ],
-				}[type]
-			}
-		}
+                        getPub : jasmine.createSpy('getPub')
+
+		};
 		angular.module('mock.fetcher',[]).value('PublicationFetcher', MockFetcher)
 
 		module("pw.collection", "mock.fetcher")
@@ -63,7 +56,7 @@ describe("pw.collection module directive", function() {
 			expect(col.fn).toBeDefined()
 		}))
 
-
+/* We have commented out setEntries so I'm commenting out these tests.
 		it('should have set/get entries to given array', inject(function(Collection) {
 			var entries = [{id:'x'},{id:'y'},]
 			var col = Collection()
@@ -102,10 +95,10 @@ describe("pw.collection module directive", function() {
 
 			entry = col._newEntry()
 			expect(entry.order).toBe(0)
-			
+
 			entry = col._newEntry()
 			expect(entry.order).toBe(1)
-			
+
 			entry = col._newEntry()
 			expect(entry.order).toBe(2)
 		}))
@@ -117,7 +110,7 @@ describe("pw.collection module directive", function() {
 
 			entry = col1._newEntry()
 			expect(entry.order).toBe(0)
-			
+
 			entry = col2._newEntry()
 			expect(entry.order).toBe(0)
 
@@ -211,7 +204,7 @@ describe("pw.collection module directive", function() {
 			expect( col.findEntryByOrder(2).id ).toBe('c')
 
 			col.remove('a')
-			
+
 			expect( col.findEntryByOrder(0).id ).toBe('b')
 			expect( col.findEntryByOrder(1).id ).toBe('c')
 
@@ -225,7 +218,7 @@ describe("pw.collection module directive", function() {
 			expect( col.findEntryByOrder(2).id ).toBe('c')
 
 			col.remove('b')
-			
+
 			expect( col.findEntryByOrder(0).id ).toBe('a')
 			expect( col.findEntryByOrder(1).id ).toBe('c')
 
@@ -236,7 +229,7 @@ describe("pw.collection module directive", function() {
 			col.setEntries(null,"type1")
 
 			col.remove('b')
-			
+
 			expect( col.getEntries().length ).toBe(0)
 		}))
 
@@ -245,7 +238,7 @@ describe("pw.collection module directive", function() {
 			col.setEntries(null,"type0")
 
 			col.remove('b')
-			
+
 			expect( col.getEntries().length ).toBe(0)
 		}))
 
@@ -320,7 +313,7 @@ describe("pw.collection module directive", function() {
 			expect( threeEntries[2].order ).toBe(2)
 
 		}))
-
+*/
 	})
 
 })
