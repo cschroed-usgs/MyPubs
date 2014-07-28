@@ -9,29 +9,23 @@ angular.module('pw.collection',['pw.fetcher'])
 function () {
 	return function(ctx) {
 		if ( angular.isUndefined(ctx) ) {
-			ctx = {}
+			ctx = {};
 		}
 
-		ctx.entries = []
-		ctx.hasEntries = false
+		ctx.entries = [];
+		ctx.hasEntries = false;
 
 
 		ctx.getEntries = function() {
-			return ctx.entries
+			return ctx.entries;
 		}
 
-                // This needs to be reworked once we know how this data is sent from the server
-                /*
-		ctx.setEntries = function(entries, type) {
+		ctx.setEntries = function(entries) {
 			if (entries) {
-				ctx.entries = entries
-				ctx.hasEntries = true
-			} else if ( ! ctx.hasEntries && type ) {
-				ctx.entries = $scope.pubData.type.id;
-				ctx.hasEntries = true
-			}
-		}
-                */
+				ctx.entries = entries;
+				ctx.hasEntries = true;
+			    }
+		};
 
 		ctx._newEntry = function(fields) {
 			var id = "_" + Math.random()

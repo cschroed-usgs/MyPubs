@@ -1,66 +1,68 @@
 (function() {
 
 
-angular.module('pw.links',['pw.fetcher', 'pw.list', 'pw.collection', 'pw.lookups'])
+angular.module('pw.links',['pw.lookups'])
 
+    .controller('linksCtrl',
+	['$scope', 'LookupFetcher', function($scope, LookupFetcher) {
 
-.service('Links',
-[ 'Collection', 'LookupFetcher',
-function (Collection, Lookup) {
+		var getEmptyLink = function(links) {
+		    var newRank;
+		    if (links.length === 0) {
+			newRank = 1;
+		    }
+		    else {
+			newRank = _.max(links, function(link) { return link.rank; }).rank + 1;
+		    }
 
-	var ctx = Collection(this)
+		    return {
+			id : '',
+			rank : newRank,
+			type : {},
+			url : '',
+			text : '',
+			size : '',
+			mime_type : {},
+			description : ''
+		    };
+		};
 
+		var updateRank = function(links) {
+		    var i;
+		    var result = links;
+		    for (i = 0; i < result.length; i++) {
+			result[i].rank = i + 1;
+		    }
+		    return result;
+		};
 
-	ctx.setLinks = function(links) {
-		ctx.setEntries(links, 'links')
-	}
+		if (angular.isUndefined($scope.pubData.links)) {
+		    $scope.pubData.links = [];
+		}
+		$scope.pubData.links = _.sortBy($scope.pubData.links, 'rank');
 
+		// Fetch the link lookups for link type and file type
+//		LookupFetcher.promise('linktypes').then(function(response) {
+		    $scope.linkTypeOptions = [{id : 1, text: 'Text1'}];//response.data;
+//		});
+//		LookupFetcher.promise('linkfiletypes').then(function(response) {
+		    $scope.fileTypeOptions = [{id : 1, text : 'Text2'}]; //response.data;
+//		});
 
-	ctx.typeOptions = []
-	ctx.getTypeOptions = function() {
-		return Lookup.fetchOptions(Lookup.type.linkSubjects, ctx.typeOptions)
-	}
+		$scope.sortOptions = {
+		    stop : function(e, ui) {
+			//Update rank
+			$scope.pubData.links = updateRank($scope.pubData.links);
+		    }
+		};
 
+		$scope.addNewLink = function() {
+		    $scope.pubData.links.push(getEmptyLink($scope.pubData.links));
+		};
 
-	ctx.fileOptions = []
-	ctx.getFileOptions = function() {
-		return Lookup.fetchOptions(Lookup.type.linkFiles, ctx.fileOptions)
-	}
-
-
-	ctx.newEntry = function() {
-		return ctx._newEntry(['type','url','text','size','fileType','description'])
-	}
-
-
-}])
-
-
-.controller('linksCtrl', [
-'$scope', 'Links', '$log',
-function ($scope, Links, $log) {
-
-	Links.setLinks()
-
-	$scope.listName    = 'link_'
-
-	$scope.Links       = Links
-	$scope.links       = Links.getEntries()
-	$scope.typeOptions = Links.getTypeOptions()
-	$scope.fileOptions = Links.getFileOptions()
-
-
-	$scope.isDirty     = function(link) {
-		return (link.description !== ""
-			 || link.type !== ""
-			 || link.url  !== ""
-			 || link.text !== ""
-			 || link.size !== ""
-			 || link.fileType !== ""
-			)
-	}
-
-}])
-
-
-}) ()
+		$scope.deleteLink = function(index) {
+		    $scope.pubData.links.splice(index, 1);
+		    $scope.pubData.links = updateRank($scope.pubData.links);
+		};
+	}]);
+}) ();

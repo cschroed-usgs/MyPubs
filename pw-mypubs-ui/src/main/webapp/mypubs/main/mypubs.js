@@ -2,7 +2,7 @@
 
 
 angular.module('pw.mypubs', [
-	'ngRoute','ui.select2','ui.bootstrap', 'ui.tinymce', 'ngAnimate', // angular util modules
+	'ngRoute','ui.select2','ui.bootstrap', 'ui.tinymce', 'ngAnimate', 'ui.sortable',// angular util modules
 	'pw.pubHeader', 'pw.notify', 'pw.menu', 'pw.fetcher',// pw util modules
 	'pw.home','pw.search', 'pw.publication', 'pw.reservation' // mypubs pages
 ])
