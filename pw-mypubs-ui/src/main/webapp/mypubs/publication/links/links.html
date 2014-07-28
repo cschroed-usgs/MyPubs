@@ -1,27 +1,25 @@
 
 <div id="links" ng-controller="linksCtrl" >
-	<div pw-list entries="links" type-label="'link'" entry-height="85"  entry-width="750" service="Links">
-
-		<div class="linkLabel label">Link:</div>
-		<input placeholder="Link Text" type="text" ng-model="entry.text" class="linkText">
-		<input placeholder="Link URL"  type="text" ng-model="entry.url"  class="linkLarge">
-
-		<br>
-		<div class="linkLabel label">Metadata:</div>
-
-		<select placeholder="Link Type" ui-select2 ng-model="entry.type" class="linkMedium linkType">
-			<option value=""></option>
-			<option ng-repeat="option in typeOptions" value="{{option.value}}" ng-bind="option.text"></option>
-		</select>
-
-		<input placeholder="File Size" type="text" ng-model="entry.size" class="linkSmall">
-
-		<select placeholder="File Type" ui-select2 ng-model="entry.fileType" class="linkSmall">
-			<option value=""></option>
-			<option ng-repeat="option in fileOptions" value="{{option.value}}" ng-bind="option.text"></option>
-		</select>
-
-		<input placeholder="Description Text" type="text" ng-model="entry.description" class="linkLarge">
-
+    <div ui-sortable="sortOptions" ng-model="pubData.links">
+	<div class="links-input-div" ng-repeat="link in pubData.links">
+	    <span class="fa fa-minus-circle" ng-click="deleteLink($index)"></span>
+	    <select placeholder="Link type" ui-select2 ng-model="link.type.id">
+		<option></option>
+		<option ng-repeat="option in linkTypeOptions" value="{{option.id}}">{{option.text}}</option>	
+	    </select>
+	    <input type="url" ng-model="link.url" placeholder="Link">
+	    <input type="text" ng-model="link.text" placeholder="Link Text">
+	    <input type="text" ng-model="link.size" placeholder="File Size">
+	    <select placeholder="File Type" ui-select2 ng-model="link.mime_type.id">
+		<option></option>
+		<option ng-repeat="option in fileTypeOptions" value="{{option.id}}">{{option.text}}</option>
+	    </select>
+	    <input type="text" ng-model="link.description" placeholder="Link Description">
+	    <span class="fa fa-bars"></span>
 	</div>
+    </div>
+    
+    <div>
+	<button type="button" class="btn btn-default" ng-click="addNewLink()">New Link</button>
+    </div>
 </div>
