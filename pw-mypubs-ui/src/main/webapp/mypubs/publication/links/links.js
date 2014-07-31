@@ -6,7 +6,8 @@ angular.module('pw.links',['pw.lookups', 'pw.dataList'])
     .controller('linksCtrl',
 	['$scope', 'LookupFetcher', 'ListOrderingService', function($scope, LookupFetcher, ListOrderingService) {
 
-		var EMPTY_LINK = {
+		var getEmptyLink = function() {
+		    return {
 		    id : '',
 		    type : {},
 		    url : '',
@@ -14,7 +15,7 @@ angular.module('pw.links',['pw.lookups', 'pw.dataList'])
 		    size : '',
 		    mime_type : {},
 		    description : ''
-		};
+		}};
 
 		if (angular.isUndefined($scope.pubData.links)) {
 		    $scope.pubData.links = [];
@@ -36,7 +37,7 @@ angular.module('pw.links',['pw.lookups', 'pw.dataList'])
 		};
 
 		$scope.addNewLink = function() {
-		    ListOrderingService.addNewObj($scope.pubData.links, EMPTY_LINK);
+		    ListOrderingService.addNewObj($scope.pubData.links, getEmptyLink);
 		};
 
 		$scope.deleteLink = function(index) {

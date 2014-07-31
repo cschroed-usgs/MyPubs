@@ -13,16 +13,17 @@ describe('Tests for pw.dataList module', function() {
     });
 
     describe('Tests for pw.dataList ListOrderingService', function() {
-	var emptyObj =  {
-	    prop1 : '',
-	    prop2 : ''
+	var createEmptyObj =  function() {
+	    return {
+		prop1 : '',
+		prop2 : ''
+	    };
 	};
-
 
 	it('Expects addNewObj on empty list to update the list to contain a single empty object with rank 1',
 	    inject(function(ListOrderingService) {
 	    var list = [];
-	    ListOrderingService.addNewObj(list, emptyObj);
+	    ListOrderingService.addNewObj(list, createEmptyObj);
 	    expect(list.length).toBe(1);
 	    expect(list[0]).toEqual({prop1 : '', prop2 : '', rank : 1});
 	}));
@@ -38,7 +39,7 @@ describe('Tests for pw.dataList module', function() {
 		prop2 : 'Twelve',
 		rank : 2
 	    }];
-	    ListOrderingService.addNewObj(list, emptyObj);
+	    ListOrderingService.addNewObj(list, createEmptyObj);
 	    expect(list.length).toBe(3);
 	    expect(list[2]).toEqual({prop1 : '', prop2 : '', rank : 3});
 	}));
@@ -70,5 +71,40 @@ describe('Tests for pw.dataList module', function() {
 	    expect(list.length).toBe(3);
 	    expect(list).toEqual([{prop1 : 'Two', rank : 1}, {prop1 : 'Three', rank : 2}, {prop1 : 'Four', rank : 3}]);
 	}));
+    });
+
+    describe('Tests for pwDataListRow directive', function() {
+	var $compile, $rootScope;
+	var deleteSpy = jasmine.createSpy('deleteSpy');
+	var templateSrc;
+	beforeEach(function() {
+	    inject(function() {
+		var req = new XMLHttpRequest();
+		req.onload = function() {
+			templateSrc = this.responseText;
+		};
+		// Note that the relative path may be different from your unit test HTML file.
+		// Using `false` as the third parameter to open() makes the operation synchronous.
+		// Gentle reminder that boolean parameters are not the best API choice.
+		req.open("get", "src/main/webapp/mypubs/dataList/data_list_row.html", false);
+		req.send();
+	    });
+	});
+
+	beforeEach(inject(function(_$compile_, _$rootScope_, $templateCache) {
+	    $compile = _$compile_;
+	    $rootScope =_$rootScope_;
+	    $rootScope.deleteObj = deleteSpy;
+	    $templateCache.put('mypubs/dataList/data_list_row.html', templateSrc);
+	}));
+
+	it('Replaces the element with the appropriate content', function() {
+	    var testHtml = '<pw-data-list-row on-delete="deleteObj()"><input id="test-input" type="text" /></pw-data-list-row>';
+	    var element = $compile(testHtml)($rootScope);
+	    $rootScope.$digest();
+	    var elementScope = element.scope();
+	    expect(element.find('#test-input').length).toBe(1);
+	    expect(elementScope.deleteObj).toEqual(deleteSpy);
+	});
     });
 });

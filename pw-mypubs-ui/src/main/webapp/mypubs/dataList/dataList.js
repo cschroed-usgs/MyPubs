@@ -2,6 +2,8 @@
     var mod = angular.module('pw.dataList', []);
 
     mod.factory('ListOrderingService', function() {
+	// The service assumes that the list objects contain a property, rank, which
+	// indicates the ordering of the list.
 	var srv = {};
 
 	srv.updateRank = function(list) {
@@ -11,15 +13,17 @@
 	    }
 	};
 
-	srv.addNewObj = function(list, emptyObj) {
-	    var newObj = emptyObj;
-	    if (list.length === 0) {
+	srv.addNewObj = function(list, createEmptyObj) {
+	    var newObj = createEmptyObj();
+	    var result = list;
+	    if (result.length === 0) {
 		newObj.rank = 1;
 	    }
 	    else {
 		newObj.rank = _.max(list, function(obj) { return obj.rank; }).rank + 1;
 	    }
-	    list.push(newObj);
+	    result.push(newObj);
+	    return result.concat([]);
 	};
 
 	srv.deleteObj = function(list, index) {
@@ -28,6 +32,18 @@
 	};
 
 	return srv;
+    });
+
+    mod.directive('pwDataListRow', function() {
+	// The onDelete attribute should be a function which removes the row from the DOM and scope.
+	return {
+	    restrict : 'E',
+	    transclude : true,
+	    templateUrl : 'mypubs/dataList/data_list_row.html',
+	    scope: {
+		'delete' : '&onDelete'
+	    }
+	};
     });
 
 })();
