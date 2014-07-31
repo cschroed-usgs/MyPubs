@@ -13,7 +13,7 @@ angular.module('pw.links',['pw.lookups', 'pw.dataList'])
 		    url : '',
 		    text : '',
 		    size : '',
-		    mime_type : {},
+		    linkFileType : {},
 		    description : ''
 		}};
 
