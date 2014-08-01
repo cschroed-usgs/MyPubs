@@ -7,26 +7,30 @@
 	var srv = {};
 
 	srv.updateRank = function(list) {
+	    // @param list - Array of objects with each object containing a rank property
 	    var i;
 	    for (i = 0; i < list.length; i++) {
 		list[i].rank = i + 1;
 	    }
 	};
 
-	srv.addNewObj = function(list, createEmptyObj) {
-	    var newObj = createEmptyObj();
+	srv.addNewObj = function(list, newEmptyObj) {
+	    // @param list - Array of objects with each object containing a rank property
+	    // @param newEmptyObj - Object which will be appended to list with the rank property set to the correct position in the list.
 	    var result = list;
 	    if (result.length === 0) {
-		newObj.rank = 1;
+		newEmptyObj.rank = 1;
 	    }
 	    else {
-		newObj.rank = _.max(list, function(obj) { return obj.rank; }).rank + 1;
+		newEmptyObj.rank = _.max(list, function(obj) { return obj.rank; }).rank + 1;
 	    }
-	    result.push(newObj);
+	    result.push(newEmptyObj);
 	    return result.concat([]);
 	};
 
 	srv.deleteObj = function(list, index) {
+	    // @param list - Array of objects with each object containing a rank property
+	    // @param index - position in list of object to remove
 	    list.splice(index, 1);
 	    srv.updateRank(list);
 	};

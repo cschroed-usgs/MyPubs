@@ -3,13 +3,7 @@ describe('Tests for pw.dataList module', function() {
     beforeEach(module('pw.dataList'));
 
     it('Should have the module pw.dataList', function() {
-	var def = true;
-	    try {
-		angular.module('pw.dataList');
-	    } catch(e) {
-		def = false;
-	    }
-	    expect(def).toBeTruthy();
+	expect(function() { angular.module('pw.dataList'); }).not.toThrow();
     });
 
     describe('Tests for pw.dataList ListOrderingService', function() {
@@ -23,7 +17,7 @@ describe('Tests for pw.dataList module', function() {
 	it('Expects addNewObj on empty list to update the list to contain a single empty object with rank 1',
 	    inject(function(ListOrderingService) {
 	    var list = [];
-	    ListOrderingService.addNewObj(list, createEmptyObj);
+	    ListOrderingService.addNewObj(list, createEmptyObj());
 	    expect(list.length).toBe(1);
 	    expect(list[0]).toEqual({prop1 : '', prop2 : '', rank : 1});
 	}));
@@ -39,7 +33,7 @@ describe('Tests for pw.dataList module', function() {
 		prop2 : 'Twelve',
 		rank : 2
 	    }];
-	    ListOrderingService.addNewObj(list, createEmptyObj);
+	    ListOrderingService.addNewObj(list, createEmptyObj());
 	    expect(list.length).toBe(3);
 	    expect(list[2]).toEqual({prop1 : '', prop2 : '', rank : 3});
 	}));
