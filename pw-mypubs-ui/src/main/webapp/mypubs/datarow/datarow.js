@@ -64,7 +64,6 @@ angular.module('pw.dataRow', ['pw.lookups'])
 	return pwDatarow
 }])
 
-
 .service('DataRowFieldService', ['LookupFetcher', function(Lookup) {
 	var service = this
 
@@ -134,7 +133,6 @@ angular.module('pw.dataRow', ['pw.lookups'])
 	}
 
 }])
-
 
 var optionsProxy = function(datum) {
 	return {
