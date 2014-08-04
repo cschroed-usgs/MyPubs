@@ -14,17 +14,17 @@ angular.module('pw.publication', ['ngRoute', 'pw.actions',
 			templateUrl: 'mypubs/publication/publication.html',
 			controller: 'publicationCtrl',
                         resolve : {
-			    pubData : function($route, PublicationFetcher) {
+			    pubData : ['$route', 'PublicationFetcher', function($route, PublicationFetcher) {
 				    return PublicationFetcher.fetchPubById($route.current.params.pubsid);
-			    }
+			    }]
                         }
 		});
 	}
     ])
 
 .controller('publicationCtrl',
-[ '$scope', '$routeParams', '$route',
-function($scope, $routeParams, $route) {
+[ '$scope', '$routeParams', '$route', 'pubData',
+function($scope, $routeParams, $route, pubData) {
 
 	if ($routeParams.pubsid) {
 	    $scope.pubData = $route.current.locals.pubData.data;

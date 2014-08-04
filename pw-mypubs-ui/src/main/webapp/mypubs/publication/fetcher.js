@@ -8,11 +8,15 @@ angular.module('pw.fetcher',[])
 
         return {
             fetchPubById : function(pubId) {
-                return $http.get(APP_CONFIG.endpoint + 'mppublication/' + pubId,{
-                    params : {
-                        mimetype : 'json'
-                    }
-                });
+                var result = undefined;
+                if(pubId){
+                    result = $http.get(APP_CONFIG.endpoint + 'mppublication/' + pubId,{
+                        params : {
+                            mimetype : 'json'
+                        }
+                    });
+                }
+                return result;
             }
         };
     }]);
