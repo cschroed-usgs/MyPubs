@@ -6,14 +6,7 @@ describe('pw.fetcher module', function() {
     var MIMETYPE = '?mimetype=json';
 
     it('should have a pubs fetcher module pw.fetcher', function() {
-            // angular should find a defined mod
-            var def = true;
-            try {
-              angular.module('pw.fetcher');
-            } catch(e) {
-              def = false;
-            }
-            expect(def).toBeTruthy();
+	    expect(function() { angular.module('pw.fetcher'); }).not.toThrow();
     });
 
     describe('pw.fetcher.PublicationFetcher', function() {
@@ -49,6 +42,14 @@ describe('pw.fetcher module', function() {
                     "validationErrors": null
                 }
             });
+	    $httpBackend.when('GET', APP_CONFIG.endpoint + 'mppublication/contributor/2' + MIMETYPE).respond({
+		"id" : 2,
+		"name" : "This Name"
+	    });
+	    $httpBackend.when('GET', APP_CONFIG.endpoint + 'mppublication/contributor/12' + MIMETYPE).respond({
+		"id" : 12,
+		"name" : "That Name"
+	    });
         }));
 
         afterEach(function() {
@@ -66,6 +67,17 @@ describe('pw.fetcher module', function() {
             expect(promiseSpy).toHaveBeenCalled();
             expect(promiseSpy.calls[0].args[0].data.id).toEqual(12);
         }));
+
+	it('Expects fetchContributor to return a promise', inject(function(PublicationFetcher) {
+	    var promiseSpy = jasmine.createSpy('promiseSpy');
+	    var promise = PublicationFetcher.fetchContributor(2).then(promiseSpy);
+
+	    $httpBackend.expectGET(APP_CONFIG.endpoint + 'mppublication/contributor/2' + MIMETYPE);
+
+	    $httpBackend.flush();
+	    expect(promiseSpy).toHaveBeenCalled();
+	    expect(promiseSpy.calls[0].args[0].data).toEqual({id : 2, name : 'This Name'});
+	}));
     });
 
 });

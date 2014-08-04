@@ -2,18 +2,24 @@
 
 
 angular.module('pw.fetcher',[])
-    .service('PublicationFetcher', ['$http',  'APP_CONFIG', function($http, APP_CONFIG) {
+    .factory('PublicationFetcher', ['$http',  'APP_CONFIG', function($http, APP_CONFIG) {
 
-        var pub = {};
-
+	var REST_ENDPOINT = APP_CONFIG.endpoint + 'mppublication/'
         return {
             fetchPubById : function(pubId) {
-                return $http.get(APP_CONFIG.endpoint + 'mppublication/' + pubId,{
+                return $http.get(REST_ENDPOINT + pubId,{
                     params : {
                         mimetype : 'json'
                     }
                 });
-            }
+            },
+	    fetchContributor : function(contributorId) {
+		return $http.get(REST_ENDPOINT + 'contributor/' + contributorId, {
+		    params : {
+			mimetype : 'json'
+		    }
+		});
+	    }
         };
     }]);
 }) ();
