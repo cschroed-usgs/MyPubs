@@ -26,15 +26,17 @@ describe("pw.publication module", function(){
 
 			$controller('publicationCtrl', {
 				'$scope': scope,
-				pubData : {
-                    id : 1
+				pub : {//mock the result of an http promise
+                    data : {
+                        id : 1
                     }
+                }
 				
 			});
 
 			expect(scope.tabs).toBeDefined();
 			expect( angular.isObject(scope.tabs) ).toBeTruthy();
-			expect(scope.pubData).toEqual({id : 1});
+			expect(scope.pub).toEqual({id : 1});
 		}]);
 
 	});

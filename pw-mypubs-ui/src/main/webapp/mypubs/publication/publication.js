@@ -9,25 +9,32 @@ angular.module('pw.publication', ['ngRoute', 'pw.actions',
 		$routeProvider.when('/Publication', {
 			templateUrl: 'mypubs/publication/publication.html',
 			controller: 'publicationCtrl',
+            resolve: {
+                pub : function(){return {};}
+            }
 		});
 		$routeProvider.when('/Publication/:pubsid', {
 			templateUrl: 'mypubs/publication/publication.html',
 			controller: 'publicationCtrl',
-                        resolve : {
-			    pubData : ['$route', 'PublicationFetcher', function($route, PublicationFetcher) {
-				    return PublicationFetcher.fetchPubById($route.current.params.pubsid);
+            resolve : {
+			    pub : ['$route', 'PublicationFetcher', function($route, PublicationFetcher) {
+                    var pubsId = $route.current.params.pubsid;
+                    var pub = PublicationFetcher.fetchPubById(pubsId);
+                    return pub;
 			    }]
-                        }
+            }
 		});
 	}
     ])
 
 .controller('publicationCtrl',
-[ '$scope', '$routeParams', '$route', 'pubData',
-function($scope, $routeParams, $route, pubData) {
+[ '$scope', '$routeParams', '$route', 'pub',
+function($scope, $routeParams, $route, pub) {
 
-	$scope.pubData = pubData;
-
+	$scope.pub = pub.data;
+    $scope.printPub = function(){
+        console.dir($scope.pub);
+    };
 	$scope.tabs = [
 		{
 			title:"Bibliodata",
