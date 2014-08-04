@@ -26,12 +26,7 @@ angular.module('pw.publication', ['ngRoute', 'pw.actions',
 [ '$scope', '$routeParams', '$route', 'pubData',
 function($scope, $routeParams, $route, pubData) {
 
-	if ($routeParams.pubsid) {
-	    $scope.pubData = $route.current.locals.pubData.data;
-	}
-	else {
-	    $scope.pubData = {};
-	}
+	$scope.pubData = pubData;
 
 	$scope.tabs = [
 		{

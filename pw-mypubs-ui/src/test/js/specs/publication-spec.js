@@ -18,9 +18,6 @@ describe("pw.publication module", function(){
 
 	it('should have defined the tabs', function() {
 
-		var routeParams = {pubsid:"asdf"};
-		var route = {current : {locals : {pubData : {data : {id : 1}}}}};
-
 		module('pw.publication');
 
 		inject (['$rootScope', '$controller', function($rootScope, $controller) {
@@ -29,8 +26,10 @@ describe("pw.publication module", function(){
 
 			$controller('publicationCtrl', {
 				'$scope': scope,
-				'$routeParams': routeParams,
-				'$route': route
+				pubData : {
+                    id : 1
+                    }
+				
 			});
 
 			expect(scope.tabs).toBeDefined();
@@ -39,6 +38,7 @@ describe("pw.publication module", function(){
 		}]);
 
 	});
+
 
 
 });
