@@ -1,55 +1,29 @@
 (function() {
 
-
 angular.module('pw.pubHeader', [])
 
+    .directive('pwPubheader', function() {
+        var _this = {
+                restrict   : 'E', //AEC
+                replace    : true,
+                transclude : true,
+                scope      : true,
+                templateUrl: 'mypubs/publication/header/header.html'
+        };
+        return _this;
+    })
 
-.directive('pwPubheader', function() {
+    .controller('pubHeaderCtrl', [
+    '$scope', function ($scope) {
 
-	var _this = {
-		restrict   : 'E', //AEC
-		replace    : true,
-		transclude : true,
-		scope      : true,
-		templateUrl: 'mypubs/publication/header/header.html',
-	}
-	return _this
-})
+        var pubData = $scope.pubData;
+        console.log(pubData);
 
+        if ( angular.isDefined(pubData['display-to-public-date']) ) {
+            //write out new date property as a date object
+            pubData.date = new Date(pubData['display-to-public-date']);
+        }
+                        
+    }]);
 
-.controller('pubHeaderCtrl', [
-'$scope', 'DataRowFieldService', 'headerFields',
-function ($scope, DataRowFieldService, fields) {
-
-	var pubData = $scope.pubData;
-	$scope.rows = fields
-	DataRowFieldService.fieldMapper(fields, pubData)
-}])
-
-
-.factory('headerFields', function() {
-	return [
-		{
-			name   : "id",
-			label  : "Prod ID",
-			rowType: "Readonly",
-		},
-		{
-			additional:true,
-			name   : "index-id",
-			label  : "Index ID",
-			rowType: "Readonly",
-		},
-		{
-			additional:true,
-			name   : "display-to-public-date",
-			label  : "Display to Public",
-			rowType: "Date",
-			andTime: true,
-			elId   : "PublicDate",
-		},
-	]
-})
-
-
-}) ()
+}) ();
