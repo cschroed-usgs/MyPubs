@@ -2,37 +2,37 @@
 	<div id="pub-prod-desc-div" class="form-group">
 		<label class="control-label col-sm-3" for="prod-desc-input">Product Description</label>
 		<div class="col-sm-9">
-            <input id="prod-desc-input" type="text" class="form-control" ng-model="productDescription" />
+            <input id="prod-desc-input" type="text" class="form-control" ng-model="pubData.productDescription" />
 		</div>
 	</div>
 	<div id="pub-start-page-div" class="form-group">
 		<label class="control-label col-sm-3" for="start-page-input">Start Page</label>
 		<div class="col-sm-9">
-            <input id="start-page-input" type="text" class="form-control" ng-model="pageFirst" />
+            <input id="start-page-input" type="text" class="form-control" ng-model="pubData.pageFirst" />
 		</div>
 	</div>
 	<div id="pub-end-page-div" class="form-group">
 		<label class="control-label col-sm-3" for="end-page-input">End Page</label>
 		<div class="col-sm-9">
-            <input id="end-page-input" type="text" class="form-control" ng-model="pageLast" />
+            <input id="end-page-input" type="text" class="form-control" ng-model="pubData.pageLast" />
 		</div>
 	</div>
 	<div id="pub-num-pages-div" class="form-group">
 		<label class="control-label col-sm-3" for="num-pages-input">Number of Pages</label>
 		<div class="col-sm-9">
-            <input id="num-pages-input" type="text" class="form-control" ng-model="numberOfPages" />
+            <input id="num-pages-input" type="text" class="form-control" ng-model="pubData.numberOfPages" />
 		</div>
 	</div>
 	<div id="pub-online-only-div" class="form-group">
 		<label class="control-label col-sm-3" for="online-only-input">Online Only</label>
 		<div class="col-sm-9">
-			<input id="online-only-input" type="checkbox" ng-model="onlineOnly" ng-true-value="Y" ng-false-value="N">
+			<input id="online-only-input" type="checkbox" ng-model="pubData.onlineOnly" ng-true-value="Y" ng-false-value="N">
 		</div>
 	</div>
 	<div id="pub-additional-files-div" class="form-group">
 		<label class="control-label col-sm-3" for="additional-files-input">Additional Online Files</label>
 		<div class="col-sm-9">
-			<input id="additional-files-input" type="checkbox" ng-model="additionalOnlineFiles" ng-true-value="Y" ng-false-value="N">
+			<input id="additional-files-input" type="checkbox" ng-model="pubData.additionalOnlineFiles" ng-true-value="Y" ng-false-value="N">
 		</div>
 	</div>
 	<div id="pub-temporal-start-div" class="form-group">
@@ -40,13 +40,14 @@
 		<div class="dropdown col-sm-9">
 			<a class="dropdown-toggle" id="temporal-start-dropdown" role="button"  data-target="#" href="#">
 				<div class="input-group">
-					<input type="text" class="form-control" data-ng-model="temporalStart">
+					<input type="text" class="form-control" data-ng-model="pubData.temporalStart">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 				</div>
 			</a>
 			<ul class="dropdown-menu" role="menu" aria-labelledby="temporal-start-label">
-				<datetimepicker data-ng-model="temporalStart" 
-								data-datetimepicker-config="{ dropdownSelector: '#temporal-start-dropdown' }"></datetimepicker>
+				<datetimepicker data-ng-model="pubData.temporalStart" 
+					data-datetimepicker-config="{ dropdownSelector: '#temporal-start-dropdown' }">
+				</datetimepicker>
 			</ul>
 		</div>
 	</div>
@@ -55,20 +56,21 @@
 		<div class="dropdown col-sm-9">
 			<a class="dropdown-toggle" id="temportal-end-dropdown" role="button"  data-target="#" href="#">
 				<div class="input-group">
-					<input type="text" class="form-control" data-ng-model="temporalEnd">
+					<input type="text" class="form-control" data-ng-model="pubData.temporalEnd">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 				</div>
 			</a>
 			<ul class="dropdown-menu" role="menu" aria-labelledby="temporal-end-label">
-				<datetimepicker data-ng-model="temporalEnd" 
-								data-datetimepicker-config="{ dropdownSelector: '#temporal-end-dropdown' }"></datetimepicker>
+				<datetimepicker data-ng-model="pubData.temporalEnd" 
+					data-datetimepicker-config="{ dropdownSelector: '#temporal-end-dropdown' }">
+				</datetimepicker>
 			</ul>
 		</div>
 	</div>
 	<div id="pub-notes-div" class="form-group">
 		<label class="control-label col-sm-3" for="notes-input">Notes</label>
         <div class="col-sm-9">
-            <textarea id="notes-input" class="form-control" ng-model="notes"></textarea>
+            <textarea id="notes-input" class="form-control" ng-model="pubData.notes"></textarea>
         </div>
 	</div>
 </div>
