@@ -42,7 +42,7 @@ public class PropertiesWebservice {
 	public String getConfProperties() {
 		//TODO may want to extract into POJO
 		return "{" +
-					" \"pubsService\" : \"" + props.getProperty("mypubs/pubsServices") + "\" " +
+					" \"endpoint\" : \"" + props.getProperty("mypubs/pubsServices") + "\" " +
 				"}";
 	}
 }
