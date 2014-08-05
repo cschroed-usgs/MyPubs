@@ -38,7 +38,7 @@
 	<div id="pub-temporal-start-div" class="form-group">
 		<label class="control-label col-sm-3" id="temporal-start-label">Temporal Start</label>
 		<div class="dropdown col-sm-9">
-			<a class="dropdown-toggle" id="temporal-start-dropdown" role="button"  data-target="#" href="#">
+			<a class="dropdown-toggle" id="temporal-start-dropdown" role="button" data-target="#" href="#">
 				<div class="input-group">
 					<input type="text" class="form-control" data-ng-model="pubData.temporalStart">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
@@ -46,7 +46,7 @@
 			</a>
 			<ul class="dropdown-menu" role="menu" aria-labelledby="temporal-start-label">
 				<datetimepicker data-ng-model="pubData.temporalStart" 
-					data-datetimepicker-config="{ dropdownSelector: '#temporal-start-dropdown' }">
+					data-datetimepicker-config="{ minView: 'day', startView: 'month', dropdownSelector: '#temporal-start-dropdown' }">
 				</datetimepicker>
 			</ul>
 		</div>
@@ -54,7 +54,7 @@
 	<div id="pub-temporal-end-div" class="form-group">
 		<label class="control-label col-sm-3" id="temporal-end-label">Temporal End</label>
 		<div class="dropdown col-sm-9">
-			<a class="dropdown-toggle" id="temportal-end-dropdown" role="button"  data-target="#" href="#">
+			<a class="dropdown-toggle" id="temporalEndDropdown" role="button" data-target="#" href="#">
 				<div class="input-group">
 					<input type="text" class="form-control" data-ng-model="pubData.temporalEnd">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
@@ -62,7 +62,7 @@
 			</a>
 			<ul class="dropdown-menu" role="menu" aria-labelledby="temporal-end-label">
 				<datetimepicker data-ng-model="pubData.temporalEnd" 
-					data-datetimepicker-config="{ dropdownSelector: '#temporal-end-dropdown' }">
+					data-datetimepicker-config="{ minView: 'day', startView: 'month', dropdownSelector: '#temporalEndDropdown' }">
 				</datetimepicker>
 			</ul>
 		</div>
