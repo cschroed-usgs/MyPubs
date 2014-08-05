@@ -2,3 +2,4 @@ docs/
 mvnp.sh
 target/
 phantomjsdriver.log
+META-INF/
