@@ -7,7 +7,7 @@ angular.module('pw.mypubs', [
 	'pw.home','pw.search', 'pw.publication', 'pw.reservation' // mypubs pages
 ])
     .constant('APP_CONFIG', {
-        endpoint : 'https://cida-eros-pubsdev.er.usgs.gov:8443/pubs-services/'
+        endpoint : 'https://localhost:8443/pubs-services/'
     })
 
 .controller('mainCtrl', [
