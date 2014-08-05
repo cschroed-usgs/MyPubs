@@ -42,11 +42,11 @@ describe('pw.fetcher module', function() {
                     "validationErrors": null
                 }
             });
-	    $httpBackend.when('GET', APP_CONFIG.endpoint + 'mppublication/contributor/2' + MIMETYPE).respond({
+	    $httpBackend.when('GET', APP_CONFIG.endpoint + 'contributor/2' + MIMETYPE).respond({
 		"id" : 2,
 		"name" : "This Name"
 	    });
-	    $httpBackend.when('GET', APP_CONFIG.endpoint + 'mppublication/contributor/12' + MIMETYPE).respond({
+	    $httpBackend.when('GET', APP_CONFIG.endpoint + 'contributor/12' + MIMETYPE).respond({
 		"id" : 12,
 		"name" : "That Name"
 	    });
@@ -72,7 +72,7 @@ describe('pw.fetcher module', function() {
 	    var promiseSpy = jasmine.createSpy('promiseSpy');
 	    var promise = PublicationFetcher.fetchContributor(2).then(promiseSpy);
 
-	    $httpBackend.expectGET(APP_CONFIG.endpoint + 'mppublication/contributor/2' + MIMETYPE);
+	    $httpBackend.expectGET(APP_CONFIG.endpoint + 'contributor/2' + MIMETYPE);
 
 	    $httpBackend.flush();
 	    expect(promiseSpy).toHaveBeenCalled();
