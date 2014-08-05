@@ -1,6 +1,5 @@
 (function() {
 
-
 angular.module('pw.publication', ['ngRoute', 'pw.actions',
 	'pw.bibliodata', 'pw.catalog', 'pw.contacts', 'pw.links', 'pw.collaborator' // pub edit modules
 ])
@@ -10,30 +9,93 @@ angular.module('pw.publication', ['ngRoute', 'pw.actions',
 			templateUrl: 'mypubs/publication/publication.html',
 			controller: 'publicationCtrl',
             resolve: {
-                pub : function(){return {};}
+                pubData : ['Publication', function(Publication){
+                        return {
+                            data : Publication()
+                        };
+                }]
             }
 		});
 		$routeProvider.when('/Publication/:pubsid', {
 			templateUrl: 'mypubs/publication/publication.html',
 			controller: 'publicationCtrl',
             resolve : {
-			    pub : ['$route', 'PublicationFetcher', function($route, PublicationFetcher) {
+			    pubData : ['$route', 'Publication', function($route, Publication) {
                     var pubsId = $route.current.params.pubsid;
-                    var pub = PublicationFetcher.fetchPubById(pubsId);
-                    return pub;
+                    return Publication(pubsId);
 			    }]
             }
 		});
 	}
     ])
-
+.factory('Publication', ['PublicationFetcher', function (PublicationFetcher) {
+        var pubSkeleton = function () {
+            return {
+                "id": '',
+                "type": {
+                  "id": ''
+                },
+                "genre": {
+                  "id": ''
+                },
+                "collection-title": {
+                  "id": ''
+                },
+                "number": "",
+                "subseries-title": "",
+                "chapter-number": "",
+                "sub-chapter-number": "",
+                "title": "",
+                "abstract": "",
+                "language": "",
+                "publisher": "",
+                "publisher-place": "",
+                "DOI": "",
+                "ISSN": "",
+                "ISBN": "",
+                "display-to-public-date": "",
+                "indexID": "",
+                "collaboration": "",
+                "usgs-citation": "",
+                "cost-center": [],
+                "links": [],
+                "notes": "",
+                "contact": {
+                  "id": ''
+                },
+                "ipds-id": "",
+                "productDescription": "",
+                "pageFirst": "",
+                "pageLast": "",
+                "numberOfPages": "",
+                "onlineOnly": "",
+                "additionalOnlineFiles": "",
+                "temporalStart": "",
+                "temporalEnd": "",
+                "authors": [],
+                "editors": [],
+                "validation-errors": []
+              };
+        };
+        var pubConstructor = function (pubId) {
+            var pubToReturn;
+            if (pubId) {
+                pubToReturn = PublicationFetcher.fetchPubById(pubId);
+            }
+            else{
+                pubToReturn = pubSkeleton();
+            }
+            return pubToReturn;
+        };
+        return pubConstructor;
+    }])
 .controller('publicationCtrl',
-[ '$scope', '$routeParams', '$route', 'pub',
-function($scope, $routeParams, $route, pub) {
+[ '$scope', '$routeParams', '$route', 'pubData',
+function($scope, $routeParams, $route, pubData) {
 
-	$scope.pub = pub.data;
+	$scope.pubData = pubData.data;
     $scope.printPub = function(){
-        console.dir($scope.pub);
+        console.dir($scope.pubData);
     };
 	$scope.tabs = [
 		{
@@ -67,6 +129,6 @@ function($scope, $routeParams, $route, pub) {
 			controller: 'geoCtrl'
 		}
 	];
-}])
+}]);
 
 }) ();
