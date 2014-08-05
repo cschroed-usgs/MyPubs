@@ -1,66 +1,47 @@
 (function() {
 
 
-angular.module('pw.links',['pw.fetcher', 'pw.list', 'pw.collection', 'pw.lookups'])
+angular.module('pw.links',['pw.lookups', 'pw.dataList'])
 
+    .controller('linksCtrl',
+	['$scope', 'LookupFetcher', 'ListOrderingService', function($scope, LookupFetcher, ListOrderingService) {
 
-.service('Links',
-[ 'Collection', 'LookupFetcher',
-function (Collection, Lookup) {
+		var getEmptyLink = function() {
+		    return {
+		    id : '',
+		    type : {},
+		    url : '',
+		    text : '',
+		    size : '',
+		    linkFileType : {},
+		    description : ''
+		}};
 
-	var ctx = Collection(this)
+		if (angular.isUndefined($scope.pubData.links)) {
+		    $scope.pubData.links = [];
+		}
+		$scope.pubData.links = _.sortBy($scope.pubData.links, 'rank');
 
+		// Fetch the link lookups for link type and file type
+		LookupFetcher.promise('linktypes').then(function(response) {
+		    $scope.linkTypeOptions = response.data; //[{id : 1, text: 'Text1'}];//response.data;
+		});
+		LookupFetcher.promise('linkfiletypes').then(function(response) {
+		    $scope.fileTypeOptions = response.data;//[{id : 1, text : 'Text2'}]; //response.data;
+		});
 
-	ctx.setLinks = function(links) {
-		ctx.setEntries(links, 'links')
-	}
+		$scope.sortOptions = {
+		    stop : function(e, ui) {
+			ListOrderingService.updateRank($scope.pubData.links);
+		    }
+		};
 
+		$scope.addNewLink = function() {
+		    ListOrderingService.addNewObj($scope.pubData.links, getEmptyLink);
+		};
 
-	ctx.typeOptions = []
-	ctx.getTypeOptions = function() {
-		return Lookup.fetchOptions(Lookup.type.linkSubjects, ctx.typeOptions)
-	}
-
-
-	ctx.fileOptions = []
-	ctx.getFileOptions = function() {
-		return Lookup.fetchOptions(Lookup.type.linkFiles, ctx.fileOptions)
-	}
-
-
-	ctx.newEntry = function() {
-		return ctx._newEntry(['type','url','text','size','fileType','description'])
-	}
-
-
-}])
-
-
-.controller('linksCtrl', [
-'$scope', 'Links', '$log',
-function ($scope, Links, $log) {
-
-	Links.setLinks()
-
-	$scope.listName    = 'link_'
-
-	$scope.Links       = Links
-	$scope.links       = Links.getEntries()
-	$scope.typeOptions = Links.getTypeOptions()
-	$scope.fileOptions = Links.getFileOptions()
-
-
-	$scope.isDirty     = function(link) {
-		return (link.description !== ""
-			 || link.type !== ""
-			 || link.url  !== ""
-			 || link.text !== ""
-			 || link.size !== ""
-			 || link.fileType !== ""
-			)
-	}
-
-}])
-
-
-}) ()
+		$scope.deleteLink = function(index) {
+		    ListOrderingService.deleteObj($scope.pubData.links, index);
+		};
+	}]);
+}) ();

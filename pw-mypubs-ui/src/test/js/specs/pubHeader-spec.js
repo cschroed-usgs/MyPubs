@@ -15,28 +15,4 @@ describe("pw.pubHeader module", function(){
 		expect( def ).toBeTruthy()
 	});
 
-
-	it('should have added fields as row and called PublicationFetcher and fieldMapper',
-		inject (['$rootScope', '$controller', function($rootScope, $controller) {
-
-			var scope = $rootScope.$new()
-
-			var fieldService = {
-				fieldMapper : jasmine.createSpy('fieldMapper'),
-			}
-
-			var fields = [{id:123}]
-
-			$controller('pubHeaderCtrl', {
-				'$scope': scope,
-				'DataRowFieldService': fieldService,
-				'headerFields' : fields
-			})
-
-			expect(fieldService.fieldMapper).toHaveBeenCalled();
-			expect(scope.rows).toBe(fields)
-		}])
-	)
-
-
 })
