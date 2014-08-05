@@ -14,7 +14,6 @@ describe("pw.bibliodata module", function(){
 		}
 		expect( def ).toBeTruthy();
 	});
-
         describe('pw.bibliodata.biblioCtrl', function() {
             var scope, rootScope, q, createController, mockLookupFetcher;
             var mockLookupCascadeSelect2;
@@ -44,60 +43,27 @@ describe("pw.bibliodata module", function(){
                     return $controller('biblioCtrl', {
                         '$scope': scope,
                         'LookupFetcher' : mockLookupFetcher,
-                        'LookupCascadeSelect2' : mockLookupCascadeSelect2
+                        'LookupCascadeSelect2' : mockLookupCascadeSelect2,
+                        '$routeParams': {}
                     });
                 };
             }));
-
-            it('Should initialize the appropriate fields when no pubs data is returned from fetcher', function() {
-                scope.pubData = {};
-
-                myCtrl = createController();
-                scope.$digest();
-                expect(scope.type).toBeFalsy();
-                expect(scope.genre).toBeFalsy();
-                expect(scope.collectionTitle).toBeFalsy();
-                expect(scope.costCenters.length).toBe(0);
-                expect(scope.subseriesTitle).toBeFalsy();
-                expect(scope.number).toBeFalsy();
-                expect(scope.chapterNumber).toBeFalsy();
-                expect(scope.subChapterNumber).toBeFalsy();
-                expect(scope.title).toBeFalsy();
-                expect(scope.abstract).toBeFalsy();
-                expect(scope.usgsCitation).toBeFalsy();
-                expect(scope.language).toBeFalsy();
-                expect(scope.publisher).toBeFalsy();
-                expect(scope.publisherPlace).toBeFalsy();
-                expect(scope.doi).toBeFalsy();
-                expect(scope.issn).toBeFalsy();
-                expect(scope.isbn).toBeFalsy();
-
-                expect(scope.typeOptions).toEqual(LOOKUP_DATA);
-                expect(scope.costCenterOptions).toEqual(LOOKUP_DATA);
-                expect(scope.subtypeSelect2Options.query).toBeDefined();
-                expect(scope.subtypeSelect2Options.initSelection).toBeDefined();
-                expect(scope.seriesTitleSelect2Options.query).toBeDefined();
-                expect(scope.seriesTitleSelect2Options.initSelection).toBeDefined();
-                expect(scope.costCenterSelect2Options).toBeDefined();
-                expect(scope.abstractEditorOptions).toBeDefined();
-                expect(scope.changeType).toBeDefined();
-                expect(scope.changeGenre).toBeDefined();
-            });
 
             it('Expects the change* functions to update the appropriate fields immediately', function() {
                 scope.pubData = {};
 
                 myCtrl = createController();
+                var pubData = scope.pubData;
                 scope.$digest();
-                scope.genre = 1;
-                scope.collectionTitle = 2;
+                pubData.genre = 1;
+                pubData.collectionTitle = 2;
                 scope.changeType();
-                expect(scope.genre).toEqual('');
-                expect(scope.collectionTitle).toEqual('');
+                expect(pubData.genre.id).toEqual('');
+                expect(pubData['collection-title']).toEqual('');
 
-                scope.collectionTitle = 3;
+                pubData.collectionTitle = 3;
                 scope.changeGenre();
-                expect(scope.collectionTitle).toEqual('');
+                expect(pubData.collectionTitle).toEqual('');
             });
 
             describe('Tests with pub data', function() {
@@ -123,46 +89,27 @@ describe("pw.bibliodata module", function(){
                     };
                 });
 
-                it('Should initialize the appropriate fields when pubs data is returned from fetcher', function() {
-                    myCtrl = createController();
-                    expect(scope.type).toEqual(1);
-                    expect(scope.genre).toEqual(2);
-                    expect(scope.collectionTitle).toEqual(3);
-                    expect(scope.costCenters).toEqual([4, 5]);
-                    expect(scope.subseriesTitle).toEqual('text1');
-                    expect(scope.number).toEqual('text2');
-                    expect(scope.chapterNumber).toEqual('text3');
-                    expect(scope.subChapterNumber).toEqual('text4');
-                    expect(scope.title).toEqual('text5');
-                    expect(scope.abstract).toEqual('text6');
-                    expect(scope.usgsCitation).toEqual('text7');
-                    expect(scope.language).toEqual('text8');
-                    expect(scope.publisher).toEqual('text9');
-                    expect(scope.publisherPlace).toEqual('text10');
-                    expect(scope.doi).toEqual('text11');
-                    expect(scope.issn).toEqual('text12');
-                    expect(scope.isbn).toEqual('text13');
-                });
-
                 it('Expects that genre and collectionTitle are cleared after the second time changeType is called', function() {
                     myCtrl = createController();
+                    var pubData = scope.pubData;
                     scope.$digest();
                     scope.changeType();
-                    expect(scope.genre).toEqual(2);
-                    expect(scope.collectionTitle).toEqual(3);
+                    expect(pubData.genre).toEqual(2);
+                    expect(pubData.collectionTitle).toEqual(3);
 
                     scope.changeType();
-                    expect(scope.genre).toEqual('');
-                    expect(scope.collectionTitle).toEqual('');
+                    expect(pubData.genre).toEqual('');
+                    expect(pubData.collectionTitle).toEqual('');
                 });
 
                 it('Expects collectionTitle is cleared after the second time changeGenre is called', function() {
                     myCtrl = createController();
                     scope.$digest();
                     scope.changeGenre();
-                    expect(scope.collectionTitle).toEqual(3);
+                    var pubData = scope.pubData;
+                    expect(pubData.collectionTitle).toEqual(3);
                     scope.changeGenre();
-                    expect(scope.collectionTitle).toEqual('');
+                    expect(pubData.collectionTitle).toEqual('');
                 });
 
                 it('The subtypeSelect2Options.query should use the LookupCascadeSelect2 service', function() {
@@ -195,7 +142,7 @@ describe("pw.bibliodata module", function(){
                     scope.$digest();
 
                     // This mocks what happend when the subtype select changes
-                    scope.genre = {id : 2};
+                    scope.pubData.genre = {id : 2};
                     scope.$digest();
 
                     query = scope.seriesTitleSelect2Options.query;
