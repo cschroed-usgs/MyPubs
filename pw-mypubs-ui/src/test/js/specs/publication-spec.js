@@ -1,5 +1,4 @@
 describe("pw.publication module", function(){
-
 	var scope;
 
 
@@ -17,26 +16,28 @@ describe("pw.publication module", function(){
 
 
 	it('should have defined the tabs', function() {
+        module('pw.publication')
+        //now mock an app configuration for PublicationFetcher
+		angular.module('pw.publication').constant('APP_CONFIG', {
+            endpoint : 'fake'
+    });;
 
-		module('pw.publication');
-
-		inject (['$rootScope', '$controller', function($rootScope, $controller) {
+		inject (['$rootScope', '$controller', 'Publication', function($rootScope, $controller, Publication) {
 
 			scope = $rootScope.$new();
 
 			$controller('publicationCtrl', {
 				'$scope': scope,
-				pub : {//mock the result of an http promise
-                    data : {
-                        id : 1
+				pubData : {
+                    data: {
+                        id: 1
                     }
                 }
-				
 			});
 
 			expect(scope.tabs).toBeDefined();
 			expect( angular.isObject(scope.tabs) ).toBeTruthy();
-			expect(scope.pub).toEqual({id : 1});
+			expect(scope.pubData).toEqual({id : 1});
 		}]);
 
 	});
