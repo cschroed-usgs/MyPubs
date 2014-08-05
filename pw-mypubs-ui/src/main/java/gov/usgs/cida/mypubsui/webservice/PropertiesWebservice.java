@@ -23,16 +23,16 @@ public class PropertiesWebservice {
 	/**
 	 * May want to move this section into a service layer, it's pretty lightweight for now though
 	 */
-    private static DynamicReadOnlyProperties props;
-    static {
-    	props = new DynamicReadOnlyProperties();
-    	try {
+	private static DynamicReadOnlyProperties props;
+	static {
+		props = new DynamicReadOnlyProperties();
+		try {
 			props.addJNDIContexts(new String[0]); //enables jndi lookup
 		} catch (NamingException e) {
 			LOG.error("Error initializing DynamicReadOnlyProperties");
 		}
-    }
-    
+	}
+
 	/**
 	 * @return
 	 */
@@ -42,7 +42,7 @@ public class PropertiesWebservice {
 	public String getConfProperties() {
 		//TODO may want to extract into POJO
 		return "{" +
-					" \"endpoint\" : \"" + props.getProperty("mypubs/pubsServices") + "\" " +
-				"}";
+		" \"endpoint\" : \"" + props.getProperty("mypubs/pubsServices") + "\" " +
+		"}";
 	}
 }

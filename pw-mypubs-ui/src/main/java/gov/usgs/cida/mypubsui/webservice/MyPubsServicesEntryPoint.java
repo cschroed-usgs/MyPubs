@@ -8,8 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Primary entry point to our NWIS Reporting webservices. (Stanadard Jersey
- * JAX-RS application).
+ * (Stanadard Jersey JAX-RS application).
  *
  * Wire up all configuration classes. Includes webservice, format, and error
  * handling provides.
