@@ -1,7 +1,9 @@
 describe("pw.bibliodata module", function(){
-
-
-	beforeEach( module('pw.bibliodata') );
+angular.module('pw.publication').constant('APP_CONFIG', {})
+	beforeEach(function(){
+        module('pw.bibliodata');
+        module('pw.publication');
+    });
 
 
 	it('should have a pubs bibliodata module pw.bibliodata', function() {
@@ -20,9 +22,6 @@ describe("pw.bibliodata module", function(){
             var LOOKUP_DATA = [{value : 1, text : 'Text1'}, {value : 2, text : 'Text2'}];
 
             beforeEach(function() {
-                scope = {
-		    pubData : {}
-		};
 
                 mockLookupFetcher = {
                     promise : function() {
@@ -50,13 +49,14 @@ describe("pw.bibliodata module", function(){
             }));
 
             it('Expects the change* functions to update the appropriate fields immediately', function() {
-                scope.pubData = {};
-
                 myCtrl = createController();
+                inject(['Publication', function(Publication){
+                        scope.pubData = Publication();
+                }]);
                 var pubData = scope.pubData;
                 scope.$digest();
-                pubData.genre = 1;
-                pubData.collectionTitle = 2;
+                pubData.genre.id = 1;
+                pubData['collection-title'] = 2;
                 scope.changeType();
                 expect(pubData.genre.id).toEqual('');
                 expect(pubData['collection-title']).toEqual('');
@@ -94,8 +94,8 @@ describe("pw.bibliodata module", function(){
                     var pubData = scope.pubData;
                     scope.$digest();
                     scope.changeType();
-                    expect(pubData.genre).toEqual(2);
-                    expect(pubData.collectionTitle).toEqual(3);
+                    expect(pubData.genre.id).toEqual(2);
+                    expect(pubData['collection-title']).toEqual(3);
 
                     scope.changeType();
                     expect(pubData.genre).toEqual('');
