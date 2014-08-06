@@ -18,6 +18,8 @@
 		<cida.maven.url>http://internal.cida.usgs.gov/maven</cida.maven.url>
     	<timestamp>${maven.build.timestamp}</timestamp>
     	<maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
+		<jersey.version>2.11</jersey.version>
+		<slf4j.version>1.7.5</slf4j.version>
 	</properties>
 
 	<issueManagement>
@@ -51,14 +53,20 @@
 
 	<repositories>
 		<repository>
-			<id>nexus</id>
+			<id>cida-public</id>
+			<name>CIDA Public Nexus</name>
+			<url>http://cida.usgs.gov/maven/cida-public/</url>
+		</repository>
+		<repository>
+			<id>cida-nexus</id>
 			<name>CIDA Nexus</name>
 			<url>${cida.maven.url}/content/groups/public/</url>
 		</repository>
 	</repositories>
+	
 	<pluginRepositories>
 		<pluginRepository>
-			<id>plugin-nexus</id>
+			<id>cida-plugin-nexus</id>
 			<name>CIDA Plugin repo</name>
 			<url>${cida.maven.url}/content/groups/public/</url>
 		</pluginRepository>
@@ -82,6 +90,40 @@
 			<url>${cida.maven.url}/content/repositories/cida-snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.glassfish.jersey.containers</groupId>
+			<artifactId>jersey-container-servlet</artifactId>
+			<version>${jersey.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-moxy</artifactId>
+			<version>${jersey.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.0.9</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<artifactId>slf4j-api</artifactId>
+			<groupId>org.slf4j</groupId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>gov.usgs.cida</groupId>
+			<artifactId>dynamicProperties</artifactId>
+			<version>1.0.2</version>
+		</dependency>
+	</dependencies>
 
 	<build>
 		<finalName>mypubsui</finalName>
