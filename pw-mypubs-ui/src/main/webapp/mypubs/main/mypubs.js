@@ -7,10 +7,10 @@ var mypubs = angular.module('pw.mypubs', [
 		'pw.home','pw.search', 'pw.publication', 'pw.reservation', // mypubs pages
 		'ui.bootstrap.datetimepicker' //datetimepicker
 	])
-	.constant('APP_CONFIG', {})
+	.constant('APP_CONFIG', PUBS.constants) //this is a bit of a hack/magic. This constant is injected into the HTML using JSP (index.jsp + constants.jsp)
 	.controller('mainCtrl', ['$scope', '$log', '$location',
 		function ($scope, $log, $location) {
-			$scope._show = 'Preview' ;// TODO index.html must compare to this when preview is impl
+			$scope._show = 'Preview' ;// TODO index.jsp must compare to this when preview is impl
 		
 			$scope.show = function(show) {
 				if ( angular.isUndefined(show) ) {
@@ -26,14 +26,6 @@ var mypubs = angular.module('pw.mypubs', [
 				event.preventDefault();
 			});
 		};
-	}).run(function(APP_CONFIG) {
-		//TODO, this might be hackish, no guarantees the constants will be set before other parts of the app needs them.
-		var initInjector = angular.injector(['ng']);
-		var $http = initInjector.get('$http');
-		$http({method: 'GET', url: 'service/configuration/props'})
-			.success(function(data, status, headers, config) {
-				angular.extend(APP_CONFIG, data);
-			});
 	});
 
 	
