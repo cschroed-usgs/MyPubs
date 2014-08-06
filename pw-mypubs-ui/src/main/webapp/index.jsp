@@ -1,3 +1,4 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html ng-app="pw.mypubs">
 <head>
 
@@ -6,7 +7,8 @@
 	<link rel="icon" type="img/x-icon" href="favicon.ico">
 	<link rel="shortcut icon" type="img/x-icon" href="favicon.ico">
 
-	<link rel="stylesheet" type="text/css" href="lib/bootstrap/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="lib/bootstrap/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="lib/angular-bootstrap-datetimepicker/css/datetimepicker.css">
         <link rel="stylesheet" type="text/css" href="lib/select2/select2.css">
         <link rel="stylesheet" type="text/css" href="lib/select2/select2-bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="lib/font-awesome-4.1.0/css/font-awesome.min.css">
@@ -16,7 +18,7 @@
 	<link rel="stylesheet" type="text/css" href="mypubs/publication/action/buttons.css">
 	<link rel="stylesheet" type="text/css" href="mypubs/publication/header/header.css">
 	<link rel="stylesheet" type="text/css" href="mypubs/publication/contacts/contacts.css">
-	<link rel="stylesheet" type="text/css" href="mypubs/publication/collaborators/collaborator.css">
+	<link rel="stylesheet" type="text/css" href="mypubs/publication/contributors/contributor.css">
 	<link rel="stylesheet" type="text/css" href="mypubs/publication/links/links.css">
 	<link rel="stylesheet" type="text/css" href="mypubs/dnd/dragdrop.css">
 	<link rel="stylesheet" type="text/css" href="mypubs/list/list.css">
@@ -74,6 +76,9 @@
 		</div>
 
 	</div>
+	
+	
+    <jsp:include page="constants.jsp"></jsp:include>
 
 	<!-- lib dependencies -->
 
@@ -90,13 +95,16 @@
 	<script type="text/javascript" src="lib/angular/ui-bootstrap-tpls-0.11.0.js"></script>
 	<script type="text/javascript" src="lib/angular/ui-tinymce.0.5.x.js"></script>
 	<script type="text/javascript" src="lib/ui-sortable-master/src/sortable.js"></script>
+        <script type="text/javascript" src="lib/moment/moment.js"></script>
+        <script type="text/javascript" src="lib/bootstrap/bootstrap.min.js"></script>
 
 	<!-- mypubs application utils -->
-
+        
+        <script type="text/javascript" src="lib/angular-bootstrap-datetimepicker/js/datetimepicker.js"></script>
 	<script type="text/javascript" src="mypubs/datarow/datarow.js"></script>
 	<script type="text/javascript" src="mypubs/dnd/dragdrop.js"></script>
 	<script type="text/javascript" src="mypubs/list/list.js"></script>
-	<script type="text/javascript" src="mypubs/dataList/dataList.js"></script>
+        <script type="text/javascript" src="mypubs/dataList/dataList.js"></script>
 	<script type="text/javascript" src="mypubs/main/collection.js"></script>
 	<script type="text/javascript" src="mypubs/menu/menu.js"></script>
 	<script type="text/javascript" src="mypubs/notify/notify.js"></script>
@@ -128,7 +136,7 @@
 	<script type="text/javascript" src="mypubs/publication/catalog/catalog.js"></script>
 	<script type="text/javascript" src="mypubs/publication/contacts/contacts.js"></script>
 	<script type="text/javascript" src="mypubs/publication/links/links.js"></script>
-	<script type="text/javascript" src="mypubs/publication/collaborators/collaborator.js"></script>
+	<script type="text/javascript" src="mypubs/publication/contributors/contributor.js"></script>
 	
 		<!-- main controller -->
 	<script type="text/javascript" src="mypubs/main/mypubs.js"></script>

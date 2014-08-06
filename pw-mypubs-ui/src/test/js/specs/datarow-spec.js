@@ -165,7 +165,7 @@ describe("pw.dataRow module dataRow directive", function() {
 		expect(el.find('textarea').attr('ui-tinymce')).toBe("data.options")
 	});
 
-
+    /*
 	it('should have datepicker DOM in Date field', function() {
 		$scope.rows = rowMap(1)
 		$scope.rows[0].rowType = 'Date'
@@ -201,6 +201,7 @@ describe("pw.dataRow module dataRow directive", function() {
 		expect(val).toBeDefined()
 		expect(val.length).toBe(1)
 	});
+    */
 
 
 	it('should have timepicker field in DOM for time', function() {

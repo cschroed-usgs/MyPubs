@@ -1,7 +1,7 @@
 (function() {
 
 angular.module('pw.publication', ['ngRoute', 'pw.actions',
-	'pw.bibliodata', 'pw.catalog', 'pw.contacts', 'pw.links', 'pw.collaborator' // pub edit modules
+	'pw.bibliodata', 'pw.catalog', 'pw.contacts', 'pw.links', 'pw.contributors' // pub edit modules
 ])
 .config(['$routeProvider',
 	function($routeProvider) {
@@ -111,9 +111,9 @@ function($scope, $routeParams, $route, pubData) {
 			controller: 'biblioCtrl'
 		},
 		{
-			title:"Collaborators",
-			templateUrl: 'mypubs/publication/collaborators/collaborator.html',
-			controller: 'collaboratorsCtrl'
+			title:"Contributors",
+			templateUrl: 'mypubs/publication/contributors/contributor.html',
+			controller: 'contributorCtrl'
 		},
 		{
 			title:"Links",

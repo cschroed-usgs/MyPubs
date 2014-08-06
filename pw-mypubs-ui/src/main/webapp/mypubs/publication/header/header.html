@@ -1,28 +1,34 @@
 <div id="pubHeader" ng-controller="pubHeaderCtrl">
-    <div class="data">
-        <div class="label">
-            Prod ID
+        
+    <div id="pubData" class="form-horizontal" >
+        <div id="pub-type-div" class="form-group">    
+            <label class="control-label col-sm-3" >Prod ID</label>
+            <div class="col-sm-9">
+                <input class="form-control" ng-model="pubData.id" />
+            </div>
         </div>
-        <div class="value" ng-bind="pubData.id"></div>
-    </div>
-    <div class="data">
-        <div class="label">
-            Index ID
+
+        <div id="pub-type-div" class="form-group">   
+            <label class="control-label col-sm-3" >Index ID</label>
+            <div class="col-sm-9">
+                <input class="form-control" ng-model="pubData.indexID"  />
+            </div>
         </div>
-        <div class="value" ng-bind="pubData.indexID"></div>
-    </div>
-    <div class="data">
-        <div class="value dateValue">
 
-		<input type="text" class="form-control form-date" ng-model="pubData['display-to-public-date']" ng-required="true" close-text="Close"
-		 datepicker-options="data.options" datepicker-popup="yyyy-MM-dd"/>
+        <div id="pub-type-div" class="form-group">   
+            <label class="control-label col-sm-3" >Display to public date</label>
 
-		<button type="button" class="btn btn-default btn-calendar" ng-click="data.open($event)">
-			<i class="glyphicon glyphicon-calendar" ></i>
-		</button>
-		<div class="form-date-time" ng-if="data.andTime">
-			<timepicker ng-model="data.value" show-meridian="true" hour-step="1" minute-step="10"></timepicker>
-		</div>
-	</div>
+            <div class="dropdown col-sm-9">
+                <a class="dropdown-toggle" id="dropdown2" role="button"  data-target="#" href="#">
+                    <div class="input-group">
+                        <input type="text" class="form-control" data-ng-model="pubData.date">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                    </div>
+                </a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                    <datetimepicker data-ng-model="pubData.date" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"></datetimepicker>
+                </ul>
+            </div>
+        </div>
     </div>
 </div>

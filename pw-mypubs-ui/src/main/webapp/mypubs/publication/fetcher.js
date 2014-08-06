@@ -2,9 +2,7 @@
 
 
 angular.module('pw.fetcher',[])
-    .service('PublicationFetcher', ['$http',  'APP_CONFIG', function($http, APP_CONFIG) {
-
-        var pub = {};
+    .factory('PublicationFetcher', ['$http',  'APP_CONFIG', function($http, APP_CONFIG) {
 
         return {
             fetchPubById : function(pubId) {
@@ -17,7 +15,14 @@ angular.module('pw.fetcher',[])
                     });
                 }
                 return result;
-            }
+            },
+	    fetchContributor : function(contributorId) {
+		return $http.get(APP_CONFIG.endpoint + 'contributor/' + contributorId, {
+		    params : {
+			mimetype : 'json'
+		    }
+		});
+	    }
         };
     }]);
 }) ();

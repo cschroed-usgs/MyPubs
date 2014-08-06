@@ -8,14 +8,15 @@ angular.module('pw.links',['pw.lookups', 'pw.dataList'])
 
 		var getEmptyLink = function() {
 		    return {
-		    id : '',
-		    type : {},
-		    url : '',
-		    text : '',
-		    size : '',
-		    linkFileType : {},
-		    description : ''
-		}};
+			id : '',
+			type : {},
+			url : '',
+			text : '',
+			size : '',
+			linkFileType : {},
+			description : ''
+		    };
+		};
 
 		if (angular.isUndefined($scope.pubData.links)) {
 		    $scope.pubData.links = [];
@@ -37,7 +38,7 @@ angular.module('pw.links',['pw.lookups', 'pw.dataList'])
 		};
 
 		$scope.addNewLink = function() {
-		    ListOrderingService.addNewObj($scope.pubData.links, getEmptyLink);
+		    ListOrderingService.addNewObj($scope.pubData.links, getEmptyLink());
 		};
 
 		$scope.deleteLink = function(index) {
