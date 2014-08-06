@@ -49,19 +49,20 @@ angular.module('pw.publication').constant('APP_CONFIG', {})
             }));
 
             it('Expects the change* functions to update the appropriate fields immediately', function() {
-                myCtrl = createController();
                 inject(['Publication', function(Publication){
                         scope.pubData = Publication();
                 }]);
+                myCtrl = createController();
                 var pubData = scope.pubData;
                 scope.$digest();
-                pubData.genre.id = 1;
-                pubData['collection-title'].id = 2;
+                scope.localPubGenreId = 1;
+                scope.localCollectionTitleId = 2;
                 scope.changeType();
+                scope.$digest();
                 expect(pubData.genre.id).toEqual('');
                 expect(pubData['collection-title'].id).toEqual('');
 
-                pubData['collection-title'].id = 3;
+                pubData.localCollectionTitleId= 3;
                 scope.$digest();
                 scope.changeGenre();
                 expect(pubData['collection-title'].id).toEqual('');
@@ -97,6 +98,7 @@ angular.module('pw.publication').constant('APP_CONFIG', {})
                     expect(pubData.genre.id).toEqual(2);
                     expect(pubData['collection-title'].id).toEqual(3);
                     scope.changeType();
+                    scope.$digest();
                     expect(pubData.genre.id).toEqual('');
                     expect(pubData['collection-title'].id).toEqual('');
                 });
@@ -107,6 +109,7 @@ angular.module('pw.publication').constant('APP_CONFIG', {})
                     scope.$digest();
                     expect(pubData['collection-title'].id).toEqual(3);
                     scope.changeGenre();
+                    scope.$digest();
                     expect(pubData['collection-title'].id).toEqual('');
                 });
 
