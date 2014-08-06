@@ -10,9 +10,7 @@ angular.module('pw.publication', ['ngRoute', 'pw.actions',
 			controller: 'publicationCtrl',
             resolve: {
                 pubData : ['Publication', function(Publication){
-                        return {
-                            data : Publication()
-                        };
+                        return Publication()
                 }]
             }
 		});
@@ -28,7 +26,7 @@ angular.module('pw.publication', ['ngRoute', 'pw.actions',
 		});
 	}
     ])
-.factory('Publication', ['PublicationFetcher', function (PublicationFetcher) {
+.factory('Publication', ['PublicationFetcher', '$q', function (PublicationFetcher, $q) {
         var pubSkeleton = function () {
             return {
                 "id": '',
@@ -80,7 +78,16 @@ angular.module('pw.publication', ['ngRoute', 'pw.actions',
         var pubConstructor = function (pubId) {
             var pubToReturn;
             if (pubId) {
-                pubToReturn = PublicationFetcher.fetchPubById(pubId);
+                var deferred = $q.defer();
+                PublicationFetcher.fetchPubById(pubId).then(function(httpPromise){
+                    var response = httpPromise.data;
+                    var safePub = pubSkeleton();
+                    angular.forEach(safePub, function(defaultValue, key){
+                        safePub[key] = response[key] || defaultValue;
+                    });
+                    deferred.resolve(safePub);
+                });
+                pubToReturn = deferred.promise;
             }
             else{
                 pubToReturn = pubSkeleton();
@@ -93,7 +100,7 @@ angular.module('pw.publication', ['ngRoute', 'pw.actions',
 [ '$scope', '$routeParams', '$route', 'pubData',
 function($scope, $routeParams, $route, pubData) {
 
-	$scope.pubData = pubData.data;
+	$scope.pubData = pubData;
     $scope.printPub = function(){
         console.dir($scope.pubData);
     };
