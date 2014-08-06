@@ -36,7 +36,7 @@ function ($scope, DataRowFieldService, fields) {
 		},
 		{
 			additional:true,
-			name   : "index-id",
+			name   : "indexID",
 			label  : "Index ID",
 			rowType: "Readonly",
 		},

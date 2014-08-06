@@ -16,11 +16,34 @@ angular.module('pw.bibliodata',['pw.dataRow','pw.fetcher', 'pw.lookups'])
                 typeInputIsInitialized = true;
                 genreInputIsInitialized = true;
             }
-
+            //@mbucknell recommends binding ui-select2 ng-model targets to variables
+            //on the local-most scope and propagating changes back up to pubData via watches
+            $scope.localPubTypeId = $scope.pubData.type.id;
+            $scope.localPubGenreId = $scope.pubData.genre.id;
+            $scope.localCollectionTitleId = $scope.pubData['collection-title'].id;
+            var getIdOrOriginal = function(objectOrPrimitive){
+                var id = objectOrPrimitive;
+                if(objectOrPrimitive.id){
+                    id = objectOrPrimitive.id;
+                }
+                return id;
+            };
+            $scope.$watch('localPubTypeId', function(value){
+                var id = getIdOrOriginal(value);
+                $scope.pubData.type.id = id;
+            });
+            $scope.$watch('localPubGenreId', function(value){
+                var id = getIdOrOriginal(value);
+                $scope.pubData.genre.id = id;
+            });
+            $scope.$watch('localCollectionTitleId', function(value){
+                var id = getIdOrOriginal(value);
+                $scope.pubData['collection-title'].id = id;
+            });
             $scope.changeType = function() {
                 if (typeInputIsInitialized) {
-                    $scope.pubData.genre = {id:'', text:''};
-                    $scope.pubData['collection-title'] = {id:'', text:''};
+                    $scope.localPubGenreId = '';
+                    $scope.localCollectionTitleId = '';
                 }
                 else {
                     typeInputIsInitialized = true;
@@ -29,7 +52,7 @@ angular.module('pw.bibliodata',['pw.dataRow','pw.fetcher', 'pw.lookups'])
 
             $scope.changeGenre = function() {
                 if (genreInputIsInitialized) {
-                    $scope.pubData['collection-title'] = {id:'', text:''};
+                    $scope.localCollectionTitleId = '';
                 }
                 else {
                     genreInputIsInitialized = true;

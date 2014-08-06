@@ -69,8 +69,11 @@ angular.module('pw.notify',[])
 
 
 	$scope.$on('notifier', function() {
-		$scope.$apply()
-	})
+		//defer scope application in case already $digesting
+        $timeout(function($scope){
+            $scope.$apply();
+        }, 0, false);//final boolean parameter ensures function call is not wrapped in its own $apply function
+	});
 
 
 	$scope.close = function(index) {
