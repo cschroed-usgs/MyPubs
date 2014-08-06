@@ -63,16 +63,17 @@ angular.module('pw.notify',[])
 }])
 
 
-.controller('notifyCtrl', ['$scope','Notifier', function($scope, Notifier) {
+.controller('notifyCtrl', ['$scope','Notifier', '$timeout', function($scope, Notifier, $timeout) {
 
 	$scope.msgs = Notifier.getMsgs()
 
 
 	$scope.$on('notifier', function() {
 		//defer scope application in case already $digesting
-        $timeout(function($scope){
+        
+        if(!$scope.$$phase) {
             $scope.$apply();
-        }, 0, false);//final boolean parameter ensures function call is not wrapped in its own $apply function
+        }
 	});
 
 
