@@ -6,17 +6,21 @@
 	// indicates the ordering of the list.
 	var srv = {};
 
+	/*
+	 * @param list - Array of objects with each object containing a rank property
+	 */
 	srv.updateRank = function(list) {
-	    // @param list - Array of objects with each object containing a rank property
 	    var i;
 	    for (i = 0; i < list.length; i++) {
 		list[i].rank = i + 1;
 	    }
 	};
 
+	/*
+	 * @param list - Array of objects with each object containing a rank property
+	 * @param newEmptyObj - Object which will be appended to list with the rank property set to the correct position in the list.
+	 */
 	srv.addNewObj = function(list, newEmptyObj) {
-	    // @param list - Array of objects with each object containing a rank property
-	    // @param newEmptyObj - Object which will be appended to list with the rank property set to the correct position in the list.
 	    var result = list;
 	    if (result.length === 0) {
 		newEmptyObj.rank = 1;
@@ -28,9 +32,11 @@
 	    return result.concat([]);
 	};
 
+	/*
+	 * @param list - Array of objects with each object containing a rank property
+	 * @param index - position in list of object to remove
+	 */
 	srv.deleteObj = function(list, index) {
-	    // @param list - Array of objects with each object containing a rank property
-	    // @param index - position in list of object to remove
 	    list.splice(index, 1);
 	    srv.updateRank(list);
 	};
