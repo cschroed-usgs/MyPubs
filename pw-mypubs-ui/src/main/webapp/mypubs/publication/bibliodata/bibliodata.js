@@ -19,8 +19,8 @@ angular.module('pw.bibliodata',['pw.dataRow','pw.fetcher', 'pw.lookups'])
 
             $scope.changeType = function() {
                 if (typeInputIsInitialized) {
-                    $scope.pubData.genre.id = '';
-                    $scope.pubData['collection-title'].id = '';
+                    $scope.pubData.genre = {id:'', text:''};
+                    $scope.pubData['collection-title'] = {id:'', text:''};
                 }
                 else {
                     typeInputIsInitialized = true;
@@ -29,7 +29,7 @@ angular.module('pw.bibliodata',['pw.dataRow','pw.fetcher', 'pw.lookups'])
 
             $scope.changeGenre = function() {
                 if (genreInputIsInitialized) {
-                    $scope.pubData['collection-title'].id = '';
+                    $scope.pubData['collection-title'] = {id:'', text:''};
                 }
                 else {
                     genreInputIsInitialized = true;

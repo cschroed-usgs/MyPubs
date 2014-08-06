@@ -2,7 +2,7 @@
     <div id="pub-type-div" class="form-group">
         <label class="control-label col-sm-3" for="pub-type-input">Publication Type</label>
         <div class="col-sm-9">
-            <select class="form-control" placeholder="Select a publication type" ng-model="pubData.type.id" ng-change="changeType()" ui-select2>
+            <select class="form-control" placeholder="Select a publication type" ng-model="pubData.type" ng-change="changeType()" ui-select2>
                 <option></option>
                 <option ng-repeat="option in typeOptions" value="{{option.id}}">{{option.text}}</option>            
             </select>
@@ -11,13 +11,13 @@
     <div id="pub-subtype-div" class="form-group">
         <label class="control-label col-sm-3" for="pub-subtype-input">Publication Subtype</label>
         <div class="col-sm-9">
-            <input class="form-control" type="hidden" ng-model="pubData.genre.id" ng-change="changeGenre()" ui-select2="subtypeSelect2Options" />
+            <input class="form-control" type="hidden" ng-model="pubData.genre" ng-change="changeGenre()" ui-select2="subtypeSelect2Options" />
         </div>
     </div>
     <div id="series-title-tiv"  class="form-group">
         <label class="control-label col-sm-3" for="series-title-input">Series Title</label>
         <div class="col-sm-9">
-            <input class="form-control" type="hidden" ng-model="pubData['collection-title'].id" ui-select2="seriesTitleSelect2Options" />
+            <input class="form-control" type="hidden" ng-model="pubData['collection-title']" ui-select2="seriesTitleSelect2Options" />
         </div>
     </div>
     <div class="form-group" id="cost-centers-div">
