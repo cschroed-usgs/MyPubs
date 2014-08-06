@@ -1,3 +1,4 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html ng-app="pw.mypubs">
 <head>
 
@@ -75,6 +76,9 @@
 		</div>
 
 	</div>
+	
+	
+    <jsp:include page="constants.jsp"></jsp:include>
 
 	<!-- lib dependencies -->
 

@@ -18,7 +18,6 @@
 		<cida.maven.url>http://internal.cida.usgs.gov/maven</cida.maven.url>
     	<timestamp>${maven.build.timestamp}</timestamp>
     	<maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
-		<jersey.version>2.11</jersey.version>
 		<slf4j.version>1.7.5</slf4j.version>
 	</properties>
 
@@ -92,16 +91,6 @@
 	</distributionManagement>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.glassfish.jersey.containers</groupId>
-			<artifactId>jersey-container-servlet</artifactId>
-			<version>${jersey.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish.jersey.media</groupId>
-			<artifactId>jersey-media-moxy</artifactId>
-			<version>${jersey.version}</version>
-		</dependency>
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
