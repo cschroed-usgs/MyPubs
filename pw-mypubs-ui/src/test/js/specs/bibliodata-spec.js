@@ -56,14 +56,15 @@ angular.module('pw.publication').constant('APP_CONFIG', {})
                 var pubData = scope.pubData;
                 scope.$digest();
                 pubData.genre.id = 1;
-                pubData['collection-title'] = 2;
+                pubData['collection-title'].id = 2;
                 scope.changeType();
                 expect(pubData.genre.id).toEqual('');
-                expect(pubData['collection-title']).toEqual('');
+                expect(pubData['collection-title'].id).toEqual('');
 
-                pubData.collectionTitle = 3;
+                pubData['collection-title'].id = 3;
+                scope.$digest();
                 scope.changeGenre();
-                expect(pubData.collectionTitle).toEqual('');
+                expect(pubData['collection-title'].id).toEqual('');
             });
 
             describe('Tests with pub data', function() {
@@ -89,27 +90,24 @@ angular.module('pw.publication').constant('APP_CONFIG', {})
                     };
                 });
 
-                it('Expects that genre and collectionTitle are cleared after the second time changeType is called', function() {
+                it('Expects that genre and collection-title are cleared after changeType is called', function() {
                     myCtrl = createController();
                     var pubData = scope.pubData;
                     scope.$digest();
-                    scope.changeType();
                     expect(pubData.genre.id).toEqual(2);
-                    expect(pubData['collection-title']).toEqual(3);
-
+                    expect(pubData['collection-title'].id).toEqual(3);
                     scope.changeType();
-                    expect(pubData.genre).toEqual('');
-                    expect(pubData.collectionTitle).toEqual('');
+                    expect(pubData.genre.id).toEqual('');
+                    expect(pubData['collection-title'].id).toEqual('');
                 });
 
-                it('Expects collectionTitle is cleared after the second time changeGenre is called', function() {
+                it('Expects collection-title is cleared after changeGenre is called', function() {
                     myCtrl = createController();
-                    scope.$digest();
-                    scope.changeGenre();
                     var pubData = scope.pubData;
-                    expect(pubData.collectionTitle).toEqual(3);
+                    scope.$digest();
+                    expect(pubData['collection-title'].id).toEqual(3);
                     scope.changeGenre();
-                    expect(pubData.collectionTitle).toEqual('');
+                    expect(pubData['collection-title'].id).toEqual('');
                 });
 
                 it('The subtypeSelect2Options.query should use the LookupCascadeSelect2 service', function() {
