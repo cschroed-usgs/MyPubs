@@ -10,14 +10,14 @@
 				<option></option>
 				<option ng-repeat="option in contribKindOptions" value="{{option}}">{{option}}</option>
 			    </select>
-			    <div style="display:inline-block" ng-if="isPerson(contrib)">
+			    <div class="contrib-info-div" ng-if="isPerson(contrib)">
 				<select placeholder="Select Person" ui-select2 ng-model="contrib.contributorId" ng-change="updateContributorInfo($index)">
 				    <option></option>
 				    <option ng-repeat="option in personOptions" value="{{option.id}}">{{option.text}}</option>
 				</select>
 				<input class="contrib-affiliation" type="text" readonly ng-model="contrib.affiliation.text" />
 			    </div>
-			    <div style="display:inline-block" ng-if="isCorporation(contrib)">
+			    <div class="contrib-info-div" ng-if="isCorporation(contrib)">
 				<select placeholder="Select Corporation" ui-select2 ng-model="contrib.contributorId" ng-change="updateContributorInfo($index)">
 				    <option></option>
 				    <option ng-repeat="option in corporationOptions" value="{{option.id}}">{{option.text}}

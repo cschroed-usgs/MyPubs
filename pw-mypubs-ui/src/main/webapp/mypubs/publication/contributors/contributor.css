@@ -4,5 +4,8 @@
 .contrib-affiliation {
     width: 350px;
 }
+.contrib-info-div {
+    display : inline-block;
+}
 
 

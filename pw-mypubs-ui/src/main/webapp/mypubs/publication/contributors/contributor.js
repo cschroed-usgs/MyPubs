@@ -37,12 +37,12 @@ angular.module('pw.contributors', ['pw.fetcher', 'pw.dataList', 'pw.fetcher', 'p
 		};
 
 		var CORP_PROPS = ['organization'];
-		var PERSON_PROPS = ['family', 'given', 'suffix', 'email', 'affliliation'];
+		var PERSON_PROPS = ['family', 'given', 'suffix', 'email', 'affiliation'];
 
 		var i;
 
 		this.contributorId = '';
-		if (this.kind === 'Person') {
+		if (this.isPerson()) {
 		    angular.extend(this, {
 			family : '',
 			given : '',
@@ -52,7 +52,7 @@ angular.module('pw.contributors', ['pw.fetcher', 'pw.dataList', 'pw.fetcher', 'p
 		    });
 		    removeProps(this, CORP_PROPS);
 		}
-		else if (this.kind === 'Corporation') {
+		else if (this.isCorporation()) {
 		    angular.extend(this, {
 			organization : ''
 		    });
@@ -68,6 +68,35 @@ angular.module('pw.contributors', ['pw.fetcher', 'pw.dataList', 'pw.fetcher', 'p
 	    },
 	    isCorporation : function() {
 		return this.kind === 'Corporation';
+	    },
+	    getPubData : function() {
+		if (this.isPerson()) {
+		    return {
+			id : this.id,
+			contributorId : this.contributorId,
+			rank : this.rank,
+			family : this.family,
+			given : this.given,
+			suffix : this.suffix,
+			email : this.email,
+			affiliation : this.affiliation
+		    };
+		}
+		else if (this.isCorporation()) {
+		    return {
+			id : this.id,
+			contributorId : this.contributorId,
+			rank : this.rank,
+			organization : this.organization
+		    };
+		}
+		else {
+		    return {
+			id : this.id,
+			contributorId : this.contributorId,
+			rank : this.rank
+		    };
+		}
 	    }
 	};
 
@@ -108,9 +137,18 @@ angular.module('pw.contributors', ['pw.fetcher', 'pw.dataList', 'pw.fetcher', 'p
 
 		// This is the scope variable that the html will use.
 		$scope.contribTabs[index].data = [];
-		angular.forEach($scope.pubData[prop], function(dataValue, dataIndex) {
+		angular.forEach($scope.pubData[prop], function(dataValue) {
 		    $scope.contribTabs[index].data.push(new ContributorModel(dataValue));
 		});
+
+		// angular docs caution using $watch with the objectEquality set to true as
+		// there are memory and performance implications.
+		$scope.$watch('contribTabs[' + index + '].data', function(newValue) {
+		    $scope.pubData[prop] = [];
+		    angular.forEach(newValue, function(contributor) {
+			$scope.pubData[prop].push(contributor.getPubData());
+		    });
+		}, true);
 	    });
 	});
 

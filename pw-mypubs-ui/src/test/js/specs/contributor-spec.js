@@ -12,7 +12,7 @@ describe ('Tests for pw.contributors', function() {
 	    given : 'Nancy',
 	    suffix : 'Ms',
 	    email : 'jones@usgs.gov',
-	    affliation : {id : 1, text : 'Wisconsin Water Science Center'}
+	    affiliation : {id : 1, text : 'Wisconsin Water Science Center'}
 	};
 	var corporationData = {
 	    id : 2,
@@ -41,7 +41,7 @@ describe ('Tests for pw.contributors', function() {
 	    expect(contrib.given).toEqual('Nancy');
 	    expect(contrib.suffix).toEqual('Ms');
 	    expect(contrib.email).toEqual('jones@usgs.gov');
-	    expect(contrib.affliation).toEqual({id : 1, text : 'Wisconsin Water Science Center'});
+	    expect(contrib.affiliation).toEqual({id : 1, text : 'Wisconsin Water Science Center'});
 	    expect(contrib.kind).toEqual('Person');
 	}));
 
@@ -99,11 +99,29 @@ describe ('Tests for pw.contributors', function() {
 	    contrib = new ContributorModel(corporationData);
 	    expect(contrib.isCorporation()).toBe(true);
 	}));
+
+	it('Expects getPubData to return an object with the contributor model specific values removed',  inject(function(ContributorModel) {
+	    var contrib = new ContributorModel(personData);
+	    expect(contrib.getPubData()).toEqual(personData);
+
+	    contrib = new ContributorModel(corporationData);
+	    expect(contrib.getPubData()).toEqual(corporationData);
+
+	    contrib = new ContributorModel(personData);
+	    contrib.kind = '';
+	    contrib.changeKind();
+	    expect(contrib.getPubData()).toEqual({
+		id : 1,
+		contributorId : '',
+		rank : 1
+	    });
+	}));
     });
 
     describe('Tests for contributorsCtrl', function() {
 	var mockLookupFetcher, mockListOrderingService, mockPubFetcher, q, rootscope;
 	var createController, myCtrl;
+	var ContributorModel;
 
 	var CONTRIBUTOR_TYPES = [{id : 1, text : 'Tab1'}, {id : 2, text : 'Tab2'}, {id : 3, text : 'Tab3'}];
 	var PERSONS = [{id : 1, text : 'Person1'}, {id : 2, text : 'Person2'}, {id : 3, text : 'Person3'}];
@@ -143,7 +161,7 @@ describe ('Tests for pw.contributors', function() {
 	});
 
 	beforeEach(inject(function($injector) {
-	    var $controller, ContributorModel;
+	    var $controller;
 	    rootScope = $injector.get('$rootScope');
 	    scope = rootScope.$new();
 	    q = $injector.get('$q');
@@ -206,6 +224,28 @@ describe ('Tests for pw.contributors', function() {
 	    expect(scope.pubData.tab3).toEqual([{family : 'N5', rank : 1}, {organization : 'N6', rank : 2}, {family : 'N4', rank : 3}]);
 
 	    expect(scope.contribTabs[2].data[0].family).toEqual('N5');
+	});
+
+	it('Expects that if contrib data changes, the pubData object is updated', function() {
+	    scope.pubData = {
+		tab1 : [{family : 'N1', rank : 1}, {organization : 'N2', rank : 2}],
+		tab2 : [{family : 'N3', rank : 1}],
+		tab3 : [{family : 'N4', rank : 3}, {family : 'N5', rank : 1}, {organization : 'N6', rank : 2}]
+	    };
+	    myCtrl = createController();
+	    scope.$digest();
+
+	    scope.contribTabs[0].data[0].family = 'A1';
+	    scope.$digest();
+	    expect(scope.pubData.tab1[0].family).toEqual('A1');
+
+	    scope.contribTabs[2].data.pop();
+	    scope.$digest();
+	    expect(scope.pubData.tab3.length).toBe(2);
+
+	    scope.contribTabs[1].data.push(new ContributorModel());
+	    scope.$digest();
+	    expect(scope.pubData.tab2.length).toBe(2);
 	});
 
 	it('Expects the personOptions to be retrieved', function() {
