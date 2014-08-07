@@ -50,7 +50,7 @@
     <div class="form-group" id="subchapter-div">
          <label class="control-label col-sm-3" for="subchapter-input">Subchapter</label>
          <div class="col-sm-9">
-            <input id="subchapter-input" type="text" class="form-control" ng-model="pubData.subChapterNumber" />
+            <input id="subchapter-input" type="text" class="form-control" ng-model="pubData.subchapterNumber" />
          </div>
     </div>
     <div class="form-group" id="title-div">
@@ -71,6 +71,12 @@
             <textarea id="usgs-citation-input" class="form-control" ng-model="pubData.usgsCitation"></textarea>
         </div>
     </div>    
+	<div class="form-group" id="collaboration-div">
+         <label class="control-label col-sm-3" for="collaboration-input">Collaboration</label>
+         <div class="col-sm-9">
+            <input id="collaboration-input" type="text" class="form-control" ng-model="pubData.collaboration" />
+         </div>
+    </div>
     <div class="form-group" id="language-div">
          <label class="control-label col-sm-3" for="title-input">Language</label>
          <div class="col-sm-9">
@@ -86,7 +92,7 @@
     <div class="form-group" id="publication-location-div">
          <label class="control-label col-sm-3" for="title-input">Publication Location</label>
          <div class="col-sm-9">
-            <input id="publication-location-input" type="text" class="form-control" ng-model="pubData.publisherPlace" />
+            <input id="publication-location-input" type="text" class="form-control" ng-model="pubData.publisherLocation" />
          </div>
     </div>
     <div class="form-group" id="doi-div">
