@@ -59,35 +59,35 @@ angular.module('pw.publication').constant('APP_CONFIG', {})
                 scope.localCollectionTitleId = 2;
                 scope.changeType();
                 scope.$digest();
-                expect(pubData.genre.id).toEqual('');
-                expect(pubData.collectionTitle.id).toEqual('');
+                expect(pubData.publicationSubtype.id).toEqual('');
+                expect(pubData.seriesTitle.id).toEqual('');
 
                 pubData.localCollectionTitleId= 3;
                 scope.$digest();
                 scope.changeGenre();
-                expect(pubData.collectionTitle.id).toEqual('');
+                expect(pubData.seriesTitle.id).toEqual('');
             });
 
             describe('Tests with pub data', function() {
                 beforeEach(function() {
                     scope.pubData = {
-                        type : {id : 1},
-                        genre : {id : 2},
-                        'collectionTitle' : {id : 3},
-                        'costCenter' : [{id : 4}, {id : 5}],
+                        publicationType : {id : 1},
+                        publicationSubtype : {id : 2},
+                        'seriesTitle' : {id : 3},
+                        'costCenters' : [{id : 4}, {id : 5}],
                         'subseriesTitle' : 'text1',
-                        number : 'text2',
-                        'chapterNumber' : 'text3',
-                        'subChapterNumber' : 'text4',
+                        seriesNumber : 'text2',
+                        'chapter' : 'text3',
+                        'subchapterNumber' : 'text4',
                         'title' : 'text5',
                         'abstract' : 'text6',
                         'usgsCitation' : 'text7',
                         'language' : 'text8',
                         'publisher' : 'text9',
-                        'publisherPlace' : 'text10',
-                        'DOI' : 'text11',
-                        'ISSN' : 'text12',
-                        'ISBN' : 'text13'
+                        'publisherLocation' : 'text10',
+                        'doi' : 'text11',
+                        'issn' : 'text12',
+                        'isbn' : 'text13'
                     };
                 });
 
@@ -95,22 +95,22 @@ angular.module('pw.publication').constant('APP_CONFIG', {})
                     myCtrl = createController();
                     var pubData = scope.pubData;
                     scope.$digest();
-                    expect(pubData.genre.id).toEqual(2);
-                    expect(pubData.collectionTitle.id).toEqual(3);
+                    expect(pubData.publicationSubtype.id).toEqual(2);
+                    expect(pubData.seriesTitle.id).toEqual(3);
                     scope.changeType();
                     scope.$digest();
-                    expect(pubData.genre.id).toEqual('');
-                    expect(pubData.collectionTitle.id).toEqual('');
+                    expect(pubData.publicationSubtype.id).toEqual('');
+                    expect(pubData.seriesTitle.id).toEqual('');
                 });
 
                 it('Expects collection-title is cleared after changeGenre is called', function() {
                     myCtrl = createController();
                     var pubData = scope.pubData;
                     scope.$digest();
-                    expect(pubData.collectionTitle.id).toEqual(3);
+                    expect(pubData.seriesTitle.id).toEqual(3);
                     scope.changeGenre();
                     scope.$digest();
-                    expect(pubData.collectionTitle.id).toEqual('');
+                    expect(pubData.seriesTitle.id).toEqual('');
                 });
 
                 it('The subtypeSelect2Options.query should use the LookupCascadeSelect2 service', function() {
