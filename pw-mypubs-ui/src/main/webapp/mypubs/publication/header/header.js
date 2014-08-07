@@ -18,10 +18,13 @@ angular.module('pw.pubHeader', [])
         var pubData = $scope.pubData;
         console.log(pubData);
 
-        if ( angular.isDefined(pubData['display-to-public-date']) ) {
+        if ( angular.isDefined(pubData.displayToPublicDate) ) {
             //write out new date property as a date object
-            pubData.date = new Date(pubData['display-to-public-date']);
+            $scope.date = new Date(pubData.displayToPublicDate);
         }
+		$scope.$watch('date', function(newValue){
+			pubData.displayToPublicDate = newValue;
+		});
                         
     }]);
 }) ();
