@@ -83,7 +83,7 @@ angular.module('pw.bibliodata',['pw.fetcher', 'pw.lookups'])
                     LookupCascadeSelect2.query(query, 'publicationseries', {publicationsubtypeid : $scope.pubData.publicationSubtype.id});
                 },
                 initSelection : function(element, callback) {
-                    LookupCascadeSelect2.initSelection('publicationseries', {publicationsubtypeid : $scope.pubData.publicationSubtype.id}, $scope.pubData.collectionTitle.id, callback);
+                    LookupCascadeSelect2.initSelection('publicationseries', {publicationsubtypeid : $scope.pubData.publicationSubtype.id}, $scope.pubData.seriesTitle.id, callback);
                 },
                 placeholder : 'Select a series'
             };
