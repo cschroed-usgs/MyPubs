@@ -23,7 +23,7 @@
     <div class="form-group" id="cost-centers-div">
         <label class="control-label col-sm-3" for="cost-centers-input">Cost Centers</label>
         <div class="col-sm-9">
-            <select class="form-control" multiple ng-model="pubData['cost-center']" ui-select2="costCenterSelect2Options">
+            <select class="form-control" multiple ng-model="pubData.costCenter" ui-select2="costCenterSelect2Options">
                 <option></option>
                 <option ng-repeat="option in costCenterOptions" value="{{option.id}}">{{option.text}}</option>
             </select>
@@ -32,7 +32,7 @@
     <div class="form-group" id="subseries-div">
          <label class="control-label col-sm-3" for="subseries-input">Subseries</label>
          <div class="col-sm-9">
-            <input id="subseries-input" type="text" class="form-control" ng-model="pubData['subseries-title']" />
+            <input id="subseries-input" type="text" class="form-control" ng-model="pubData.subseriesTitle" />
          </div>
     </div>
     <div class="form-group" id="series-number-div">
@@ -44,13 +44,13 @@
     <div class="form-group" id="chapter-div">
          <label class="control-label col-sm-3" for="chapter-input">Chapter</label>
          <div class="col-sm-9">
-            <input id="chapter-input" type="text" class="form-control" ng-model="pubData['chapter-number']" />
+            <input id="chapter-input" type="text" class="form-control" ng-model="pubData.chapterNumber" />
          </div>
     </div>    
     <div class="form-group" id="subchapter-div">
          <label class="control-label col-sm-3" for="subchapter-input">Subchapter</label>
          <div class="col-sm-9">
-            <input id="subchapter-input" type="text" class="form-control" ng-model="pubData['sub-chapter-number']" />
+            <input id="subchapter-input" type="text" class="form-control" ng-model="pubData.subChapterNumber" />
          </div>
     </div>
     <div class="form-group" id="title-div">
@@ -68,7 +68,7 @@
     <div class="form-group" id="usgs-citation-div">
         <label class="control-label col-sm-3" for="usgs-citation-input">USGS Citation</label>
         <div class="col-sm-9">
-            <textarea id="usgs-citation-input" class="form-control" ng-model="pubData['usgs-citation']"></textarea>
+            <textarea id="usgs-citation-input" class="form-control" ng-model="pubData.usgsCitation"></textarea>
         </div>
     </div>    
     <div class="form-group" id="language-div">
@@ -86,7 +86,7 @@
     <div class="form-group" id="publication-location-div">
          <label class="control-label col-sm-3" for="title-input">Publication Location</label>
          <div class="col-sm-9">
-            <input id="publication-location-input" type="text" class="form-control" ng-model="pubData['publisherPlace']" />
+            <input id="publication-location-input" type="text" class="form-control" ng-model="pubData.publisherPlace" />
          </div>
     </div>
     <div class="form-group" id="doi-div">

@@ -60,12 +60,12 @@ angular.module('pw.publication').constant('APP_CONFIG', {})
                 scope.changeType();
                 scope.$digest();
                 expect(pubData.genre.id).toEqual('');
-                expect(pubData['collection-title'].id).toEqual('');
+                expect(pubData.collectionTitle.id).toEqual('');
 
                 pubData.localCollectionTitleId= 3;
                 scope.$digest();
                 scope.changeGenre();
-                expect(pubData['collection-title'].id).toEqual('');
+                expect(pubData.collectionTitle.id).toEqual('');
             });
 
             describe('Tests with pub data', function() {
@@ -73,18 +73,18 @@ angular.module('pw.publication').constant('APP_CONFIG', {})
                     scope.pubData = {
                         type : {id : 1},
                         genre : {id : 2},
-                        'collection-title' : {id : 3},
-                        'cost-center' : [{id : 4}, {id : 5}],
-                        'subseries-title' : 'text1',
+                        'collectionTitle' : {id : 3},
+                        'costCenter' : [{id : 4}, {id : 5}],
+                        'subseriesTitle' : 'text1',
                         number : 'text2',
-                        'chapter-number' : 'text3',
-                        'sub-chapter-number' : 'text4',
+                        'chapterNumber' : 'text3',
+                        'subChapterNumber' : 'text4',
                         'title' : 'text5',
                         'abstract' : 'text6',
-                        'usgs-citation' : 'text7',
+                        'usgsCitation' : 'text7',
                         'language' : 'text8',
                         'publisher' : 'text9',
-                        'publisher-place' : 'text10',
+                        'publisherPlace' : 'text10',
                         'DOI' : 'text11',
                         'ISSN' : 'text12',
                         'ISBN' : 'text13'
@@ -96,21 +96,21 @@ angular.module('pw.publication').constant('APP_CONFIG', {})
                     var pubData = scope.pubData;
                     scope.$digest();
                     expect(pubData.genre.id).toEqual(2);
-                    expect(pubData['collection-title'].id).toEqual(3);
+                    expect(pubData.collectionTitle.id).toEqual(3);
                     scope.changeType();
                     scope.$digest();
                     expect(pubData.genre.id).toEqual('');
-                    expect(pubData['collection-title'].id).toEqual('');
+                    expect(pubData.collectionTitle.id).toEqual('');
                 });
 
                 it('Expects collection-title is cleared after changeGenre is called', function() {
                     myCtrl = createController();
                     var pubData = scope.pubData;
                     scope.$digest();
-                    expect(pubData['collection-title'].id).toEqual(3);
+                    expect(pubData.collectionTitle.id).toEqual(3);
                     scope.changeGenre();
                     scope.$digest();
-                    expect(pubData['collection-title'].id).toEqual('');
+                    expect(pubData.collectionTitle.id).toEqual('');
                 });
 
                 it('The subtypeSelect2Options.query should use the LookupCascadeSelect2 service', function() {

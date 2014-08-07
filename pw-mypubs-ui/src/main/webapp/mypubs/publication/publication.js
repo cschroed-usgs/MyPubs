@@ -36,32 +36,32 @@ angular.module('pw.publication', ['ngRoute', 'pw.actions',
                 "genre": {
                   "id": ''
                 },
-                "collection-title": {
+                "collectionTitle": {
                   "id": ''
                 },
                 "number": "",
-                "subseries-title": "",
-                "chapter-number": "",
-                "sub-chapter-number": "",
+                "subseriesTitle": "",
+                "chapterNumber": "",
+                "subChapterNumber": "",
                 "title": "",
                 "abstract": "",
                 "language": "",
                 "publisher": "",
-                "publisher-place": "",
+                "publisherPlace": "",
                 "DOI": "",
                 "ISSN": "",
                 "ISBN": "",
-                "display-to-public-date": "",
+                "displayToPublicDate": "",
                 "indexID": "",
                 "collaboration": "",
-                "usgs-citation": "",
-                "cost-center": [],
+                "usgsCitation": "",
+                "costCenter": [],
                 "links": [],
                 "notes": "",
                 "contact": {
                   "id": ''
                 },
-                "ipds-id": "",
+                "ipdsId": "",
                 "productDescription": "",
                 "pageFirst": "",
                 "pageLast": "",
@@ -72,7 +72,7 @@ angular.module('pw.publication', ['ngRoute', 'pw.actions',
                 "temporalEnd": "",
                 "authors": [],
                 "editors": [],
-                "validation-errors": []
+                "validationErrors": []
               };
         };
         var pubConstructor = function (pubId) {

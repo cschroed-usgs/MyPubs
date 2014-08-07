@@ -20,7 +20,7 @@ angular.module('pw.bibliodata',['pw.fetcher', 'pw.lookups'])
             //on the local-most scope and propagating changes back up to pubData via watches
             $scope.localPubTypeId = $scope.pubData.type.id;
             $scope.localPubGenreId = $scope.pubData.genre.id;
-            $scope.localCollectionTitleId = $scope.pubData['collection-title'].id;
+            $scope.localCollectionTitleId = $scope.pubData.collectionTitle.id;
             var getIdOrOriginal = function(objectOrPrimitive){
                 var id = objectOrPrimitive;
                 if(objectOrPrimitive.id){
@@ -38,7 +38,7 @@ angular.module('pw.bibliodata',['pw.fetcher', 'pw.lookups'])
             });
             $scope.$watch('localCollectionTitleId', function(value){
                 var id = getIdOrOriginal(value);
-                $scope.pubData['collection-title'].id = id;
+                $scope.pubData.collectionTitle.id = id;
             });
             $scope.changeType = function() {
                 if (typeInputIsInitialized) {
@@ -83,7 +83,7 @@ angular.module('pw.bibliodata',['pw.fetcher', 'pw.lookups'])
                     LookupCascadeSelect2.query(query, 'publicationseries', {publicationsubtypeid : $scope.pubData.genre.id});
                 },
                 initSelection : function(element, callback) {
-                    LookupCascadeSelect2.initSelection('publicationseries', {publicationsubtypeid : $scope.pubData.genre.id}, $scope.pubData['collection-title'].id, callback);
+                    LookupCascadeSelect2.initSelection('publicationseries', {publicationsubtypeid : $scope.pubData.genre.id}, $scope.pubData.collectionTitle.id, callback);
                 },
                 placeholder : 'Select a series'
             };
