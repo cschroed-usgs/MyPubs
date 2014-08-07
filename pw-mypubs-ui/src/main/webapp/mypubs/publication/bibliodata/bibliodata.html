@@ -23,7 +23,7 @@
     <div class="form-group" id="cost-centers-div">
         <label class="control-label col-sm-3" for="cost-centers-input">Cost Centers</label>
         <div class="col-sm-9">
-            <select class="form-control" multiple ng-model="pubData.costCenter" ui-select2="costCenterSelect2Options">
+            <select class="form-control" multiple ng-model="pubData.costCenters" ui-select2="costCenterSelect2Options">
                 <option></option>
                 <option ng-repeat="option in costCenterOptions" value="{{option.id}}">{{option.text}}</option>
             </select>
@@ -38,13 +38,13 @@
     <div class="form-group" id="series-number-div">
          <label class="control-label col-sm-3" for="series-number-input">Series Number</label>
          <div class="col-sm-9">
-            <input id="series-number-input" type="text" class="form-control" ng-model="pubData.number" />
+            <input id="series-number-input" type="text" class="form-control" ng-model="pubData.seriesNumber" />
          </div>
     </div>
     <div class="form-group" id="chapter-div">
          <label class="control-label col-sm-3" for="chapter-input">Chapter</label>
          <div class="col-sm-9">
-            <input id="chapter-input" type="text" class="form-control" ng-model="pubData.chapterNumber" />
+            <input id="chapter-input" type="text" class="form-control" ng-model="pubData.chapter" />
          </div>
     </div>    
     <div class="form-group" id="subchapter-div">
@@ -92,19 +92,19 @@
     <div class="form-group" id="doi-div">
          <label class="control-label col-sm-3" for="doi-input">DOI</label>
          <div class="col-sm-9">
-            <input id="doi-input" type="text" class="form-control" ng-model="pubData.DOI" />
+            <input id="doi-input" type="text" class="form-control" ng-model="pubData.doi" />
          </div>
     </div>
     <div class="form-group" id="issn-div">
          <label class="control-label col-sm-3" for="issn-input">ISSN</label>
          <div class="col-sm-9">
-            <input id="issn-input" type="text" class="form-control" ng-model="pubData.ISSN" />
+            <input id="issn-input" type="text" class="form-control" ng-model="pubData.issn" />
          </div>
     </div>
     <div class="form-group" id="isbn-div">
          <label class="control-label col-sm-3" for="isbn-input">ISBN</label>
          <div class="col-sm-9">
-            <input id="isbn-input" type="text" class="form-control" ng-model="pubData.ISBN" />
+            <input id="isbn-input" type="text" class="form-control" ng-model="pubData.isbn" />
          </div>
     </div>
 </div>
