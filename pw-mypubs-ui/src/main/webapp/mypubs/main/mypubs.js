@@ -6,9 +6,12 @@ var mypubs = angular.module('pw.mypubs', [
 		'pw.pubHeader', 'pw.notify', 'pw.menu', 'pw.fetcher',// pw util modules
 		'pw.home','pw.search', 'pw.publication', 'pw.reservation', // mypubs pages
 		'ui.bootstrap.datetimepicker' //datetimepicker
-	])
-	.constant('APP_CONFIG', PUBS.constants) //this is a bit of a hack/magic. This constant is injected into the HTML using JSP (index.jsp + constants.jsp)
-	.controller('mainCtrl', ['$scope', '$log', '$location',
+
+	]);
+    if(angular.isDefined(window.PUBS) && angular.isDefined(PUBS.constants)){
+        mypubs.constant('APP_CONFIG', PUBS.constants); //this is a bit of a hack/magic. This constant is injected into the HTML using JSP (index.jsp + constants.jsp)
+    }
+	mypubs.controller('mainCtrl', ['$scope', '$log', '$location',
 		function ($scope, $log, $location) {
 			$scope._show = 'Preview' ;// TODO index.jsp must compare to this when preview is impl
 		
@@ -18,9 +21,9 @@ var mypubs = angular.module('pw.mypubs', [
 				}
 				return $scope._show = show;
 			};
-	}])
+	}]);
 	// nice utility directive
-	.directive('preventDefault', function() {
+	mypubs.directive('preventDefault', function() {
 		return function(scope, element, attrs) {
 			$(element).click(function(event) {
 				event.preventDefault();

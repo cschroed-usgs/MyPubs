@@ -24,5 +24,4 @@ angular.module('pw.pubHeader', [])
         }
                         
     }]);
-
 }) ();
