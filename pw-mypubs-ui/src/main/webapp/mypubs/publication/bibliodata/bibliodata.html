@@ -23,7 +23,7 @@
     <div class="form-group" id="cost-centers-div">
         <label class="control-label col-sm-3" for="cost-centers-input">Cost Centers</label>
         <div class="col-sm-9">
-            <select class="form-control" multiple ng-model="pubData.costCenters" ui-select2="costCenterSelect2Options">
+            <select class="form-control" multiple ng-model="localCostCenters" ui-select2="costCenterSelect2Options">
                 <option></option>
                 <option ng-repeat="option in costCenterOptions" value="{{option.id}}">{{option.text}}</option>
             </select>
