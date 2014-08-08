@@ -39,11 +39,9 @@ angular.module('pw.fetcher',['pw.util'])
 		var persistPub = function(pub, originalCostCenters){
 			var oldCostCenterIds = _.pluck(originalCostCenters, 'id');
 			var newCostCenterIds = _.pluck(pub.costCenters, 'id');
+			var costCenterIdsToDelete = _.without(oldCostCenterIds, newCostCenterIds);
+			var costCenterPubAssociationDeletes = deleteCostCenterPubAssociations(pub.id, costCenterIdsToDelete);
 			
-			var costCenterPubAssociationDeletes = [];
-			if(pwUtil.setWiseEqual(oldCostCenterIds, newCostCenterIds)){
-				costCenterPubAssociationDeletes = deleteCostCenterPubAssociations(pub.id, oldCostCenterIds);
-			}
 		};
 		
 		/**
