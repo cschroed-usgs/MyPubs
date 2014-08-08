@@ -34,7 +34,7 @@ angular.module('pw.fetcher',['pw.util'])
 		};
 
 		var errorDeletingCostCenterMessage = 'Error deleting Cost Center(s) for a Publication';
-
+		var errorPersistingPubMessage = 'Error persisting Publication';
 		/**
 		 * Persist the given pub, whether it is new or existing, and resolve the
 		 * deferred as appropriate
@@ -54,19 +54,17 @@ angular.module('pw.fetcher',['pw.util'])
 				}
 			})
 			.success(function(response){
+				if(httpResponseIsErrorFree(response)){
+					deferred.resolve(response.data);
+				}
+				else{
+					deferred.reject(new Error(errorPersistingPubMessage));
+				}
 				deferred.resolve(response);
 			})
 			.failure(function(response){
-				ajaxFailure(deferred, response);
+				deferred.reject(new Error(errorPersistingPubMessage));
 			});
-		};
-		/**
-		 * @param {Deferred} deferred
-		 * @param {...*} any other arguments you want to pass to the failure 
-		 * callback
-		 */
-		var ajaxFailure = function(deferred){
-			deferred.reject.apply(_.rest(arguments));
 		};
 
 		/**
@@ -92,9 +90,9 @@ angular.module('pw.fetcher',['pw.util'])
 					persistenceHelper(pub, deferredPubPersistence);
 				}
 				else{
-					ajaxFailure(deferredPubPersistence, new Error(errorDeletingCostCenterMessage));
+					deferredPubPersistence.reject(new Error(errorDeletingCostCenterMessage));
 				}
-			}, function(){ajaxFailure(deferredPubPersistence, new Error(errorDeletingCostCenterMessage));});
+			}, function(){deferredPubPersistence.reject(new Error(errorDeletingCostCenterMessage));});
 			
 			return deferredPubPersistence.promise;
 		};
