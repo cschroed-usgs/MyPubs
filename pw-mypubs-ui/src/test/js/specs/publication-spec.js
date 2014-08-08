@@ -32,4 +32,25 @@ describe("pw.publication module", function(){
 		}]);
 
 	});
+	describe("Publication", function(){
+		var pubInstance;
+		
+		var $injector = angular.injector(['pw.publication']);
+		var Publication = $injector.get('Publication');
+			
+		beforeEach(function(){
+			pubInstance = new Publication();
+		});
+		it('should classify a publication with a blank id as "new"', function(){
+			expect(pubInstance.isNew()).toBe(true);
+		});
+		it('should classify a publication with non-zero length id as "not new"', function(){
+			pubInstance.id = 'asdf';
+			expect(pubInstance.isNew()).toBe(false);
+		});
+		it('should classify a publication with a number id as "not new"', function(){
+			pubInstance.id = 42;
+			expect(pubInstance.isNew()).toBe(false);
+		});
+	});
 });

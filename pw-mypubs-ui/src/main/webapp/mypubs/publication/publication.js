@@ -27,8 +27,11 @@ angular.module('pw.publication', ['ngRoute', 'pw.actions',
 	}
     ])
 .factory('Publication', ['PublicationFetcher', '$q', function (PublicationFetcher, $q) {
-        var pubSkeleton = function () {
-            return {
+        var SkeletonPublication = function () {
+			var self = this;
+			//avoid repetitive assignments to 'this' by declaring properties
+			//and values in a map and iteratively assigning them to 'this'
+			var properties = {
                 "id": '',
                 "publicationType": {
                   "id": ''
@@ -74,31 +77,15 @@ angular.module('pw.publication', ['ngRoute', 'pw.actions',
                 "editors": [],
                 "validationErrors": []
               };
+				angular.forEach(properties, function(defaultValue, propertyName){
+					self[propertyName] = defaultValue;
+				});
         };
-        var pubConstructor = function (pubId) {
-            var pubToReturn;
-            if (pubId) {
-                var deferred = $q.defer();
-                PublicationFetcher.fetchPubById(pubId).then(function(httpPromise){
-                    var response = httpPromise.data;
-                    var safePub = pubSkeleton();
-                    angular.forEach(safePub, function(defaultValue, key){
-                        safePub[key] = response[key] || defaultValue;
-                    });
-                    deferred.resolve(safePub);
-                });
-                pubToReturn = deferred.promise;
-            }
-            else{
-                pubToReturn = pubSkeleton();
-            }
-            return pubToReturn;
-        };
-		/**
+				/**
 		 * Is this Publication new?
 		 * @returns {Boolean} false if the pub's id is a non-zero-length String or a Number, true otherwise
 		 */
-		pubConstructor.prototype.isNew = function(){
+		SkeletonPublication.prototype.isNew = function(){
 			var isNew = true;
 			var id = this.id;
 			if(angular.isString(id) && id.length > 1){
@@ -109,6 +96,27 @@ angular.module('pw.publication', ['ngRoute', 'pw.actions',
 			}
 			return isNew;
 		};
+		
+        var pubConstructor = function (pubId) {
+            var pubToReturn;
+            if (pubId) {
+                var deferred = $q.defer();
+                PublicationFetcher.fetchPubById(pubId).then(function(httpPromise){
+                    var response = httpPromise.data;
+                    var safePub = new SkeletonPublication();
+                    angular.forEach(safePub, function(defaultValue, key){
+                        safePub[key] = response[key] || defaultValue;
+                    });
+                    deferred.resolve(safePub);
+                });
+                pubToReturn = deferred.promise;
+            }
+            else{
+                pubToReturn = new SkeletonPublication();
+            }
+            return pubToReturn;
+        };
+
         return pubConstructor;
     }])
 .controller('publicationCtrl',

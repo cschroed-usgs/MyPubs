@@ -1,7 +1,7 @@
 (function() {
 
 
-angular.module('pw.fetcher',['pw.util'])
+angular.module('pw.fetcher',[])
     .factory('PublicationFetcher', ['$http',  'APP_CONFIG', function($http, APP_CONFIG) {
 
         return {
@@ -26,7 +26,7 @@ angular.module('pw.fetcher',['pw.util'])
         };
     }])
 	
-	.factory('PublicationPersister', ['$http',  'APP_CONFIG', 'pwUtil', '$q', function($http, APP_CONFIG, pwUtil, $q) {
+	.factory('PublicationPersister', ['$http',  'APP_CONFIG', '$q', function($http, APP_CONFIG, $q) {
 		
 		var pubPersistenceUrl =  APP_CONFIG.endpoint + 'mpublication/';
 		var httpResponseIsErrorFree = function(httpResponse){
