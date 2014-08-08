@@ -63,14 +63,18 @@ angular.module('pw.notify',[])
 }])
 
 
-.controller('notifyCtrl', ['$scope','Notifier', function($scope, Notifier) {
+.controller('notifyCtrl', ['$scope','Notifier', '$timeout', function($scope, Notifier, $timeout) {
 
 	$scope.msgs = Notifier.getMsgs()
 
 
 	$scope.$on('notifier', function() {
-		$scope.$apply()
-	})
+		//defer scope application in case already $digesting
+        
+        if(!$scope.$$phase) {
+            $scope.$apply();
+        }
+	});
 
 
 	$scope.close = function(index) {

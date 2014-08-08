@@ -1,5 +1,4 @@
 describe("pw.publication module", function(){
-
 	var scope;
 
 
@@ -17,28 +16,20 @@ describe("pw.publication module", function(){
 
 
 	it('should have defined the tabs', function() {
-
-		var routeParams = {pubsid:"asdf"};
-		var route = {current : {locals : {pubData : {data : {id : 1}}}}};
-
-		module('pw.publication');
-
+        //mock pubData
+        angular.module('pw.publication').constant('pubData' , {})
+        module('pw.publication')
 		inject (['$rootScope', '$controller', function($rootScope, $controller) {
 
 			scope = $rootScope.$new();
 
 			$controller('publicationCtrl', {
 				'$scope': scope,
-				'$routeParams': routeParams,
-				'$route': route
-			});
+            });
 
 			expect(scope.tabs).toBeDefined();
 			expect( angular.isObject(scope.tabs) ).toBeTruthy();
-			expect(scope.pubData).toEqual({id : 1});
 		}]);
 
 	});
-
-
 });
