@@ -26,7 +26,49 @@ angular.module('pw.fetcher',['pw.util'])
         };
     }])
 	
-	.factory('PublicationPersister', ['$http',  'APP_CONFIG', 'pwUtil', function($http, APP_CONFIG, pwUtil) {
+	.factory('PublicationPersister', ['$http',  'APP_CONFIG', 'pwUtil', '$q', function($http, APP_CONFIG, pwUtil, $q) {
+		
+		var pubPersistenceUrl =  APP_CONFIG.endpoint + 'mpublication/';
+		var httpResponseIsErrorFree = function(httpResponse){
+			return httpResponse.data.toLowerCase().indexOf('exception') === -1;
+		};
+
+		var errorDeletingCostCenterMessage = 'Error deleting Cost Center(s) for a Publication';
+
+		/**
+		 * Persist the given pub, whether it is new or existing, and resolve the
+		 * deferred as appropriate
+		 * @param {Publication} pub
+		 * @param {Deferred} deferred
+		 */
+		var persistenceHelper = function(pub, deferred){
+			//use a different http verb, but otherwise do the same same thing
+			var httpVerb = 'put';
+			if(pub.isNew()){
+				httpVerb = 'post';
+			}
+			$http[httpVerb](pubPersistenceUrl, pub, {
+				'headers' : {
+					'Content-Type' : 'application/json',
+					'Accept' : 'application/json'
+				}
+			})
+			.success(function(response){
+				deferred.resolve(response);
+			})
+			.failure(function(response){
+				ajaxFailure(deferred, response);
+			});
+		};
+		/**
+		 * @param {Deferred} deferred
+		 * @param {...*} any other arguments you want to pass to the failure 
+		 * callback
+		 */
+		var ajaxFailure = function(deferred){
+			deferred.reject.apply(_.rest(arguments));
+		};
+
 		/**
 		 * 
 		 * @param {Publication} pub as in the pubData variable kept on the publication controller scope
@@ -37,11 +79,24 @@ angular.module('pw.fetcher',['pw.util'])
 		 * @returns {Promise}
 		 */
 		var persistPub = function(pub, originalCostCenters){
+			var deferredPubPersistence = $q.defer();
 			var oldCostCenterIds = _.pluck(originalCostCenters, 'id');
 			var newCostCenterIds = _.pluck(pub.costCenters, 'id');
 			var costCenterIdsToDelete = _.without(oldCostCenterIds, newCostCenterIds);
 			var costCenterPubAssociationDeletes = deleteCostCenterPubAssociations(pub.id, costCenterIdsToDelete);
+
+			//declare this function here, where it has access to the promise
 			
+			$q.then(costCenterPubAssociationDeletes, function(httpResponses){
+				if(_.every(httpResponses, httpResponseIsErrorFree)){
+					persistenceHelper(pub, deferredPubPersistence);
+				}
+				else{
+					ajaxFailure(deferredPubPersistence, new Error(errorDeletingCostCenterMessage));
+				}
+			}, function(){ajaxFailure(deferredPubPersistence, new Error(errorDeletingCostCenterMessage));});
+			
+			return deferredPubPersistence.promise;
 		};
 		
 		/**

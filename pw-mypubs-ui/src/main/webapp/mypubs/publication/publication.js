@@ -94,6 +94,21 @@ angular.module('pw.publication', ['ngRoute', 'pw.actions',
             }
             return pubToReturn;
         };
+		/**
+		 * Is this Publication new?
+		 * @returns {Boolean} false if the pub's id is a non-zero-length String or a Number, true otherwise
+		 */
+		pubConstructor.prototype.isNew = function(){
+			var isNew = true;
+			var id = this.id;
+			if(angular.isString(id) && id.length > 1){
+				isNew = false;
+			}
+			else if(angular.isNumber(id)){
+				isNew = false;
+			}
+			return isNew;
+		};
         return pubConstructor;
     }])
 .controller('publicationCtrl',
