@@ -35,29 +35,44 @@ describe("pw.publication module", function(){
 				expect(scope.tabs).toBeDefined();
 				expect( angular.isObject(scope.tabs) ).toBeTruthy();
 		});
-		it('should receive the persisted pubs object when it successfully persists the pub', function(done){
-			var existingPub, newPub;
-			inject(['Publication', function(Publication){
-					newPub = new Publication();
-					existingPub = new Publication();
-					existingPub.id = 42;
+		it('should receive the persisted pubs object when it successfully persists the pub', function(){
+			var existingPub, newPub, $httpBackend;
+			inject(['Publication', '$httpBackend', 'PublicationPersister', function(Publication, _$httpBackend_, PublicationPersister){
+				$httpBackend = _$httpBackend_;
+				$httpBackend.when(PublicationPersister.PERSISTENCE_ENDPOINT, {});
+				newPub = new Publication();
+				existingPub = new Publication();
+				existingPub.id = 42;
 			}]);
 			scope.pubData = newPub;
 			scope.$digest();
-			var persistPromise = scope.persistPub();
-			setTimeout(function(){
-				persistPromise.then(function(data){
-				expect(data).toEqual(newPub);
-				done();
-			}, function(){
-				//this must fail if the function is called
-				expect(true).toBe(false);
-				done();
+			var done = false;
+			
+			var spies = {
+				success : function(){
+					done = true;
+				},
+				failure : function(){
+					done = true;
+				}
+			};
+			
+			spyOn(spies, 'success');
+			spyOn(spies, 'failure');
+			
+			var persistPromise;
+			runs(function(){
+				persistPromise = scope.persistPub();
+				persistPromise.then(spies.success, spies.failure);
 			});
-			}, 0);
 			
-			
-			
+			waitsFor(function(){
+				return done === true;
+			}, "The persistence calls should occur", 100);
+			runs(function(){
+				expect(spies.success).toHaveBeenCalled();
+				expect(spies.failure).not.toHaveBeenCalled();
+			});
 		});
 		
 

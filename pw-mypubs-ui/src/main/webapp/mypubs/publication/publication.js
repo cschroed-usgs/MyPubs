@@ -133,14 +133,14 @@ function($scope, $routeParams, $route, pubData, PublicationPersister, Notifier) 
 	 */
 	$scope.persistPub = function(){
 		var persistencePromise = PublicationPersister.persistPub($scope.pubData);
-		persistencePromise
+		var controllerPromise = persistencePromise
 		.then(function(pubData){
 			$scope.pubData = pubData;
 			//@todo: logic for showing validation errors here
 		}, function(message){
 			Notifier.error(message);
 		});
-		return persistencePromise;
+		return controllerPromise;
 	};
 	$scope.tabs = [
 		{
