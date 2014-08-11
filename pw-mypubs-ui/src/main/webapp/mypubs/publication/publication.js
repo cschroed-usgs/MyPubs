@@ -1,7 +1,7 @@
 (function() {
 
-angular.module('pw.publication', ['ngRoute', 'pw.actions',
-	'pw.bibliodata', 'pw.catalog', 'pw.contacts', 'pw.links', 'pw.contributors' // pub edit modules
+angular.module('pw.publication', ['ngRoute', 'pw.actions', 'pw.notify',
+	'pw.bibliodata', 'pw.catalog', 'pw.contacts', 'pw.links', 'pw.contributors', 'pw.fetcher' // pub edit modules
 ])
 .config(['$routeProvider',
 	function($routeProvider) {
@@ -10,7 +10,7 @@ angular.module('pw.publication', ['ngRoute', 'pw.actions',
 			controller: 'publicationCtrl',
             resolve: {
                 pubData : ['Publication', function(Publication){
-                        return Publication()
+                        return Publication();
                 }]
             }
 		});
@@ -120,13 +120,28 @@ angular.module('pw.publication', ['ngRoute', 'pw.actions',
         return pubConstructor;
     }])
 .controller('publicationCtrl',
-[ '$scope', '$routeParams', '$route', 'pubData',
-function($scope, $routeParams, $route, pubData) {
+[ '$scope', '$routeParams', '$route', 'pubData', 'PublicationPersister', 'Notifier', 
+function($scope, $routeParams, $route, pubData, PublicationPersister, Notifier) {
 
 	$scope.pubData = pubData;
     $scope.printPub = function(){
         console.dir($scope.pubData);
     };
+	/**
+	 * 
+	 * @returns {Promise}
+	 */
+	$scope.persistPub = function(){
+		var persistencePromise = PublicationPersister.persistPub($scope.pubData);
+		persistencePromise
+		.then(function(pubData){
+			$scope.pubData = pubData;
+			//@todo: logic for showing validation errors here
+		}, function(message){
+			Notifier.error(message);
+		});
+		return persistencePromise;
+	};
 	$scope.tabs = [
 		{
 			title:"Bibliodata",

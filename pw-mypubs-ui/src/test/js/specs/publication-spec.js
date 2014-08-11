@@ -14,24 +14,55 @@ describe("pw.publication module", function(){
 		expect( def ).toBeTruthy();
 	});
 
+	describe('publicationCtrl', function(){
+		var scope; var controller;
+		beforeEach(function(){
+			//mock pubData
+			angular.module('pw.publication').constant('pubData' , {})
+			module('pw.publication')
+			inject (['$rootScope', '$controller', function($rootScope, $controller) {
 
-	it('should have defined the tabs', function() {
-        //mock pubData
-        angular.module('pw.publication').constant('pubData' , {})
-        module('pw.publication')
-		inject (['$rootScope', '$controller', function($rootScope, $controller) {
+				scope = $rootScope.$new();
 
-			scope = $rootScope.$new();
+				controller = $controller('publicationCtrl', {
+					'$scope': scope
+				});
+				
+				}]);
 
-			$controller('publicationCtrl', {
-				'$scope': scope,
-            });
-
-			expect(scope.tabs).toBeDefined();
-			expect( angular.isObject(scope.tabs) ).toBeTruthy();
-		}]);
+		});
+		it('should have defined the tabs', function() {
+				expect(scope.tabs).toBeDefined();
+				expect( angular.isObject(scope.tabs) ).toBeTruthy();
+		});
+		it('should receive the persisted pubs object when it successfully persists the pub', function(done){
+			var existingPub, newPub;
+			inject(['Publication', function(Publication){
+					newPub = new Publication();
+					existingPub = new Publication();
+					existingPub.id = 42;
+			}]);
+			scope.pubData = newPub;
+			scope.$digest();
+			var persistPromise = scope.persistPub();
+			setTimeout(function(){
+				persistPromise.then(function(data){
+				expect(data).toEqual(newPub);
+				done();
+			}, function(){
+				//this must fail if the function is called
+				expect(true).toBe(false);
+				done();
+			});
+			}, 0);
+			
+			
+			
+		});
+		
 
 	});
+
 	describe("Publication", function(){
 		var pubInstance;
 		
