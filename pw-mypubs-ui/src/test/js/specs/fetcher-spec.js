@@ -9,7 +9,50 @@ describe('pw.fetcher module', function() {
 	    expect(function() { angular.module('pw.fetcher'); }).not.toThrow();
     });
 
+	describe('pw.fetcher.PublicationPersister', function () {
+		var $httpBackend, PublicationPersister, Publication, newPublication, existingPublication;
+		beforeEach(function () {
+			module(function ($provide) {
+				$provide.value('APP_CONFIG', APP_CONFIG);
+			});
+		});
+		beforeEach(module('pw.fetcher'));
+		beforeEach(module('pw.publication'));
+		
+		beforeEach(function () {
+			inject(function ($injector) {
+				$httpBackend = $injector.get('$httpBackend');
+				Publication = $injector.get('Publication');
+				newPublication = new Publication();
+				existingPublication = new Publication();
+				existingPublication.id = 12;
+				
+				PublicationPersister = $injector.get('PublicationPersister');
+				
+				$httpBackend.when('POST', PublicationPersister.PERSISTENCE_ENDPOINT).respond(newPublication);
+				$httpBackend.when('PUT', PublicationPersister.PERSISTENCE_ENDPOINT + existingPublication.id).respond(existingPublication);
+				
+			});
+		});
+		afterEach(function() {
+			$httpBackend.verifyNoOutstandingExpectation();
+			$httpBackend.verifyNoOutstandingRequest();
+		});
+		
+		it('should POST new pubs', function(){
+			PublicationPersister.persistPub(newPublication);
+			$httpBackend.expectPOST(PublicationPersister.PERSISTENCE_ENDPOINT, newPublication);
+			$httpBackend.flush();
+		});
+		it('should PUT existing pubs', function(){
+			PublicationPersister.persistPub(existingPublication);
+			$httpBackend.expectPUT(PublicationPersister.PERSISTENCE_ENDPOINT + existingPublication.id, existingPublication);
+			$httpBackend.flush();
+		});
+		
+	});
     describe('pw.fetcher.PublicationFetcher', function() {
+		var $httpBackend;
         beforeEach(module('pw.fetcher'));
 
         beforeEach(function() {
