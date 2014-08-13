@@ -1,6 +1,6 @@
 (function() {
 
-angular.module('pw.publication', ['ngRoute', 'pw.actions', 'pw.notify',
+angular.module('pw.publication', ['ngRoute', 'pw.notify',
 	'pw.bibliodata', 'pw.catalog', 'pw.contacts', 'pw.links', 'pw.contributors', 'pw.fetcher' // pub edit modules
 ])
 .config(['$routeProvider',
