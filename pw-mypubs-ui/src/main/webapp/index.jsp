@@ -76,7 +76,7 @@
 	<script type="text/javascript" src="lib/tinymce/tinymce.4.1.0.min.js"></script>
 
 	<script type="text/javascript" src="lib/angular/angular.1.2.17.js"></script>
-	<script type="text/javascript" src="webjars/ng-grid/2.0.11//ng-grid.min.js"></script>
+	<script type="text/javascript" src="webjars/ng-grid/2.0.11/ng-grid.min.js"></script>
 	<script type="text/javascript" src="lib/angular/angular-route.1.2.17.js"></script>
 	<script type="text/javascript" src="lib/angular/angular-animate.1.2.17.js"></script>
 	<script type="text/javascript" src="lib/angular/ui-select2.js"></script>
