@@ -2,7 +2,7 @@
 
 
 var mypubs = angular.module('pw.mypubs', [
-		'ngRoute','ui.select2','ui.bootstrap', 'ui.tinymce', 'ngAnimate', 'ui.sortable',// angular util modules
+		'ngRoute', 'ngGrid','ui.select2','ui.bootstrap', 'ui.tinymce', 'ngAnimate', 'ui.sortable',// angular util modules
 		'pw.pubHeader', 'pw.notify', 'pw.menu', 'pw.fetcher',// pw util modules
 		'pw.home','pw.search', 'pw.publication', 'pw.reservation', // mypubs pages
 		'ui.bootstrap.datetimepicker' //datetimepicker
@@ -22,6 +22,7 @@ var mypubs = angular.module('pw.mypubs', [
 				return $scope._show = show;
 			};
 	}]);
+	
 	// nice utility directive
 	mypubs.directive('preventDefault', function() {
 		return function(scope, element, attrs) {
