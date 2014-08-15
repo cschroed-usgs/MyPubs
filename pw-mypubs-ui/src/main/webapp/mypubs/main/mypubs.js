@@ -3,7 +3,7 @@
 
 var mypubs = angular.module('pw.mypubs', [
 		'ngRoute', 'ngGrid','ui.select2','ui.bootstrap', 'ui.tinymce', 'ngAnimate', 'ui.sortable',// angular util modules
-		'pw.pubHeader', 'pw.notify', 'pw.menu', 'pw.fetcher',// pw util modules
+		'pw.pubHeader', 'pw.notify', 'pw.fetcher',// pw util modules
 		'pw.home','pw.search', 'pw.publication', 'pw.reservation', // mypubs pages
 		'ui.bootstrap.datetimepicker' //datetimepicker
 
@@ -13,8 +13,6 @@ var mypubs = angular.module('pw.mypubs', [
 	}
 	mypubs.controller('mainCtrl', ['$scope', '$log', '$location',
 		function ($scope, $log, $location) {
-			$scope._show = 'Preview' ;// TODO index.jsp must compare to this when preview is impl
-		
 			$scope.show = function(show) {
 				if ( angular.isUndefined(show) ) {
 					return $scope._show;
@@ -31,6 +29,14 @@ var mypubs = angular.module('pw.mypubs', [
 			});
 		};
 	});
-
+	
+	//by default go to search
+	mypubs.config(['$routeProvider',
+	     	function($routeProvider) {
+	     		$routeProvider.when('/', {
+	     			redirectTo: "/Search"
+	     		})
+	     	}
+	     ])
 	
 }) ();

@@ -25,8 +25,7 @@
 	<link rel="stylesheet" type="text/css" href="mypubs/publication/links/links.css">
 	<link rel="stylesheet" type="text/css" href="mypubs/dnd/dragdrop.css">
 	<link rel="stylesheet" type="text/css" href="mypubs/list/list.css">
-	<link rel="stylesheet" type="text/css" href="mypubs/menu/menu.css">
-        <link rel="stylesheet" type="text/css" href="css/custom.css">
+    <link rel="stylesheet" type="text/css" href="css/custom.css">
 
 </head>
 
@@ -47,8 +46,6 @@
 				<a href="http://www.usgs.gov/ask/index.html" title="Link to main USGS contact page">Contact USGS</a>
 				<a href="http://search.usgs.gov/" title="Link to main USGS search (not publications search)">Search USGS</a>
 			</div>
-
-			<pw:menu style="width:100%" width="80px"></pw:menu>
 		</div>
 
 
@@ -63,18 +60,6 @@
 					<div ng-view id="view"></div>
 
 				</div>
-
-				<div class="col-lg-2">
-					<div id="preview" class="preview" ng-if="show() === 'TODO Preview'">
-						<div class="previewTitle">Public Pubs Preview</div>
-						<iframe src="preview.html"></iframe>
-						<!-- iframe src="http://pubs.er.usgs.gov/publication/sir20145055"></iframe -->
-					</div>
-					<div id="sideView" ng-if="show() === 'Contacts'">
-						<pw:contacts></pw:contacts>
-					</div>
-				</div>
-
 			</div>
 		</div>
 
@@ -111,7 +96,6 @@
 	<script type="text/javascript" src="mypubs/list/list.js"></script>
         <script type="text/javascript" src="mypubs/dataList/dataList.js"></script>
 	<script type="text/javascript" src="mypubs/main/collection.js"></script>
-	<script type="text/javascript" src="mypubs/menu/menu.js"></script>
 	<script type="text/javascript" src="mypubs/notify/notify.js"></script>
 
 	<!-- login page -->
