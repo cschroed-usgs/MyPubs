@@ -17,6 +17,11 @@ angular.module('pw.search', ['ngRoute', 'ngGrid', 'pw.fetcher'])
 	$scope.pubsLists = []; //TODO load these lists with future functionality
 	$scope.pubs = [];
 	
+	$scope.searchClick = function(searchTermField) {
+		$scope.searchTerm = searchTermField; //a way for us to not update the model until we get a click
+		$scope.search();
+	};
+	
 	$scope.search = function() {
 		$scope.pubs = {}; //clear grid for loader
 		$scope.pubsGrid.ngGrid.$root.addClass("pubs-loading-indicator");
@@ -93,7 +98,10 @@ angular.module('pw.search', ['ngRoute', 'ngGrid', 'pw.fetcher'])
                      {field:'seriesNumber', displayName:'Report Number', width: 125},
                      {field:'year', displayName:'Year', width: 50},
                      {field:'title', displayName:'Title'},
-                     {field:'authors', displayName:'Author', width: 175}], 
+                     {field:'authors', displayName:'Author', width: 175,
+                    	 cellTemplate: '<div class="ngCellText" ng-class="col.colIndex()"><span ng-cell-text>' +
+                    		 '<authors ng-show="COL_FIELD.length"><author ng-repeat="auth in COL_FIELD ">{{auth.given}} {{auth.family}};</author> </authors>' + 
+                    		 '</span></div>'}], 
         enableSorting: false,
         enableColumnResize: true,
         showFooter: true,
