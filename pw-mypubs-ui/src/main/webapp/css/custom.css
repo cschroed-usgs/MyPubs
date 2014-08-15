@@ -20,5 +20,17 @@
 .pub-grid{
     border: 1px solid rgb(212,212,212);
     width: 99%; 
+}
+
+.pub-grid{
     height: 500px;
+}
+
+.pub-list-grid {
+    height: 374px;
+}
+
+.pubs-loading-indicator {
+	background: url('../lib/select2/select2-spinner.gif')
+		no-repeat center center;
 }

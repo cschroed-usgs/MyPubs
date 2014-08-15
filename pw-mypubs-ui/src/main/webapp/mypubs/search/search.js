@@ -14,10 +14,15 @@ angular.module('pw.search', ['ngRoute', 'ngGrid', 'pw.fetcher'])
 ])
 
 .controller('searchCtrl', [ '$scope', '$location', 'PublicationFetcher', function($scope, $location, fetcher) {
+	$scope.pubsLists = []; //TODO load these lists with future functionality
+	$scope.pubs = [];
+	
 	$scope.search = function(searchTerm, listIds, pageSize, pageStartRow) {
+		$scope.pubsGrid.ngGrid.$root.addClass("pubs-loading-indicator");
 		fetcher.searchByTermAndListIds(searchTerm, listIds, pageSize, pageStartRow).then(function(httpPromise){
 			$scope.pubs = httpPromise.data.records;
 			$scope.recordCount = httpPromise.data.recordCount;
+			$scope.pubsGrid.ngGrid.$root.removeClass("pubs-loading-indicator");
 	    });
 		$scope.searchTerm = searchTerm; //apply search term to scope so template updates
 	};
@@ -70,21 +75,14 @@ angular.module('pw.search', ['ngRoute', 'ngGrid', 'pw.fetcher'])
         selectedItems: $scope.selectedPubs,
         columnDefs: [{field:'publicationType', displayName:'Type', width: 60},
                      {field:'seriesTitle', displayName:'USGS Series', width: 100},
-                     {field:'seriesNumber', displayName:'Report Number', width: 110},
+                     {field:'seriesNumber', displayName:'Report Number', width: 125},
                      {field:'year', displayName:'Year', width: 50},
-                     {field:'title', displayName:'Title', width: 200},
+                     {field:'title', displayName:'Title'},
                      {field:'authors', displayName:'Author', width: 175}], 
         enableSorting: false,
+        enableColumnResize: true,
         showFooter: true,
         totalServerItems: 'recordCount'
     };
-	
-	//TODO load these lists
-	$scope.pubsLists = [];
-	$scope.pubs = [];
-	
-	$scope.search();
-}])
-
-
-}) ()
+}]);
+}) ();

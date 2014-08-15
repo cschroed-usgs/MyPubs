@@ -7,8 +7,7 @@
 	<link rel="icon" type="img/x-icon" href="favicon.ico">
 	<link rel="shortcut icon" type="img/x-icon" href="favicon.ico">
 	
-	<!-- NG Grid Temporary, bring in via webjars or put in lib -->
-	<link rel="stylesheet" type="text/css" href="lib/ng-grid-2.0.12/ng-grid.min.css" />
+	<link rel="stylesheet" type="text/css" href="webjars/ng-grid/2.0.11/ng-grid.min.css" />
 
         <link rel="stylesheet" type="text/css" href="lib/bootstrap/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="lib/angular-bootstrap-datetimepicker/css/datetimepicker.css">
@@ -77,8 +76,7 @@
 	<script type="text/javascript" src="lib/tinymce/tinymce.4.1.0.min.js"></script>
 
 	<script type="text/javascript" src="lib/angular/angular.1.2.17.js"></script>
-	<!-- NG Grid Temporary, bring in via webjars or put in lib -->
-	<script type="text/javascript" src="lib/ng-grid-2.0.12/ng-grid-2.0.12.min.js"></script>
+	<script type="text/javascript" src="webjars/ng-grid/2.0.11//ng-grid.min.js"></script>
 	<script type="text/javascript" src="lib/angular/angular-route.1.2.17.js"></script>
 	<script type="text/javascript" src="lib/angular/angular-animate.1.2.17.js"></script>
 	<script type="text/javascript" src="lib/angular/ui-select2.js"></script>

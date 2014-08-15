@@ -30,13 +30,4 @@ var mypubs = angular.module('pw.mypubs', [
 		};
 	});
 	
-	//by default go to search
-	mypubs.config(['$routeProvider',
-	     	function($routeProvider) {
-	     		$routeProvider.when('/', {
-	     			redirectTo: "/Search"
-	     		})
-	     	}
-	     ])
-	
 }) ();
