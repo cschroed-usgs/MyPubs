@@ -11,9 +11,6 @@ angular.module('pw.home', ['ngRoute'])
 			controller: 'homeCtrl',
 			openAccess: true
 		})
-		$routeProvider.otherwise({
-			redirectTo: '/Home'
-		})
 	}
 ])
 

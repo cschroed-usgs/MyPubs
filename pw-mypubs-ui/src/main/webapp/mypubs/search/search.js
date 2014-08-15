@@ -1,5 +1,5 @@
 (function() {
-
+var DEFAULT_PAGE_SIZE = 15;
 
 angular.module('pw.search', ['ngRoute', 'ngGrid', 'pw.fetcher'])
 
@@ -17,11 +17,28 @@ angular.module('pw.search', ['ngRoute', 'ngGrid', 'pw.fetcher'])
 	$scope.pubsLists = []; //TODO load these lists with future functionality
 	$scope.pubs = [];
 	
-	$scope.search = function(searchTerm, listIds, pageSize, pageStartRow) {
+	$scope.search = function() {
+		$scope.pubs = {}; //clear grid for loader
 		$scope.pubsGrid.ngGrid.$root.addClass("pubs-loading-indicator");
-		fetcher.searchByTermAndListIds(searchTerm, listIds, pageSize, pageStartRow).then(function(httpPromise){
+		
+		var searchTerm = $scope.searchTerm;
+		
+		//create array of listIds
+		var listIds = [];
+		if($scope.selectedPubsLists) {
+			for(var i in $scope.selectedPubsLists) {
+				listIds.push($scope.selectedPubsLists[i].id);
+			}
+		}
+		
+		var pageSize = $scope.pagingState.pageSize;
+		
+		var currentPage = $scope.pagingState.currentPage
+		var startRow = (currentPage - 1) * pageSize;
+		fetcher.searchByTermAndListIds(searchTerm, listIds, pageSize, startRow).then(function(httpPromise){
 			$scope.pubs = httpPromise.data.records;
 			$scope.recordCount = httpPromise.data.recordCount;
+			$scope.selectedPubs.length = 0; //clear selections, for some reason, ngGrid/angular needs a reference to the original array to keep the watch valid
 			$scope.pubsGrid.ngGrid.$root.removeClass("pubs-loading-indicator");
 	    });
 		$scope.searchTerm = searchTerm; //apply search term to scope so template updates
@@ -59,17 +76,15 @@ angular.module('pw.search', ['ngRoute', 'ngGrid', 'pw.fetcher'])
 	                     {field:'description', displayName:'Description'}]
 	    };
 	$scope.$watch('selectedPubsLists', function (newVal, oldVal) {
-		//create array of listIds
-		var listIds = [];
-		if($scope.selectedPubsLists) {
-			for(var i in $scope.selectedPubsLists) {
-				listIds.push($scope.selectedPubsLists[i].id);
-			}
-		}
-		$scope.search($scope.searchTerm, listIds);
+		$scope.search();
     }, true);
 	
     $scope.selectedPubs = [];
+    $scope.pagingState = {
+        pageSizes: [15, 25, 50, 100],
+        pageSize: DEFAULT_PAGE_SIZE,
+        currentPage: 1
+    };
 	$scope.pubsGrid = {
         data: 'pubs',
         selectedItems: $scope.selectedPubs,
@@ -82,7 +97,12 @@ angular.module('pw.search', ['ngRoute', 'ngGrid', 'pw.fetcher'])
         enableSorting: false,
         enableColumnResize: true,
         showFooter: true,
-        totalServerItems: 'recordCount'
+        totalServerItems: 'recordCount',
+        enablePaging: true,
+        pagingOptions: $scope.pagingState
     };
+	$scope.$watch('pagingState', function (newVal, oldVal) {
+    	$scope.search();
+    }, true);
 }]);
 }) ();
