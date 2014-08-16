@@ -1,7 +1,7 @@
 (function() {
 var DEFAULT_PAGE_SIZE = 15;
 
-angular.module('pw.search', ['ngRoute', 'ngGrid', 'pw.fetcher'])
+angular.module('pw.search', ['ngRoute', 'ngGrid', 'pw.fetcher', 'pw.modal'])
 
 
 .config(['$routeProvider',
@@ -13,7 +13,7 @@ angular.module('pw.search', ['ngRoute', 'ngGrid', 'pw.fetcher'])
 	}
 ])
 
-.controller('searchCtrl', [ '$scope', '$location', 'PublicationFetcher', function($scope, $location, fetcher) {
+.controller('searchCtrl', [ '$scope', '$location', 'PublicationFetcher', 'PubsModal', function($scope, $location, fetcher, PubsModal) {
 	$scope.pubsLists = []; //TODO load these lists with future functionality
 	$scope.pubs = [];
 	
@@ -50,27 +50,31 @@ angular.module('pw.search', ['ngRoute', 'ngGrid', 'pw.fetcher'])
 	};
 	
 	$scope.toggleSearch = function(searchTerm) {
-		alert("toggle search mode!");
+		PubsModal.alert("Not Yet Implemented", "Will toggle advanced search fields!");
 	};
 	
 	$scope.addPubList = function() {
-		alert("function to add pub list");
+		PubsModal.alert("Not Yet Implemented", "Will provide function to create new publications list");
 	};
 	
 	$scope.moreListOptions = function() {
-		alert("function to present more pub list options");
+		PubsModal.alert("Not Yet Implemented", "Give users more functions to operate on lists");
 	};
 	
 	$scope.editSelectedPublication = function() { 
 		if($scope.selectedPubs.length == 1) {
 			$location.path("/Publication/" + $scope.selectedPubs[0].id);
 		} else {
-			//TODO use better messaging display
-			alert("You must select one, and only one, publication to edit.");
+			PubsModal.alert("Select One Publication", "You must select one, and only one, publication to edit.");
 		} 
 	};
-	$scope.removeSelectedPublicationsFromLists = function() { alert("function to remove selected pubs from selected lists"); };
-	$scope.morePublicationOptions = function() { alert("function for more pub options"); };
+	$scope.removeSelectedPublicationsFromLists = function() { 
+		PubsModal.alert("Not Yet Implemented", "Function to remove selected pubs from selected lists"); 
+	};
+	
+	$scope.morePublicationOptions = function() { 
+		PubsModal.alert("Not Yet Implemented", "function for more publication functions");
+	};
 	
     $scope.selectedPubsLists = [];
 	$scope.pubsListGrid = {

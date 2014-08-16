@@ -95,6 +95,7 @@
         <script type="text/javascript" src="mypubs/dataList/dataList.js"></script>
 	<script type="text/javascript" src="mypubs/main/collection.js"></script>
 	<script type="text/javascript" src="mypubs/notify/notify.js"></script>
+	<script type="text/javascript" src="mypubs/modal/modal.js"></script>
 
 	<!-- login page -->
 	<script type="text/javascript" src="mypubs/main/auth.js"></script>
