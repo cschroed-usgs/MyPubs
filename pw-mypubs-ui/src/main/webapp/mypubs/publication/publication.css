@@ -1,5 +1,7 @@
 /** button styles **/
-
+.tab-pane {
+	margin-top: 1em;
+}
 div.actions {
 	margin-left: 202px;
 	margin-bottom: 10px;

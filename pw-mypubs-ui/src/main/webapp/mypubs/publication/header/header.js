@@ -1,3 +1,4 @@
+/* global angular console */
 (function() {
 
 angular.module('pw.pubHeader', [])
@@ -17,11 +18,15 @@ angular.module('pw.pubHeader', [])
 
         var pubData = $scope.pubData;
         console.log(pubData);
-
-        if ( angular.isDefined(pubData.displayToPublicDate) ) {
+		var dateForScope;
+        if ( angular.isDefined(pubData.displayToPublicDate) && pubData.displayToPublicDate.length !== 0) {
             //write out new date property as a date object
-            $scope.date = new Date(pubData.displayToPublicDate);
+            dateForScope = new Date(pubData.displayToPublicDate);
         }
+		else{
+			dateForScope = new Date();
+		}
+		$scope.date = dateForScope;
 		$scope.$watch('date', function(newValue){
 			pubData.displayToPublicDate = newValue;
 		});

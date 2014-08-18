@@ -1,11 +1,10 @@
 <div>
 	<div id="tabs" class="tabSet">
+	<pw:pubheader></pw:pubheader>
 	  <tabset>
 		<tab ng-repeat="tab in tabs" heading="{{tab.title}}" select="show(tab.title)"
 				active="tab.active" disabled="tab.disabled">
 			<div ng-if="show() === tab.title">
-
-				<pw:pubheader></pw:pubheader>
 
 				<div id="{{tab.title}}_tab" class="tabPane" ng-include src="tab.templateUrl"></div>
 
