@@ -84,9 +84,6 @@
 				             {field:'name', displayName:'Name'},
 				             {field:'description', displayName:'Description'}]
 		};
-		$scope.$watch('selectedPubsLists', function (newVal, oldVal) {
-			$scope.search();
-		}, true);
 
 		$scope.selectedPubs = [];
 		$scope.pagingState = {
@@ -117,8 +114,14 @@
 				enablePaging: true,
 				pagingOptions: $scope.pagingState
 	};
+		
+	//Watches to update pub list when list selection or paging settings change
 	$scope.$watch('pagingState', function (newVal, oldVal) {
 		$scope.search();
 	}, true);
+	$scope.$watch('selectedPubsLists', function (newVal, oldVal) {
+		$scope.search();
+	}, true);
+	
 }]);
 }) ();
