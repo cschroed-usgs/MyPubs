@@ -91,21 +91,47 @@
 				pageSize: DEFAULT_PAGE_SIZE,
 				currentPage: 1
 		};
+		
+		//TODO these templates are extracted from the main search template. This is a work around since
+		//ngGrid does not support passing in a template location for each of the cellTemplate configs.
+		//Would like to either remove the direct dom calls here into a service, or wait for ngGrid to support
+		//templateUrl.
+		var nameFieldCellTemplate = $('#nameFieldCellTemplate').html();
+		var titleFieldCellTemplate = $('#titleFieldCellTemplate').html();
+		var authorsCellTemplate = $('#authorsCellTemplate').html();
+		//TODO: need to use a function since we do not have ng-repeat in cellTemplate, this is "view" code that should be moved out of the controller
+		$scope.formatAuthors = function(authArray) { 
+			var authString = "";
+			for(var i in authArray) {
+				auth = authArray[i];
+				
+				if(authString.length > 0) {
+					authString += "; ";
+				}
+				
+				//person
+				if(auth.family || auth.given) {
+					authString += auth.given + " " + auth.family + (auth.suffix ? ' ' + auth.suffix : ''); 
+				} else if(auth.organization) { //corporation/organization as author
+					authString += auth.organization;
+				}
+			}
+			return authString;
+		};
+		
 		$scope.pubsGrid = {
 				data: 'pubs',
 				selectedItems: $scope.selectedPubs,
 				columnDefs: [
 		            {field:'publicationType', displayName:'Type', width: 60,
-						cellTemplate: '<div class="ngCellText" ng-class="col.colIndex()"><span ng-cell-text>{{COL_FIELD.name}}</span></div>'},
+						cellTemplate: nameFieldCellTemplate },
 					{field:'seriesTitle', displayName:'USGS Series', width: 100, 
-						cellTemplate: '<div class="ngCellText" ng-class="col.colIndex()"><span ng-cell-text>{{COL_FIELD.name}}</span></div>'},
+						cellTemplate: titleFieldCellTemplate }, 
 					{field:'seriesNumber', displayName:'Report Number', width: 125},
 					{field:'year', displayName:'Year', width: 50},
 					{field:'title', displayName:'Title'},
-					{field:'authors', displayName:'Author', width: 175,
-						cellTemplate: '<div class="ngCellText" ng-class="col.colIndex()"><span ng-cell-text>' +
-						'<authors ng-show="COL_FIELD.length"><author ng-repeat="auth in COL_FIELD ">{{auth.family}}, {{auth.given}};</author> </authors>' + 
-					'</span></div>'}
+					{field:'authors', displayName:'Author', width: 250, 
+						cellTemplate: authorsCellTemplate } 
 				], 
 				enableSorting: false,
 				enableColumnResize: true,
