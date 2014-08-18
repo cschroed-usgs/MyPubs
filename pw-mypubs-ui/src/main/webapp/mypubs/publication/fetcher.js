@@ -46,6 +46,9 @@ angular.module('pw.fetcher',[])
 		 * @returns {Promise}
 		 */
 		var persistPub = function(pub){
+			if(_.isDate(pub.displayToPublicDate)){
+				pub.displayToPublicDate = pub.displayToPublicDate.toISOString().replace(/[zZ]/, '');
+			}
 			var deferredPubPersistence = $q.defer();
 			//use a different http verb and url depending on whether the pub is new,
 			//but otherwise do the same same thing
