@@ -29,7 +29,8 @@ angular.module('pw.fetcher',[])
 	
 	.factory('PublicationPersister', ['$http',  'APP_CONFIG', '$q', function($http, APP_CONFIG, $q) {
 		
-		var pubPersistenceBaseUrl =  APP_CONFIG.endpoint + 'mpublication/';
+		var pubCreateEndpoint =  APP_CONFIG.endpoint + 'mppublications';
+		var pubUpdateEndpoint = APP_CONFIG.endpoint + 'mppublication/';
 		var httpResponseIsErrorFree = function(httpResponse){
 			var text = JSON.stringify(httpResponse).toLowerCase();
 			var indexOfException = text.indexOf('exception');
@@ -46,15 +47,16 @@ angular.module('pw.fetcher',[])
 		 */
 		var persistPub = function(pub){
 			var deferredPubPersistence = $q.defer();
-			var url = pubPersistenceBaseUrl;
-			//use a different http verb depending on whether the pub is new,
+			//use a different http verb and url depending on whether the pub is new,
 			//but otherwise do the same same thing
-			var httpVerb;
+			var httpVerb, url;
 			if(pub.isNew()){
+				url = pubCreateEndpoint;
 				httpVerb = 'post';
 			}
 			else{
 				httpVerb = 'put';
+				url = pubUpdateEndpoint;
 				url += pub.id;
 			}
 			
@@ -81,7 +83,8 @@ angular.module('pw.fetcher',[])
 		};
 		return {
 			persistPub : persistPub,
-			PERSISTENCE_ENDPOINT: pubPersistenceBaseUrl
+			CREATE_ENDPOINT: pubCreateEndpoint,
+			UPDATE_ENDPOINT: pubUpdateEndpoint
 		};
 	}]);
 }) ();
