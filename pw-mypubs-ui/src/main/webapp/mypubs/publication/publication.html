@@ -1,7 +1,45 @@
 <div>
+<div id="pubHeader" ng-controller="pubHeaderCtrl">
+        
+    <div id="pubData" class="form-horizontal" >
+        <div id="pub-type-div" class="form-group">    
+            <label class="control-label col-sm-3" >Prod ID</label>
+            <div class="col-sm-9">
+                <span class="form-control" ng-bind="pubData.id" readonly></span>
+            </div>
+        </div>
 
+        <div id="pub-type-div" class="form-group">   
+            <label class="control-label col-sm-3" >Index ID</label>
+            <div class="col-sm-9">
+                <span class="form-control" ng-bind="pubData.indexId" readonly></span>
+            </div>
+        </div>
+
+        <div id="pub-type-div" class="form-group">   
+            <label class="control-label col-sm-3" >Display to public date</label>
+
+            <div class="dropdown col-sm-9">
+                <a class="dropdown-toggle" id="dropdown2" role="button"  data-target="#" href="#">
+                    <div class="input-group">
+                        <input type="text" class="form-control" data-ng-model="date">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                    </div>
+                </a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                    <datetimepicker data-ng-model="date" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"></datetimepicker>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+		<div class="actions">
+		<button class="btn" >Reset</button>
+		<button class="btn" >Release</button>
+		<button class="btn" ng-click="persistPub()">Save Changes</button>
+		<button class="btn" >Publish</button>
+	</div>
 	<div id="tabs" class="tabSet">
-	<pw:pubheader></pw:pubheader>
 	  <tabset>
 		<tab ng-repeat="tab in tabs" heading="{{tab.title}}" select="show(tab.title)"
 				active="tab.active" disabled="tab.disabled">
@@ -13,14 +51,5 @@
 		</tab>
 	  </tabset>
 	</div>
-
-	<div class="actions">
-		<button class="btn" >Reset</button>
-		<button class="btn" >Release</button>
-		<button class="btn" ng-click="persistPub()">Save Changes</button>
-		<button class="btn" ng-click="printPub()">Debug - Print Pub to Developer Console</button>
-		<button class="btn" >Publish</button>
-	</div>
-
 
 </div>

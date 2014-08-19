@@ -18,7 +18,6 @@
 	<link rel="stylesheet" type="text/css" href="mypubs/main/header.css">
 	<link rel="stylesheet" type="text/css" href="mypubs/datarow/datarow.css">
 	<link rel="stylesheet" type="text/css" href="mypubs/publication/publication.css">
-	<link rel="stylesheet" type="text/css" href="mypubs/publication/header/header.css">
 	<link rel="stylesheet" type="text/css" href="mypubs/publication/contacts/contacts.css">
 	<link rel="stylesheet" type="text/css" href="mypubs/publication/contributors/contributor.css">
 	<link rel="stylesheet" type="text/css" href="mypubs/publication/links/links.css">
@@ -115,8 +114,6 @@
 
 	<script type="text/javascript" src="mypubs/publication/fetcher.js"></script>
 	<script type="text/javascript" src="mypubs/publication/lookups.js"></script>
-
-	<script type="text/javascript" src="mypubs/publication/header/header.js"></script>
 
 	<!-- publications tabs -->
 	<script type="text/javascript" src="mypubs/publication/bibliodata/bibliodata.js"></script>

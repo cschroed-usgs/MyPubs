@@ -52,3 +52,16 @@ div.actions {
 	outline: -webkit-focus-ring-color auto 5px;
 	outline-offset: -2px;
 }
+
+#pubTime {
+	display: inline-block;
+	position: absolute;
+	left: 345px;
+	top: 70px;
+	width: 160px;
+}
+
+#pubHeader {
+	margin-bottom: 30px;
+	margin-top: 3px;
+}

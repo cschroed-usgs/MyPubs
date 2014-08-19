@@ -124,10 +124,6 @@ angular.module('pw.publication', ['ngRoute', 'pw.notify',
 [ '$scope', '$routeParams', '$route', 'pubData', 'PublicationPersister', 'Notifier', '$location',
 function($scope, $routeParams, $route, pubData, PublicationPersister, Notifier, $location) {
 	$scope.pubData = pubData;
-    $scope.printPub = function(){
-        console.dir($scope.pubData);
-    };
-
 	/**
 	 * 
 	 * @returns {Promise}
@@ -136,7 +132,7 @@ function($scope, $routeParams, $route, pubData, PublicationPersister, Notifier, 
 		var persistencePromise = PublicationPersister.persistPub($scope.pubData);
 		persistencePromise
 		.then(function(pubData){
-			$scope.pubData = pubData;
+			Notifier.notify('Publication successfully saved');
 			//@todo: logic for showing validation errors here
 		}, function(message){
 			Notifier.error(message);
@@ -181,6 +177,25 @@ function($scope, $routeParams, $route, pubData, PublicationPersister, Notifier, 
 			controller: 'geoCtrl'
 		}
 	];
-}]);
+}])
+    .controller('pubHeaderCtrl', [
+    '$scope', function ($scope) {
+
+        var pubData = $scope.pubData;
+        console.log(pubData);
+		var dateForScope;
+        if ( angular.isDefined(pubData.displayToPublicDate) && pubData.displayToPublicDate.length !== 0) {
+            //write out new date property as a date object
+            dateForScope = new Date(pubData.displayToPublicDate);
+        }
+		else{
+			dateForScope = new Date();
+		}
+		$scope.date = dateForScope;
+		$scope.$watch('date', function(newValue){
+			pubData.displayToPublicDate = newValue;
+		});
+                        
+    }]);
 
 }) ();
