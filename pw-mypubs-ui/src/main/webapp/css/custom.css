@@ -34,3 +34,17 @@
 	background: url('../lib/select2/select2-spinner.gif')
 		no-repeat center center;
 }
+
+.pubs-disclaimer {
+	text-align: center;
+	border: 1px solid #A0A0A0;
+	border-radius: 4px 4px 4px 4px;
+	list-style: none outside none;
+	margin: 0.25%;
+	padding: 8px 15px;
+	overflow: auto;
+}
+
+.pubs-disclaimer p {
+	text-align: left;
+}

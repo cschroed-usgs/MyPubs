@@ -1,3 +1,61 @@
-<div>
-	Login Placeholder
-</div>
+<div id="pubs-login-page-content" class="container">
+			<div class="row">
+				<div class="col-sm-2 col-lg-2"></div>
+				<div class="col-sm-8 col-lg-8 login-login-section">
+					<div class="pubs-disclaimer">
+						<b>WARNING TO USERS OF THIS SYSTEM</b>
+						<p>This computer system is provided by the Department of the
+							Interior (DOI) in accordance with the agency policy for official
+							use and limited personal use. All agency computer systems may be
+							monitored for all lawful purposes, including but not limited to,
+							ensuring that use is authorized, for management of the system, to
+							facilitate protection against unauthorized access, and to verify
+							security procedures, survivability and operational security. Any
+							information on this computer system may be examined, recorded,
+							copied and used for authorized purposes at any time. All
+							information, including personal information, on this system may be
+							monitored, and users of this system are reminded that such
+							monitoring does occur. Therefore, there should be no expectation
+							of privacy with respect to use of this system.
+						<p>Before you download Department of the Interior (DOI) data to
+							a computer or any other device capable of storing electronic data
+							you must comply with DOI standards for data encryption and system
+							security. You must also understand and agree to comply with DOI
+							requirements for deleting the data. Contact your Bureau Chief
+							Information Security Officer for specifications regarding these
+							standards and requirements.</p>
+						<p>
+							Data retrieved from this system may contain personal
+							identification information (PII) about individuals that are
+							protected under the privacy act. If the PII data are saved to a
+							file then the file must be manually tracked and deleted after 90
+							days.<br /> <br /> 
+							
+							If you do not agree to these terms, access to the system
+							will not be allowed. By logging into this agency computer system,
+							you acknowledge and consent to the monitoring of this system.
+							Evidence of your use, authorized or unauthorized, collected during
+							monitoring may be used for civil, criminal, administrative, or
+							other adverse action. Unauthorized or illegal use may subject you
+							to prosecution.
+						<p>
+							<br />
+						<p>To continue, login using your AD credentials.
+
+	                    <div class="loginFields row">
+	                        <div class="col-lg-4 col-md-4">
+	                        	<img src="img/lock_and_key.png" alt="login icon" class="lockImg" />
+	                    	</div>
+	                        <div class="pubs-login-form col-lg-8 col-md-8">
+								<label>Username:</label><input id="username" type="text" class="form-control" ng-model="username"/><br/>
+								<label>Password:</label><input id="password" type="password" class="form-control" ng-model="password"/><br/>
+	                            <button class="btn" ng-click="doLogin(username, password)">Login</button>
+	                        </div>
+	                    </div>
+					</div>
+
+                </div>
+                <div class="col-sm-2 col-lg-2"></div>
+            </div>
+
+        </div>

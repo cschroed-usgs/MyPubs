@@ -1,22 +1,30 @@
 (function() {
 	var AUTH_SERVICE_PATH = 'auth/ad/token';
-	var LOGOUT_SERVICE_PATH = 'auth/ad/logout';
+	var LOGOUT_SERVICE_PATH = 'auth/logout';
 
-	angular.module('pw.auth', ['ngRoute'])
+	angular.module('pw.auth', ['ngRoute', 'ngCookies'])
 
 	.config(['$routeProvider', function($routeProvider) {
 		$routeProvider.when('/Login', {
 			templateUrl: 'mypubs/auth/login.html',
-			controller: 'loginCtrl',
-			openAccess: true
+			controller: 'LoginController'
 		});
+	}])
+
+	.controller('LoginController', [ '$scope', '$location', 'Authentication', 'PubsModal', 
+	                                 function($scope, $location, Authentication, PubsModal) {
+		$scope.doLogin = function(user, pass) {
+			Authentication.getTokenPromise(user, pass).then(function(token){
+				$location.path('/Search');
+			});
+		};
 	}])
 
 	/**
 	 * This service is a stateful singleton and maintains a current logged in state
 	 */
-	.service('Authentication', ['$http','$location', '$q', '$cookies', function($http, $location, $q, $cookies) {
-		loginState = {
+	.service('Authentication', ['APP_CONFIG', '$http','$location', '$q', '$cookies', function(APP_CONFIG, $http, $location, $q, $cookies) {
+		this.loginState = {
 				authToken : ''
 		};
 
@@ -72,7 +80,7 @@
 
 	.factory('UnauthorizedInterceptor', function($q, $location) {
 		var handleUnauthorized = function(response) {
-			
+
 			if(response.status == 401) {
 				$location.path("/Login");
 			} else {
