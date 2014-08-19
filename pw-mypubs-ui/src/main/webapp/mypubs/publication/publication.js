@@ -120,7 +120,6 @@ angular.module('pw.publication', ['ngRoute', 'pw.notify',
         return pubConstructor;
     }])
 .controller('publicationCtrl',
-
 [ '$scope', '$routeParams', '$route', 'pubData', 'PublicationPersister', 'Notifier', '$location',
 function($scope, $routeParams, $route, pubData, PublicationPersister, Notifier, $location) {
 	$scope.pubData = pubData;
