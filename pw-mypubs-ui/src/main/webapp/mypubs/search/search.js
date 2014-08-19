@@ -102,7 +102,7 @@
 		//TODO: need to use a function since we do not have ng-repeat in cellTemplate, this is "view" code that should be moved out of the controller
 		$scope.formatAuthors = function(authArray) { 
 			var authString = "";
-			angular.forEachfor(authArray, function(auth) {
+			angular.forEach(authArray, function(auth) {
 				if(authString.length > 0) {
 					authString += "; ";
 				}
