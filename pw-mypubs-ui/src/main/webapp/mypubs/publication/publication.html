@@ -1,5 +1,6 @@
 <div>
-    <button ng-click="printPub()">Print Pub</button>
+    <button class="btn" ng-click="returnToSearch()">Return To Search</button>
+    <button class="btn" ng-click="printPub()">Print Pub</button>
 	<div id="tabs" class="tabSet">
 	  <tabset>
 		<tab ng-repeat="tab in tabs" heading="{{tab.title}}" select="show(tab.title)"
@@ -15,6 +16,8 @@
 	  </tabset>
 	</div>
 
+	<!-- TODO: do we REALY need this as a directive? If these buttons are not used 
+	outside of the publication edit context I suggest eliminating the directive -->
 	<pw:actions></pw:actions>
 
 </div>

@@ -15,7 +15,12 @@ mod.directive('pwActions', function() {
 
 
 		controller : function($scope) {
-
+			$scope.cancel = {
+					name   : "Cancel",
+					action : function() {
+						// TODO service.doCancel
+					}
+				}
 			$scope.reset = {
 				name   : "Reset",
 				action : function() {

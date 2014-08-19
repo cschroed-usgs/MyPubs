@@ -97,13 +97,19 @@ angular.module('pw.publication', ['ngRoute', 'pw.actions',
         return pubConstructor;
     }])
 .controller('publicationCtrl',
-[ '$scope', '$routeParams', '$route', 'pubData',
-function($scope, $routeParams, $route, pubData) {
+[ '$scope', '$routeParams', '$location','$route', 'pubData',
+function($scope, $routeParams, $location, $route, pubData) {
 
 	$scope.pubData = pubData;
     $scope.printPub = function(){
         console.dir($scope.pubData);
     };
+
+    $scope.returnToSearch = function(){
+    	//TODO verify dirty form status before allowing a return
+		$location.path("/Search");
+    };
+    
 	$scope.tabs = [
 		{
 			title:"Bibliodata",
