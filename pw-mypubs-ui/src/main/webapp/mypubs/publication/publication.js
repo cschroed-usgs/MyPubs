@@ -120,13 +120,14 @@ angular.module('pw.publication', ['ngRoute', 'pw.notify',
         return pubConstructor;
     }])
 .controller('publicationCtrl',
-[ '$scope', '$routeParams', '$route', 'pubData', 'PublicationPersister', 'Notifier', 
-function($scope, $routeParams, $route, pubData, PublicationPersister, Notifier) {
 
+[ '$scope', '$routeParams', '$route', 'pubData', 'PublicationPersister', 'Notifier', '$location',
+function($scope, $routeParams, $route, pubData, PublicationPersister, Notifier, $location) {
 	$scope.pubData = pubData;
     $scope.printPub = function(){
         console.dir($scope.pubData);
     };
+
 	/**
 	 * 
 	 * @returns {Promise}
@@ -142,6 +143,12 @@ function($scope, $routeParams, $route, pubData, PublicationPersister, Notifier) 
 		});
 		return persistencePromise;
 	};
+
+    $scope.returnToSearch = function(){
+    	//TODO verify dirty form status before allowing a return
+		$location.path("/Search");
+    };
+
 	$scope.tabs = [
 		{
 			title:"Bibliodata",

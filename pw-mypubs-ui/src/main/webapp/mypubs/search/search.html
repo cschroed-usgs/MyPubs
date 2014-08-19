@@ -1,3 +1,61 @@
-<div>
-	Search Placeholder
+<div class="row">
+	<div>
+		<div class="col-lg-3"> <!-- search and list view -->
+			<div class="row pub-search-section"> 
+				<label>Search Criteria</label><br/>
+				<input id="search-term-input" type="text" class="form-control" ng-model="searchTermField"/><br/>
+				<button class="btn" ng-click="searchClick(searchTermField)">Search</button>
+				<button class="btn" ng-click="toggleSearch()">Advanced Search</button>
+			</div>
+			<div class="row pub-lists-section"> 
+				<label>View Lists</label><br/>
+				<button class="btn" ng-click="addPubList()">Add List</button>
+				<button class="btn" ng-click="moreListOptions()">More <i class="glyphicon glyphicon-new-window" ></i></button><br/>
+				<div class="pub-list-grid-container">
+					<div class="pub-list-grid" ng-grid="pubsListGrid"></div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-9 pub-list-section">
+			<button class="btn" ng-click="editSelectedPublication()">Edit Selected</button>
+			<button class="btn" ng-click="removeSelectedPublicationsFromLists()">Remove Selected</button>
+			<button class="btn" ng-click="morePublicationOptions()">More <i class="glyphicon glyphicon-new-window" ></i></button><br/>
+			<div class="pub-grid-container">
+				<span ng-hide="searchTerm || selectedPubsLists && selectedPubsLists.length > 0">
+			        All publications available
+			    </span>
+				<span ng-show="searchTerm">
+			        Publications filtered by "{{searchTerm}}"
+			    </span>
+				<el ng-show="selectedPubsLists && selectedPubsLists.length > 0">
+					<span ng-show="searchTerm">
+				        and
+				    </span>
+				    <span ng-hide="searchTerm">
+				        Publications
+				    </span>
+			        <span>contained in:</span> <ul><li ng-repeat="list in selectedPubsLists">
+			        {{list.name}}
+			        </li>
+			        </ul>
+			    </el>
+				<div class="pub-grid" ng-grid="pubsGrid"></div>
+				<div style="display:none"> <!-- Hacky solution to extract some "view configuration" into HTML due to limitations in ngGrid-->
+					<div id="nameFieldCellTemplate">
+						<div class="ngCellText" ng-class="col.colIndex()"><span ng-cell-text>{{COL_FIELD.name}}</span></div>
+					</div>
+					<div id="titleFieldCellTemplate">
+						<div class="ngCellText" ng-class="col.colIndex()"><span ng-cell-text>{{COL_FIELD.title}}</span></div>
+					</div>
+					<div id="authorsCellTemplate">
+						<div class="ngCellText" ng-class="col.colIndex()">
+							<span ng-cell-text>
+								{{formatAuthors(COL_FIELD)}}
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
