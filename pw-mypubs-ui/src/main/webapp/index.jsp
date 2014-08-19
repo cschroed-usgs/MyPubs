@@ -98,7 +98,7 @@
 	<script type="text/javascript" src="mypubs/modal/modal.js"></script>
 
 	<!-- login page -->
-	<script type="text/javascript" src="mypubs/main/auth.js"></script>
+	<script type="text/javascript" src="mypubs/auth/auth.js"></script>
 
 	<!-- home page -->
 	<script type="text/javascript" src="mypubs/main/home.js"></script>
