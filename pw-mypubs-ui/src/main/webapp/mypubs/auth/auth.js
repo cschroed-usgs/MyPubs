@@ -91,7 +91,8 @@
 
 	.factory('AuthorizationInterceptor', function($q, $location, AuthState) {
 		var attachAuthToken = function(config) {
-			config.headers[AUTH_TOKEN_HEADER] = AuthState.getToken();
+			//this is following a standard header format used by OAUTH2
+			config.headers[AUTH_TOKEN_HEADER] = "Bearer " + AuthState.getToken();
 			return config;
 		};
 		
