@@ -132,9 +132,17 @@ function($scope, $routeParams, $route, pubData, PublicationPersister, Notifier, 
 		persistencePromise
 		.then(function(pubData){
 			Notifier.notify('Publication successfully saved');
-			//@todo: logic for showing validation errors here
-		}, function(message){
-			Notifier.error(message);
+		}, function(reason){
+			if(reason.validationErrors){
+				Notifier.error('Publication not saved; there were validation errors.');
+			}
+			else if (reason.message){
+				Notifier.error(reason.message);
+			}
+			else{
+				Notifier.error('Publication not saved; there were unanticipated errors. Consult browser logs');
+				throw new Error(reason);
+			}
 		});
 		return persistencePromise;
 	};

@@ -96,7 +96,12 @@ angular.module('pw.fetcher',[])
 			})
 			.success(function(response){
 				if (httpResponseIsErrorFree(response)) {
-					deferredPubPersistence.resolve(response);
+					if(response.validationErrors && 0 !== response.validationErrors.length){
+						deferredPubPersistence.reject(response);
+					}
+					else{
+						deferredPubPersistence.resolve(response);
+					}
 				}
 				else{
 					deferredPubPersistence.reject(new Error(errorPersistingPubMessage));
