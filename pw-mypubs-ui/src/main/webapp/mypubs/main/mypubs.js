@@ -23,7 +23,7 @@ var mypubs = angular.module('pw.mypubs', [
 	     			redirectTo: '/Search'
 	     		});
 	     		
-	     		$httpProvider.interceptors.push('UnauthorizedInterceptor');
+	     		$httpProvider.interceptors.push('AuthorizationInterceptor');
 	     	}
 	     ])
 	// nice utility directive

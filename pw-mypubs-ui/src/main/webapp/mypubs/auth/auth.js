@@ -1,4 +1,5 @@
 (function() {
+	var AUTH_TOKEN_HEADER = 'Authorization';
 	var AUTH_SERVICE_PATH = 'auth/ad/token';
 	var LOGOUT_SERVICE_PATH = 'auth/logout';
 
@@ -11,19 +12,54 @@
 		});
 	}])
 
-	.controller('LoginController', [ '$scope', '$location', 'Authentication', 'PubsModal', 
-	                                 function($scope, $location, Authentication, PubsModal) {
+	.controller('LoginController', [ '$scope', '$location', 'AuthService', 'PubsModal', 
+	                                 function($scope, $location, AuthService, PubsModal) {
 		$scope.doLogin = function(user, pass) {
-			Authentication.getTokenPromise(user, pass).then(function(token){
+			Authentication.getNewTokenPromise(user, pass).then(function(token){
 				$location.path('/Search');
 			});
 		};
 	}])
 
+	.factory('AuthService', ['$http',  'APP_CONFIG', '$q', 'AuthState', '$location', function($http, APP_CONFIG, $q, AuthState, $location) {
+		return {
+			getNewTokenPromise : function(user, pass) {
+				var deferred = $q.defer();
+				
+				$http.post(APP_CONFIG.endpoint + AUTH_SERVICE_PATH,{
+					params : {
+						username : user,
+						password : pass
+					}
+				}).success(function(response) {
+					AuthState.setToken(response);
+					deferred.resolve(AuthState.getToken());
+				}).error(function(response){
+					//TODO
+					alert("get token errors");
+				});
+
+				return deferred.promise;
+			},
+			logout : function() {
+				var _this = this;
+				$http.get(APP_CONFIG.endpoint + LOGOUT_SERVICE_PATH,{
+					params : {
+						token : AuthState.getToken()
+					}
+				}).success(function(response) {
+					$location.path("/Login");
+				});
+
+				AuthState.clearToken();
+			}
+		};
+	}])
+    
 	/**
 	 * This service is a stateful singleton and maintains a current logged in state
 	 */
-	.service('Authentication', ['APP_CONFIG', '$http','$location', '$q', '$cookies', function(APP_CONFIG, $http, $location, $q, $cookies) {
+	.service('AuthState', ['$cookies', function($cookies) {
 		this.loginState = {
 				authToken : null
 		};
@@ -41,53 +77,22 @@
 			return this.loginState.authToken;
 		};
 		
-		this.getNewTokenPromise = function(user, pass) {
-			var deferred = $q.defer();
-			
-			//if no token exists, go to server
-			var _this = this;
-			if(!this.loginState.authToken) {
-				$http.post(APP_CONFIG.endpoint + AUTH_SERVICE_PATH,{
-					params : {
-						username : user,
-						password : pass
-					}
-				}).success(function(response) {
-					$cookies.myPubsAuthToken = response;
-					_this.loginState.authToken = response;
-					deferred.resolve(_this.loginState.authToken);
-				}).error(function(response){
-					//TODO
-					alert("get token errors");
-				});
-			}
-
-			return deferred.promise;
+		this.setToken = function(token) {
+			this.loginState.authToken = token;
+			$cookies.myPubsAuthToken = token;
 		};
-
-		/**
-		 * Invalidates token on service, in cookie, and in memory; then routes to login page
-		 */
-		this.logout = function() {
-			var _this = this;
-			$http.get(APP_CONFIG.endpoint + LOGOUT_SERVICE_PATH,{
-				params : {
-					token : _this.loginState.authToken || $cookies.myPubsAuthToken
-				}
-			}).success(function(response) {
-				$location.path("/Login");
-			});
-
-			_this.loginState.authToken = null;
-			$cookies.myPubsAuthToken = null;
+		
+		this.clearToken = function() {
+			this.setToken(null);
 		};
 
 		return this;
 	}])
 
-	.factory('UnauthorizedInterceptor', function($q, $location) {
-		var attachAuthToken = function(request) {
-			
+	.factory('AuthorizationInterceptor', function($q, $location, AuthState) {
+		var attachAuthToken = function(config) {
+			config.headers[AUTH_TOKEN_HEADER] = AuthState.getToken();
+			return config;
 		};
 		
 		var handleUnauthorized = function(response) {
@@ -99,6 +104,7 @@
 		};
 		
 		return {
+			'request': attachAuthToken,
 			'response': handleUnauthorized,
 			'responseError': handleUnauthorized
 		};
