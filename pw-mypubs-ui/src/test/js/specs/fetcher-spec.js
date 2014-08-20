@@ -29,8 +29,8 @@ describe('pw.fetcher module', function() {
 				
 				PublicationPersister = $injector.get('PublicationPersister');
 				
-				$httpBackend.when('POST', PublicationPersister.PERSISTENCE_ENDPOINT).respond(newPublication);
-				$httpBackend.when('PUT', PublicationPersister.PERSISTENCE_ENDPOINT + existingPublication.id).respond(existingPublication);
+				$httpBackend.when('POST', PublicationPersister.CREATE_ENDPOINT).respond(newPublication);
+				$httpBackend.when('PUT', PublicationPersister.UPDATE_ENDPOINT + existingPublication.id).respond(existingPublication);
 				
 			});
 		});
@@ -41,12 +41,12 @@ describe('pw.fetcher module', function() {
 		
 		it('should POST new pubs', function(){
 			PublicationPersister.persistPub(newPublication);
-			$httpBackend.expectPOST(PublicationPersister.PERSISTENCE_ENDPOINT, newPublication);
+			$httpBackend.expectPOST(PublicationPersister.CREATE_ENDPOINT, newPublication);
 			$httpBackend.flush();
 		});
 		it('should PUT existing pubs', function(){
 			PublicationPersister.persistPub(existingPublication);
-			$httpBackend.expectPUT(PublicationPersister.PERSISTENCE_ENDPOINT + existingPublication.id, existingPublication);
+			$httpBackend.expectPUT(PublicationPersister.UPDATE_ENDPOINT + existingPublication.id, existingPublication);
 			$httpBackend.flush();
 		});
 		

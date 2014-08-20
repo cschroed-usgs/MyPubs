@@ -35,9 +35,9 @@ describe("pw.publication module", function(){
 					existingPub = new Publication();
 					existingPub.id = 42;
 					$httpBackend = _$httpBackend_;
-					newPubHandler = $httpBackend.when('POST', PublicationPersister.PERSISTENCE_ENDPOINT);
+					newPubHandler = $httpBackend.when('POST', PublicationPersister.CREATE_ENDPOINT);
 					newPubHandler.respond(newPub);
-					existingPubHandler = $httpBackend.when('PUT', PublicationPersister.PERSISTENCE_ENDPOINT + existingPub.id);
+					existingPubHandler = $httpBackend.when('PUT', PublicationPersister.UPDATE_ENDPOINT + existingPub.id);
 					existingPubHandler.respond(existingPub);
 			}]);
 
