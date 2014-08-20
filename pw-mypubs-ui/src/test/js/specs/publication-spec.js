@@ -14,7 +14,31 @@ describe("pw.publication module", function(){
 		}
 		expect( def ).toBeTruthy();
 	});
-
+	describe('pubHeaderCtrl', function(){
+		
+		var scope, controller, newPub;
+		
+		
+		beforeEach(function(){
+			//mock pubData
+			angular.module('pw.publication').constant('pubData' , {});
+			module('pw.publication');
+			inject(['$rootScope', '$controller', 'Publication',
+			function($rootScope, $controller, Publication){
+				scope = $rootScope.$new();
+				scope.pubData = new Publication();
+				controller = $controller('pubHeaderCtrl', {
+					'$scope': scope
+				});
+			}
+		]);
+	});
+		it('when the "date to display to public" in the controller scope changes, a watch should write a custom serialization to the model', function(){
+			scope.date = new Date('2014-08-20T19:23:25.000Z');
+			scope.$digest();
+			expect(scope.pubData.displayToPublicDate).toBe('2014-08-20T19:23:25.000');
+		});
+	});
 	describe('publicationCtrl', function(){
 		var scope, controller, $httpBackend, existingPub, newPub, newPubHandler, existingPubHandler;
 		beforeEach(function(){
@@ -52,6 +76,7 @@ describe("pw.publication module", function(){
 				expect(scope.tabs).toBeDefined();
 				expect( angular.isObject(scope.tabs) ).toBeTruthy();
 		});
+
 		it('should receive the persisted pubs object when it successfully persists a new pub', function(done){
 			scope.pubData = newPub;
 			scope.$digest();

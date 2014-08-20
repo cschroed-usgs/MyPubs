@@ -199,8 +199,14 @@ function($scope, $routeParams, $route, pubData, PublicationPersister, Notifier, 
 			dateForScope = new Date();
 		}
 		$scope.date = dateForScope;
-		$scope.$watch('date', function(newValue){
-			pubData.displayToPublicDate = newValue;
+		$scope.$watch('date', function(newDate){
+			/*
+			 While the controller scope can have date objects, we need to put 
+			 strings in the model. In this case the server requires a custom 
+			 serialization that slightly modifies ISO-8601 by removing the
+			 time zone.
+			*/
+			pubData.displayToPublicDate = newDate.toJSON().replace(/[zZ]/, '');
 		});
                         
     }]);
