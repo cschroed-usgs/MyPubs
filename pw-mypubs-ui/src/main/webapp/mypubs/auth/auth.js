@@ -17,6 +17,8 @@
 		$scope.doLogin = function(user, pass) {
 			AuthService.getNewTokenPromise(user, pass).then(function(token){
 				$location.path('/Search');
+			}, function(reason) {
+				PubsModal.alert("Unable to Authenticate", reason);
 			});
 		};
 	}])
@@ -27,16 +29,17 @@
 				var deferred = $q.defer();
 				
 				$http.post(APP_CONFIG.endpoint + AUTH_SERVICE_PATH,{
-					params : {
-						username : user,
-						password : pass
+					username : user,
+					password : pass
+				}).success(function(data) {
+					if(data && data.token) {
+						AuthState.setToken(data.token);
+						deferred.resolve(AuthState.getToken());
+					} else {
+						deferred.reject("Authentication token was not returned from the service.");
 					}
-				}).success(function(response) {
-					AuthState.setToken(response.data.tokenId);
-					deferred.resolve(AuthState.getToken());
 				}).error(function(response){
-					//TODO
-					alert("get token errors");
+					deferred.reject("There was a server error.");
 				});
 
 				return deferred.promise;
@@ -44,9 +47,7 @@
 			logout : function() {
 				var _this = this;
 				$http.get(APP_CONFIG.endpoint + LOGOUT_SERVICE_PATH,{
-					params : {
-						token : AuthState.getToken()
-					}
+					token : AuthState.getToken()
 				}).success(function(response) {
 					$location.path("/Login");
 				});
@@ -97,7 +98,7 @@
 		};
 		
 		var handleUnauthorized = function(response) {
-			if(response.status == 401) {
+			if(response.status === 401) {
 				$location.path("/Login");
 			} else {
 				return response;

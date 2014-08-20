@@ -65,11 +65,14 @@ describe("pw.auth module", function() {
 				expect(token).toBe(testToken);
 				expect(cookiesMock.myPubsAuthToken).toBe(testToken);
 			});
-			httpBackend.expectPOST(AD_TOKEN_URL);
+			httpBackend.expectPOST(AD_TOKEN_URL, {
+				username : "user",
+				password : "pass"
+			});
 			httpBackend.flush();
 		});
 		
-		it("AuthState.getToken get the token from a browser cookie if it exists and AuthState.clearCookie clears all tokens", function (){
+		it("AuthState.getToken gets the token from a browser cookie if it exists and AuthState.clearCookie clears all tokens", function (){
 			var testToken = "auth-token";
 			var testCookieToken = "token-from-cookie";
 			
@@ -104,12 +107,15 @@ describe("pw.auth module", function() {
 				expect(token).toBe(testToken);
 				expect(cookiesMock.myPubsAuthToken).toBe(testToken);
 			});
-			httpBackend.expectPOST(AD_TOKEN_URL);
+			httpBackend.expectPOST(AD_TOKEN_URL, {
+				username : "user",
+				password : "pass"
+			});
 			httpBackend.flush();
 			
-			httpBackend.whenGET(LOGOUT_URL + "?token=" + testToken).respond("Logged out"); //TODO check for 200?
+			httpBackend.whenGET(LOGOUT_URL).respond("Logged out"); //TODO check for 200?
 			authService.logout();
-			httpBackend.expectGET(LOGOUT_URL + "?token=" + testToken);
+			httpBackend.expectGET(LOGOUT_URL);
 			httpBackend.flush();
 			
 			expect(cookiesMock.myPubsAuthToken).toBeFalsy();
