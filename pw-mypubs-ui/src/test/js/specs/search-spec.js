@@ -5,12 +5,6 @@ describe("pw.search module", function(){
 
 		module('pw.auth','pw.search', 'ngRoute', 'ngGrid', 'pw.fetcher', 'pw.modal');
 
-		inject(function($rootScope) {
-			var next = {
-					$$route : {originalPath:"/Logout"}
-			}
-			$rootScope.$broadcast('$routeChangeStart', next, {});
-		})
 	});
 
 
@@ -35,11 +29,6 @@ describe("pw.search module", function(){
 
 		expect(exists).toBeTruthy();
 
-	}));
-
-	it("should not have Search open access path in known openRoutes", inject(function(Authentication){
-		var exists = _.contains(Authentication.openRoutes, '/Search');
-		expect(exists).toBeFalsy();
 	}));
 	
 	describe('pw.search.searchCtrl', function() {

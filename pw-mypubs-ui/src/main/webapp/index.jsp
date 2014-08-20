@@ -79,6 +79,7 @@
 	<script type="text/javascript" src="webjars/ng-grid/2.0.11/ng-grid.min.js"></script>
 	<script type="text/javascript" src="lib/angular/angular-route.1.2.17.js"></script>
 	<script type="text/javascript" src="lib/angular/angular-animate.1.2.17.js"></script>
+	<script type="text/javascript" src="lib/angular/angular-cookies.1.2.17.js"></script>
 	<script type="text/javascript" src="lib/angular/ui-select2.js"></script>
 	<script type="text/javascript" src="lib/angular/ui-bootstrap-tpls-0.11.0.js"></script>
 	<script type="text/javascript" src="lib/angular/ui-tinymce.0.5.x.js"></script>
@@ -98,7 +99,7 @@
 	<script type="text/javascript" src="mypubs/modal/modal.js"></script>
 
 	<!-- login page -->
-	<script type="text/javascript" src="mypubs/main/auth.js"></script>
+	<script type="text/javascript" src="mypubs/auth/auth.js"></script>
 
 	<!-- home page -->
 	<script type="text/javascript" src="mypubs/main/home.js"></script>
