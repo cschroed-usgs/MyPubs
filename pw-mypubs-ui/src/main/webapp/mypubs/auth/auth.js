@@ -32,7 +32,7 @@
 						password : pass
 					}
 				}).success(function(response) {
-					AuthState.setToken(response);
+					AuthState.setToken(response.data.tokenId);
 					deferred.resolve(AuthState.getToken());
 				}).error(function(response){
 					//TODO
