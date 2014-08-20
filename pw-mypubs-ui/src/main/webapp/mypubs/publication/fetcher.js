@@ -8,7 +8,7 @@ angular.module('pw.fetcher',[])
         return {
             fetchPubById : function(pubId) {
                 var result = undefined;
-                if(pubId){
+                if (pubId) {
                     result = $http.get(APP_CONFIG.endpoint + 'mppublication/' + pubId,{
                         params : {
                             mimetype : 'json'
@@ -22,18 +22,18 @@ angular.module('pw.fetcher',[])
                 var parms = {
                         mimetype : 'json',
                     };
-                if(term && term.length > 0) {
+                if (term && term.length > 0) {
                 	parms.q = term;
                 }
-                if(listIds && listIds.length > 0) {
+                if (listIds && listIds.length > 0) {
                 	parms.listId = listIds;
                 }
 
-                if(pageSize) {
+                if (pageSize) {
                 	parms.page_size = pageSize;
                 }
 
-                if(startRow) {
+                if (startRow) {
                 	parms.page_row_start = startRow;
                 }
                 
@@ -71,14 +71,14 @@ angular.module('pw.fetcher',[])
 		 * @returns {Promise}
 		 */
 		var persistPub = function(pub){
-			if(_.isDate(pub.displayToPublicDate)){
+			if (_.isDate(pub.displayToPublicDate)) {
 				pub.displayToPublicDate = pub.displayToPublicDate.toISOString().replace(/[zZ]/, '');
 			}
 			var deferredPubPersistence = $q.defer();
 			//use a different http verb and url depending on whether the pub is new,
 			//but otherwise do the same same thing
 			var httpVerb, url;
-			if(pub.isNew()){
+			if (pub.isNew()) {
 				url = pubCreateEndpoint;
 				httpVerb = 'post';
 			}
@@ -95,7 +95,7 @@ angular.module('pw.fetcher',[])
 				}
 			})
 			.success(function(response){
-				if(httpResponseIsErrorFree(response)){
+				if (httpResponseIsErrorFree(response)) {
 					deferredPubPersistence.resolve(response);
 				}
 				else{
