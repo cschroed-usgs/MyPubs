@@ -15,7 +15,7 @@
 	.controller('LoginController', [ '$scope', '$location', 'AuthService', 'PubsModal', 
 	                                 function($scope, $location, AuthService, PubsModal) {
 		$scope.doLogin = function(user, pass) {
-			Authentication.getNewTokenPromise(user, pass).then(function(token){
+			AuthService.getNewTokenPromise(user, pass).then(function(token){
 				$location.path('/Search');
 			});
 		};
