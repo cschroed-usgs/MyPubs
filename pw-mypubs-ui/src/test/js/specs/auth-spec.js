@@ -24,6 +24,7 @@ describe("pw.auth module", function() {
 				// location mock
 				$provide.value('$location', locationMock);
 				$provide.value('$cookies', cookiesMock);
+				$provide.value('APP_CONFIG', APP_CONFIG);
 			});
 
 			inject(function(Authentication, $httpBackend) {
@@ -42,18 +43,19 @@ describe("pw.auth module", function() {
 
 
 		it("contains these API functions", function (){
-			expect(authenticationService.getTokenPromise).toBeDefined();
+			expect(authenticationService.getToken).toBeDefined();
+			expect(authenticationService.getNewTokenPromise).toBeDefined();
 			expect(authenticationService.logout).toBeDefined();
 		});
 
-		it("getTokenPromise will do an ajax call to a auth service to get a token " +
-				"when no token exists in javascript memory or browser cookes", function (){
+		it("getNewTokenPromise will do an ajax call to a auth service to get a token " +
+				"and then store that token in a browser cookie and in memory javascript", function (){
 			//set up server responses
 			var testToken = "auth-token";
 			httpBackend.whenPOST(AD_TOKEN_URL).respond(testToken);
 
 			//first call results in a fetch to token server
-			authenticationService.getTokenPromise("user", "pass").then(function(token) {
+			authenticationService.getNewTokenPromise("user", "pass").then(function(token) {
 				expect(token).toBe(testToken);
 				expect(cookiesMock.myPubsAuthToken).toBe(testToken);
 			});
@@ -61,34 +63,23 @@ describe("pw.auth module", function() {
 			httpBackend.flush();
 		});
 		
-		it("getTokenPromise get the token from a browser cookie if it exists " +
-				"when no token exists in javascript memory or browser cookes", function (){
-			//set up server responses
+		it("getToken get the token from a browser cookie if it exists ", function (){
 			var testToken = "auth-token";
 			var testCookieToken = "token-from-cookie";
-			httpBackend.whenPOST(AD_TOKEN_URL).respond(testToken);
-
-			cookiesMock.myPubsAuthToken = testCookieToken; //preset the cookie
 			
-			authenticationService.getTokenPromise("user", "pass").then(function(token) {
-				expect(token).toBe(testCookieToken);
-				expect(cookiesMock.myPubsAuthToken).toBe(testCookieToken);
-			});
-		});
-		
-		it("getTokenPromise get the token from javascript memory if there", function (){
+			//returns null if nothing was set
+			expect(authenticationService.getToken()).toBe(null);
+			
+			//set cookie
+			cookiesMock.myPubsAuthToken = testCookieToken;
+			expect(authenticationService.getToken()).toBe(testCookieToken);
+			expect(authenticationService.loginState.authToken).toBe(testCookieToken);
+			
 			//set up server responses
-			var testToken = "auth-token";
-			var testCookieToken = "token-from-cookie";
-			var jsMemoryCookieToken = "token-from-memory";
 			httpBackend.whenPOST(AD_TOKEN_URL).respond(testToken);
-
-			authenticationService.loginState.authToken = jsMemoryCookieToken;
-			cookiesMock.myPubsAuthToken = null; //no cookie
-			
-			authenticationService.getTokenPromise("user", "pass").then(function(token) {
-				expect(token).toBe(jsMemoryCookieToken);
-				expect(cookiesMock.myPubsAuthToken).toBe(jsMemoryCookieToken);
+			authenticationService.getNewTokenPromise("user", "pass").then(function(token) {
+				expect(authenticationService.getToken()).toBe(testToken);
+				expect(authenticationService.loginState.authToken).toBe(testToken);
 			});
 		});
 
@@ -96,7 +87,7 @@ describe("pw.auth module", function() {
 			//first log in
 			var testToken = "auth-token";
 			httpBackend.whenPOST(AD_TOKEN_URL).respond(testToken);
-			authenticationService.getTokenPromise("user", "pass").then(function(token) {
+			authenticationService.getNewTokenPromise("user", "pass").then(function(token) {
 				expect(token).toBe(testToken);
 				expect(cookiesMock.myPubsAuthToken).toBe(testToken);
 			});

@@ -25,16 +25,25 @@
 	 */
 	.service('Authentication', ['APP_CONFIG', '$http','$location', '$q', '$cookies', function(APP_CONFIG, $http, $location, $q, $cookies) {
 		this.loginState = {
-				authToken : ''
+				authToken : null
 		};
 
-		this.getTokenPromise = function(user, pass) {
-
+		/**
+		 * Retrieves the token from javascript memory or browser cookie.
+		 * @returns token or null if none exists
+		 */
+		this.getToken = function() {
 			//if we have a token stored in a browser cookie and none in memory, load from cookie
 			if(!this.loginState.authToken && $cookies.myPubsAuthToken) {
 				this.loginState.authToken = $cookies.myPubsAuthToken;
 			}
 
+			return this.loginState.authToken;
+		};
+		
+		this.getNewTokenPromise = function(user, pass) {
+			var deferred = $q.defer();
+			
 			//if no token exists, go to server
 			var _this = this;
 			if(!this.loginState.authToken) {
@@ -47,13 +56,11 @@
 					$cookies.myPubsAuthToken = response;
 					_this.loginState.authToken = response;
 					deferred.resolve(_this.loginState.authToken);
+				}).error(function(response){
+					//TODO
+					alert("get token errors");
 				});
 			}
-
-			var deferred = $q.defer(); //always return a promise
-			setTimeout(function() {
-				deferred.resolve(_this.loginState.authToken);
-			}, 10);
 
 			return deferred.promise;
 		};
