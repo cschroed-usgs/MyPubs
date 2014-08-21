@@ -2,7 +2,8 @@
 
 
 var mypubs = angular.module('pw.mypubs', [
-		'ngRoute', 'ngGrid','ui.select2','ui.bootstrap', 'ui.tinymce', 'ngAnimate', 'ui.sortable',// angular util modules
+
+		'ngRoute', 'ngGrid', 'ngCookies', 'ui.select2','ui.bootstrap', 'ui.tinymce', 'ngAnimate', 'ui.sortable',// angular util modules
 		'pw.auth', 'pw.notify', 'pw.fetcher',// pw util modules
 		'pw.home','pw.search', 'pw.publication', 'pw.reservation', // mypubs pages
 		'ui.bootstrap.datetimepicker' //datetimepicker
