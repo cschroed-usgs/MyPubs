@@ -1,7 +1,7 @@
 (function() {
 
-angular.module('pw.publication', ['ngRoute', 'pw.actions',
-	'pw.bibliodata', 'pw.catalog', 'pw.contacts', 'pw.links', 'pw.contributors' // pub edit modules
+angular.module('pw.publication', ['ngRoute', 'pw.notify',
+	'pw.bibliodata', 'pw.catalog', 'pw.contacts', 'pw.links', 'pw.contributors', 'pw.fetcher' // pub edit modules
 ])
 .config(['$routeProvider',
 	function($routeProvider) {
@@ -10,7 +10,7 @@ angular.module('pw.publication', ['ngRoute', 'pw.actions',
 			controller: 'publicationCtrl',
             resolve: {
                 pubData : ['Publication', function(Publication){
-                        return Publication()
+                        return Publication();
                 }]
             }
 		});
@@ -27,8 +27,11 @@ angular.module('pw.publication', ['ngRoute', 'pw.actions',
 	}
     ])
 .factory('Publication', ['PublicationFetcher', '$q', function (PublicationFetcher, $q) {
-        var pubSkeleton = function () {
-            return {
+        var SkeletonPublication = function () {
+			var self = this;
+			//avoid repetitive assignments to 'this' by declaring properties
+			//and values in a map and iteratively assigning them to 'this'
+			var properties = {
                 "id": '',
                 "publicationType": {
                   "id": ''
@@ -74,14 +77,33 @@ angular.module('pw.publication', ['ngRoute', 'pw.actions',
                 "editors": [],
                 "validationErrors": []
               };
+				angular.forEach(properties, function(defaultValue, propertyName){
+					self[propertyName] = defaultValue;
+				});
         };
+				/**
+		 * Is this Publication new?
+		 * @returns {Boolean} false if the pub's id is a non-zero-length String or a Number, true otherwise
+		 */
+		SkeletonPublication.prototype.isNew = function(){
+			var isNew = true;
+			var id = this.id;
+			if(angular.isString(id) && id.length > 1){
+				isNew = false;
+			}
+			else if(angular.isNumber(id)){
+				isNew = false;
+			}
+			return isNew;
+		};
+		
         var pubConstructor = function (pubId) {
             var pubToReturn;
             if (pubId) {
                 var deferred = $q.defer();
                 PublicationFetcher.fetchPubById(pubId).then(function(httpPromise){
                     var response = httpPromise.data;
-                    var safePub = pubSkeleton();
+                    var safePub = new SkeletonPublication();
                     angular.forEach(safePub, function(defaultValue, key){
                         safePub[key] = response[key] || defaultValue;
                     });
@@ -90,26 +112,46 @@ angular.module('pw.publication', ['ngRoute', 'pw.actions',
                 pubToReturn = deferred.promise;
             }
             else{
-                pubToReturn = pubSkeleton();
+                pubToReturn = new SkeletonPublication();
             }
             return pubToReturn;
         };
+
         return pubConstructor;
     }])
 .controller('publicationCtrl',
-[ '$scope', '$routeParams', '$location','$route', 'pubData',
-function($scope, $routeParams, $location, $route, pubData) {
-
+[ '$scope', '$routeParams', '$route', 'pubData', 'PublicationPersister', 'Notifier', '$location',
+function($scope, $routeParams, $route, pubData, PublicationPersister, Notifier, $location) {
 	$scope.pubData = pubData;
-    $scope.printPub = function(){
-        console.dir($scope.pubData);
-    };
+	/**
+	 * 
+	 * @returns {Promise}
+	 */
+	$scope.persistPub = function(){
+		var persistencePromise = PublicationPersister.persistPub($scope.pubData);
+		persistencePromise
+		.then(function(pubData){
+			Notifier.notify('Publication successfully saved');
+		}, function(reason){
+			if(reason.validationErrors){
+				Notifier.error('Publication not saved; there were validation errors.');
+			}
+			else if (reason.message){
+				Notifier.error(reason.message);
+			}
+			else{
+				Notifier.error('Publication not saved; there were unanticipated errors. Consult browser logs');
+				throw new Error(reason);
+			}
+		});
+		return persistencePromise;
+	};
 
     $scope.returnToSearch = function(){
     	//TODO verify dirty form status before allowing a return
 		$location.path("/Search");
     };
-    
+
 	$scope.tabs = [
 		{
 			title:"Bibliodata",
@@ -142,6 +184,31 @@ function($scope, $routeParams, $location, $route, pubData) {
 			controller: 'geoCtrl'
 		}
 	];
-}]);
+}])
+    .controller('pubHeaderCtrl', [
+    '$scope', function ($scope) {
+
+        var pubData = $scope.pubData;
+        console.log(pubData);
+		var dateForScope;
+        if ( angular.isDefined(pubData.displayToPublicDate) && pubData.displayToPublicDate.length !== 0) {
+            //write out new date property as a date object
+            dateForScope = new Date(pubData.displayToPublicDate);
+        }
+		else{
+			dateForScope = new Date();
+		}
+		$scope.date = dateForScope;
+		$scope.$watch('date', function(newDate){
+			/*
+			 While the controller scope can have date objects, we need to put 
+			 strings in the model. In this case the server requires a custom 
+			 serialization that slightly modifies ISO-8601 by removing the
+			 time zone.
+			*/
+			pubData.displayToPublicDate = newDate.toJSON().replace(/[zZ]/, '');
+		});
+                        
+    }]);
 
 }) ();

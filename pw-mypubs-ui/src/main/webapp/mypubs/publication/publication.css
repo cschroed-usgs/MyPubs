@@ -1,11 +1,11 @@
 /** button styles **/
-
+.tab-pane {
+	margin-top: 1em;
+}
 div.actions {
-	margin-left: 202px;
 	margin-bottom: 10px;
 	padding: 10px;
 	background-color: #eee;
-	width: 353px;
 	border-radius: 4px;
 }
 
@@ -49,4 +49,17 @@ div.actions {
 	border:1px solid #87ADCF;
 	outline: -webkit-focus-ring-color auto 5px;
 	outline-offset: -2px;
+}
+
+#pubTime {
+	display: inline-block;
+	position: absolute;
+	left: 345px;
+	top: 70px;
+	width: 160px;
+}
+
+#pubHeader {
+	margin-bottom: 30px;
+	margin-top: 3px;
 }

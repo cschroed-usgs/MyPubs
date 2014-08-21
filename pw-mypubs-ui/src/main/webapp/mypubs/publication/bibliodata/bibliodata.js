@@ -20,7 +20,14 @@ angular.module('pw.bibliodata',['pw.fetcher', 'pw.lookups'])
             //on the local-most scope and propagating changes back up to pubData via watches
             $scope.localPubTypeId = $scope.pubData.publicationType.id;
             $scope.localPubGenreId = $scope.pubData.publicationSubtype.id;
-            $scope.localCollectionTitleId = $scope.pubData.seriesTitle.id;
+            $scope.localSeriesTitle = $scope.pubData.seriesTitle.id;
+			$scope.localCostCenters = [];
+			angular.forEach($scope.pubData.costCenters, function(costCenter){
+				if(angular.isDefined(costCenter.id)){
+					$scope.localCostCenters.push(costCenter.id);
+				}
+			});
+
             var getIdOrOriginal = function(objectOrPrimitive){
                 var id = objectOrPrimitive;
                 if(objectOrPrimitive.id){
@@ -36,14 +43,14 @@ angular.module('pw.bibliodata',['pw.fetcher', 'pw.lookups'])
                 var id = getIdOrOriginal(value);
                 $scope.pubData.publicationSubtype.id = id;
             });
-            $scope.$watch('localCollectionTitleId', function(value){
+            $scope.$watch('localSeriesTitle', function(value){
                 var id = getIdOrOriginal(value);
                 $scope.pubData.seriesTitle.id = id;
             });
             $scope.changeType = function() {
                 if (typeInputIsInitialized) {
                     $scope.localPubGenreId = '';
-                    $scope.localCollectionTitleId = '';
+                    $scope.localSeriesTitle = '';
                 }
                 else {
                     typeInputIsInitialized = true;
@@ -52,13 +59,15 @@ angular.module('pw.bibliodata',['pw.fetcher', 'pw.lookups'])
 
             $scope.changeGenre = function() {
                 if (genreInputIsInitialized) {
-                    $scope.localCollectionTitleId = '';
+                    $scope.localSeriesTitle = '';
                 }
                 else {
                     genreInputIsInitialized = true;
                 }
-            }
-
+            };
+			$scope.$watch('localCostCenters', function(newCostCenters){
+				$scope.pubData.costCenters = newCostCenters;
+			});
             LookupFetcher.promise('publicationtypes').then(function(response) {
                 $scope.typeOptions = response.data;
 
