@@ -5,12 +5,6 @@ describe("pw.reservation module", function(){
 
 		module('pw.auth','pw.reservation')
 
-		inject(function($rootScope) {
-			var next = {
-				$$route : {originalPath:"/Logout"}
-			}
-			$rootScope.$broadcast('$routeChangeStart', next, {})
-		})
 	})
 
 
@@ -35,11 +29,6 @@ describe("pw.reservation module", function(){
 
 		expect(exists).toBeTruthy()
 
-	}))
-
-	it("should not have Reservation open access path in known openRoutes", inject(function(Authentication){
-		var exists = _.contains(Authentication.openRoutes, '/Reservation')
-		expect(exists).toBeFalsy()
 	}))
 
 })

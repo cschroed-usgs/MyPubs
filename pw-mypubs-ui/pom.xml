@@ -222,6 +222,7 @@
                         <source>${webjars.libs}/ng-grid/2.0.11/ng-grid.min.js</source>
 						<source>src/main/webapp/lib/angular/angular-route.1.2.17.js</source>
 						<source>src/main/webapp/lib/angular/angular-animate.1.2.17.js</source>
+						<source>src/main/webapp/lib/angular/angular-cookies.1.2.17.js</source>
 						<source>src/main/webapp/lib/angular/ui-select2.js</source>
 						<source>src/main/webapp/lib/angular/ui-bootstrap-tpls-0.11.0.js</source>
 						<source>src/main/webapp/lib/angular/ui-tinymce.0.5.x.js</source>

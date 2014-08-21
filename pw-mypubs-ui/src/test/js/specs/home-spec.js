@@ -4,13 +4,7 @@ describe("pw.home module", function(){
 	beforeEach(function(){
 
 		module('pw.auth','pw.home')
-
-		inject(function($rootScope) {
-			var next = {
-				$$route : {originalPath:"/Logout"}
-			}
-			$rootScope.$broadcast('$routeChangeStart', next, {})
-		})
+		
 	})
 
 
@@ -24,11 +18,4 @@ describe("pw.home module", function(){
 		}
 		expect( def ).toBeTruthy()
 	});
-
-
-	it("should have Home open access path in known openRoutes", inject(function(Authentication){
-		var exists = _.contains(Authentication.openRoutes, '/Home')
-		expect(exists).toBeTruthy()
-	}))
-
 })
