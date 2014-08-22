@@ -93,12 +93,7 @@ angular.module('pw.fetcher',[])
 			})
 			.success(function(response){
 				if (httpResponseIsErrorFree(response)) {
-					if(response.validationErrors && 0 !== response.validationErrors.length){
-						deferredPubPersistence.reject(response);
-					}
-					else{
 						deferredPubPersistence.resolve(response);
-					}
 				}
 				else{
 					deferredPubPersistence.reject(new Error(errorPersistingPubMessage));
@@ -106,7 +101,12 @@ angular.module('pw.fetcher',[])
 				deferredPubPersistence.resolve(response);
 			})
 			.error(function(response){
-				deferredPubPersistence.reject(new Error(errorPersistingPubMessage));
+				if(response['validation-errors'] && 0 !== response['validation-errors'].length){
+						deferredPubPersistence.reject(response);
+					}
+				else{
+					deferredPubPersistence.reject(new Error(errorPersistingPubMessage));
+				}
 			});
 			
 			return deferredPubPersistence.promise;
