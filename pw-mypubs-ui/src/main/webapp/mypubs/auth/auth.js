@@ -108,14 +108,12 @@
 		var handleUnauthorized = function(response) {
 			if(response.status === 401) {
 				$location.path("/Login");
-			} else {
-				return response;
 			}
+			return $q.reject(response);
 		};
 		
 		return {
 			'request': attachAuthToken,
-			'response': handleUnauthorized,
 			'responseError': handleUnauthorized
 		};
 	});
