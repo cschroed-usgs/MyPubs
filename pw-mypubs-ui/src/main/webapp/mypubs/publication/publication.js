@@ -1,11 +1,11 @@
 (function() {
-
+var PUB_ROOT = '/Publication';
 angular.module('pw.publication', ['ngRoute', 'pw.notify',
 	'pw.bibliodata', 'pw.catalog', 'pw.contacts', 'pw.links', 'pw.contributors', 'pw.fetcher' // pub edit modules
 ])
 .config(['$routeProvider',
 	function($routeProvider) {
-		$routeProvider.when('/Publication', {
+		$routeProvider.when(PUB_ROOT, {
 			templateUrl: 'mypubs/publication/publication.html',
 			controller: 'publicationCtrl',
             resolve: {
@@ -14,7 +14,7 @@ angular.module('pw.publication', ['ngRoute', 'pw.notify',
                 }]
             }
 		});
-		$routeProvider.when('/Publication/:pubsid', {
+		$routeProvider.when(PUB_ROOT + '/:pubsid', {
 			templateUrl: 'mypubs/publication/publication.html',
 			controller: 'publicationCtrl',
             resolve : {
@@ -130,8 +130,12 @@ function($scope, $routeParams, $route, pubData, PublicationPersister, Notifier, 
 	$scope.persistPub = function(){
 		var persistencePromise = PublicationPersister.persistPub($scope.pubData);
 		persistencePromise
-		.then(function(pubData){
-			Notifier.notify('Publication successfully saved');
+		.then(function(returnedPubData){
+			
+			if($scope.pubData.isNew()){
+				$location.path(PUB_ROOT + '/' + returnedPubData.id);
+				Notifier.notify('Publication successfully saved');
+			}
 		}, function(reason){
 			if(reason['validation-errors']){
 				Notifier.error('Publication not saved; there were validation errors.');
