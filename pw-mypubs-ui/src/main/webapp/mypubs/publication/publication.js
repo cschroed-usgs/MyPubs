@@ -69,13 +69,13 @@ angular.module('pw.publication', ['ngRoute', 'pw.notify',
                 "startPage": "",
                 "endPage": "",
                 "numberOfPages": "",
-                "onlineOnly": "",
-                "additionalOnlineFiles": "",
+                "onlineOnly": "N",
+                "additionalOnlineFiles": "N",
                 "temporalStart": "",
                 "temporalEnd": "",
                 "authors": [],
                 "editors": [],
-                "validationErrors": []
+                "validation-errors": []
               };
 				angular.forEach(properties, function(defaultValue, propertyName){
 					self[propertyName] = defaultValue;
