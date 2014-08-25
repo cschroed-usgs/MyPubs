@@ -3,3 +3,4 @@ mvnp.sh
 target/
 phantomjsdriver.log
 META-INF/
+nb-configuration.xml
