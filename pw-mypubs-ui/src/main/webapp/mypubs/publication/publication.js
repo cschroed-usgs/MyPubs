@@ -133,7 +133,7 @@ function($scope, $routeParams, $route, pubData, PublicationPersister, Notifier, 
 		.then(function(pubData){
 			Notifier.notify('Publication successfully saved');
 		}, function(reason){
-			if(reason.validationErrors){
+			if(reason['validation-errors']){
 				Notifier.error('Publication not saved; there were validation errors.');
 			}
 			else if (reason.message){

@@ -65,10 +65,7 @@ describe("pw.auth module", function() {
 				expect(token).toBe(testToken);
 				expect(cookiesMock.myPubsAuthToken).toBe(testToken);
 			});
-			httpBackend.expectPOST(AD_TOKEN_URL, {
-				username : "user",
-				password : "pass"
-			});
+			httpBackend.expectPOST(AD_TOKEN_URL, "username=user&password=pass");
 			httpBackend.flush();
 		});
 		
@@ -107,10 +104,7 @@ describe("pw.auth module", function() {
 				expect(token).toBe(testToken);
 				expect(cookiesMock.myPubsAuthToken).toBe(testToken);
 			});
-			httpBackend.expectPOST(AD_TOKEN_URL, {
-				username : "user",
-				password : "pass"
-			});
+			httpBackend.expectPOST(AD_TOKEN_URL, "username=user&password=pass");
 			httpBackend.flush();
 			
 			httpBackend.whenGET(LOGOUT_URL).respond("Logged out"); //TODO check for 200?

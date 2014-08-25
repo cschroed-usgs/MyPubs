@@ -28,10 +28,18 @@
 			getNewTokenPromise : function(user, pass) {
 				var deferred = $q.defer();
 				
-				$http.post(APP_CONFIG.endpoint + AUTH_SERVICE_PATH,{
-					username : user,
-					password : pass
-				}).success(function(data) {
+				$http.post(APP_CONFIG.endpoint + AUTH_SERVICE_PATH,
+					$.param({ //use jquery to do standard form post
+						username : user,
+						password : pass,
+					}),
+					{
+					    headers:
+					    {
+					        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+					    }
+					}
+				).success(function(data) {
 					if(data && data.token) {
 						AuthState.setToken(data.token);
 						deferred.resolve(AuthState.getToken());
@@ -100,14 +108,12 @@
 		var handleUnauthorized = function(response) {
 			if(response.status === 401) {
 				$location.path("/Login");
-			} else {
-				return response;
 			}
+			return $q.reject(response);
 		};
 		
 		return {
 			'request': attachAuthToken,
-			'response': handleUnauthorized,
 			'responseError': handleUnauthorized
 		};
 	});
