@@ -138,6 +138,7 @@ function($scope, $routeParams, $route, pubData, PublicationPersister, Notifier, 
 			}
 		}, function(reason){
 			if(reason['validation-errors']){
+				$scope.pubData['validation-errors'] = reason['validation-errors'];
 				Notifier.error('Publication not saved; there were validation errors.');
 			}
 			else if (reason.message){
