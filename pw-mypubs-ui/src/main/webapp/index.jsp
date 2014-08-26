@@ -96,6 +96,8 @@
 	<script type="text/javascript" src="mypubs/main/collection.js"></script>
 	<script type="text/javascript" src="mypubs/notify/notify.js"></script>
 	<script type="text/javascript" src="mypubs/modal/modal.js"></script>
+	
+	<script type="text/javascript" src="mypubs/services/lookups.js"></script>
 
 	<!-- login page -->
 	<script type="text/javascript" src="mypubs/auth/auth.js"></script>
@@ -105,6 +107,9 @@
 
 	<!-- search page -->
 	<script type="text/javascript" src="mypubs/search/search.js"></script>
+	
+	<!-- edit contributor page -->
+	<script type="text/javascript" src="mypubs/contributor/editContributor.js"></script>
 
 	<!-- reservation page -->
 	<script type="text/javascript" src="mypubs/reservation/reservation.js"></script>
@@ -114,7 +119,6 @@
 	<script type="text/javascript" src="mypubs/publication/publication.js"></script>
 
 	<script type="text/javascript" src="mypubs/publication/fetcher.js"></script>
-	<script type="text/javascript" src="mypubs/publication/lookups.js"></script>
 
 	<!-- publications tabs -->
 	<script type="text/javascript" src="mypubs/publication/bibliodata/bibliodata.js"></script>

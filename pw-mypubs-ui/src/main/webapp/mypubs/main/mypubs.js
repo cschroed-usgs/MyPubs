@@ -5,7 +5,7 @@ var mypubs = angular.module('pw.mypubs', [
 
 		'ngRoute', 'ngGrid', 'ngCookies', 'ui.select2','ui.bootstrap', 'ui.tinymce', 'ngAnimate', 'ui.sortable',// angular util modules
 		'pw.auth', 'pw.notify', 'pw.fetcher',// pw util modules
-		'pw.home','pw.search', 'pw.publication', 'pw.reservation', // mypubs pages
+		'pw.home','pw.search', 'pw.publication', 'pw.editContributor', 'pw.reservation', // mypubs pages
 		'ui.bootstrap.datetimepicker' //datetimepicker
 
 	])
@@ -18,12 +18,12 @@ var mypubs = angular.module('pw.mypubs', [
 				return $scope._show = show;
 			};
 	}])
-	.config(['$routeProvider', '$httpProvider', 
+	.config(['$routeProvider', '$httpProvider',
 	     	function($routeProvider, $httpProvider) {
 	     		$routeProvider.otherwise({
 	     			redirectTo: '/Search'
 	     		});
-	     		
+
 	     		$httpProvider.interceptors.push('AuthorizationInterceptor');
 	     	}
 	     ])
