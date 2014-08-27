@@ -81,12 +81,19 @@ describe("pw.publication module", function(){
 			scope.pubData = newPub;
 			scope.$digest();
 			var newPubPersistPromise = scope.persistPub();
+			
 			newPubPersistPromise.then(function(data){
 				expect(data).toEqual(newPub);
 			}, function(){
 				//this must fail if the function is called
 				expect(true).toBe(false);
 			});
+			
+			//since a template is requested and we cannot have 
+			//outstanding requests post-test, we should send a dummy
+			//response to all GETs
+			$httpBackend.when('GET', /.*/).respond(200, '');
+			
 			$httpBackend.flush();
 		});
 		it('should receive the persisted pubs object when it successfully persists an existing pub', function(){
