@@ -1,0 +1,48 @@
+<div id="edit-contributor">
+    <div class="form-group"ng-if="contributor.isNew()">
+	<label>Contributor Type</label>
+	<select class="form-control" placeholder="Select kind" ui-select2 ng-model="contributor.is_corporation">
+	    <option></option>	
+	    <option ng-repeat="option in contributorKinds" value="{{option.id}}">{{option.text}}</option>
+	</select>
+    </div>
+    <div ng-if="contributor.isPerson()">
+	<div class="form-group">
+	    <label>First name</label>
+	    <input class="form-control" type="text" ng-model="contributor.first" />
+	</div>
+	<div class="form-group">
+	    <label>Last name</label>
+	    <input class="form-control" type="text" ng-model="contributor.given" />
+	</div>
+	<div class="form-group">
+	    <label>Suffix</label>
+	    <input class="form-control" type="text" ng-model="contributor.suffix" />
+	</div>
+	<div class="form-group">
+	    <label>Email</label>
+	    <input class="form-control" type="email" ng-model="contributor.email" />
+	</div>
+	<div class="checkbox">
+	    <label><input type="checkbox" ng-model="contributor.is_usgs" ng-true-value="Y" ng-false-value="N" />USGS</label>
+	</div>
+	<div class="form-group">
+	    <label>Affiliation</label>
+	    <select class="form-control" placeholder="Select affiliation" ui-select2 ng-model="contribtor.affiliation_id">
+		<option></option>
+		<option ng-repeat="option in costCenters" value="{{option.id}}">{{option.text}}</option>
+	    </select>
+	</div>
+    </div>
+    <div ng-if="contributor.isCorporation()">
+	<div class="form-group">
+	    <label>Name</label>
+	    <input class="form-control" type="text" ng-model="contributor.literal">
+	</div>
+    </div>
+    <div id="contributor-op-buttons">
+	<button class="btn btn-default" type="button" ng-click="saveChanges()">Save</button>
+	<button class="btn btn-default" type="button" ng-click="cancelChanges()">Cancel</button>
+    </div>
+
+</div>

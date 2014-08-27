@@ -96,7 +96,7 @@ angular.module('pw.publication', ['ngRoute', 'pw.notify',
 			}
 			return isNew;
 		};
-		
+
         var pubConstructor = function (pubId) {
             var pubToReturn;
             if (pubId) {
@@ -124,7 +124,7 @@ angular.module('pw.publication', ['ngRoute', 'pw.notify',
 function($scope, $routeParams, $route, pubData, PublicationPersister, Notifier, $location) {
 	$scope.pubData = pubData;
 	/**
-	 * 
+	 *
 	 * @returns {Promise}
 	 */
 	$scope.persistPub = function(){
@@ -201,14 +201,14 @@ function($scope, $routeParams, $route, pubData, PublicationPersister, Notifier, 
 		$scope.date = dateForScope;
 		$scope.$watch('date', function(newDate){
 			/*
-			 While the controller scope can have date objects, we need to put 
-			 strings in the model. In this case the server requires a custom 
+			 While the controller scope can have date objects, we need to put
+			 strings in the model. In this case the server requires a custom
 			 serialization that slightly modifies ISO-8601 by removing the
 			 time zone.
 			*/
 			pubData.displayToPublicDate = newDate.toJSON().replace(/[zZ]/, '');
 		});
-                        
+
     }]);
 
 }) ();
