@@ -19,6 +19,7 @@ angular.module('pw.bibliodata',['pw.fetcher', 'pw.lookups'])
             //@mbucknell recommends binding ui-select2 ng-model targets to variables
             //on the local-most scope and propagating changes back up to pubData via watches
             $scope.localPubTypeId = $scope.pubData.publicationType.id;
+            $scope.localLargerWorkTypeId = $scope.pubData.largerWorkType.id;
             $scope.localPubGenreId = $scope.pubData.publicationSubtype.id;
             $scope.localSeriesTitle = $scope.pubData.seriesTitle.id;
 			$scope.localCostCenters = [];
@@ -38,6 +39,10 @@ angular.module('pw.bibliodata',['pw.fetcher', 'pw.lookups'])
             $scope.$watch('localPubTypeId', function(value){
                 var id = getIdOrOriginal(value);
                 $scope.pubData.publicationType.id = id;
+            });
+            $scope.$watch('localLargerWorkTypeId', function(value){
+                var id = getIdOrOriginal(value);
+                $scope.pubData.largerWorkType.id = id;
             });
             $scope.$watch('localPubGenreId', function(value){
                 var id = getIdOrOriginal(value);
@@ -104,6 +109,26 @@ angular.module('pw.bibliodata',['pw.fetcher', 'pw.lookups'])
             $scope.abstractEditorOptions = {
                 menubar : false
             };
+            
+            var pubData = $scope.pubData;
+            var dateForScope;
+            if ( angular.isDefined(pubData.lastModifiedDate) && pubData.lastModifiedDate.length !== 0) {
+                //write out new date property as a date object
+                dateForScope = new Date(pubData.lastModifiedDate);
+            }
+            else{
+                    dateForScope = new Date();
+            }
+            $scope.date = dateForScope;
+            $scope.$watch('date', function(newDate){
+                /*
+                 While the controller scope can have date objects, we need to put 
+                 strings in the model. In this case the server requires a custom 
+                 serialization that slightly modifies ISO-8601 by removing the
+                 time zone.
+                */
+                pubData.lastModifiedDate = newDate.toJSON().replace(/[zZ]/, '');
+            });
     }]);
 
 }) ();
