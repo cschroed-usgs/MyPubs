@@ -46,8 +46,12 @@
 					} else {
 						deferred.reject("Authentication token was not returned from the service.");
 					}
-				}).error(function(response){
-					deferred.reject("There was a server error.");
+				}).error(function(response, status){
+					if(status == 401) {
+						deferred.reject("Invalid username/password.");
+					} else {
+						deferred.reject("There was a server error.");
+					}
 				});
 
 				return deferred.promise;
