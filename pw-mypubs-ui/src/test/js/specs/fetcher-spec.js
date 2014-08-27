@@ -39,14 +39,18 @@ describe('pw.fetcher module', function() {
 			$httpBackend.verifyNoOutstandingRequest();
 		});
 		
-		it('should POST new pubs', function(){
+		it('should POST new pubs and it should not include validation errors', function(){
 			PublicationPersister.persistPub(newPublication);
-			$httpBackend.expectPOST(PublicationPersister.CREATE_ENDPOINT, newPublication);
+			var noValidationErrorsPublication = _.clone(newPublication);
+			delete noValidationErrorsPublication['validation-errors'];
+			$httpBackend.expectPOST(PublicationPersister.CREATE_ENDPOINT, noValidationErrorsPublication);
 			$httpBackend.flush();
 		});
-		it('should PUT existing pubs', function(){
+		it('should PUT existing pubs and it should not include validation errors', function(){
 			PublicationPersister.persistPub(existingPublication);
-			$httpBackend.expectPUT(PublicationPersister.UPDATE_ENDPOINT + existingPublication.id, existingPublication);
+			var noValidationErrorsPublication = _.clone(existingPublication);
+			delete noValidationErrorsPublication['validation-errors'];
+			$httpBackend.expectPUT(PublicationPersister.UPDATE_ENDPOINT + existingPublication.id, noValidationErrorsPublication);
 			$httpBackend.flush();
 		});
 		

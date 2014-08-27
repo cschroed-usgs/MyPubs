@@ -134,8 +134,8 @@ function($scope, $routeParams, $route, pubData, PublicationPersister, Notifier, 
 			
 			if($scope.pubData.isNew()){
 				$location.path(PUB_ROOT + '/' + returnedPubData.id);
-				Notifier.notify('Publication successfully saved');
 			}
+			Notifier.notify('Publication successfully saved');
 		}, function(reason){
 			if(reason['validation-errors']){
 				$scope.pubData['validation-errors'] = reason['validation-errors'];
