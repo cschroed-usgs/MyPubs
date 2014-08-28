@@ -69,9 +69,11 @@ angular.module('pw.publication', ['ngRoute', 'pw.notify',
                 "conferenceTitle": "",
                 "conferenceDate": "",
                 "conferenceLocation": "",
-                "largerWorkType": "",
+                "largerWorkType": {
+                  "id": ''
+                },
                 "largerWorkTitle": "",
-                "lastModifiedDate": "",
+                "updateDate": "",
                 "productDescription": "",
                 "startPage": "",
                 "endPage": "",

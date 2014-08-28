@@ -110,25 +110,6 @@ angular.module('pw.bibliodata',['pw.fetcher', 'pw.lookups'])
                 menubar : false
             };
             
-            var pubData = $scope.pubData;
-            var dateForScope;
-            if ( angular.isDefined(pubData.lastModifiedDate) && pubData.lastModifiedDate.length !== 0) {
-                //write out new date property as a date object
-                dateForScope = new Date(pubData.lastModifiedDate);
-            }
-            else{
-                    dateForScope = new Date();
-            }
-            $scope.date = dateForScope;
-            $scope.$watch('date', function(newDate){
-                /*
-                 While the controller scope can have date objects, we need to put 
-                 strings in the model. In this case the server requires a custom 
-                 serialization that slightly modifies ISO-8601 by removing the
-                 time zone.
-                */
-                pubData.lastModifiedDate = newDate.toJSON().replace(/[zZ]/, '');
-            });
     }]);
 
 }) ();
