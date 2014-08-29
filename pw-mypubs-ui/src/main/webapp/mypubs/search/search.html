@@ -41,11 +41,8 @@
 			    </el>
 				<div class="pub-grid" ng-grid="pubsGrid"></div>
 				<div style="display:none"> <!-- Hacky solution to extract some "view configuration" into HTML due to limitations in ngGrid-->
-					<div id="nameFieldCellTemplate">
-						<div class="ngCellText" ng-class="col.colIndex()"><span ng-cell-text>{{COL_FIELD.name}}</span></div>
-					</div>
-					<div id="titleFieldCellTemplate">
-						<div class="ngCellText" ng-class="col.colIndex()"><span ng-cell-text>{{COL_FIELD.title}}</span></div>
+					<div id="textFieldCellTemplate">
+						<div class="ngCellText" ng-class="col.colIndex()"><span ng-cell-text>{{COL_FIELD.text}}</span></div>
 					</div>
 					<div id="authorsCellTemplate">
 						<div class="ngCellText" ng-class="col.colIndex()">
