@@ -98,6 +98,9 @@ angular.module('pw.bibliodata',['pw.fetcher', 'pw.lookups'])
             };
 
             $scope.costCenterSelect2Options = {
+				initSelection : function(){
+					return $scope.pubData.costCenters;
+				},
                 placeholder : 'Select one or more cost centers'
             };
 
