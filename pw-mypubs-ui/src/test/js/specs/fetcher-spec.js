@@ -18,7 +18,7 @@ describe('pw.fetcher module', function() {
 		});
 		beforeEach(module('pw.fetcher'));
 		beforeEach(module('pw.publication'));
-		
+
 		beforeEach(function () {
 			inject(function ($injector) {
 				$httpBackend = $injector.get('$httpBackend');
@@ -26,19 +26,19 @@ describe('pw.fetcher module', function() {
 				newPublication = new Publication();
 				existingPublication = new Publication();
 				existingPublication.id = 12;
-				
+
 				PublicationPersister = $injector.get('PublicationPersister');
-				
+
 				$httpBackend.when('POST', PublicationPersister.CREATE_ENDPOINT).respond(newPublication);
 				$httpBackend.when('PUT', PublicationPersister.UPDATE_ENDPOINT + existingPublication.id).respond(existingPublication);
-				
+
 			});
 		});
 		afterEach(function() {
 			$httpBackend.verifyNoOutstandingExpectation();
 			$httpBackend.verifyNoOutstandingRequest();
 		});
-		
+
 		it('should POST new pubs and it should not include validation errors', function(){
 			PublicationPersister.persistPub(newPublication);
 			var noValidationErrorsPublication = _.clone(newPublication);
@@ -53,7 +53,7 @@ describe('pw.fetcher module', function() {
 			$httpBackend.expectPUT(PublicationPersister.UPDATE_ENDPOINT + existingPublication.id, noValidationErrorsPublication);
 			$httpBackend.flush();
 		});
-		
+
 	});
     describe('pw.fetcher.PublicationFetcher', function() {
 		var $httpBackend;
@@ -114,17 +114,6 @@ describe('pw.fetcher module', function() {
             expect(promiseSpy).toHaveBeenCalled();
             expect(promiseSpy.calls[0].args[0].data.id).toEqual(12);
         }));
-
-	it('Expects fetchContributor to return a promise', inject(function(PublicationFetcher) {
-	    var promiseSpy = jasmine.createSpy('promiseSpy');
-	    var promise = PublicationFetcher.fetchContributor(2).then(promiseSpy);
-
-	    $httpBackend.expectGET(APP_CONFIG.endpoint + 'contributor/2' + MIMETYPE);
-
-	    $httpBackend.flush();
-	    expect(promiseSpy).toHaveBeenCalled();
-	    expect(promiseSpy.calls[0].args[0].data).toEqual({id : 2, name : 'This Name'});
-	}));
     });
 
 });
