@@ -66,7 +66,9 @@ angular.module('pw.bibliodata',['pw.fetcher', 'pw.lookups'])
                 }
             };
 			$scope.$watch('localCostCenters', function(newCostCenters){
-				$scope.pubData.costCenters = newCostCenters;
+				$scope.pubData.costCenters = _.map(newCostCenters, function(costCenterId){
+					return {id: costCenterId};
+				});
 			});
             LookupFetcher.promise('publicationtypes').then(function(response) {
                 $scope.typeOptions = response.data;
