@@ -98,6 +98,7 @@
 	<script type="text/javascript" src="mypubs/modal/modal.js"></script>
 	
 	<script type="text/javascript" src="mypubs/services/lookups.js"></script>
+	<script type="text/javascript" src="mypubs/services/contributorDAO.js"></script>
 
 	<!-- login page -->
 	<script type="text/javascript" src="mypubs/auth/auth.js"></script>

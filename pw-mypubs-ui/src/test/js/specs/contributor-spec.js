@@ -130,15 +130,15 @@ describe ('Tests for pw.contributors', function() {
 	beforeEach(module('pw.contributors'));
 
 	beforeEach(function() {
-	    mockPubFetcher = {
-		fetchContributor : function(contributorId) {
+	    mockContributorFetcher = {
+		fetchContributorById : function(contributorId) {
 		    return q.when({data : {
 			contributorId : contributorId,
 			name : 'New Name'
 		    }});
 		}
 	    };
-	    spyOn(mockPubFetcher, 'fetchContributor').andCallThrough();
+	    spyOn(mockContributorFetcher, 'fetchContributorById').andCallThrough();
 
 	    mockLookupFetcher = {
 		promise : function(lookup) {
@@ -173,7 +173,7 @@ describe ('Tests for pw.contributors', function() {
 		return $controller('contributorsCtrl', {
 		    '$scope': scope,
 		    'ContributorModel' : ContributorModel,
-		    'PublicationFetcher' : mockPubFetcher,
+		    'ContributorFetcher' : mockContributorFetcher,
 		    'LookupFetcher' : mockLookupFetcher,
 		    'ListOrderingService' : mockListOrderingService
 		});
@@ -334,7 +334,7 @@ describe ('Tests for pw.contributors', function() {
 	    scope.selectedTab(0);
 	    scope.updateContributorInfo(1);
 
-	    expect(mockPubFetcher.fetchContributor).toHaveBeenCalledWith(2);
+	    expect(mockContributorFetcher.fetchContributorById).toHaveBeenCalledWith(2);
 	    scope.$digest();
 	    expect(scope.contribTabs[0].data[1].name).toEqual('New Name');
 	});

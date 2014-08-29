@@ -36,24 +36,17 @@ angular.module('pw.fetcher',[])
                 if (startRow) {
                 	parms.page_row_start = startRow;
                 }
-                
+
                 result = $http.get(APP_CONFIG.endpoint + 'mppublications',{
                     params : parms
                 });
                 return result;
-            },
-	    fetchContributor : function(contributorId) {
-		return $http.get(APP_CONFIG.endpoint + 'contributor/' + contributorId, {
-		    params : {
-			mimetype : 'json'
-		    }
-		});
-	    }
+            }
         };
     }])
-	
+
 	.factory('PublicationPersister', ['$http',  'APP_CONFIG', '$q', function($http, APP_CONFIG, $q) {
-		
+
 		var pubCreateEndpoint =  APP_CONFIG.endpoint + 'mppublications';
 		var pubUpdateEndpoint = APP_CONFIG.endpoint + 'mppublication/';
 		var httpResponseIsErrorFree = function(httpResponse){
@@ -87,7 +80,7 @@ angular.module('pw.fetcher',[])
 				url = pubUpdateEndpoint;
 				url += pub.id;
 			}
-			
+
 			$http[httpVerb](url, pub, {
 				'headers' : {
 					'Content-Type' : 'application/json',
@@ -111,7 +104,7 @@ angular.module('pw.fetcher',[])
 					deferredPubPersistence.reject(new Error(errorPersistingPubMessage));
 				}
 			});
-			
+
 			return deferredPubPersistence.promise;
 		};
 		return {

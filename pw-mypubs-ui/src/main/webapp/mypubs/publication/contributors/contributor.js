@@ -1,7 +1,7 @@
 (function() {
 
 
-angular.module('pw.contributors', ['pw.fetcher', 'pw.dataList', 'pw.fetcher', 'pw.lookups'])
+angular.module('pw.contributors', ['pw.contributorDAO', 'pw.dataList', 'pw.fetcher', 'pw.lookups'])
 
     .factory('ContributorModel', function() {
 
@@ -104,7 +104,7 @@ angular.module('pw.contributors', ['pw.fetcher', 'pw.dataList', 'pw.fetcher', 'p
     })
 
     .controller('contributorsCtrl',
-	['$scope', 'ContributorModel', 'PublicationFetcher', 'LookupFetcher', 'ListOrderingService', function ($scope, ContributorModel, PublicationFetcher, LookupFetcher, ListOrderingService) {
+	['$scope', 'ContributorModel', 'ContributorFetcher', 'LookupFetcher', 'ListOrderingService', function ($scope, ContributorModel, ContributorFetcher, LookupFetcher, ListOrderingService) {
 	var selectedIndex;
 
 	var KINDS = ['Person', 'Corporation'];
@@ -179,7 +179,7 @@ angular.module('pw.contributors', ['pw.fetcher', 'pw.dataList', 'pw.fetcher', 'p
 	};
 
 	$scope.updateContributorInfo = function(index) {
-	    PublicationFetcher.fetchContributor($scope.contribTabs[selectedIndex].data[index].contributorId).then(function(response) {
+	    ContributorFetcher.fetchContributorById($scope.contribTabs[selectedIndex].data[index].contributorId).then(function(response) {
 		angular.extend($scope.contribTabs[selectedIndex].data[index], response.data);
 	    });
 
