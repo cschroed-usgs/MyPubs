@@ -18,10 +18,10 @@ angular.module('pw.bibliodata',['pw.fetcher', 'pw.lookups'])
             }
             //@mbucknell recommends binding ui-select2 ng-model targets to variables
             //on the local-most scope and propagating changes back up to pubData via watches
-            $scope.localPubTypeId = $scope.pubData.publicationType.id;
-            $scope.localLargerWorkTypeId = $scope.pubData.largerWorkType.id;
-            $scope.localPubGenreId = $scope.pubData.publicationSubtype.id;
-            $scope.localSeriesTitle = $scope.pubData.seriesTitle.id;
+            $scope.localPubTypeId = $scope.pubData.publicationType ? $scope.pubData.publicationType.id : { id: ''};
+            $scope.localLargerWorkTypeId = $scope.pubData.largerWorkType ? $scope.pubData.largerWorkType.id : '';
+            $scope.localPubGenreId = $scope.pubData.publicationSubtype ? $scope.pubData.publicationSubtype.id : '';
+            $scope.localSeriesTitle = $scope.pubData.seriesTitle ? $scope.pubData.seriesTitle.id : '';
 			$scope.localCostCenters = [];
 			angular.forEach($scope.pubData.costCenters, function(costCenter){
 				if(angular.isDefined(costCenter.id)){
@@ -42,6 +42,9 @@ angular.module('pw.bibliodata',['pw.fetcher', 'pw.lookups'])
             });
             $scope.$watch('localLargerWorkTypeId', function(value){
                 var id = getIdOrOriginal(value);
+                if(!$scope.pubData.largerWorkType) {
+                	$scope.pubData.largerWorkType = {}
+                }
                 $scope.pubData.largerWorkType.id = id;
             });
             $scope.$watch('localPubGenreId', function(value){
