@@ -85,6 +85,7 @@ angular.module('pw.publication').constant('APP_CONFIG', {})
                         'language' : 'text8',
                         'publisher' : 'text9',
                         'publisherLocation' : 'text10',
+                        'largerWorkType' : {id : ''},
                         'doi' : 'text11',
                         'issn' : 'text12',
                         'isbn' : 'text13'
