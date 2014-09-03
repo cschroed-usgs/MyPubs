@@ -73,7 +73,7 @@ angular.module('pw.publication', ['ngRoute', 'pw.notify',
                   "id": ''
                 },
                 "largerWorkTitle": "",
-                "updateDate": "",
+                "lastModifiedDate": "",
                 "productDescription": "",
                 "startPage": "",
                 "endPage": "",
