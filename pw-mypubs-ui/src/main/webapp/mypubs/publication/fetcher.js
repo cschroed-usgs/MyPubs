@@ -76,9 +76,6 @@ angular.module('pw.fetcher',[])
 			//the server sends us an updated version
 			delete pub.lastModifiedDate;
 			
-			//For similar reasons, we delete the lastUpdated Field
-			delete pub.lastModifiedDate;
-			
 			var deferredPubPersistence = $q.defer();
 			//use a different http verb and url depending on whether the pub is new,
 			//but otherwise do the same same thing
